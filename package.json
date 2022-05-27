@@ -1,10 +1,11 @@
 {
-  "name": "vue-dashboard",
+  "name": "Tizzberg",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "deploy": "vue-cli-service build && lean deploy --prod 1",
     "lint": "vue-cli-service lint",
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
   },
@@ -19,7 +20,7 @@
     "bootstrap-vue": "^2.1.0",
     "cache-loader": "^4.1.0",
     "classnames": "2.2.6",
-    "core-js": "^3.3.2",
+    "core-js": "^3.6.5",
     "css-loader": "^3.2.0",
     "jquery": "^3.4.1",
     "js-cookie": "^2.2.1",
@@ -35,7 +36,7 @@
     "swiper": "^5.3.0",
     "url-loader": "^3.0.0",
     "vee-validate": "^3.2.2",
-    "vue": "^2.6.10",
+    "vue": "^2.6.11",
     "vue-flatpickr-component": "^8.1.5",
     "vue-i18n": "^8.15.3",
     "vue-photo-grid": "^1.0.2",
@@ -51,17 +52,17 @@
   "devDependencies": {
     "@babel/polyfill": "^7.7.0",
     "@fullcalendar/list": "^4.3.0",
-    "@vue/cli-plugin-babel": "^4.1.0",
-    "@vue/cli-plugin-eslint": "^4.1.0",
+    "@vue/cli-plugin-babel": "~4.5.12",
+    "@vue/cli-plugin-eslint": "~4.5.12",
     "@vue/cli-plugin-pwa": "^4.1.2",
     "@vue/cli-plugin-router": "^4.1.0",
     "@vue/cli-plugin-vuex": "^4.1.0",
-    "@vue/cli-service": "^4.1.0",
+    "@vue/cli-service": "~4.5.12",
     "@vue/eslint-config-standard": "^4.0.0",
-    "babel-eslint": "^10.0.3",
+    "babel-eslint": "^10.1.0",
     "bootstrap": "^4.3.1",
-    "eslint": "^5.16.0",
-    "eslint-plugin-vue": "^5.0.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
     "lint-staged": "^9.5.0",
@@ -76,8 +77,14 @@
     "vue-cli-plugin-bootstrap-vue": "^0.6.0",
     "vue-cli-plugin-i18n": "~0.6.1",
     "vue-loader": "^15.7.2",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.11"
   },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "_id": "vue-dashboard@0.1.0",
   "gitHooks": {
     "pre-commit": "lint-staged"
   },
@@ -86,5 +93,8 @@
       "vue-cli-service lint",
       "git add"
     ]
+  },
+  "engines": {
+    "node": ">=14"
   }
 }
