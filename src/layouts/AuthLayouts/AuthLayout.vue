@@ -3,31 +3,56 @@
     <Loader />
     <section class="sign-in-page">
       <div id="container-inside">
-        <div id="circle-small"></div>
-        <div id="circle-medium"></div>
-        <div id="circle-large"></div>
-        <div id="circle-xlarge"></div>
-        <div id="circle-xxlarge"></div>
+        <div id="circle-small" />
+        <div id="circle-medium" />
+        <div id="circle-large" />
+        <div id="circle-xlarge" />
+        <div id="circle-xxlarge" />
       </div>
       <b-container class="container p-0">
         <div class="row no-gutters">
           <div class="col-md-6 text-center pt-5">
             <div class="sign-in-detail text-white">
-              <a class="sign-in-logo mb-5" href="#"><img src="../../assets/images/logo-full.png" class="img-fluid" alt="logo"></a>
+              <a
+                class="sign-in-logo mb-5"
+                href="#"
+              ><img
+                src="../../assets/images/logo-full.png"
+                class="img-fluid"
+                alt="logo"
+              ></a>
               <Slick :option="slickOptions">
                 <div class="item">
-                  <img src="../../assets/images/login/1.png" class="img-fluid mb-4" alt="logo">
-                  <h4 class="mb-1 text-white">Manage your orders</h4>
+                  <img
+                    src="../../assets/images/login/1.png"
+                    class="img-fluid mb-4"
+                    alt="logo"
+                  >
+                  <h4 class="mb-1 text-white">
+                    Manage your orders
+                  </h4>
                   <p>It is a long established fact that a reader will be distracted by the readable content.</p>
                 </div>
                 <div class="item">
-                  <img src="../../assets/images/login/1.png" class="img-fluid mb-4" alt="logo">
-                  <h4 class="mb-1 text-white">Manage your orders</h4>
+                  <img
+                    src="../../assets/images/login/1.png"
+                    class="img-fluid mb-4"
+                    alt="logo"
+                  >
+                  <h4 class="mb-1 text-white">
+                    Manage your orders
+                  </h4>
                   <p>It is a long established fact that a reader will be distracted by the readable content.</p>
                 </div>
                 <div class="item">
-                  <img src="../../assets/images/login/1.png" class="img-fluid mb-4" alt="logo">
-                  <h4 class="mb-1 text-white">Manage your orders</h4>
+                  <img
+                    src="../../assets/images/login/1.png"
+                    class="img-fluid mb-4"
+                    alt="logo"
+                  >
+                  <h4 class="mb-1 text-white">
+                    Manage your orders
+                  </h4>
                   <p>It is a long established fact that a reader will be distracted by the readable content.</p>
                 </div>
               </Slick>
@@ -35,7 +60,7 @@
           </div>
           <div class="col-sm-6 bg-white pt-5">
             <div class="sign-in-from">
-              <router-view></router-view>
+              <router-view />
             </div>
           </div>
         </div>
@@ -43,6 +68,7 @@
     </section>
   </div>
 </template>
+
 <script>
 import Loader from '../../components/socialvue/loader/Loader'
 import logo from '../../assets/images/logo-white.png'
@@ -53,9 +79,6 @@ export default {
   components: {
     Loader
   },
-  mounted () {
-    socialvue.index()
-  },
   data () {
     return {
       slickOptions: {
@@ -65,6 +88,9 @@ export default {
       logo: logo,
       bgImageURL: bgImage
     }
+  },
+  mounted () {
+    socialvue.index()
   }
 }
 </script>

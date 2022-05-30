@@ -1,63 +1,92 @@
 <template>
-    <b-row>
-      <BreadCrumb></BreadCrumb>
-      <b-col md="3">
-        <!--<iq-card class="calender-small">
+  <b-row>
+    <BreadCrumb />
+    <b-col md="3">
+      <!--<iq-card class="calender-small">
           <template v-slot:body>
             <input type="hidden" class="displayCalendar d-none">
           </template>
         </iq-card>-->
-        <iq-card>
-          <template v-slot:headerTitle>
-            <h4 class="card-title ">Classification</h4>
-          </template>
-          <template v-slot:headerAction>
-            <a href="#"><i class="fa fa-plus  mr-0" aria-hidden="true" /></a>
-          </template>
-          <template v-slot:body>
-            <ul class="m-0 p-0 job-classification">
-              <li class=""><i class="ri-check-line bg-danger" />Meeting</li>
-              <li class=""><i class="ri-check-line bg-success" />Business travel</li>
-              <li class=""><i class="ri-check-line bg-warning" />Personal Work</li>
-              <li class=""><i class="ri-check-line bg-info" />Team Project</li>
-            </ul>
-          </template>
-        </iq-card>
-        <iq-card>
-          <template v-slot:headerTitle>
-            <h4 class="card-title">Today's Schedule</h4>
-          </template>
-          <template v-slot:body>
-            <ul class="m-0 p-0 today-schedule">
-              <li class="d-flex">
-                <div class="schedule-icon"><i class="ri-checkbox-blank-circle-fill text-primary" /></div>
-                <div class="schedule-text"> <span>Web Design</span>
-                  <span>09:00 to 12:00</span></div>
-              </li>
-              <li class="d-flex">
-                <div class="schedule-icon"><i class="ri-checkbox-blank-circle-fill text-success" /></div>
-                <div class="schedule-text"> <span>Participate in Design</span>
-                  <span>09:00 to 12:00</span></div>
-              </li>
-            </ul>
-          </template>
-        </iq-card>
-      </b-col>
-      <b-col md="9">
-        <iq-card>
-          <template v-slot:headerTitle>
-            <h4 class="card-title">Book Appointment</h4>
-          </template>
-          <template v-slot:headerAction>
-            <a href="#" class="btn btn-primary"><i class="ri-add-line mr-2"></i>Book Appointment</a>
-          </template>
-          <template v-slot:body>
-            <FullCalendar :calendarEvents="events" />
-          </template>
-        </iq-card>
-      </b-col>
-    </b-row>
+      <iq-card>
+        <template v-slot:headerTitle>
+          <h4 class="card-title ">
+            Classification
+          </h4>
+        </template>
+        <template v-slot:headerAction>
+          <a href="#"><i
+            class="fa fa-plus  mr-0"
+            aria-hidden="true"
+          /></a>
+        </template>
+        <template v-slot:body>
+          <ul class="m-0 p-0 job-classification">
+            <li class="">
+              <i class="ri-check-line bg-danger" />Meeting
+            </li>
+            <li class="">
+              <i class="ri-check-line bg-success" />Business travel
+            </li>
+            <li class="">
+              <i class="ri-check-line bg-warning" />Personal Work
+            </li>
+            <li class="">
+              <i class="ri-check-line bg-info" />Team Project
+            </li>
+          </ul>
+        </template>
+      </iq-card>
+      <iq-card>
+        <template v-slot:headerTitle>
+          <h4 class="card-title">
+            Today's Schedule
+          </h4>
+        </template>
+        <template v-slot:body>
+          <ul class="m-0 p-0 today-schedule">
+            <li class="d-flex">
+              <div class="schedule-icon">
+                <i class="ri-checkbox-blank-circle-fill text-primary" />
+              </div>
+              <div class="schedule-text">
+                <span>Web Design</span>
+                <span>09:00 to 12:00</span>
+              </div>
+            </li>
+            <li class="d-flex">
+              <div class="schedule-icon">
+                <i class="ri-checkbox-blank-circle-fill text-success" />
+              </div>
+              <div class="schedule-text">
+                <span>Participate in Design</span>
+                <span>09:00 to 12:00</span>
+              </div>
+            </li>
+          </ul>
+        </template>
+      </iq-card>
+    </b-col>
+    <b-col md="9">
+      <iq-card>
+        <template v-slot:headerTitle>
+          <h4 class="card-title">
+            Book Appointment
+          </h4>
+        </template>
+        <template v-slot:headerAction>
+          <a
+            href="#"
+            class="btn btn-primary"
+          ><i class="ri-add-line mr-2" />Book Appointment</a>
+        </template>
+        <template v-slot:body>
+          <FullCalendar :calendar-events="events" />
+        </template>
+      </iq-card>
+    </b-col>
+  </b-row>
 </template>
+
 <script>
 import { socialvue } from '../../../config/pluginInit'
 import BreadCrumb from '../../../components/socialvue/breadcrumbs/BreadCrumb'
@@ -183,10 +212,10 @@ export default {
       ]
     }
   },
+  computed: {
+  },
   mounted () {
     socialvue.index()
-  },
-  computed: {
   },
   methods: {
   }

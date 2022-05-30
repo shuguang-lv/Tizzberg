@@ -1,119 +1,180 @@
 <template>
-<b-row>
-  <b-col md="4">
-    <b-card class="iq-card iq-card-block iq-card-stretch iq-card-height">
+  <b-row>
+    <b-col md="4">
+      <b-card class="iq-card iq-card-block iq-card-stretch iq-card-height">
         <div class="iq-card-header d-flex justify-content-between">
-            <div class="iq-header-title">
-              <h4 class="card-title">Play Lists</h4>
-            </div>
+          <div class="iq-header-title">
+            <h4 class="card-title">
+              Play Lists
+            </h4>
+          </div>
         </div>
         <div class="iq-card-body">
-            <ul class="music-lists m-0 p-0">
-              <li class="d-flex mb-4 align-items-center" v-for="(music,index) in musicData" :key="index">
-                  <div class="user-img img-fluid"><img :src="music.img" alt="story-img" class="rounded-circle avatar-40"></div>
-                  <div class="media-support-info ml-3">
-                    <h6>{{music.heading}}</h6>
-                  </div>
-                  <div class="music-time">{{music.time}}</div>
-              </li>
-            </ul>
-        </div>
-    </b-card>
-  </b-col>
-  <b-col md="8">
-    <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
-      <div class="iq-card-body p-0  ">
-        <a href="#"><img src="../../../assets/images/page-img/48.jpg" alt="story-img" class="img-fluid rounded"></a>
-      </div>
-    </div>
-  </b-col>
-  <b-col sm="12">
-    <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
-      <div class="iq-card-header d-flex justify-content-between">
-        <div class="iq-header-title">
-          <h4 class="card-title">New Music</h4>
-        </div>
-        <div class="iq-card-header-toolbar d-flex align-items-center">
-          <a href="#">View All</a>
-        </div>
-      </div>
-      <div class="iq-card-body">
-        <Slick id="post-slider" class="d-flex list-inline m-0 p-0">
-          <li class="text-center col-md-12" v-for="(newmusic,index) in newMusic" :key="index">
-            <div class="music-thumbnail position-relative mb-3">
-              <a href="#"><img :src="newmusic.img" alt="music-thumb" class="img-fluid w-100"></a>
-              <div class="play-btn">
-                <a href="#"><i class="ri-play-fill text-white"></i></a>
+          <ul class="music-lists m-0 p-0">
+            <li
+              v-for="(music,index) in musicData"
+              :key="index"
+              class="d-flex mb-4 align-items-center"
+            >
+              <div class="user-img img-fluid">
+                <img
+                  :src="music.img"
+                  alt="story-img"
+                  class="rounded-circle avatar-40"
+                >
               </div>
-            </div>
-            <h6>{{newmusic.name}}</h6>
-            <p class="mb-0">Best Advice</p>
-          </li>
-        </Slick>
-      </div>
-    </div>
-  </b-col>
-  <b-col sm="12">
-    <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
-      <div class="iq-card-header d-flex justify-content-between">
-        <div class="iq-header-title">
-          <h4 class="card-title">Recent Added</h4>
-        </div>
-        <div class="iq-card-header-toolbar d-flex align-items-center">
-          <a href="#">View All</a>
-        </div>
-      </div>
-      <div class="iq-card-body">
-        <Slick id="recent-music" class="d-flex list-inline m-0 p-0">
-          <li class="text-center col-md-12" v-for="(recent,index) in recentAdded" :key="index">
-            <div class="music-thumbnail position-relative mb-3">
-              <a href="#"><img :src="recent.img" alt="music-thumb" class="img-fluid w-100"></a>
-              <div class="play-btn">
-                <a href="#"><i class="ri-play-fill text-white"></i></a>
+              <div class="media-support-info ml-3">
+                <h6>{{ music.heading }}</h6>
               </div>
-            </div>
-            <h6>{{recent.heading}}</h6>
-            <p class="mb-0">Best Advice</p>
-          </li>
-        </Slick>
-      </div>
-    </div>
-  </b-col>
-  <b-col sm="12">
-    <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
-      <div class="iq-card-header d-flex justify-content-between">
-        <div class="iq-header-title">
-          <h4 class="card-title">Top Music</h4>
-        </div>
-        <div class="iq-card-header-toolbar d-flex align-items-center">
-          <a href="#">View All</a>
-        </div>
-      </div>
-      <div class="iq-card-body">
-        <Slick id="recent-music" class="d-flex list-inline m-0 p-0">
-          <li class="text-center col-md-12" v-for="(music,index) in topMusic" :key="index">
-            <div class="music-thumbnail position-relative mb-3">
-              <a href="#"><img :src="music.img" alt="music-thumb" class="img-fluid w-100"></a>
-              <div class="play-btn">
-                <a href="#"><i class="ri-play-fill text-white"></i></a>
+              <div class="music-time">
+                {{ music.time }}
               </div>
-            </div>
-            <h6>{{music.heading}}</h6>
-            <p class="mb-0">Best Advice</p>
-          </li>
-        </Slick>
+            </li>
+          </ul>
+        </div>
+      </b-card>
+    </b-col>
+    <b-col md="8">
+      <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+        <div class="iq-card-body p-0  ">
+          <a href="#"><img
+            src="../../../assets/images/page-img/48.jpg"
+            alt="story-img"
+            class="img-fluid rounded"
+          ></a>
+        </div>
       </div>
-    </div>
-  </b-col>
-</b-row>
+    </b-col>
+    <b-col sm="12">
+      <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+        <div class="iq-card-header d-flex justify-content-between">
+          <div class="iq-header-title">
+            <h4 class="card-title">
+              New Music
+            </h4>
+          </div>
+          <div class="iq-card-header-toolbar d-flex align-items-center">
+            <a href="#">View All</a>
+          </div>
+        </div>
+        <div class="iq-card-body">
+          <Slick
+            id="post-slider"
+            class="d-flex list-inline m-0 p-0"
+          >
+            <li
+              v-for="(newmusic,index) in newMusic"
+              :key="index"
+              class="text-center col-md-12"
+            >
+              <div class="music-thumbnail position-relative mb-3">
+                <a href="#"><img
+                  :src="newmusic.img"
+                  alt="music-thumb"
+                  class="img-fluid w-100"
+                ></a>
+                <div class="play-btn">
+                  <a href="#"><i class="ri-play-fill text-white" /></a>
+                </div>
+              </div>
+              <h6>{{ newmusic.name }}</h6>
+              <p class="mb-0">
+                Best Advice
+              </p>
+            </li>
+          </Slick>
+        </div>
+      </div>
+    </b-col>
+    <b-col sm="12">
+      <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+        <div class="iq-card-header d-flex justify-content-between">
+          <div class="iq-header-title">
+            <h4 class="card-title">
+              Recent Added
+            </h4>
+          </div>
+          <div class="iq-card-header-toolbar d-flex align-items-center">
+            <a href="#">View All</a>
+          </div>
+        </div>
+        <div class="iq-card-body">
+          <Slick
+            id="recent-music"
+            class="d-flex list-inline m-0 p-0"
+          >
+            <li
+              v-for="(recent,index) in recentAdded"
+              :key="index"
+              class="text-center col-md-12"
+            >
+              <div class="music-thumbnail position-relative mb-3">
+                <a href="#"><img
+                  :src="recent.img"
+                  alt="music-thumb"
+                  class="img-fluid w-100"
+                ></a>
+                <div class="play-btn">
+                  <a href="#"><i class="ri-play-fill text-white" /></a>
+                </div>
+              </div>
+              <h6>{{ recent.heading }}</h6>
+              <p class="mb-0">
+                Best Advice
+              </p>
+            </li>
+          </Slick>
+        </div>
+      </div>
+    </b-col>
+    <b-col sm="12">
+      <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+        <div class="iq-card-header d-flex justify-content-between">
+          <div class="iq-header-title">
+            <h4 class="card-title">
+              Top Music
+            </h4>
+          </div>
+          <div class="iq-card-header-toolbar d-flex align-items-center">
+            <a href="#">View All</a>
+          </div>
+        </div>
+        <div class="iq-card-body">
+          <Slick
+            id="recent-music"
+            class="d-flex list-inline m-0 p-0"
+          >
+            <li
+              v-for="(music,index) in topMusic"
+              :key="index"
+              class="text-center col-md-12"
+            >
+              <div class="music-thumbnail position-relative mb-3">
+                <a href="#"><img
+                  :src="music.img"
+                  alt="music-thumb"
+                  class="img-fluid w-100"
+                ></a>
+                <div class="play-btn">
+                  <a href="#"><i class="ri-play-fill text-white" /></a>
+                </div>
+              </div>
+              <h6>{{ music.heading }}</h6>
+              <p class="mb-0">
+                Best Advice
+              </p>
+            </li>
+          </Slick>
+        </div>
+      </div>
+    </b-col>
+  </b-row>
 </template>
+
 <script>
 import { socialvue } from '../../../config/pluginInit'
 export default {
   name: 'Music',
-  mounted () {
-    socialvue.index()
-  },
   data () {
     return {
       musicData: [
@@ -251,6 +312,9 @@ export default {
         }
       ]
     }
+  },
+  mounted () {
+    socialvue.index()
   }
 }
 </script>

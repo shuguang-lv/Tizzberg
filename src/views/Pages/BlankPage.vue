@@ -1,6 +1,7 @@
 <template>
-  <div></div>
+  <div />
 </template>
+
 <script>
 import { socialvue } from '../../config/pluginInit'
 

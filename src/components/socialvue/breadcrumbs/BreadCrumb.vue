@@ -4,18 +4,41 @@
       <b-row class="d-flex align-items-center mb-2">
         <b-col md="9">
           <div class="d-flex align-items-center">
-            <h4 class="mb-0 p-3 ml-2">{{ page.name }}</h4>
-            <b-breadcrumb :items="page.breadCrumb" class="bg-transparent mb-0 mt-1" />
+            <h4 class="mb-0 p-3 ml-2">
+              {{ page.name }}
+            </h4>
+            <b-breadcrumb
+              :items="page.breadCrumb"
+              class="bg-transparent mb-0 mt-1"
+            />
           </div>
         </b-col>
-        <b-col md="3" class="text-right">
-          <b-button variant="none" class="text-primary" @click="addToBookmark(currentRoute)" v-if="!selectedBookmark"><i class="ri-star-line font-size-24"></i></b-button>
-          <b-button variant="none" class="text-warning" @click="removeToBookmark(currentRoute)" v-else><i class="ri-star-fill font-size-24"></i></b-button>
+        <b-col
+          md="3"
+          class="text-right"
+        >
+          <b-button
+            v-if="!selectedBookmark"
+            variant="none"
+            class="text-primary"
+            @click="addToBookmark(currentRoute)"
+          >
+            <i class="ri-star-line font-size-24" />
+          </b-button>
+          <b-button
+            v-else
+            variant="none"
+            class="text-warning"
+            @click="removeToBookmark(currentRoute)"
+          >
+            <i class="ri-star-fill font-size-24" />
+          </b-button>
         </b-col>
       </b-row>
     </iq-card>
   </b-col>
 </template>
+
 <script>
 import { mapGetters, mapActions } from 'vuex'
 export default {

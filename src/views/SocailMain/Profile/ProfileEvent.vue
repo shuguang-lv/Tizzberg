@@ -1,25 +1,42 @@
 <template>
   <b-row>
-    <b-col class="col-md-6 col-lg-4" v-for="(item,index) in profileEvent" :key="index">
+    <b-col
+      v-for="(item,index) in profileEvent"
+      :key="index"
+      class="col-md-6 col-lg-4"
+    >
       <iq-card class="rounded iq-card-block iq-card-stretch iq-card-height">
         <div class="event-images">
           <a href="#">
-            <img :src="item.backgroudimg" class="img-fluid" alt="Responsive image">
+            <img
+              :src="item.backgroudimg"
+              class="img-fluid"
+              alt="Responsive image"
+            >
           </a>
         </div>
         <b-card-body class="iq-card-body">
           <div class="d-flex">
             <div class="date-of-event">
-              <span>{{item.month}}</span>
-              <h5>{{item.date}}</h5>
+              <span>{{ item.month }}</span>
+              <h5>{{ item.date }}</h5>
             </div>
             <div class="events-detail ml-3">
-              <h5>{{item.name}}</h5>
-              <p>{{item.text}}</p>
+              <h5>{{ item.name }}</h5>
+              <p>{{ item.text }}</p>
               <div class="event-member">
                 <div class="iq-media-group">
-                  <a href="#" class="iq-media" v-for="(user,index) in seenUser" :key="index">
-                    <img class="img-fluid avatar-40 rounded-circle" :src="user" alt="" />
+                  <a
+                    v-for="(user,index) in seenUser"
+                    :key="index"
+                    href="#"
+                    class="iq-media"
+                  >
+                    <img
+                      class="img-fluid avatar-40 rounded-circle"
+                      :src="user"
+                      alt=""
+                    >
                   </a>
                 </div>
               </div>
@@ -28,16 +45,13 @@
         </b-card-body>
       </iq-card>
     </b-col>
-
   </b-row>
 </template>
+
 <script>
 import { socialvue } from '../../../config/pluginInit'
 export default {
   name: 'ProfileEvent',
-  mounted () {
-    socialvue.index()
-  },
   data () {
     return {
       profileEvent: [
@@ -111,6 +125,9 @@ export default {
         require('../../../assets/images/user/09.jpg')
       ]
     }
+  },
+  mounted () {
+    socialvue.index()
   }
 }
 </script>

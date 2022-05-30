@@ -1,6 +1,7 @@
 <template>
-  <router-view/>
+  <router-view :key="$route.fullPath" />
 </template>
+
 <script>
 import { socialvue } from './config/pluginInit'
 
@@ -13,6 +14,7 @@ export default {
   }
 }
 </script>
+
 <style lang="scss">
   @import "assets/scss/style.scss";
 </style>

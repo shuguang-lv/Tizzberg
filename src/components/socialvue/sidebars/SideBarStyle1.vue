@@ -1,13 +1,18 @@
 <template>
   <div class="iq-sidebar">
     <div id="sidebar-scrollbar">
-        <nav class="iq-sidebar-menu">
-           <List :items="items" :open="true" :horizontal="horizontal"/>
-        </nav>
-        <div class="p-3"></div>
+      <nav class="iq-sidebar-menu">
+        <List
+          :items="items"
+          :open="true"
+          :horizontal="horizontal"
+        />
+      </nav>
+      <div class="p-3" />
     </div>
   </div>
 </template>
+
 <script>
 import List from '../menus/ListStyle1'
 export default {
@@ -22,13 +27,13 @@ export default {
   components: {
     List
   },
+  data () {
+    return {
+    }
+  },
   methods: {
     miniSidebar () {
       this.$emit('toggle')
-    }
-  },
-  data () {
-    return {
     }
   }
 }

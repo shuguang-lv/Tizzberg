@@ -1,8 +1,9 @@
 <template>
-  <vue-slick :options="option">
+  <VueSlick :options="option">
     <slot />
-  </vue-slick>
+  </VueSlick>
 </template>
+
 <script>
 import VueSlick from 'vue-slick'
 export default {

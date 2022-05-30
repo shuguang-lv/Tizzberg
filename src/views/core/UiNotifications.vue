@@ -2,29 +2,51 @@
   <b-container fluid>
     <b-row>
       <div class="col-sm-12">
-          <div class="iq-card position-relative inner-page-bg bg-primary" style="height: 150px;">
-            <div class="inner-page-title">
-                <h3 class="text-white">Notification Page</h3>
-                <p class="text-white">lorem ipsum</p>
-            </div>
+        <div
+          class="iq-card position-relative inner-page-bg bg-primary"
+          style="height: 150px;"
+        >
+          <div class="inner-page-title">
+            <h3 class="text-white">
+              Notification Page
+            </h3>
+            <p class="text-white">
+              lorem ipsum
+            </p>
           </div>
+        </div>
       </div>
-      <b-col lg="6" sm="12">
+      <b-col
+        lg="6"
+        sm="12"
+      >
         <iq-card>
           <template v-slot:headerTitle>
-            <h4 class="card-title">Notifications</h4>
+            <h4 class="card-title">
+              Notifications
+            </h4>
           </template>
           <template v-slot:headerAction>
-            <a class="text-primary float-right" v-b-toggle.collapse-1 role="button">
+            <a
+              v-b-toggle.collapse-1
+              class="text-primary float-right"
+              role="button"
+            >
               <i class="ri-code-s-slash-line" />
             </a>
           </template>
           <template v-slot:body>
             <p>Toasts are as flexible as you need and have very little required markup. At a minimum, we require a single element to contain your “toasted” content and strongly encourage a dismiss button.</p>
-            <b-collapse id="collapse-1" class="mb-2">
+            <b-collapse
+              id="collapse-1"
+              class="mb-2"
+            >
               <div class="card">
                 <kbd class="bg-dark">
-                  <pre class="text-white" id="notification-1">
+                  <pre
+                    id="notification-1"
+                    class="text-white"
+                  >
                     <code>
 &lt;b-toast visible static no-auto-hide no-close-button&gt;
   &lt;template v-slot:toast-title&gt;
@@ -43,14 +65,36 @@
                 </kbd>
               </div>
             </b-collapse>
-            <b-toast visible static no-auto-hide no-close-button>
+            <b-toast
+              visible
+              static
+              no-auto-hide
+              no-close-button
+            >
               <template v-slot:toast-title>
-                <svg class="bd-placeholder-img rounded mr-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
-                  <rect width="100%" height="100%" fill="#007aff"></rect>
+                <svg
+                  class="bd-placeholder-img rounded mr-2"
+                  width="20"
+                  height="20"
+                  xmlns="http://www.w3.org/2000/svg"
+                  preserveAspectRatio="xMidYMid slice"
+                  focusable="false"
+                  role="img"
+                >
+                  <rect
+                    width="100%"
+                    height="100%"
+                    fill="#007aff"
+                  />
                 </svg>
                 <strong class="mr-auto">Bootstrap</strong>
                 <small>11 mins ago</small>
-                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <button
+                  type="button"
+                  class="ml-2 mb-1 close"
+                  data-dismiss="toast"
+                  aria-label="Close"
+                >
                   <span aria-hidden="true">×</span>
                 </button>
               </template>
@@ -60,19 +104,31 @@
         </iq-card>
         <iq-card>
           <template v-slot:headerTitle>
-            <h4 class="card-title">Stacking</h4>
+            <h4 class="card-title">
+              Stacking
+            </h4>
           </template>
           <template v-slot:headerAction>
-            <a class="text-primary float-right" v-b-toggle.collapse-2 role="button">
+            <a
+              v-b-toggle.collapse-2
+              class="text-primary float-right"
+              role="button"
+            >
               <i class="ri-code-s-slash-line" />
             </a>
           </template>
           <template v-slot:body>
             <p>When you have multiple toasts, we default to vertically stacking them in a readable manner.</p>
-            <b-collapse id="collapse-2" class="mb-2">
+            <b-collapse
+              id="collapse-2"
+              class="mb-2"
+            >
               <div class="card">
                 <kbd class="bg-dark">
-                  <pre class="text-white" id="notification-2">
+                  <pre
+                    id="notification-2"
+                    class="text-white"
+                  >
                     <code>
 &lt;b-toast visible static no-auto-hide no-close-button&gt;
   &lt;template v-slot:toast-title&gt;
@@ -104,27 +160,71 @@
                 </kbd>
               </div>
             </b-collapse>
-            <b-toast visible static no-auto-hide no-close-button>
+            <b-toast
+              visible
+              static
+              no-auto-hide
+              no-close-button
+            >
               <template v-slot:toast-title>
-                <svg class="bd-placeholder-img rounded mr-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
-                  <rect width="100%" height="100%" fill="#007aff"></rect>
+                <svg
+                  class="bd-placeholder-img rounded mr-2"
+                  width="20"
+                  height="20"
+                  xmlns="http://www.w3.org/2000/svg"
+                  preserveAspectRatio="xMidYMid slice"
+                  focusable="false"
+                  role="img"
+                >
+                  <rect
+                    width="100%"
+                    height="100%"
+                    fill="#007aff"
+                  />
                 </svg>
                 <strong class="mr-auto">Bootstrap</strong>
                 <small class="text-muted">just now</small>
-                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <button
+                  type="button"
+                  class="ml-2 mb-1 close"
+                  data-dismiss="toast"
+                  aria-label="Close"
+                >
                   <span aria-hidden="true">×</span>
                 </button>
               </template>
               See? Just like this.
             </b-toast>
-            <b-toast visible static no-auto-hide no-close-button>
+            <b-toast
+              visible
+              static
+              no-auto-hide
+              no-close-button
+            >
               <template v-slot:toast-title>
-                <svg class="bd-placeholder-img rounded mr-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
-                  <rect width="100%" height="100%" fill="#007aff"></rect>
+                <svg
+                  class="bd-placeholder-img rounded mr-2"
+                  width="20"
+                  height="20"
+                  xmlns="http://www.w3.org/2000/svg"
+                  preserveAspectRatio="xMidYMid slice"
+                  focusable="false"
+                  role="img"
+                >
+                  <rect
+                    width="100%"
+                    height="100%"
+                    fill="#007aff"
+                  />
                 </svg>
                 <strong class="mr-auto">Bootstrap</strong>
                 <small class="text-muted">2 seconds ago</small>
-                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <button
+                  type="button"
+                  class="ml-2 mb-1 close"
+                  data-dismiss="toast"
+                  aria-label="Close"
+                >
                   <span aria-hidden="true">×</span>
                 </button>
               </template>
@@ -134,19 +234,31 @@
         </iq-card>
         <iq-card>
           <template v-slot:headerTitle>
-            <h4 class="card-title">Notifications horizontally and/or vertically</h4>
+            <h4 class="card-title">
+              Notifications horizontally and/or vertically
+            </h4>
           </template>
           <template v-slot:headerAction>
-            <a class="text-primary float-right" v-b-toggle.collapse-3 role="button">
+            <a
+              v-b-toggle.collapse-3
+              class="text-primary float-right"
+              role="button"
+            >
               <i class="ri-code-s-slash-line" />
             </a>
           </template>
           <template v-slot:body>
             <p>You can also get fancy with flexbox utilities to align toasts horizontally and/or vertically.</p>
-            <b-collapse id="collapse-3" class="mb-2">
+            <b-collapse
+              id="collapse-3"
+              class="mb-2"
+            >
               <div class="card">
                 <kbd class="bg-dark">
-                  <pre class="text-white" id="notification-3">
+                  <pre
+                    id="notification-3"
+                    class="text-white"
+                  >
                     <code>
 &lt;div class="p-3 bg-dark"&gt;
   &lt;div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center" style="min-height: 200px;"&gt;
@@ -170,15 +282,42 @@
               </div>
             </b-collapse>
             <div class="p-3 bg-dark">
-              <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center" style="min-height: 200px;">
-                <b-toast visible static no-auto-hide no-close-button>
+              <div
+                aria-live="polite"
+                aria-atomic="true"
+                class="d-flex justify-content-center align-items-center"
+                style="min-height: 200px;"
+              >
+                <b-toast
+                  visible
+                  static
+                  no-auto-hide
+                  no-close-button
+                >
                   <template v-slot:toast-title>
-                    <svg class="bd-placeholder-img rounded mr-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
-                      <rect width="100%" height="100%" fill="#007aff"></rect>
+                    <svg
+                      class="bd-placeholder-img rounded mr-2"
+                      width="20"
+                      height="20"
+                      xmlns="http://www.w3.org/2000/svg"
+                      preserveAspectRatio="xMidYMid slice"
+                      focusable="false"
+                      role="img"
+                    >
+                      <rect
+                        width="100%"
+                        height="100%"
+                        fill="#007aff"
+                      />
                     </svg>
                     <strong class="mr-auto">Bootstrap</strong>
                     <small>11 mins ago</small>
-                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <button
+                      type="button"
+                      class="ml-2 mb-1 close"
+                      data-dismiss="toast"
+                      aria-label="Close"
+                    >
                       <span aria-hidden="true">×</span>
                     </button>
                   </template>
@@ -189,22 +328,37 @@
           </template>
         </iq-card>
       </b-col>
-      <b-col lg="6" sm="12">
+      <b-col
+        lg="6"
+        sm="12"
+      >
         <iq-card>
           <template v-slot:headerTitle>
-            <h4 class="card-title">Notifications</h4>
+            <h4 class="card-title">
+              Notifications
+            </h4>
           </template>
           <template v-slot:headerAction>
-            <a class="text-primary float-right" v-b-toggle.collapse-4 role="button">
+            <a
+              v-b-toggle.collapse-4
+              class="text-primary float-right"
+              role="button"
+            >
               <i class="ri-code-s-slash-line" />
             </a>
           </template>
           <template v-slot:body>
             <p>Toasts are as flexible as you need and have very little required markup. At a minimum, we require a single element to contain your “toasted” content and strongly encourage a dismiss button.</p>
-            <b-collapse id="collapse-4" class="mb-2">
+            <b-collapse
+              id="collapse-4"
+              class="mb-2"
+            >
               <div class="card">
                 <kbd class="bg-dark">
-                  <pre class="text-white" id="notification-4">
+                  <pre
+                    id="notification-4"
+                    class="text-white"
+                  >
                     <code>
 &lt;div class="p-3 bg-dark"&gt;
   &lt;b-toast visible static no-auto-hide no-close-button&gt;
@@ -225,38 +379,72 @@
                 </kbd>
               </div>
             </b-collapse>
-              <div class="p-3 bg-dark">
-                <b-toast visible static no-auto-hide no-close-button>
-                  <template v-slot:toast-title>
-                    <svg class="bd-placeholder-img rounded mr-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
-                      <rect width="100%" height="100%" fill="#007aff"></rect>
-                    </svg>
-                    <strong class="mr-auto">Bootstrap</strong>
-                    <small>11 mins ago</small>
-                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                      <span aria-hidden="true">×</span>
-                    </button>
-                  </template>
-                  Hello, world! This is a toast message.
-                </b-toast>
-              </div>
+            <div class="p-3 bg-dark">
+              <b-toast
+                visible
+                static
+                no-auto-hide
+                no-close-button
+              >
+                <template v-slot:toast-title>
+                  <svg
+                    class="bd-placeholder-img rounded mr-2"
+                    width="20"
+                    height="20"
+                    xmlns="http://www.w3.org/2000/svg"
+                    preserveAspectRatio="xMidYMid slice"
+                    focusable="false"
+                    role="img"
+                  >
+                    <rect
+                      width="100%"
+                      height="100%"
+                      fill="#007aff"
+                    />
+                  </svg>
+                  <strong class="mr-auto">Bootstrap</strong>
+                  <small>11 mins ago</small>
+                  <button
+                    type="button"
+                    class="ml-2 mb-1 close"
+                    data-dismiss="toast"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </template>
+                Hello, world! This is a toast message.
+              </b-toast>
+            </div>
           </template>
         </iq-card>
         <iq-card>
           <template v-slot:headerTitle>
-            <h4 class="card-title">Stacking Placement</h4>
+            <h4 class="card-title">
+              Stacking Placement
+            </h4>
           </template>
           <template v-slot:headerAction>
-            <a class="text-primary float-right" v-b-toggle.collapse-5 role="button">
+            <a
+              v-b-toggle.collapse-5
+              class="text-primary float-right"
+              role="button"
+            >
               <i class="ri-code-s-slash-line" />
             </a>
           </template>
           <template v-slot:body>
             <p>Place toasts with custom CSS as you need them. The top right is often used for notifications, as is the top middle. If you’re only ever going to show one toast at a time, put the positioning styles right on the <code>.toast</code>.</p>
-            <b-collapse id="collapse-5" class="mb-2">
+            <b-collapse
+              id="collapse-5"
+              class="mb-2"
+            >
               <div class="card">
                 <kbd class="bg-dark">
-                  <pre class="text-white" id="notification-5">
+                  <pre
+                    id="notification-5"
+                    class="text-white"
+                  >
                     <code>
 &lt;div class="p-3 bg-dark"&gt;
   &lt;div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;"&gt;
@@ -313,15 +501,42 @@
               </div>
             </b-collapse>
             <div class="p-3 bg-dark">
-              <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
-                <b-toast visible static no-auto-hide no-close-button toast-class="position-absolute">
+              <div
+                aria-live="polite"
+                aria-atomic="true"
+                style="position: relative; min-height: 200px;"
+              >
+                <b-toast
+                  visible
+                  static
+                  no-auto-hide
+                  no-close-button
+                  toast-class="position-absolute"
+                >
                   <template v-slot:toast-title>
-                    <svg class="bd-placeholder-img rounded mr-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
-                      <rect width="100%" height="100%" fill="#007aff"></rect>
+                    <svg
+                      class="bd-placeholder-img rounded mr-2"
+                      width="20"
+                      height="20"
+                      xmlns="http://www.w3.org/2000/svg"
+                      preserveAspectRatio="xMidYMid slice"
+                      focusable="false"
+                      role="img"
+                    >
+                      <rect
+                        width="100%"
+                        height="100%"
+                        fill="#007aff"
+                      />
                     </svg>
                     <strong class="mr-auto">Bootstrap</strong>
                     <small>11 mins ago</small>
-                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <button
+                      type="button"
+                      class="ml-2 mb-1 close"
+                      data-dismiss="toast"
+                      aria-label="Close"
+                    >
                       <span aria-hidden="true">×</span>
                     </button>
                   </template>
@@ -329,36 +544,86 @@
                 </b-toast>
               </div>
             </div>
-            <p class="mt-3">For systems that generate more notifications, consider using a wrapping element so they can easily stack.</p>
+            <p class="mt-3">
+              For systems that generate more notifications, consider using a wrapping element so they can easily stack.
+            </p>
             <div class="bg-dark p-3 mt-3">
-              <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
+              <div
+                aria-live="polite"
+                aria-atomic="true"
+                style="position: relative; min-height: 200px;"
+              >
                 <div style="position: absolute; top: 0; right: 0;">
-                <b-toast visible static no-auto-hide no-close-button>
-                  <template v-slot:toast-title>
-                    <svg class="bd-placeholder-img rounded mr-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
-                      <rect width="100%" height="100%" fill="#007aff"></rect>
-                    </svg>
-                    <strong class="mr-auto">Bootstrap</strong>
-                    <small class="text-muted">just now</small>
-                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                      <span aria-hidden="true">×</span>
-                    </button>
-                  </template>
-                  See? Just like this.
-                </b-toast>
-                <b-toast visible static no-auto-hide no-close-button>
-                  <template v-slot:toast-title>
-                    <svg class="bd-placeholder-img rounded mr-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
-                      <rect width="100%" height="100%" fill="#007aff"></rect>
-                    </svg>
-                    <strong class="mr-auto">Bootstrap</strong>
-                    <small class="text-muted">2 seconds ago</small>
-                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                      <span aria-hidden="true">×</span>
-                    </button>
-                  </template>
-                  Heads up, toasts will stack automatically
-                </b-toast>
+                  <b-toast
+                    visible
+                    static
+                    no-auto-hide
+                    no-close-button
+                  >
+                    <template v-slot:toast-title>
+                      <svg
+                        class="bd-placeholder-img rounded mr-2"
+                        width="20"
+                        height="20"
+                        xmlns="http://www.w3.org/2000/svg"
+                        preserveAspectRatio="xMidYMid slice"
+                        focusable="false"
+                        role="img"
+                      >
+                        <rect
+                          width="100%"
+                          height="100%"
+                          fill="#007aff"
+                        />
+                      </svg>
+                      <strong class="mr-auto">Bootstrap</strong>
+                      <small class="text-muted">just now</small>
+                      <button
+                        type="button"
+                        class="ml-2 mb-1 close"
+                        data-dismiss="toast"
+                        aria-label="Close"
+                      >
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    </template>
+                    See? Just like this.
+                  </b-toast>
+                  <b-toast
+                    visible
+                    static
+                    no-auto-hide
+                    no-close-button
+                  >
+                    <template v-slot:toast-title>
+                      <svg
+                        class="bd-placeholder-img rounded mr-2"
+                        width="20"
+                        height="20"
+                        xmlns="http://www.w3.org/2000/svg"
+                        preserveAspectRatio="xMidYMid slice"
+                        focusable="false"
+                        role="img"
+                      >
+                        <rect
+                          width="100%"
+                          height="100%"
+                          fill="#007aff"
+                        />
+                      </svg>
+                      <strong class="mr-auto">Bootstrap</strong>
+                      <small class="text-muted">2 seconds ago</small>
+                      <button
+                        type="button"
+                        class="ml-2 mb-1 close"
+                        data-dismiss="toast"
+                        aria-label="Close"
+                      >
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    </template>
+                    Heads up, toasts will stack automatically
+                  </b-toast>
                 </div>
               </div>
             </div>
@@ -368,19 +633,31 @@
       <b-col sm="12">
         <iq-card>
           <template v-slot:headerTitle>
-            <h4 class="card-title">Notifications</h4>
+            <h4 class="card-title">
+              Notifications
+            </h4>
           </template>
           <template v-slot:headerAction>
-            <a class="text-primary float-right" v-b-toggle.collapse-6 role="button">
+            <a
+              v-b-toggle.collapse-6
+              class="text-primary float-right"
+              role="button"
+            >
               <i class="ri-code-s-slash-line" />
             </a>
           </template>
           <template v-slot:body>
             <p>Toasts are as flexible as you need and have very little required markup. At a minimum, we require a single element to contain your “toasted” content and strongly encourage a dismiss button.</p>
-            <b-collapse id="collapse-6" class="mb-2">
+            <b-collapse
+              id="collapse-6"
+              class="mb-2"
+            >
               <div class="card">
                 <kbd class="bg-dark">
-                  <pre class="text-white" id="notification-6">
+                  <pre
+                    id="notification-6"
+                    class="text-white"
+                  >
                     <code>
 &lt;b-toast visible static no-auto-hide no-close-button toast-class="bg-primary" body-class="text-white"  header-class="bg-primary text-white"&gt;
   &lt;template v-slot:toast-title&gt;
@@ -412,27 +689,78 @@
                 </kbd>
               </div>
             </b-collapse>
-            <b-toast visible static no-auto-hide no-close-button toast-class="bg-primary" body-class="text-white"  header-class="bg-primary text-white">
+            <b-toast
+              visible
+              static
+              no-auto-hide
+              no-close-button
+              toast-class="bg-primary"
+              body-class="text-white"
+              header-class="bg-primary text-white"
+            >
               <template v-slot:toast-title>
-                <svg class="bd-placeholder-img rounded mr-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
-                  <rect width="100%" height="100%" fill="#fff"></rect>
+                <svg
+                  class="bd-placeholder-img rounded mr-2"
+                  width="20"
+                  height="20"
+                  xmlns="http://www.w3.org/2000/svg"
+                  preserveAspectRatio="xMidYMid slice"
+                  focusable="false"
+                  role="img"
+                >
+                  <rect
+                    width="100%"
+                    height="100%"
+                    fill="#fff"
+                  />
                 </svg>
                 <strong class="mr-auto text-white">Bootstrap</strong>
                 <small class="text-white">11 mins ago</small>
-                <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
+                <button
+                  type="button"
+                  class="ml-2 mb-1 close text-white"
+                  data-dismiss="toast"
+                  aria-label="Close"
+                >
                   <span aria-hidden="true">×</span>
                 </button>
               </template>
               See? Just like this.
             </b-toast>
-            <b-toast variant="success" visible static no-auto-hide no-close-button toast-class="bg-success mt-3" body-class="text-white"  header-class="bg-success text-white">
+            <b-toast
+              variant="success"
+              visible
+              static
+              no-auto-hide
+              no-close-button
+              toast-class="bg-success mt-3"
+              body-class="text-white"
+              header-class="bg-success text-white"
+            >
               <template v-slot:toast-title>
-                <svg class="bd-placeholder-img rounded mr-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
-                  <rect width="100%" height="100%" fill="#fff"></rect>
+                <svg
+                  class="bd-placeholder-img rounded mr-2"
+                  width="20"
+                  height="20"
+                  xmlns="http://www.w3.org/2000/svg"
+                  preserveAspectRatio="xMidYMid slice"
+                  focusable="false"
+                  role="img"
+                >
+                  <rect
+                    width="100%"
+                    height="100%"
+                    fill="#fff"
+                  />
                 </svg>
                 <strong class="mr-auto text-white">Bootstrap</strong>
                 <small class="text-white">11 mins ago</small>
-                <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
+                <button
+                  type="button"
+                  class="ml-2 mb-1 close text-white"
+                  data-dismiss="toast"
+                  aria-label="Close"
+                >
                   <span aria-hidden="true">×</span>
                 </button>
               </template>
@@ -444,6 +772,7 @@
     </b-row>
   </b-container>
 </template>
+
 <script>
 import { socialvue } from '../../config/pluginInit'
 export default {

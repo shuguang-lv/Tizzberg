@@ -1,23 +1,41 @@
 <template>
   <b-container fluid>
     <b-row>
-       <div class="col-sm-12">
-          <div class="iq-card position-relative inner-page-bg bg-primary" style="height: 150px;">
-            <div class="inner-page-title">
-                <h3 class="text-white">Form Radios Page</h3>
-                <p class="text-white">lorem ipsum</p>
-            </div>
+      <div class="col-sm-12">
+        <div
+          class="iq-card position-relative inner-page-bg bg-primary"
+          style="height: 150px;"
+        >
+          <div class="inner-page-title">
+            <h3 class="text-white">
+              Form Radios Page
+            </h3>
+            <p class="text-white">
+              lorem ipsum
+            </p>
           </div>
+        </div>
       </div>
       <b-col lg="6">
         <iq-card>
           <template v-slot:headerTitle>
-            <h4 class="card-title">Default Radio Buttons</h4>
+            <h4 class="card-title">
+              Default Radio Buttons
+            </h4>
           </template>
           <template v-slot:body>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vulputate, ex ac venenatis mollis, diam nibh finibus leo</p>
             <template v-for="(item,index) in state">
-              <b-form-radio inline v-model="stateActive[item[Object.keys(item)[0]]]" :name="item.name" :key="index" :value="item.value" :disabled="item.disabled">{{ item.label }}</b-form-radio>
+              <b-form-radio
+                :key="index"
+                v-model="stateActive[item[Object.keys(item)[0]]]"
+                inline
+                :name="item.name"
+                :value="item.value"
+                :disabled="item.disabled"
+              >
+                {{ item.label }}
+              </b-form-radio>
             </template>
           </template>
         </iq-card>
@@ -25,12 +43,23 @@
       <b-col lg="6">
         <iq-card>
           <template v-slot:headerTitle>
-            <h4 class="card-title">Custom Radio Buttons</h4>
+            <h4 class="card-title">
+              Custom Radio Buttons
+            </h4>
           </template>
           <template v-slot:body>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vulputate, ex ac venenatis mollis, diam nibh finibus leo</p>
             <template v-for="(item,index) in custom">
-              <b-form-radio inline v-model="stateActive[item[Object.keys(item)[0]]]" :name="item.name" :key="index" :value="item.value" :disabled="item.disabled">{{ item.label }}</b-form-radio>
+              <b-form-radio
+                :key="index"
+                v-model="stateActive[item[Object.keys(item)[0]]]"
+                inline
+                :name="item.name"
+                :value="item.value"
+                :disabled="item.disabled"
+              >
+                {{ item.label }}
+              </b-form-radio>
             </template>
           </template>
         </iq-card>
@@ -38,12 +67,25 @@
       <b-col lg="6">
         <iq-card>
           <template v-slot:headerTitle>
-            <h4 class="card-title">Custom Colored Radio Buttons</h4>
+            <h4 class="card-title">
+              Custom Colored Radio Buttons
+            </h4>
           </template>
           <template v-slot:body>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vulputate, ex ac venenatis mollis, diam nibh finibus leo</p>
             <template v-for="(item,index) in color">
-              <b-form-radio class="custom-radio-color" inline v-model="stateActive.color" :color="item.color" name="color" :key="index" :value="item.value" :disabled="item.disabled">{{ item.label }}</b-form-radio>
+              <b-form-radio
+                :key="index"
+                v-model="stateActive.color"
+                class="custom-radio-color"
+                inline
+                :color="item.color"
+                name="color"
+                :value="item.value"
+                :disabled="item.disabled"
+              >
+                {{ item.label }}
+              </b-form-radio>
             </template>
           </template>
         </iq-card>
@@ -51,12 +93,25 @@
       <b-col lg="6">
         <iq-card>
           <template v-slot:headerTitle>
-            <h4 class="card-title">Colored Radio Buttons</h4>
+            <h4 class="card-title">
+              Colored Radio Buttons
+            </h4>
           </template>
           <template v-slot:body>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vulputate, ex ac venenatis mollis, diam nibh finibus leo</p>
             <template v-for="(item,index) in color">
-              <b-form-radio class="custom-radio-color-checked" inline v-model="stateActive.color" :color="item.color" name="color" :key="index" :value="item.value" :disabled="item.disabled">{{ item.label }}</b-form-radio>
+              <b-form-radio
+                :key="index"
+                v-model="stateActive.color"
+                class="custom-radio-color-checked"
+                inline
+                :color="item.color"
+                name="color"
+                :value="item.value"
+                :disabled="item.disabled"
+              >
+                {{ item.label }}
+              </b-form-radio>
             </template>
           </template>
         </iq-card>
@@ -64,14 +119,12 @@
     </b-row>
   </b-container>
 </template>
+
 <script>
 import { socialvue } from '../../config/pluginInit'
 
 export default {
   name: 'FormRadios',
-  mounted () {
-    socialvue.index()
-  },
   data () {
     return {
       stateActive: {
@@ -178,6 +231,9 @@ export default {
         }
       ]
     }
+  },
+  mounted () {
+    socialvue.index()
   }
 }
 </script>

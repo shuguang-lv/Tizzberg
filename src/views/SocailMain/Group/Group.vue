@@ -1,46 +1,80 @@
 <template>
-    <b-row>
-      <b-col v-for="(item,index) in groupInfo" :key="index" md="6" lg="4">
-        <iq-card body-class="text-center">
-          <div slot="cardImage" class="top-bg-image">
-            <img :src="item.backgroundimg" class="img-fluid w-100" alt="group-bg">
+  <b-row>
+    <b-col
+      v-for="(item,index) in groupInfo"
+      :key="index"
+      md="6"
+      lg="4"
+    >
+      <iq-card body-class="text-center">
+        <div
+          slot="cardImage"
+          class="top-bg-image"
+        >
+          <img
+            :src="item.backgroundimg"
+            class="img-fluid w-100"
+            alt="group-bg"
+          >
+        </div>
+        <template v-slot:body>
+          <div class="group-icon">
+            <img
+              :src="item.groupimg"
+              alt="profile-img"
+              class="rounded-circle img-fluid avatar-120"
+            >
           </div>
-          <template v-slot:body>
-            <div class="group-icon">
-              <img :src="item.groupimg" alt="profile-img" class="rounded-circle img-fluid avatar-120">
+          <div class="group-info pt-3 pb-3">
+            <h4>{{ item.title }}</h4>
+            <p>{{ item.text }}</p>
+          </div>
+          <div class="group-details d-inline-block pb-3">
+            <ul class="d-flex align-items-center justify-content-between list-inline m-0 p-0">
+              <li
+                v-for="(item,index) in item.otherinfo"
+                :key="index"
+                class="pl-3 pr-3"
+              >
+                <p class="mb-0">
+                  {{ item.info }}
+                </p>
+                <h6>{{ item.value }}</h6>
+              </li>
+            </ul>
+          </div>
+          <div class="group-member mb-3">
+            <div class="iq-media-group">
+              <a
+                v-for="(item,index) in item.groupMember"
+                :key="index"
+                href="#"
+                class="iq-media"
+              >
+                <img
+                  class="img-fluid avatar-40 rounded-circle"
+                  :src="item"
+                  alt=""
+                >
+              </a>
             </div>
-            <div class="group-info pt-3 pb-3">
-              <h4>{{item.title}}</h4>
-              <p>{{item.text}}</p>
-            </div>
-            <div class="group-details d-inline-block pb-3">
-              <ul class="d-flex align-items-center justify-content-between list-inline m-0 p-0">
-                <li  v-for="(item,index) in item.otherinfo" :key="index" class="pl-3 pr-3">
-                  <p class="mb-0">{{item.info}}</p>
-                  <h6>{{item.value}}</h6>
-                </li>
-              </ul>
-            </div>
-            <div class="group-member mb-3">
-              <div class="iq-media-group">
-                <a v-for="(item,index) in item.groupMember" :key="index" href="#" class="iq-media">
-                  <img class="img-fluid avatar-40 rounded-circle" :src="item" alt="">
-                </a>
-              </div>
-            </div>
-            <button type="submit" class="btn btn-primary d-block w-100">Join</button>
-          </template>
-        </iq-card>
-      </b-col>
-    </b-row>
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary d-block w-100"
+          >
+            Join
+          </button>
+        </template>
+      </iq-card>
+    </b-col>
+  </b-row>
 </template>
+
 <script>
 import { socialvue } from '../../../config/pluginInit'
 export default {
   name: 'Group',
-  mounted () {
-    socialvue.index()
-  },
   data () {
     return {
       groupInfo: [
@@ -289,6 +323,9 @@ export default {
         }
       ]
     }
+  },
+  mounted () {
+    socialvue.index()
   }
 }
 </script>

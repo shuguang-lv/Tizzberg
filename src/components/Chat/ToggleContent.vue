@@ -1,7 +1,19 @@
 <template>
-  <div class="chat-user-detail-popup scroller" ref="removeContent">
-    <div class="user-profile" :class="center ? 'text-center' : ''">
-      <button type="submit" class="close-popup p-3" @click="dismiss"><i class="ri-close-fill" /></button>
+  <div
+    ref="removeContent"
+    class="chat-user-detail-popup scroller"
+  >
+    <div
+      class="user-profile"
+      :class="center ? 'text-center' : ''"
+    >
+      <button
+        type="submit"
+        class="close-popup p-3"
+        @click="dismiss"
+      >
+        <i class="ri-close-fill" />
+      </button>
       <div class="user text-center mb-4">
         <a class="avatar m-0">
           <slot name="media" />
@@ -9,12 +21,16 @@
         <slot name="title" />
       </div>
       <hr>
-      <div class="user-detail mt-4 pl-4 pr-4" :class="center ? ' text-center '+bodyClass : bodyClass">
+      <div
+        class="user-detail mt-4 pl-4 pr-4"
+        :class="center ? ' text-center ' + bodyClass : bodyClass"
+      >
         <slot name="body" />
       </div>
     </div>
   </div>
 </template>
+
 <script>
 export default {
   name: 'ToggleContent',
