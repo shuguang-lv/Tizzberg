@@ -1,61 +1,97 @@
 <template>
-    <b-row>
-      <b-col cols="12">
-        <div class="iq-card mb-0" style="border-bottom-left-radius: 0; border-bottom-right-radius: 0" id="menu">
-          <div id="menu-navi" class="iq-card-body d-flex align-items-center justify-content-between" @click="onClickNavi($event)">
-            <button type="button" class="btn mr-1 btn-outline-primary" data-action="move-today">Today</button>
-            <div class="d-flex">
-              <button type="button" class="btn btn-link iq-bg-primary" data-action="move-prev">
-                <i class="fa fa-chevron-left mr-0" data-action="move-prev" />
-              </button>
-              <h5 id="renderRange" class="render-range mt-1 mx-4">{{ dateRange }}</h5>
-              <button type="button" class="btn btn-link iq-bg-primary" data-action="move-next">
-                <i class="fa fa-chevron-right mr-0" data-action="move-prev" />
-              </button>
-            </div>
-            <div>
-              <b-form-radio-group
-                id="btn-radios-1"
-                v-model="selectedView"
-                :options="viewModeOptions"
-                buttons
-                button-variant="primary"
-                name="radios-btn-default"
-              ></b-form-radio-group>
-            </div>
+  <b-row>
+    <b-col cols="12">
+      <div
+        id="menu"
+        class="iq-card mb-0"
+        style="border-bottom-left-radius: 0; border-bottom-right-radius: 0"
+      >
+        <div
+          id="menu-navi"
+          class="iq-card-body d-flex align-items-center justify-content-between"
+          @click="onClickNavi($event)"
+        >
+          <button
+            type="button"
+            class="btn mr-1 btn-outline-primary"
+            data-action="move-today"
+          >
+            Today
+          </button>
+          <div class="d-flex">
+            <button
+              type="button"
+              class="btn btn-link iq-bg-primary"
+              data-action="move-prev"
+            >
+              <i
+                class="fa fa-chevron-left mr-0"
+                data-action="move-prev"
+              />
+            </button>
+            <h5
+              id="renderRange"
+              class="render-range mt-1 mx-4"
+            >
+              {{ dateRange }}
+            </h5>
+            <button
+              type="button"
+              class="btn btn-link iq-bg-primary"
+              data-action="move-next"
+            >
+              <i
+                class="fa fa-chevron-right mr-0"
+                data-action="move-prev"
+              />
+            </button>
+          </div>
+          <div>
+            <b-form-radio-group
+              id="btn-radios-1"
+              v-model="selectedView"
+              :options="viewModeOptions"
+              buttons
+              button-variant="primary"
+              name="radios-btn-default"
+            />
           </div>
         </div>
-      </b-col>
-      <b-col cols="12">
-        <calendar style="height: 800px" id="calender"
-                  ref="tuiCal"
-                  :useDetailPopup="useDetailPopup"
-                  :view="selectedView"
-                  :calendars="calendarList"
-                  :schedules="scheduleList"
-                  :template="template"
-                  :taskView="true"
-                  :scheduleView="true"
-                  :month="month"
-                  :week="week"
-                  :disableDblClick="disableDblClick"
-                  :isReadOnly="isReadOnly"
-                  @clickSchedule="onClickSchedule"
-                  @clickDayname="onClickDayname"
-                  @beforeCreateSchedule="onBeforeCreateSchedule"
-                  @beforeUpdateSchedule="onBeforeUpdateSchedule"
-                  @beforeDeleteSchedule="onBeforeDeleteSchedule"
-        />
-      </b-col>
-    </b-row>
+      </div>
+    </b-col>
+    <b-col cols="12">
+      <calendar
+        id="calender"
+        ref="tuiCal"
+        style="height: 800px"
+        :use-detail-popup="useDetailPopup"
+        :view="selectedView"
+        :calendars="calendarList"
+        :schedules="scheduleList"
+        :template="template"
+        :task-view="true"
+        :schedule-view="true"
+        :month="month"
+        :week="week"
+        :disable-dbl-click="disableDblClick"
+        :is-read-only="isReadOnly"
+        @clickSchedule="onClickSchedule"
+        @clickDayname="onClickDayname"
+        @beforeCreateSchedule="onBeforeCreateSchedule"
+        @beforeUpdateSchedule="onBeforeUpdateSchedule"
+        @beforeDeleteSchedule="onBeforeDeleteSchedule"
+      />
+    </b-col>
+  </b-row>
 </template>
+
 <script>
 import 'tui-time-picker/dist/tui-time-picker.css'
 import 'tui-date-picker/dist/tui-date-picker.css'
 import 'tui-calendar/dist/tui-calendar.css'
+import { Calendar } from '@toast-ui/vue-calendar'
 import Event from '../../../Model/Event'
 import { CalenderList, Events } from '../../../FackApi/api/calendar'
-import { Calendar } from '@toast-ui/vue-calendar'
 import { socialvue } from '../../../config/pluginInit'
 export default {
   name: 'App',
@@ -115,6 +151,11 @@ export default {
       this.$refs.tuiCal.invoke('changeView', newValue, true)
       this.setRenderRangeText()
     }
+  },
+  mounted () {
+    this.init()
+    socialvue.index()
+    this.scheduleList = Events
   },
   methods: {
     init () {
@@ -186,11 +227,6 @@ export default {
       const idx = this.scheduleList.findIndex(item => item.id === res.schedule.id)
       this.scheduleList.splice(idx, 1)
     }
-  },
-  mounted () {
-    this.init()
-    socialvue.index()
-    this.scheduleList = Events
   }
 }
 </script>

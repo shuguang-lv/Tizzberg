@@ -1,11 +1,15 @@
 <template>
-  <ul :class="`nav nav-${pills ? 'pills' : ''}${tabs ? 'tabs' : ''} ${vertical ? 'flex-column' : ''} ${align ? 'justify-content-'+align : ''}`" :id="id">
+  <ul
+    :id="id"
+    :class="`nav nav-${pills ? 'pills' : ''}${tabs ? 'tabs' : ''} ${vertical ? 'flex-column' : ''} ${align ? 'justify-content-' + align : ''}`"
+  >
     <slot />
   </ul>
 </template>
+
 <script>
 export default {
-  name: 'tab-nav',
+  name: 'TabNav',
   props: {
     id: { type: String, default: 'myTab' },
     pills: { type: Boolean, default: false },

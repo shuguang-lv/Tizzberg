@@ -1,39 +1,47 @@
 <template>
   <li>
-    <div :class="{bold: isFolder}" @click="toggle" @dblclick="makeFolder">
-              <span v-if="isFolder">
-                <template v-if="isOpen">
-                  <template v-if="hasGroupOpenSlot">
-                    <slot name="groupClosed" />
-                  </template>
-                  <template v-else>
-                    <i class="fas fa-minus-square"></i>
-                  </template>
-                </template>
-                <template v-else>
-                  <template v-if="hasGroupCloseSlot">
-                    <slot name="groupOpened" />
-                  </template>
-                  <template v-else>
-                      <i class="fas fa-plus-square"></i>
-                  </template>
-                </template>
-              </span>
-              <span v-else>
-                <template v-if="hasItemSlot">
-                  <slot name="item"></slot>
-                </template>
-                <template v-else>
-                  <i class="fas fa-caret-square-right"></i>
-                </template>
-              </span> {{ item.name }}
+    <div
+      :class="{ bold: isFolder }"
+      @click="toggle"
+      @dblclick="makeFolder"
+    >
+      <span v-if="isFolder">
+        <template v-if="isOpen">
+          <template v-if="hasGroupOpenSlot">
+            <slot name="groupClosed" />
+          </template>
+          <template v-else>
+            <i class="fas fa-minus-square" />
+          </template>
+        </template>
+        <template v-else>
+          <template v-if="hasGroupCloseSlot">
+            <slot name="groupOpened" />
+          </template>
+          <template v-else>
+            <i class="fas fa-plus-square" />
+          </template>
+        </template>
+      </span>
+      <span v-else>
+        <template v-if="hasItemSlot">
+          <slot name="item" />
+        </template>
+        <template v-else>
+          <i class="fas fa-caret-square-right" />
+        </template>
+      </span> {{ item.name }}
     </div>
-    <ul class="tree" v-show="isOpen" v-if="isFolder">
+    <ul
+      v-show="isOpen"
+      v-if="isFolder"
+      class="tree"
+    >
       <template v-if="item.children">
         <TreeView
-          class=""
           v-for="(child, index) in item.children"
           :key="index"
+          class=""
           :item="child"
         >
           <template v-slot:groupOpened>
@@ -41,7 +49,7 @@
               <slot name="groupOpened" />
             </template>
             <template v-else>
-              <i class="fas fa-plus-square"></i>
+              <i class="fas fa-plus-square" />
             </template>
           </template>
           <template v-slot:groupClosed>
@@ -49,15 +57,15 @@
               <slot name="groupClosed" />
             </template>
             <template v-else>
-              <i class="fas fa-minus-square"></i>
+              <i class="fas fa-minus-square" />
             </template>
           </template>
           <template v-slot:item>
             <template v-if="hasItemSlot">
-              <slot name="item"></slot>
+              <slot name="item" />
             </template>
             <template v-else>
-              <i class="fas fa-caret-square-right"></i>
+              <i class="fas fa-caret-square-right" />
             </template>
           </template>
         </TreeView>
@@ -72,10 +80,10 @@ import TreeView from './TreeView'
 
 export default {
   name: 'TreeView',
-  props: ['item', 'isOpened'],
   comments: {
     TreeView
   },
+  props: ['item', 'isOpened'],
   data () {
     return {
       isOpen: !!this.isOpened

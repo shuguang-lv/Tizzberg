@@ -1,11 +1,17 @@
 <template>
-  <div :class="`tab-pane fade ${active ? 'show active' : ''}`" :id="id" :role="role" :aria-labelledby="ariaLabelledBy">
+  <div
+    :id="id"
+    :class="`tab-pane fade ${active ? 'show active' : ''}`"
+    :role="role"
+    :aria-labelledby="ariaLabelledBy"
+  >
     <slot />
   </div>
 </template>
+
 <script>
 export default {
-  name: 'tab-content-item',
+  name: 'TabContentItem',
   props: {
     id: { type: String, default: '' },
     active: { type: Boolean, default: false },

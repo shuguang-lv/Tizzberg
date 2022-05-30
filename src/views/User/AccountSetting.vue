@@ -4,7 +4,9 @@
       <div class="iq-card">
         <div class="iq-card-header d-flex justify-content-between">
           <div class="iq-header-title">
-            <h4 class="card-title">Account Setting</h4>
+            <h4 class="card-title">
+              Account Setting
+            </h4>
           </div>
         </div>
         <div class="iq-card-body">
@@ -12,45 +14,115 @@
             <form>
               <div class="form-group">
                 <label for="uname">User Name:</label>
-                <input type="text" class="form-control" id="uname" value="Bni@01">
+                <input
+                  id="uname"
+                  type="text"
+                  class="form-control"
+                  value="Bni@01"
+                >
               </div>
               <div class="form-group">
                 <label for="email">Email Id:</label>
-                <input type="email" class="form-control" id="email" value="Bnijohn@gmail.com">
+                <input
+                  id="email"
+                  type="email"
+                  class="form-control"
+                  value="Bnijohn@gmail.com"
+                >
               </div>
               <div class="form-group">
                 <label for="altemail">Alternate Email:</label>
-                <input type="email" class="form-control" id="altemail" value="designtheme@gmail.com">
+                <input
+                  id="altemail"
+                  type="email"
+                  class="form-control"
+                  value="designtheme@gmail.com"
+                >
               </div>
               <div class="form-group">
                 <label class="d-block">Language Known:</label>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                  <input type="checkbox" class="custom-control-input" id="english" checked="">
-                  <label class="custom-control-label" for="english">English</label>
+                  <input
+                    id="english"
+                    type="checkbox"
+                    class="custom-control-input"
+                    checked=""
+                  >
+                  <label
+                    class="custom-control-label"
+                    for="english"
+                  >English</label>
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                  <input type="checkbox" class="custom-control-input" id="french" checked="">
-                  <label class="custom-control-label" for="french">French</label>
+                  <input
+                    id="french"
+                    type="checkbox"
+                    class="custom-control-input"
+                    checked=""
+                  >
+                  <label
+                    class="custom-control-label"
+                    for="french"
+                  >French</label>
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                  <input type="checkbox" class="custom-control-input" id="hindi">
-                  <label class="custom-control-label" for="hindi">Hindi</label>
+                  <input
+                    id="hindi"
+                    type="checkbox"
+                    class="custom-control-input"
+                  >
+                  <label
+                    class="custom-control-label"
+                    for="hindi"
+                  >Hindi</label>
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                  <input type="checkbox" class="custom-control-input" id="spanish" checked="">
-                  <label class="custom-control-label" for="spanish">Spanish</label>
+                  <input
+                    id="spanish"
+                    type="checkbox"
+                    class="custom-control-input"
+                    checked=""
+                  >
+                  <label
+                    class="custom-control-label"
+                    for="spanish"
+                  >Spanish</label>
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                  <input type="checkbox" class="custom-control-input" id="arabic">
-                  <label class="custom-control-label" for="arabic">Arabic</label>
+                  <input
+                    id="arabic"
+                    type="checkbox"
+                    class="custom-control-input"
+                  >
+                  <label
+                    class="custom-control-label"
+                    for="arabic"
+                  >Arabic</label>
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                  <input type="checkbox" class="custom-control-input" id="italian">
-                  <label class="custom-control-label" for="italian">Italian</label>
+                  <input
+                    id="italian"
+                    type="checkbox"
+                    class="custom-control-input"
+                  >
+                  <label
+                    class="custom-control-label"
+                    for="italian"
+                  >Italian</label>
                 </div>
               </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
-              <button type="reset" class="btn iq-bg-danger">Cancle</button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+              >
+                Submit
+              </button>
+              <button
+                type="reset"
+                class="btn iq-bg-danger"
+              >
+                Cancle
+              </button>
             </form>
           </div>
         </div>
@@ -60,7 +132,9 @@
       <div class="iq-card">
         <div class="iq-card-header d-flex justify-content-between">
           <div class="iq-header-title">
-            <h4 class="card-title">Social Media</h4>
+            <h4 class="card-title">
+              Social Media
+            </h4>
           </div>
         </div>
         <div class="iq-card-body">
@@ -68,26 +142,61 @@
             <form>
               <div class="form-group">
                 <label for="facebook">Facebook:</label>
-                <input type="text" class="form-control" id="facebook" value="www.facebook.com">
+                <input
+                  id="facebook"
+                  type="text"
+                  class="form-control"
+                  value="www.facebook.com"
+                >
               </div>
               <div class="form-group">
                 <label for="twitter">Twitter:</label>
-                <input type="text" class="form-control" id="twitter" value="www.twitter.com">
+                <input
+                  id="twitter"
+                  type="text"
+                  class="form-control"
+                  value="www.twitter.com"
+                >
               </div>
               <div class="form-group">
                 <label for="google">Google +:</label>
-                <input type="text" class="form-control" id="google" value="www.google.com">
+                <input
+                  id="google"
+                  type="text"
+                  class="form-control"
+                  value="www.google.com"
+                >
               </div>
               <div class="form-group">
                 <label for="instagram">Instagram:</label>
-                <input type="text" class="form-control" id="instagram" value="www.instagram.com">
+                <input
+                  id="instagram"
+                  type="text"
+                  class="form-control"
+                  value="www.instagram.com"
+                >
               </div>
               <div class="form-group">
                 <label for="youtube">You Tube:</label>
-                <input type="text" class="form-control" id="youtube" value="www.youtube.com">
+                <input
+                  id="youtube"
+                  type="text"
+                  class="form-control"
+                  value="www.youtube.com"
+                >
               </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
-              <button type="reset" class="btn iq-bg-danger">Cancle</button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+              >
+                Submit
+              </button>
+              <button
+                type="reset"
+                class="btn iq-bg-danger"
+              >
+                Cancle
+              </button>
             </form>
           </div>
         </div>
@@ -95,6 +204,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import { socialvue } from '../../config/pluginInit'
 export default {

@@ -1,46 +1,61 @@
 <template>
- <b-row>
-   <b-col sm="12">
-     <div class="birthday-block" v-for="(birth,index) in birthdate" :key="index">
-       <iq-card>
-         <template v-slot:headerTitle>
-           <h4 class="card-title">{{birth.name}}</h4>
-         </template>
-       </iq-card>
-       <b-row class="row">
-         <b-col class="col-md-6 col-lg-6" v-for="(img,index1) in birth.image" :key="index1">
-           <div class="iq-card">
-             <div class="iq-card-body">
-               <div class="iq-birthday-block">
-                 <div class="d-flex align-items-center justify-content-between">
-                   <div class="d-flex align-items-center">
-                     <a href="#">
-                       <img :src="img.img" alt="profile-img" class="img-fluid">
-                     </a>
-                     <div class="friend-info ml-3">
-                       <h5>{{img.title}}</h5>
-                       <p class="mb-0">{{img.text}}</p>
-                     </div>
-                   </div>
-                   <button class="btn btn-primary">Create Card</button>
-                 </div>
-               </div>
-             </div>
-           </div>
-         </b-col>
-       </b-row>
-     </div>
-
-   </b-col>
- </b-row>
+  <b-row>
+    <b-col sm="12">
+      <div
+        v-for="(birth,index) in birthdate"
+        :key="index"
+        class="birthday-block"
+      >
+        <iq-card>
+          <template v-slot:headerTitle>
+            <h4 class="card-title">
+              {{ birth.name }}
+            </h4>
+          </template>
+        </iq-card>
+        <b-row class="row">
+          <b-col
+            v-for="(img,index1) in birth.image"
+            :key="index1"
+            class="col-md-6 col-lg-6"
+          >
+            <div class="iq-card">
+              <div class="iq-card-body">
+                <div class="iq-birthday-block">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center">
+                      <a href="#">
+                        <img
+                          :src="img.img"
+                          alt="profile-img"
+                          class="img-fluid"
+                        >
+                      </a>
+                      <div class="friend-info ml-3">
+                        <h5>{{ img.title }}</h5>
+                        <p class="mb-0">
+                          {{ img.text }}
+                        </p>
+                      </div>
+                    </div>
+                    <button class="btn btn-primary">
+                      Create Card
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </b-col>
+        </b-row>
+      </div>
+    </b-col>
+  </b-row>
 </template>
+
 <script>
 import { socialvue } from '../../../config/pluginInit'
 export default {
   name: 'Birthdate',
-  mounted () {
-    socialvue.index()
-  },
   data () {
     return {
       birthdate: [
@@ -166,6 +181,9 @@ export default {
         }
       ]
     }
+  },
+  mounted () {
+    socialvue.index()
   }
 }
 </script>

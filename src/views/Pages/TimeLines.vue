@@ -2,17 +2,26 @@
   <b-container fluid>
     <b-row>
       <div class="col-sm-12">
-          <div class="iq-card position-relative inner-page-bg bg-primary" style="height: 150px;">
-            <div class="inner-page-title">
-                <h3 class="text-white">TimeLine Page</h3>
-                <p class="text-white">lorem ipsum</p>
-            </div>
+        <div
+          class="iq-card position-relative inner-page-bg bg-primary"
+          style="height: 150px;"
+        >
+          <div class="inner-page-title">
+            <h3 class="text-white">
+              TimeLine Page
+            </h3>
+            <p class="text-white">
+              lorem ipsum
+            </p>
           </div>
+        </div>
       </div>
       <b-col lg="6">
         <iq-card>
           <template v-slot:headerTitle>
-            <h4 class="card-title">Product Order</h4>
+            <h4 class="card-title">
+              Product Order
+            </h4>
           </template>
           <template v-slot:body>
             <TimeLine :items="timelineItems" />
@@ -22,7 +31,9 @@
       <b-col lg="6">
         <iq-card>
           <template v-slot:headerTitle>
-            <h4 class="card-title">Product Order</h4>
+            <h4 class="card-title">
+              Product Order
+            </h4>
           </template>
           <template v-slot:body>
             <TimeLine :items="timelineItems" />
@@ -32,14 +43,12 @@
     </b-row>
   </b-container>
 </template>
+
 <script>
 import { socialvue } from '../../config/pluginInit'
 
 export default {
   name: 'TimeLines',
-  mounted () {
-    socialvue.index()
-  },
   data () {
     return {
       timelineItems: [
@@ -150,6 +159,9 @@ export default {
         }
       ]
     }
+  },
+  mounted () {
+    socialvue.index()
   }
 }
 </script>

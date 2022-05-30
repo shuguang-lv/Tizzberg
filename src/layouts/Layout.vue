@@ -3,52 +3,79 @@
     <Loader />
     <div class="wrapper">
       <!-- Sidebar  -->
-      <SideBarStyle1 :items="verticalMenu" :logo="logo" @toggle="sidebarMini" />
+      <SideBarStyle1
+        :items="verticalMenu"
+        :logo="logo"
+        @toggle="sidebarMini"
+      />
       <!-- TOP Nav Bar -->
-      <NavBarStyle1 title="Dashboard" :homeURL="{ name: 'dashboard1.home' }" @toggle="sidebarMini" :logo="logo">
-      </NavBarStyle1>
+      <NavBarStyle1
+        title="Dashboard"
+        :home-u-r-l="{ name: 'dashboard1.home' }"
+        :logo="logo"
+        @toggle="sidebarMini"
+      />
       <!-- Right Nav Bar -->
-      <RightSideBar toggleClass="top-50 setting-toggle iq-card">
-        <i class="ri-sound-module-fill font-size-18 text-primary" slot="icon" />
+      <RightSideBar toggle-class="top-50 setting-toggle iq-card">
+        <i
+          slot="icon"
+          class="ri-sound-module-fill font-size-18 text-primary"
+        />
       </RightSideBar>
 
-        <div  v-if ="
-        (this.$route.name == 'social.friend-list' ||
-         this.$route.name == 'social.group' ||
-         this.$route.name == 'social.profile-image'  ||
-         this.$route.name == 'social.profile-video' ||
-          this.$route.name == 'social.profile-event' ||
-          this.$route.name == 'social.birthday' ||
-          this.$route.name == 'social.weather' ||
-          this.$route.name == 'social.music' ||
-          this.$route.name == 'app.calendar'
+      <div
+        v-if="
+          (this.$route.name == 'social.friend-list' ||
+            this.$route.name == 'social.group' ||
+            this.$route.name == 'social.profile-image' ||
+            this.$route.name == 'social.profile-video' ||
+            this.$route.name == 'social.profile-event' ||
+            this.$route.name == 'social.birthday' ||
+            this.$route.name == 'social.weather' ||
+            this.$route.name == 'social.music' ||
+            this.$route.name == 'app.calendar'
           )
-        " class="header-for-bg"
-
-        >
-          <div class="background-header position-relative">
-            <img :src="$route.meta.img" class="img-fluid w-100" alt="header-bg">
-            <div class="title-on-header">
-              <div class="data-block">
-                <h2>{{$route.meta.name}}</h2>
-              </div>
+        "
+        class="header-for-bg"
+      >
+        <div class="background-header position-relative">
+          <img
+            :src="$route.meta.img"
+            class="img-fluid w-100"
+            alt="header-bg"
+          >
+          <div class="title-on-header">
+            <div class="data-block">
+              <h2>{{ $route.meta.name }}</h2>
             </div>
           </div>
         </div>
+      </div>
       <!-- TOP Nav Bar END -->
-      <div id="content-page" class="content-page">
+      <div
+        id="content-page"
+        class="content-page"
+      >
         <div class="container">
-        <transition name="router-anim" :enter-active-class="`animated ${animated.enter}`" mode="out-in"
-                    :leave-active-class="`animated ${animated.exit}`">
-          <router-view/>
-        </transition>
+          <transition
+            name="router-anim"
+            :enter-active-class="`animated ${animated.enter}`"
+            mode="out-in"
+            :leave-active-class="`animated ${animated.exit}`"
+          >
+            <router-view />
+          </transition>
         </div>
       </div>
     </div>
     <FooterStyle1>
       <template v-slot:left>
-        <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-        <li class="list-inline-item"><a href="#">Terms of Use</a></li>
+        <li class="list-inline-item">
+          <a href="#">Privacy Policy</a>
+        </li>
+        <li class="list-inline-item">
+          <a href="#">Terms of Use</a>
+        </li>
       </template>
       <template v-slot:right>
         Copyright 2020 <a href="#">SocialV</a> All Rights Reserved.
@@ -56,7 +83,9 @@
     </FooterStyle1>
   </div>
 </template>
+
 <script>
+import { mapActions } from 'vuex'
 import Loader from '../components/socialvue/loader/Loader'
 import SideBarStyle1 from '../components/socialvue/sidebars/SideBarStyle1'
 import NavBarStyle1 from '../components/socialvue/navbars/NavBarStyle1'
@@ -67,7 +96,6 @@ import RightSideBar from '../components/socialvue/rightsidebar/RightSideBar'
 import FooterStyle1 from '../components/socialvue/footer/FooterStyle1'
 import { socialvue } from '../config/pluginInit'
 import { Users } from '../FackApi/api/chat'
-import { mapActions } from 'vuex'
 export default {
   name: 'Layout1',
   components: {
@@ -76,16 +104,6 @@ export default {
     NavBarStyle1,
     RightSideBar,
     FooterStyle1
-  },
-  mounted () {
-    this.logo = loader
-  },
-  computed: {
-    currentRouteName () {
-      return this.$route.name
-    }
-  },
-  watch: {
   },
   // sidebarTicket
   data () {
@@ -117,6 +135,16 @@ export default {
       ]
     }
   },
+  computed: {
+    currentRouteName () {
+      return this.$route.name
+    }
+  },
+  watch: {
+  },
+  mounted () {
+    this.logo = loader
+  },
   methods: {
     sidebarMini () {
       socialvue.triggerSet()
@@ -137,6 +165,7 @@ export default {
   }
 }
 </script>
+
 <style>
   @import url("../assets/css/custom.css");
   @import url("../assets/css/PriceSlider.css");

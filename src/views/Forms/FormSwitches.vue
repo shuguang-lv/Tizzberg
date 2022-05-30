@@ -2,22 +2,38 @@
   <b-container fluid>
     <b-row>
       <div class="col-sm-12">
-          <div class="iq-card position-relative inner-page-bg bg-primary" style="height: 150px;">
-            <div class="inner-page-title">
-                <h3 class="text-white">Form Switch Page</h3>
-                <p class="text-white">lorem ipsum</p>
-            </div>
+        <div
+          class="iq-card position-relative inner-page-bg bg-primary"
+          style="height: 150px;"
+        >
+          <div class="inner-page-title">
+            <h3 class="text-white">
+              Form Switch Page
+            </h3>
+            <p class="text-white">
+              lorem ipsum
+            </p>
           </div>
+        </div>
       </div>
       <b-col lg="12">
         <iq-card>
           <template v-slot:headerTitle>
-            <h4 class="card-title">State</h4>
+            <h4 class="card-title">
+              State
+            </h4>
           </template>
           <template v-slot:body>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vulputate, ex ac venenatis mollis, diam nibh finibus leo</p>
             <template v-for="(item,index) in state">
-              <b-form-checkbox v-model="item.checked" :disabled="item.disabled" name="check-button" switch inline :key="index">
+              <b-form-checkbox
+                :key="index"
+                v-model="item.checked"
+                :disabled="item.disabled"
+                name="check-button"
+                switch
+                inline
+              >
                 {{ item.label }}
               </b-form-checkbox>
             </template>
@@ -27,17 +43,34 @@
       <b-col lg="12">
         <iq-card>
           <template v-slot:headerTitle>
-            <h4 class="card-title">Text</h4>
+            <h4 class="card-title">
+              Text
+            </h4>
           </template>
           <template v-slot:body>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vulputate, ex ac venenatis mollis, diam nibh finibus leo</p>
             <template v-for="(item,index) in text">
-              <div class="custom-control custom-switch custom-switch-text custom-control-inline custom-switch-color" :key="index">
+              <div
+                :key="index"
+                class="custom-control custom-switch custom-switch-text custom-control-inline custom-switch-color"
+              >
                 <div class="custom-switch-inner">
-                  <p class="mb-0"> {{ item.label }} </p>
-                  <input type="checkbox" class="custom-control-input" :class="'bg-'+item.class" :id="'customSwitch-11'+index" v-model="item.checked">
-                  <label class="custom-control-label" :for="'customSwitch-11'+index" :data-on-label="item.activeLabel" :data-off-label="item.inactiveLabel">
-                  </label>
+                  <p class="mb-0">
+                    {{ item.label }}
+                  </p>
+                  <input
+                    :id="'customSwitch-11' + index"
+                    v-model="item.checked"
+                    type="checkbox"
+                    class="custom-control-input"
+                    :class="'bg-' + item.class"
+                  >
+                  <label
+                    class="custom-control-label"
+                    :for="'customSwitch-11' + index"
+                    :data-on-label="item.activeLabel"
+                    :data-off-label="item.inactiveLabel"
+                  />
                 </div>
               </div>
             </template>
@@ -47,12 +80,23 @@
       <b-col lg="12">
         <iq-card>
           <template v-slot:headerTitle>
-            <h4 class="card-title">Color</h4>
+            <h4 class="card-title">
+              Color
+            </h4>
           </template>
           <template v-slot:body>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vulputate, ex ac venenatis mollis, diam nibh finibus leo</p>
             <template v-for="(item,index) in color">
-              <b-form-checkbox class="custom-switch-color" :color="item.color" v-model="item.checked" :disabled="item.disabled" name="check-button" switch inline :key="index">
+              <b-form-checkbox
+                :key="index"
+                v-model="item.checked"
+                class="custom-switch-color"
+                :color="item.color"
+                :disabled="item.disabled"
+                name="check-button"
+                switch
+                inline
+              >
                 {{ item.label }}
               </b-form-checkbox>
             </template>
@@ -62,18 +106,40 @@
       <b-col lg="12">
         <iq-card>
           <template v-slot:headerTitle>
-            <h4 class="card-title">Icon</h4>
+            <h4 class="card-title">
+              Icon
+            </h4>
           </template>
           <template v-slot:body>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vulputate, ex ac venenatis mollis, diam nibh finibus leo</p>
             <template v-for="(item,index) in icon">
-              <div class="custom-control custom-switch custom-switch-icon custom-switch-color custom-control-inline" :key="index">
+              <div
+                :key="index"
+                class="custom-control custom-switch custom-switch-icon custom-switch-color custom-control-inline"
+              >
                 <div class="custom-switch-inner">
-                  <p class="mb-0"> Primary </p>
-                  <input type="checkbox" class="custom-control-input" :class="`bg-${item.color}`" :id="`customSwitch-1-${index}`" v-model="item.checked">
-                  <label class="custom-control-label" :for="`customSwitch-1-${index}`">
-                    <span class="switch-icon-left" v-html="item.activeLabel"></span>
-                    <span class="switch-icon-right" v-html="item.inactiveLabel"></span>
+                  <p class="mb-0">
+                    Primary
+                  </p>
+                  <input
+                    :id="`customSwitch-1-${index}`"
+                    v-model="item.checked"
+                    type="checkbox"
+                    class="custom-control-input"
+                    :class="`bg-${item.color}`"
+                  >
+                  <label
+                    class="custom-control-label"
+                    :for="`customSwitch-1-${index}`"
+                  >
+                    <span
+                      class="switch-icon-left"
+                      v-html="item.activeLabel"
+                    />
+                    <span
+                      class="switch-icon-right"
+                      v-html="item.inactiveLabel"
+                    />
                   </label>
                 </div>
               </div>
@@ -84,14 +150,12 @@
     </b-row>
   </b-container>
 </template>
+
 <script>
 import { socialvue } from '../../config/pluginInit'
 
 export default {
   name: 'FormSwitches',
-  mounted () {
-    socialvue.index()
-  },
   data () {
     return {
       state: [
@@ -216,6 +280,9 @@ export default {
         }
       ]
     }
+  },
+  mounted () {
+    socialvue.index()
   }
 }
 </script>

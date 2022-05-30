@@ -1,10 +1,14 @@
 <template>
-  <div :class="className" ref="lavContainer"></div>
+  <div
+    ref="lavContainer"
+    :class="className"
+  />
 </template>
+
 <script>
 import lottie from 'lottie-web'
 export default {
-  name: 'lottie',
+  name: 'Lottie',
   props: {
     option: {
       type: Object,

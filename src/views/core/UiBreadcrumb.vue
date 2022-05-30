@@ -2,29 +2,51 @@
   <b-container fluid>
     <b-row>
       <div class="col-sm-12">
-          <div class="iq-card position-relative inner-page-bg bg-primary" style="height: 150px;">
-            <div class="inner-page-title">
-                <h3 class="text-white">Breadcrumb Page</h3>
-                <p class="text-white">lorem ipsum</p>
-            </div>
+        <div
+          class="iq-card position-relative inner-page-bg bg-primary"
+          style="height: 150px;"
+        >
+          <div class="inner-page-title">
+            <h3 class="text-white">
+              Breadcrumb Page
+            </h3>
+            <p class="text-white">
+              lorem ipsum
+            </p>
           </div>
+        </div>
       </div>
-      <b-col lg="6" sm="12">
+      <b-col
+        lg="6"
+        sm="12"
+      >
         <iq-card>
           <template v-slot:headerTitle>
-            <h4 class="card-title">Breadcrumb</h4>
+            <h4 class="card-title">
+              Breadcrumb
+            </h4>
           </template>
           <template v-slot:headerAction>
-            <a class="text-primary float-right" v-b-toggle.collapse-1 role="button">
+            <a
+              v-b-toggle.collapse-1
+              class="text-primary float-right"
+              role="button"
+            >
               <i class="ri-code-s-slash-line" />
             </a>
           </template>
           <template v-slot:body>
             <p>Use the items in order to programatically generate the breadcrumb links.use class <code>.breadcrumb to ol</code></p>
-            <b-collapse id="collapse-1" class="mb-2">
+            <b-collapse
+              id="collapse-1"
+              class="mb-2"
+            >
               <div class="card">
                 <kbd class="bg-dark">
-                  <pre class="text-white" id="breadcrumb-1">
+                  <pre
+                    id="breadcrumb-1"
+                    class="text-white"
+                  >
                     <code>
 &lt;b-breadcrumb :items="items1" /&gt;
 &lt;b-breadcrumb :items="items2" /&gt;
@@ -71,28 +93,43 @@ export default {
                 </kbd>
               </div>
             </b-collapse>
-             <b-breadcrumb :items="items1" />
-             <b-breadcrumb :items="items2" />
-             <b-breadcrumb :items="items3" />
+            <b-breadcrumb :items="items1" />
+            <b-breadcrumb :items="items2" />
+            <b-breadcrumb :items="items3" />
           </template>
         </iq-card>
       </b-col>
-      <b-col lg="6" sm="12">
+      <b-col
+        lg="6"
+        sm="12"
+      >
         <iq-card>
           <template v-slot:headerTitle>
-            <h4 class="card-title">Breadcrumb With Icon</h4>
+            <h4 class="card-title">
+              Breadcrumb With Icon
+            </h4>
           </template>
           <template v-slot:headerAction>
-            <a class="text-primary float-right" v-b-toggle.collapse-2 role="button">
+            <a
+              v-b-toggle.collapse-2
+              class="text-primary float-right"
+              role="button"
+            >
               <i class="ri-code-s-slash-line" />
             </a>
           </template>
           <template v-slot:body>
             <p>Use the items in order to programatically generate the breadcrumb links.use class <code>.breadcrumb to ol</code> with Icon</p>
-            <b-collapse id="collapse-2" class="mb-2">
+            <b-collapse
+              id="collapse-2"
+              class="mb-2"
+            >
               <div class="card">
                 <kbd class="bg-dark">
-                  <pre class="text-white" id="breadcrumb-icon-1">
+                  <pre
+                    id="breadcrumb-icon-1"
+                    class="text-white"
+                  >
                     <code>
 &lt;b-breadcrumb :items="itemsIcon1" /&gt;
 &lt;b-breadcrumb :items="itemsIcon2" /&gt;
@@ -139,30 +176,45 @@ export default {
                 </kbd>
               </div>
             </b-collapse>
-             <b-breadcrumb :items="itemsIcon1" />
-             <b-breadcrumb :items="itemsIcon2" />
-             <b-breadcrumb :items="itemsIcon3" />
+            <b-breadcrumb :items="itemsIcon1" />
+            <b-breadcrumb :items="itemsIcon2" />
+            <b-breadcrumb :items="itemsIcon3" />
           </template>
         </iq-card>
       </b-col>
     </b-row>
     <b-row>
-      <b-col lg="6" sm="12">
+      <b-col
+        lg="6"
+        sm="12"
+      >
         <iq-card>
           <template v-slot:headerTitle>
-            <h4 class="card-title">Breadcrumb</h4>
+            <h4 class="card-title">
+              Breadcrumb
+            </h4>
           </template>
           <template v-slot:headerAction>
-            <a class="text-primary float-right" v-b-toggle.collapse-3 role="button">
+            <a
+              v-b-toggle.collapse-3
+              class="text-primary float-right"
+              role="button"
+            >
               <i class="ri-code-s-slash-line" />
             </a>
           </template>
           <template v-slot:body>
             <p>use class <code>.breadcrumb .bg-primary</code></p>
-            <b-collapse id="collapse-3" class="mb-2">
+            <b-collapse
+              id="collapse-3"
+              class="mb-2"
+            >
               <div class="card">
                 <kbd class="bg-dark">
-                  <pre class="text-white" id="breadcrumb-2">
+                  <pre
+                    id="breadcrumb-2"
+                    class="text-white"
+                  >
                     <code>
 &#x3C;nav aria-label=&#x22;breadcrumb &#x22;&#x3E;
   &#x3C;ol class=&#x22;breadcrumb bg-primary&#x22;&#x3E;
@@ -188,41 +240,86 @@ export default {
             </b-collapse>
             <nav aria-label="breadcrumb ">
               <ol class="breadcrumb bg-primary">
-                <li class="breadcrumb-item active text-white" aria-current="page">Home</li>
+                <li
+                  class="breadcrumb-item active text-white"
+                  aria-current="page"
+                >
+                  Home
+                </li>
               </ol>
             </nav>
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb bg-primary">
-                <li class="breadcrumb-item"><a href="#" class="text-white">Home</a></li>
-                <li class="breadcrumb-item active text-white" aria-current="page">Library</li>
+                <li class="breadcrumb-item">
+                  <a
+                    href="#"
+                    class="text-white"
+                  >Home</a>
+                </li>
+                <li
+                  class="breadcrumb-item active text-white"
+                  aria-current="page"
+                >
+                  Library
+                </li>
               </ol>
             </nav>
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb bg-primary mb-0">
-                <li class="breadcrumb-item"><a href="#" class="text-white">Home</a></li>
-                <li class="breadcrumb-item"><a href="#" class="text-white">Library</a></li>
-                <li class="breadcrumb-item active text-white" aria-current="page">Data</li>
+                <li class="breadcrumb-item">
+                  <a
+                    href="#"
+                    class="text-white"
+                  >Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a
+                    href="#"
+                    class="text-white"
+                  >Library</a>
+                </li>
+                <li
+                  class="breadcrumb-item active text-white"
+                  aria-current="page"
+                >
+                  Data
+                </li>
               </ol>
             </nav>
           </template>
         </iq-card>
       </b-col>
-      <b-col lg="6" sm="12">
+      <b-col
+        lg="6"
+        sm="12"
+      >
         <iq-card>
           <template v-slot:headerTitle>
-            <h4 class="card-title">Breadcrumb With Icon</h4>
+            <h4 class="card-title">
+              Breadcrumb With Icon
+            </h4>
           </template>
           <template v-slot:headerAction>
-            <a class="text-primary float-right" v-b-toggle.collapse-4 role="button">
+            <a
+              v-b-toggle.collapse-4
+              class="text-primary float-right"
+              role="button"
+            >
               <i class="ri-code-s-slash-line" />
             </a>
           </template>
           <template v-slot:body>
             <p>use class <code>.breadcrumb .bg-primary </code> With Icon.</p>
-            <b-collapse id="collapse-4" class="mb-2">
+            <b-collapse
+              id="collapse-4"
+              class="mb-2"
+            >
               <div class="card">
                 <kbd class="bg-dark">
-                  <pre class="text-white" id="breadcrumb-icon-2">
+                  <pre
+                    id="breadcrumb-icon-2"
+                    class="text-white"
+                  >
                     <code>
 &#x3C;nav aria-label=&#x22;breadcrumb&#x22;&#x3E;
   &#x3C;ol class=&#x22;breadcrumb bg-primary&#x22;&#x3E;
@@ -248,20 +345,50 @@ export default {
             </b-collapse>
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb bg-primary">
-                <li class="breadcrumb-item active text-white" aria-current="page"><i class="ri-home-4-line mr-1 float-left"></i>Home</li>
+                <li
+                  class="breadcrumb-item active text-white"
+                  aria-current="page"
+                >
+                  <i class="ri-home-4-line mr-1 float-left" />Home
+                </li>
               </ol>
             </nav>
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb bg-primary">
-                <li class="breadcrumb-item"><a href="#" class="text-white"><i class="ri-home-4-line mr-1 float-left"></i>Home</a></li>
-                <li class="breadcrumb-item active text-white" aria-current="page">Library</li>
+                <li class="breadcrumb-item">
+                  <a
+                    href="#"
+                    class="text-white"
+                  ><i class="ri-home-4-line mr-1 float-left" />Home</a>
+                </li>
+                <li
+                  class="breadcrumb-item active text-white"
+                  aria-current="page"
+                >
+                  Library
+                </li>
               </ol>
             </nav>
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb bg-primary mb-0">
-                <li class="breadcrumb-item"><a href="#" class="text-white"><i class="ri-home-4-line mr-1 float-left"></i>Home</a></li>
-                <li class="breadcrumb-item"><a href="#" class="text-white">Library</a></li>
-                <li class="breadcrumb-item active text-white" aria-current="page">Data</li>
+                <li class="breadcrumb-item">
+                  <a
+                    href="#"
+                    class="text-white"
+                  ><i class="ri-home-4-line mr-1 float-left" />Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a
+                    href="#"
+                    class="text-white"
+                  >Library</a>
+                </li>
+                <li
+                  class="breadcrumb-item active text-white"
+                  aria-current="page"
+                >
+                  Data
+                </li>
               </ol>
             </nav>
           </template>
@@ -269,22 +396,37 @@ export default {
       </b-col>
     </b-row>
     <b-row>
-      <b-col lg="6" sm="12">
+      <b-col
+        lg="6"
+        sm="12"
+      >
         <iq-card>
           <template v-slot:headerTitle>
-            <h4 class="card-title">Breadcrumb With Icon</h4>
+            <h4 class="card-title">
+              Breadcrumb With Icon
+            </h4>
           </template>
           <template v-slot:headerAction>
-            <a class="text-primary float-right" v-b-toggle.collapse-5 role="button">
+            <a
+              v-b-toggle.collapse-5
+              class="text-primary float-right"
+              role="button"
+            >
               <i class="ri-code-s-slash-line" />
             </a>
           </template>
           <template v-slot:body>
             <p>use class <code>.breadcrumb .iq-bg-primary</code></p>
-            <b-collapse id="collapse-5" class="mb-2">
+            <b-collapse
+              id="collapse-5"
+              class="mb-2"
+            >
               <div class="card">
                 <kbd class="bg-dark">
-                  <pre class="text-white" id="breadcrumb-icon-3">
+                  <pre
+                    id="breadcrumb-icon-3"
+                    class="text-white"
+                  >
                     <code>
 &lt;b-breadcrumb class="iq-bg-primary" :items="itemsIcon1" /&gt;
 &lt;b-breadcrumb class="iq-bg-primary" :items="itemsIcon2" /&gt;
@@ -331,28 +473,52 @@ export default {
                 </kbd>
               </div>
             </b-collapse>
-             <b-breadcrumb class="iq-bg-primary" :items="itemsIcon1" />
-             <b-breadcrumb class="iq-bg-primary" :items="itemsIcon2" />
-             <b-breadcrumb class="iq-bg-primary mb-0" :items="itemsIcon3" />
+            <b-breadcrumb
+              class="iq-bg-primary"
+              :items="itemsIcon1"
+            />
+            <b-breadcrumb
+              class="iq-bg-primary"
+              :items="itemsIcon2"
+            />
+            <b-breadcrumb
+              class="iq-bg-primary mb-0"
+              :items="itemsIcon3"
+            />
           </template>
         </iq-card>
       </b-col>
-      <b-col lg="6" sm="12">
+      <b-col
+        lg="6"
+        sm="12"
+      >
         <iq-card>
           <template v-slot:headerTitle>
-            <h4 class="card-title">Breadcrumb With Icon</h4>
+            <h4 class="card-title">
+              Breadcrumb With Icon
+            </h4>
           </template>
           <template v-slot:headerAction>
-            <a class="text-primary float-right" v-b-toggle.collapse-6 role="button">
+            <a
+              v-b-toggle.collapse-6
+              class="text-primary float-right"
+              role="button"
+            >
               <i class="ri-code-s-slash-line" />
             </a>
           </template>
           <template v-slot:body>
             <p>use class <code>.breadcrumb .iq-bg-danger</code></p>
-            <b-collapse id="collapse-6" class="mb-2">
+            <b-collapse
+              id="collapse-6"
+              class="mb-2"
+            >
               <div class="card">
                 <kbd class="bg-dark">
-                  <pre class="text-white" id="breadcrumb-icon-4">
+                  <pre
+                    id="breadcrumb-icon-4"
+                    class="text-white"
+                  >
                     <code>
 &#x3C;nav aria-label=&#x22;breadcrumb&#x22;&#x3E;
     &#x3C;ol class=&#x22;breadcrumb iq-bg-danger&#x22;&#x3E;
@@ -378,20 +544,50 @@ export default {
             </b-collapse>
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb iq-bg-danger">
-                <li class="breadcrumb-item active" aria-current="page"><i class="ri-home-4-line mr-1 float-left"></i>Home</li>
+                <li
+                  class="breadcrumb-item active"
+                  aria-current="page"
+                >
+                  <i class="ri-home-4-line mr-1 float-left" />Home
+                </li>
               </ol>
             </nav>
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb iq-bg-danger">
-                <li class="breadcrumb-item"><a href="#" class="text-danger"><i class="ri-home-4-line mr-1 float-left"></i>Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Library</li>
+                <li class="breadcrumb-item">
+                  <a
+                    href="#"
+                    class="text-danger"
+                  ><i class="ri-home-4-line mr-1 float-left" />Home</a>
+                </li>
+                <li
+                  class="breadcrumb-item active"
+                  aria-current="page"
+                >
+                  Library
+                </li>
               </ol>
             </nav>
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb iq-bg-danger mb-0">
-                <li class="breadcrumb-item"><a href="#" class="text-danger"><i class="ri-home-4-line mr-1 float-left"></i>Home</a></li>
-                <li class="breadcrumb-item"><a href="#" class="text-danger">Library</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Data</li>
+                <li class="breadcrumb-item">
+                  <a
+                    href="#"
+                    class="text-danger"
+                  ><i class="ri-home-4-line mr-1 float-left" />Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a
+                    href="#"
+                    class="text-danger"
+                  >Library</a>
+                </li>
+                <li
+                  class="breadcrumb-item active"
+                  aria-current="page"
+                >
+                  Data
+                </li>
               </ol>
             </nav>
           </template>
@@ -400,14 +596,12 @@ export default {
     </b-row>
   </b-container>
 </template>
+
 <script>
 import { socialvue } from '../../config/pluginInit'
 
 export default {
   name: 'UiBreadcrumb',
-  mounted () {
-    socialvue.index()
-  },
   data () {
     return {
       items1: [
@@ -471,6 +665,9 @@ export default {
         }
       ]
     }
+  },
+  mounted () {
+    socialvue.index()
   }
 }
 </script>

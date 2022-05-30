@@ -1,11 +1,15 @@
 <template>
-  <div class="tab-content" :id="id">
+  <div
+    :id="id"
+    class="tab-content"
+  >
     <slot />
   </div>
 </template>
+
 <script>
 export default {
-  name: 'tab-content',
+  name: 'TabContent',
   props: {
     id: { type: String, default: 'myTabContent' }
   }

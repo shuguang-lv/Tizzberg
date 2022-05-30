@@ -1,40 +1,69 @@
 <template>
- <b-row>
-     <b-col sm="12">
-         <iq-card v-for="(item,index) in friendRequest" :key="index">
-             <template v-slot:headerTitle>
-               <h4 class="card-title">{{item.title}}</h4>
-             </template>
-             <template v-slot:body>
-                 <ul class="request-list list-inline m-0 p-0">
-                     <li class="d-flex align-items-center" v-for="(list,index1) in item.list" :key="index1">
-                         <div class="user-img img-fluid"><img :src="list.img" alt="story-img" class="rounded-circle avatar-40"></div>
-                         <div class="media-support-info ml-3">
-                             <h6>{{list.name}}</h6>
-                             <p class="mb-0">{{list.friend}}</p>
-                         </div>
-                         <div class="d-flex align-items-center">
-                             <a href="#" class="mr-3 btn btn-primary rounded"><i v-if="(item.title == 'People You May Know')" class="ri-user-add-line"></i>{{item.btn1}}</a>
-                             <a href="#" class="mr-3 btn btn-secondary rounded">{{item.btn2}}</a>
-                         </div>
-                     </li>
-                     <li v-if = "(item.title == 'Friend Request')" class="d-block text-center">
-                         <a href="#" class="mr-3 btn">View More Request</a>
-                     </li>
-                 </ul>
-             </template>
-         </iq-card>
-
-     </b-col>
- </b-row>
+  <b-row>
+    <b-col sm="12">
+      <iq-card
+        v-for="(item,index) in friendRequest"
+        :key="index"
+      >
+        <template v-slot:headerTitle>
+          <h4 class="card-title">
+            {{ item.title }}
+          </h4>
+        </template>
+        <template v-slot:body>
+          <ul class="request-list list-inline m-0 p-0">
+            <li
+              v-for="(list,index1) in item.list"
+              :key="index1"
+              class="d-flex align-items-center"
+            >
+              <div class="user-img img-fluid">
+                <img
+                  :src="list.img"
+                  alt="story-img"
+                  class="rounded-circle avatar-40"
+                >
+              </div>
+              <div class="media-support-info ml-3">
+                <h6>{{ list.name }}</h6>
+                <p class="mb-0">
+                  {{ list.friend }}
+                </p>
+              </div>
+              <div class="d-flex align-items-center">
+                <a
+                  href="#"
+                  class="mr-3 btn btn-primary rounded"
+                ><i
+                  v-if="(item.title == 'People You May Know')"
+                  class="ri-user-add-line"
+                />{{ item.btn1 }}</a>
+                <a
+                  href="#"
+                  class="mr-3 btn btn-secondary rounded"
+                >{{ item.btn2 }}</a>
+              </div>
+            </li>
+            <li
+              v-if="(item.title == 'Friend Request')"
+              class="d-block text-center"
+            >
+              <a
+                href="#"
+                class="mr-3 btn"
+              >View More Request</a>
+            </li>
+          </ul>
+        </template>
+      </iq-card>
+    </b-col>
+  </b-row>
 </template>
+
 <script>
 import { socialvue } from '../../../config/pluginInit'
 export default {
   name: 'FriendRequest',
-  mounted () {
-    socialvue.index()
-  },
   data () {
     return {
       friendRequest: [
@@ -165,6 +194,9 @@ export default {
         }
       ]
     }
+  },
+  mounted () {
+    socialvue.index()
   }
 }
 </script>

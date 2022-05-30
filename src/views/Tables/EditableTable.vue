@@ -1,90 +1,126 @@
 <template>
-    <b-row>
-      <b-col md="12">
-        <iq-card>
-          <template v-slot:headerTitle>
-            <h4 class="card-title">Editable Table</h4>
-          </template>
-          <template v-slot:headerAction>
-            <b-button variant="primary" @click="add">Add New</b-button>
-          </template>
-          <template v-slot:body>
-            <b-row>
-              <b-col md="12" class="table-responsive">
-                <b-table bordered hover :items="rows" :fields="columns" foot-clone>
-                  <template v-slot:cell(name)="data">
-                    <span v-if="!data.item.editable">{{ data.item.name }}</span>
-                    <input type="text" v-model="data.item.name" v-else class="form-control">
-                  </template>
-                  <template v-slot:cell(position)="data">
-                    <span v-if="!data.item.editable">{{ data.item.position }}</span>
-                    <input type="text" v-model="data.item.position" v-else class="form-control">
-                  </template>
-                  <template v-slot:cell(office)="data">
-                    <span v-if="!data.item.editable">{{ data.item.office }}</span>
-                    <input type="text" v-model="data.item.office" v-else class="form-control">
-                  </template>
-                  <template v-slot:cell(age)="data">
-                    <span v-if="!data.item.editable">{{ data.item.age }}</span>
-                    <input type="text" v-model="data.item.age" v-else class="form-control">
-                  </template>
-                  <template v-slot:cell(start_date)="data">
-                    <span v-if="!data.item.editable">{{ data.item.start_date }}</span>
-                    <input type="text" v-model="data.item.start_date" v-else class="form-control">
-                  </template>
-                  <template v-slot:cell(salary)="data">
-                    <span v-if="!data.item.editable">{{ data.item.salary }}</span>
-                    <input type="text" v-model="data.item.salary" v-else class="form-control">
-                  </template>
-                  <template v-slot:cell(action)="data">
-                    <b-button variant=" iq-bg-success mr-1 mb-1" size="sm" @click="edit(data.item)" v-if="!data.item.editable"><i class="ri-ball-pen-fill m-0"></i></b-button>
-                    <b-button variant=" iq-bg-success mr-1 mb-1" size="sm" @click="submit(data.item)" v-else>Ok</b-button>
-                    <b-button variant=" iq-bg-danger" size="sm" @click="remove(data.item)"><i class="ri-delete-bin-line m-0"></i></b-button>
-                  </template>
-                </b-table>
-              </b-col>
-            </b-row>
-          </template>
-        </iq-card>
-      </b-col>
-    </b-row>
+  <b-row>
+    <b-col md="12">
+      <iq-card>
+        <template v-slot:headerTitle>
+          <h4 class="card-title">
+            Editable Table
+          </h4>
+        </template>
+        <template v-slot:headerAction>
+          <b-button
+            variant="primary"
+            @click="add"
+          >
+            Add New
+          </b-button>
+        </template>
+        <template v-slot:body>
+          <b-row>
+            <b-col
+              md="12"
+              class="table-responsive"
+            >
+              <b-table
+                bordered
+                hover
+                :items="rows"
+                :fields="columns"
+                foot-clone
+              >
+                <template v-slot:cell(name)="data">
+                  <span v-if="!data.item.editable">{{ data.item.name }}</span>
+                  <input
+                    v-else
+                    v-model="data.item.name"
+                    type="text"
+                    class="form-control"
+                  >
+                </template>
+                <template v-slot:cell(position)="data">
+                  <span v-if="!data.item.editable">{{ data.item.position }}</span>
+                  <input
+                    v-else
+                    v-model="data.item.position"
+                    type="text"
+                    class="form-control"
+                  >
+                </template>
+                <template v-slot:cell(office)="data">
+                  <span v-if="!data.item.editable">{{ data.item.office }}</span>
+                  <input
+                    v-else
+                    v-model="data.item.office"
+                    type="text"
+                    class="form-control"
+                  >
+                </template>
+                <template v-slot:cell(age)="data">
+                  <span v-if="!data.item.editable">{{ data.item.age }}</span>
+                  <input
+                    v-else
+                    v-model="data.item.age"
+                    type="text"
+                    class="form-control"
+                  >
+                </template>
+                <template v-slot:cell(start_date)="data">
+                  <span v-if="!data.item.editable">{{ data.item.start_date }}</span>
+                  <input
+                    v-else
+                    v-model="data.item.start_date"
+                    type="text"
+                    class="form-control"
+                  >
+                </template>
+                <template v-slot:cell(salary)="data">
+                  <span v-if="!data.item.editable">{{ data.item.salary }}</span>
+                  <input
+                    v-else
+                    v-model="data.item.salary"
+                    type="text"
+                    class="form-control"
+                  >
+                </template>
+                <template v-slot:cell(action)="data">
+                  <b-button
+                    v-if="!data.item.editable"
+                    variant=" iq-bg-success mr-1 mb-1"
+                    size="sm"
+                    @click="edit(data.item)"
+                  >
+                    <i class="ri-ball-pen-fill m-0" />
+                  </b-button>
+                  <b-button
+                    v-else
+                    variant=" iq-bg-success mr-1 mb-1"
+                    size="sm"
+                    @click="submit(data.item)"
+                  >
+                    Ok
+                  </b-button>
+                  <b-button
+                    variant=" iq-bg-danger"
+                    size="sm"
+                    @click="remove(data.item)"
+                  >
+                    <i class="ri-delete-bin-line m-0" />
+                  </b-button>
+                </template>
+              </b-table>
+            </b-col>
+          </b-row>
+        </template>
+      </iq-card>
+    </b-col>
+  </b-row>
 </template>
+
 <script>
 import { socialvue } from '../../config/pluginInit'
 
 export default {
   name: 'EditableTable',
-  mounted () {
-    socialvue.index()
-  },
-  methods: {
-    add () {
-      let obj = this.default()
-      this.rows.push(obj)
-    },
-    default () {
-      return {
-        id: this.rows.length,
-        name: '',
-        position: '',
-        office: '',
-        age: '',
-        start_date: '2011/04/25',
-        salary: '$0',
-        editable: false
-      }
-    },
-    edit (item) {
-      item.editable = true
-    },
-    submit (item) {
-      item.editable = false
-    },
-    remove (item) {
-      let index = this.rows.indexOf(item)
-      this.rows.splice(index, 1)
-    }
-  },
   data () {
     return {
       columns: [
@@ -179,6 +215,37 @@ export default {
           editable: false
         }
       ]
+    }
+  },
+  mounted () {
+    socialvue.index()
+  },
+  methods: {
+    add () {
+      let obj = this.default()
+      this.rows.push(obj)
+    },
+    default () {
+      return {
+        id: this.rows.length,
+        name: '',
+        position: '',
+        office: '',
+        age: '',
+        start_date: '2011/04/25',
+        salary: '$0',
+        editable: false
+      }
+    },
+    edit (item) {
+      item.editable = true
+    },
+    submit (item) {
+      item.editable = false
+    },
+    remove (item) {
+      let index = this.rows.indexOf(item)
+      this.rows.splice(index, 1)
     }
   }
 }

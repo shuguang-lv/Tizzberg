@@ -2,10 +2,11 @@
   <div>
     <Loader />
     <div class="wrapper">
-      <router-view/>
+      <router-view />
     </div>
   </div>
 </template>
+
 <script>
 import Loader from '../components/socialvue/loader/Loader'
 import { socialvue } from '../config/pluginInit'
@@ -19,6 +20,7 @@ export default {
   }
 }
 </script>
+
 <style>
   @import url("../assets/css/custom.css");
   .modal-backdrop {
