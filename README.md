@@ -3,37 +3,39 @@
 ## Requirements
 
 - Node version >= 14
+- pnpm >= 7
 - LeanCloud CLI: https://zh-docs.leancloud.app/leanengine_cli.html
 
 ## Project setup
 
 ```
-npm install -g @vue/cli
-npm install
+pnpm config set registry https://registry.npm.taobao.org
+pnpm add -g @vue/cli
+pnpm install
 ```
 
 ### Compiles and hot-reloads for development
 
 ```
-npm run serve
+pnpm run serve
 ```
 
 ### Compiles and minifies for production
 
 ```
-npm run build
+pnpm run build
 ```
 
 ### Deploy the project to LeanCloud
 
 ```
-npm run deploy
+pnpm run deploy
 ```
 
 ### Lints and fixes files
 
 ```
-npm run lint
+pnpm run lint
 ```
 
 ### Customize configuration
