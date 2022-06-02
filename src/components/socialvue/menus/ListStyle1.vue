@@ -7,7 +7,7 @@
     :accordion="accordianName"
   >
     <li
-      v-for="(item,index) in items"
+      v-for="(item, index) in items"
       :key="index"
       :class="item.is_heading ? 'iq-menu-title' : activeLink(item) && item.children ? 'active' : activeLink(item) ? 'active' : ''"
     >
@@ -53,27 +53,26 @@
 </template>
 
 <script>
-import { socialvue } from '../../../config/pluginInit'
-import List from './ListStyle1'
+import { socialvue } from "@/config/pluginInit";
+import List from "./ListStyle1";
 export default {
-  name: 'List',
+  name: "List",
   components: {
     List
   },
   props: {
     items: Array,
-    className: { type: String, default: 'iq-menu' },
+    className: { type: String, default: "iq-menu" },
     horizontal: Boolean,
     open: { type: Boolean, default: false },
-    idName: { type: String, default: 'sidebar' },
-    accordianName: { type: String, default: 'sidebar' }
+    idName: { type: String, default: "sidebar" },
+    accordianName: { type: String, default: "sidebar" }
   },
-  mounted () {
-  },
+  mounted() {},
   methods: {
-    activeLink (item) {
-      return socialvue.getActiveLink(item, this.$route.name)
+    activeLink(item) {
+      return socialvue.getActiveLink(item, this.$route.name);
     }
   }
-}
+};
 </script>

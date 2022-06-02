@@ -1,23 +1,24 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from "vue";
+import VueRouter from "vue-router";
 /* Layouts */
-const Layout = () => import('../layouts/Layout')
+const Layout = () => import("../layouts/Layout");
 // const Default = () => import('../layouts/BlankLayout')
-const AuthLayout = () => import('../layouts/AuthLayouts/AuthLayout')
+const AuthLayout = () => import("../layouts/AuthLayouts/AuthLayout");
 
 /* all routes */
-const SocialProfile = () => import('../views/SocailMain/Profile/Profile')
+const SocialProfile = () => import("../views/SocailMain/Profile/Profile");
 // const ProfileImage = () => import('../views/SocailMain/Profile/ProfileImage')
 // const ProfileVideo = () => import('../views/SocailMain/Profile/ProfileVideo')
 // const ProfileEvent = () => import('../views/SocailMain/Profile/ProfileEvent')
-const FriendList = () => import('../views/SocailMain/Friends/FriendList')
+const FriendList = () => import("../views/SocailMain/Friends/FriendList");
 // const File = () => import('../views/SocailMain/File/File')
-const Group = () => import('../views/SocailMain/Group/Group')
+const Group = () => import("../views/SocailMain/Group/Group");
 // const Birthday = () => import('../views/SocailMain/Bithdate/Bithdate')
 // const Music = () => import('../views/SocailMain/Music/Music')
-const Notification = () => import('../views/SocailMain/Notifications/Notification')
+const Notification = () =>
+  import("../views/SocailMain/Notifications/Notification");
 // const Weather = () => import('../views/SocailMain/Weather/Weather')
-const FriendRequest = () => import('../views/SocailMain/Friends/FriendRequest')
+const FriendRequest = () => import("../views/SocailMain/Friends/FriendRequest");
 /* UIElements View */
 // const UiAlerts = () => import('../views/core/UiAlerts.vue')
 // const UiButtons = () => import('../views/core/UiButtons.vue')
@@ -40,11 +41,12 @@ const FriendRequest = () => import('../views/SocailMain/Friends/FriendRequest')
 // const UiPagination = () => import('../views/core/UiPagination.vue')
 // const UiProgressBars = () => import('../views/core/UiProgressBars.vue')
 /* Authentic View */
-const SignIn1 = () => import('../views/AuthPages/Default/SignIn1')
-const SignUp1 = () => import('../views/AuthPages/Default/SignUp1')
-const RecoverPassword1 = () => import('../views/AuthPages/Default/RecoverPassword1')
-const LockScreen1 = () => import('../views/AuthPages/Default/LockScreen1')
-const ConfirmMail1 = () => import('../views/AuthPages/Default/ConfirmMail1')
+const SignIn1 = () => import("../views/AuthPages/Default/SignIn1");
+const SignUp1 = () => import("../views/AuthPages/Default/SignUp1");
+const RecoverPassword1 = () =>
+  import("../views/AuthPages/Default/RecoverPassword1");
+const LockScreen1 = () => import("../views/AuthPages/Default/LockScreen1");
+const ConfirmMail1 = () => import("../views/AuthPages/Default/ConfirmMail1");
 /* Extra Pages */
 // const ErrorPage = () => import('../views/Pages/ErrorPage')
 // const ComingSoon = () => import('../views/Pages/ComingSoon')
@@ -75,38 +77,46 @@ const ConfirmMail1 = () => import('../views/AuthPages/Default/ConfirmMail1')
 // const FormRadios = () => import('../views/Forms/FormRadios')
 // const FormCheckboxes = () => import('../views/Forms/FormCheckboxes')
 /* User View */
-const Profile = () => import('../views/User/Profile')
-const ProfileEdit = () => import('../views/User/ProfileEdit')
-const AddUser = () => import('../views/User/AddUser')
-const SocialApp = () => import('../views/Apps/Social/SocialApp')
+const Profile = () => import("../views/User/Profile");
+const ProfileEdit = () => import("../views/User/ProfileEdit");
+const AddUser = () => import("../views/User/AddUser");
+const SocialApp = () => import("../views/Apps/Social/SocialApp");
 /* Todo */
 // const TodoListing = () => import('../views/Apps/Todo/TodoListing')
-const ChatIndex = () => import('../views/Apps/Chat/Index')
-const AccountSettings = () => import('../views/User/AccountSetting')
-Vue.use(VueRouter)
+const ChatIndex = () => import("../views/Apps/Chat/Index");
+const AccountSettings = () => import("../views/User/AccountSetting");
+Vue.use(VueRouter);
 const childRoutes = (prop, mode) => [
   {
-    path: '/',
-    name: prop + '.list',
-    meta: { auth: true, name: 'Social App' },
+    path: "/",
+    name: prop + ".list",
+    meta: { auth: true, name: "Social App" },
     component: SocialApp
   },
   {
-    path: '/profile',
-    name: prop + '.profile',
-    meta: { auth: true, name: 'Profile' },
+    path: "/profile",
+    name: prop + ".profile",
+    meta: { auth: true, name: "Profile" },
     component: SocialProfile
   },
   {
-    path: 'friend-list',
-    name: prop + '.friend-list',
-    meta: { auth: true, name: 'Friend List', img: require('../assets/images/page-img/profile-bg3.jpg') },
+    path: "friend-list",
+    name: prop + ".friend-list",
+    meta: {
+      auth: true,
+      name: "Friend List",
+      img: require("../assets/images/page-img/profile-bg3.jpg")
+    },
     component: FriendList
   },
   {
-    path: 'group',
-    name: prop + '.group',
-    meta: { auth: true, name: 'Group', img: require('../assets/images/page-img/profile-bg7.jpg') },
+    path: "group",
+    name: prop + ".group",
+    meta: {
+      auth: true,
+      name: "Group",
+      img: require("../assets/images/page-img/profile-bg7.jpg")
+    },
     component: Group
   },
   // {
@@ -128,21 +138,21 @@ const childRoutes = (prop, mode) => [
   //   component: ProfileEvent
   // },
   {
-    path: 'notification',
-    name: prop + '.notification',
-    meta: { auth: true, name: 'Notification' },
+    path: "notification",
+    name: prop + ".notification",
+    meta: { auth: true, name: "Notification" },
     component: Notification
   },
   {
-    path: 'file',
-    name: prop + '.file',
-    meta: { auth: true, name: 'File' },
+    path: "file",
+    name: prop + ".file",
+    meta: { auth: true, name: "File" },
     component: File
   },
   {
-    path: 'friend-request',
-    name: prop + '.friend-request',
-    meta: { auth: true, name: 'Friend Request' },
+    path: "friend-request",
+    name: prop + ".friend-request",
+    meta: { auth: true, name: "Friend Request" },
     component: FriendRequest
   },
   // {
@@ -164,12 +174,12 @@ const childRoutes = (prop, mode) => [
   //   component: Music
   // },
   {
-    path: '/account-setting',
-    name: 'accountSetting',
-    meta: { auth: true, name: 'AccountSettings' },
+    path: "/account-setting",
+    name: "accountSetting",
+    meta: { auth: true, name: "AccountSettings" },
     component: AccountSettings
   }
-]
+];
 
 // const coreChildRoute = (prop, mode) => [
 //   {
@@ -382,9 +392,9 @@ const appChildRoute = (prop, mode = false) => [
   //   component: Calendar
   // },
   {
-    path: 'chat',
-    name: prop + '.chat',
-    meta: { auth: true, name: 'Chat' },
+    path: "chat",
+    name: prop + ".chat",
+    meta: { auth: true, name: "Chat" },
     component: ChatIndex
   }
   // {
@@ -405,40 +415,40 @@ const appChildRoute = (prop, mode = false) => [
   //   meta: { auth: true, name: 'New Email' },
   //   component: EmailCompose
   // }
-]
+];
 
 const authChildRoutes = (prop, mode = false) => [
   {
-    path: 'sign-in1',
-    name: prop + '.sign-in1',
+    path: "sign-in1",
+    name: prop + ".sign-in1",
     meta: { auth: true },
     component: SignIn1
   },
   {
-    path: 'sign-up1',
-    name: prop + '.sign-up1',
+    path: "sign-up1",
+    name: prop + ".sign-up1",
     meta: { auth: true },
     component: SignUp1
   },
   {
-    path: 'password-reset1',
-    name: prop + '.password-reset1',
+    path: "password-reset1",
+    name: prop + ".password-reset1",
     meta: { auth: true },
     component: RecoverPassword1
   },
   {
-    path: 'lock-screen1',
-    name: prop + '.lock-screen1',
+    path: "lock-screen1",
+    name: prop + ".lock-screen1",
     meta: { auth: true },
     component: LockScreen1
   },
   {
-    path: 'confirm-mail1',
-    name: prop + '.confirm-mail1',
+    path: "confirm-mail1",
+    name: prop + ".confirm-mail1",
     meta: { auth: true },
     component: ConfirmMail1
   }
-]
+];
 // const defaultlayout = (prop, mode = false) => [
 //   {
 //     path: 'timeline',
@@ -500,30 +510,30 @@ const authChildRoutes = (prop, mode = false) => [
 // ]
 const userChildRoute = (prop, mode = false) => [
   {
-    path: 'profile',
-    name: prop + '.profile',
-    meta: { auth: true, name: 'Profile' },
+    path: "profile",
+    name: prop + ".profile",
+    meta: { auth: true, name: "Profile" },
     component: Profile
   },
   {
-    path: 'profile-edit',
-    name: prop + '.edit',
-    meta: { auth: true, name: 'Edit Profile' },
+    path: "profile-edit",
+    name: prop + ".edit",
+    meta: { auth: true, name: "Edit Profile" },
     component: ProfileEdit
   },
   {
-    path: 'add-user',
-    name: prop + '.add',
-    meta: { auth: true, name: 'Add Profile' },
+    path: "add-user",
+    name: prop + ".add",
+    meta: { auth: true, name: "Add Profile" },
     component: AddUser
   }
-]
+];
 const routes = [
   {
-    path: '/',
-    name: 'social',
+    path: "/",
+    name: "social",
     component: Layout,
-    children: childRoutes('social')
+    children: childRoutes("social")
   },
   // {
   //   path: '/core',
@@ -547,11 +557,11 @@ const routes = [
   //   children: iconChildRoute('icon')
   // },
   {
-    path: '/auth',
-    name: 'auth1',
+    path: "/auth",
+    name: "auth1",
     component: AuthLayout,
     meta: { auth: true },
-    children: authChildRoutes('auth1')
+    children: authChildRoutes("auth1")
   },
   // {
   //   path: '/pages',
@@ -568,18 +578,18 @@ const routes = [
   //   children: defaultlayout('extra-pages')
   // },
   {
-    path: '/app',
-    name: 'app',
+    path: "/app",
+    name: "app",
     component: Layout,
     meta: { auth: true },
-    children: appChildRoute('app')
+    children: appChildRoute("app")
   },
   {
-    path: '/user',
-    name: 'user',
+    path: "/user",
+    name: "user",
     component: Layout,
     meta: { auth: true },
-    children: userChildRoute('user')
+    children: userChildRoute("user")
   }
   // {
   //   path: '/form',
@@ -588,13 +598,12 @@ const routes = [
   //   meta: { auth: true },
   //   children: formChildRoute('form')
   // }
-
-]
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.VUE_APP_BASE_URL,
   routes
-})
+});
 
-export default router
+export default router;

@@ -10,7 +10,7 @@
               class="img-fluid"
               alt="logo"
             >
-            <span>SocialV</span>
+            <span>{{ title }}</span>
           </a>
           <div class="iq-menu-bt align-self-center">
             <div
@@ -23,7 +23,7 @@
             </div>
           </div>
         </div>
-        <div class="iq-search-bar">
+        <!-- <div class="iq-search-bar">
           <form
             action="#"
             class="searchbox"
@@ -38,7 +38,7 @@
               href="#"
             ><i class="ri-search-line" /></a>
           </form>
-        </div>
+        </div> -->
         <b-navbar-toggle
           target="nav-collapse"
           class="mr-2"
@@ -56,7 +56,7 @@
                 class="iq-waves-effect d-flex align-items-center"
               >
                 <img
-                  src="../../../assets/images/user/1.jpg"
+                  src="@/assets/images/user/1.jpg"
                   class="img-fluid rounded-circle mr-3"
                   alt="user"
                 >
@@ -73,7 +73,7 @@
                 <i class="ri-home-line" />
               </a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a
                 class="search-toggle iq-waves-effect"
                 href="#"
@@ -130,7 +130,7 @@
                   </div>
                 </div>
               </div>
-            </li>
+            </li> -->
             <li class="nav-item">
               <a
                 href="#"
@@ -138,7 +138,7 @@
               >
                 <Lottie
                   id="lottie-beil"
-                  :option="require('../../../assets/images/small/lottie-bell')"
+                  :option="require('@/assets/images/small/lottie-bell')"
                 />
                 <span class="bg-danger dots" />
               </a>
@@ -158,7 +158,7 @@
                         <div class="">
                           <img
                             class="avatar-40 rounded"
-                            src="../../../assets/images/user/01.jpg"
+                            src="@/assets/images/user/01.jpg"
                             alt=""
                           >
                         </div>
@@ -196,7 +196,7 @@
                         <div class="">
                           <img
                             class="avatar-40 rounded"
-                            src="../../../assets/images/user/03.jpg"
+                            src="@/assets/images/user/03.jpg"
                             alt=""
                           >
                         </div>
@@ -216,7 +216,7 @@
                           <div class="">
                             <img
                               class="avatar-40 rounded"
-                              src="../../../assets/images/user/04.jpg"
+                              src="@/assets/images/user/04.jpg"
                               alt=""
                             >
                           </div>
@@ -259,7 +259,7 @@
                         <div class="">
                           <img
                             class="avatar-40 rounded"
-                            src="../../../assets/images/user/01.jpg"
+                            src="@/assets/images/user/01.jpg"
                             alt=""
                           >
                         </div>
@@ -277,7 +277,7 @@
                         <div class="">
                           <img
                             class="avatar-40 rounded"
-                            src="../../../assets/images/user/02.jpg"
+                            src="@/assets/images/user/02.jpg"
                             alt=""
                           >
                         </div>
@@ -295,7 +295,7 @@
                         <div class="">
                           <img
                             class="avatar-40 rounded"
-                            src="../../../assets/images/user/03.jpg"
+                            src="@/assets/images/user/03.jpg"
                             alt=""
                           >
                         </div>
@@ -313,7 +313,7 @@
                         <div class="">
                           <img
                             class="avatar-40 rounded"
-                            src="../../../assets/images/user/04.jpg"
+                            src="@/assets/images/user/04.jpg"
                             alt=""
                           >
                         </div>
@@ -331,7 +331,7 @@
                         <div class="">
                           <img
                             class="avatar-40 rounded"
-                            src="../../../assets/images/user/05.jpg"
+                            src="@/assets/images/user/05.jpg"
                             alt=""
                           >
                         </div>

@@ -10,7 +10,7 @@
       />
       <!-- TOP Nav Bar -->
       <NavBarStyle1
-        title="Dashboard"
+        :title="appName"
         :home-u-r-l="{ name: 'dashboard1.home' }"
         :logo="logo"
         @toggle="sidebarMini"
@@ -78,7 +78,7 @@
         </li>
       </template>
       <template v-slot:right>
-        Copyright 2020 <a href="#">SocialV</a> All Rights Reserved.
+        Copyright 2022 <a href="#">{{ appName }}</a> All Rights Reserved.
       </template>
     </FooterStyle1>
   </div>
@@ -118,6 +118,7 @@ export default {
       verticalMenu: SideBarItems,
       userProfile: profile,
       logo: loader,
+      appName: process.env.VUE_APP_NAME,
       usersList: Users,
       message: [
         { image: require('../assets/images/user/user-01.jpg'), name: 'Nik Emma Watson', date: '13 jan' },

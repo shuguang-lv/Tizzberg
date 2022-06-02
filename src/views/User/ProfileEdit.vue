@@ -525,73 +525,72 @@
 </template>
 
 <script>
-import { socialvue } from '../../config/pluginInit'
+import { socialvue } from "../../config/pluginInit";
 
 export default {
-  name: 'ProfileEdit',
-  data () {
+  name: "ProfileEdit",
+  data() {
     return {
       user: {
-        fname: '',
-        lname: '',
-        name: '',
-        username: '',
-        email: '',
-        password: '',
-        address1: '',
-        address2: '',
-        company_name: '',
-        profile_image: require('../../assets/images/user/user-11.png'),
-        mobile_no: '',
-        country: '',
-        state: '',
-        city: '',
-        pincode: '',
-        role: '',
-        gender: '',
-        dob: '',
-        url: ''
+        fname: "",
+        lname: "",
+        name: "",
+        username: "",
+        email: "",
+        password: "",
+        address1: "",
+        address2: "",
+        company_name: "",
+        profile_image: require("../../assets/images/user/user-11.png"),
+        mobile_no: "",
+        country: "",
+        state: "",
+        city: "",
+        pincode: "",
+        role: "",
+        gender: "",
+        dob: "",
+        url: ""
       },
-      currentPassword: '',
+      currentPassword: "",
       countries: [
-        { value: 'Canada', text: 'Canada' },
-        { value: 'Niada', text: 'Niada' },
-        { value: 'USA', text: 'USA' },
-        { value: 'India', text: 'India' },
-        { value: 'Africa', text: 'Africa' }
+        { value: "Canada", text: "Canada" },
+        { value: "Niada", text: "Niada" },
+        { value: "USA", text: "USA" },
+        { value: "India", text: "India" },
+        { value: "Africa", text: "Africa" }
       ],
       states: [
-        { value: 'California', text: 'California' },
-        { value: 'Florida', text: 'Florida' },
-        { value: 'Georgia', text: 'Georgia' },
-        { value: 'Connecticut', text: 'Connecticut' },
-        { value: 'Louisiana', text: 'Louisiana' }
+        { value: "California", text: "California" },
+        { value: "Florida", text: "Florida" },
+        { value: "Georgia", text: "Georgia" },
+        { value: "Connecticut", text: "Connecticut" },
+        { value: "Louisiana", text: "Louisiana" }
       ]
-    }
+    };
   },
-  mounted () {
-    socialvue.index()
+  mounted() {
+    socialvue.index();
   },
   methods: {
-    onSubmit () {
-      this.user.name = this.user.fname + ' ' + this.user.lname
-      this.$router.replace('/user/user-list')
+    onSubmit() {
+      this.user.name = this.user.fname + " " + this.user.lname;
+      this.$router.replace("/user/user-list");
     },
-    previewImage: function (event) {
-      const input = event.target
+    previewImage: function(event) {
+      const input = event.target;
 
       if (input.files && input.files[0]) {
-        const reader = new FileReader()
+        const reader = new FileReader();
 
-        reader.onload = (e) => {
-          this.user.profile_image = e.target.result
-        }
+        reader.onload = e => {
+          this.user.profile_image = e.target.result;
+        };
 
-        reader.readAsDataURL(input.files[0])
+        reader.readAsDataURL(input.files[0]);
       }
     },
-    changePassword: function () {
-    }
+    changePassword: function() {}
   }
-}
+};
 </script>

@@ -17,6 +17,9 @@
 import List from '../menus/ListStyle1'
 export default {
   name: 'SideBarStyle1',
+  components: {
+    List
+  },
   props: {
     homeURL: { type: Object, default: () => ({ name: 'layout1.dashboard' }) },
     items: { type: Array },
@@ -24,15 +27,12 @@ export default {
     horizontal: { type: Boolean },
     toggleButton: { type: Boolean, default: true }
   },
-  components: {
-    List
-  },
-  data () {
+  data() {
     return {
     }
   },
   methods: {
-    miniSidebar () {
+    miniSidebar() {
       this.$emit('toggle')
     }
   }
