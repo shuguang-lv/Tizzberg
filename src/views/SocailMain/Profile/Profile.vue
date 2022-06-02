@@ -28,6 +28,7 @@
                   Bni Cyst
                 </h3>
               </div>
+              <div />
             </div>
             <div class="profile-info p-4 d-flex align-items-center justify-content-between position-relative">
               <!-- <div class="social-links">
@@ -58,6 +59,26 @@
                     </p>
                   </li>
                 </ul>
+              </div>
+              <div class="row justify-content-end">
+                <b-badge
+                  variant="primary"
+                  style="margin-right: 1em"
+                >
+                  Nik Jon
+                </b-badge>
+                <b-badge
+                  variant="primary"
+                  style="margin-right: 1em"
+                >
+                  Book
+                </b-badge>
+                <b-badge
+                  variant="primary"
+                  style="margin-right: 1em"
+                >
+                  Food
+                </b-badge>
               </div>
             </div>
           </div>
