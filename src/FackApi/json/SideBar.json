@@ -1,7 +1,7 @@
 [
   {
-    "title": "News Feed",
-    "name": "sidebar.newsfeed",
+    "title": "T-square",
+    "name": "T-square",
     "is_heading": false,
     "is_active": false,
     "link": {
@@ -22,6 +22,18 @@
     "class_name": "",
     "is_icon_class": true,
     "icon": "las la-user"
+  },
+  {
+    "title": "Profile Video",
+    "name": "sidebar.profile_video",
+    "is_heading": false,
+    "is_active": false,
+    "link": {
+      "name": "social.profile-video"
+    },
+    "class_name": "",
+    "is_icon_class": true,
+    "icon": "las la-video"
   },
   {
     "title": "Friend Lists",

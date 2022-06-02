@@ -18,7 +18,7 @@
             <div class="user-detail text-center mb-3">
               <div class="profile-img">
                 <img
-                  src="../../../assets/images/user/11.png"
+                  src="../../../assets/images/user/1.jpg"
                   alt="profile-img"
                   class="avatar-130 img-fluid"
                 >
