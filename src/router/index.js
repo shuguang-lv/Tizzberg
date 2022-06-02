@@ -100,21 +100,21 @@ const childRoutes = (prop, mode) => [
     component: SocialProfile
   },
   {
-    path: "friend-list",
+    path: "following",
     name: prop + ".friend-list",
     meta: {
       auth: true,
-      name: "Friend List",
+      name: "Following",
       img: require("../assets/images/page-img/profile-bg3.jpg")
     },
     component: FriendList
   },
   {
-    path: "group",
+    path: "tags",
     name: prop + ".group",
     meta: {
       auth: true,
-      name: "Group",
+      name: "Tags",
       img: require("../assets/images/page-img/profile-bg7.jpg")
     },
     component: Group

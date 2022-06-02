@@ -63,7 +63,7 @@
             type="submit"
             class="btn btn-primary d-block w-100"
           >
-            Join
+            Collect
           </button>
         </template>
       </iq-card>

@@ -1,7 +1,7 @@
 [
   {
     "title": "T-square",
-    "name": "T-square",
+    "name": "T-Square",
     "is_heading": false,
     "is_active": false,
     "link": {
@@ -37,7 +37,7 @@
   },
   {
     "title": "Friend Lists",
-    "name": "sidebar.friend_list",
+    "name": "Following",
     "is_heading": false,
     "is_active": false,
     "link": {
@@ -49,7 +49,7 @@
   },
   {
     "title": "Group",
-    "name": "sidebar.group",
+    "name": "Tags",
     "is_heading": false,
     "is_active": false,
     "link": {
@@ -57,7 +57,7 @@
     },
     "class_name": "",
     "is_icon_class": true,
-    "icon": "las la-users"
+    "icon": "las la-tag"
   },
   {
     "title": "Notification",
@@ -82,17 +82,5 @@
     "class_name": "",
     "is_icon_class": true,
     "icon": "lab la-rocketchat"
-  },
-  {
-    "title": "Friend Request",
-    "name": "sidebar.friend_request",
-    "is_heading": false,
-    "is_active": false,
-    "link": {
-      "name": "social.friend-request"
-    },
-    "class_name": "",
-    "is_icon_class": true,
-    "icon": "las la-anchor"
   }
 ]

@@ -1,22 +1,22 @@
-import User from '../../Model/User'
-import Message from '../../Model/Message'
+import User from '@/Model/User'
+import Message from '@/Model/Message'
 
 export const Users = [
-  new User({ id: 1, name: 'Anna Sthesia', role: 'Developer', isPrivate: true, image: require('../../assets/images/user/user-01.jpg'), isActive: true }),
-  new User({ id: 2, name: 'Paul Molive', role: 'Web Designer', image: require('../../assets/images/user/user-05.jpg'), isActive: false }),
-  new User({ id: 3, name: 'Bob Frapples', role: 'App Developer', isPrivate: true, image: require('../../assets/images/user/user-03.jpg'), isActive: true }),
-  new User({ id: 4, name: 'Barb Ackue', role: 'Ios Developer', image: require('../../assets/images/user/user-04.jpg'), isActive: true }),
-  new User({ id: 5, name: 'Greta Life', role: 'Game Developer', image: require('../../assets/images/user/user-05.jpg'), isActive: false }),
-  new User({ id: 6, name: 'Ira Membrit', role: 'Software Developer', image: require('../../assets/images/user/user-06.jpg'), isActive: true }),
-  new User({ id: 7, name: 'Pete Sariya', role: 'Backend Developer', image: require('../../assets/images/user/user-07.jpg'), isActive: false }),
-  new User({ id: 8, name: 'Anna Sthesia', role: 'Web Developer', image: require('../../assets/images/user/user-08.jpg'), isActive: true }),
-  new User({ id: 9, name: 'Paul Molive', role: 'App Developer', image: require('../../assets/images/user/user-09.jpg'), isActive: false }),
-  new User({ id: 10, name: 'Bob Frapples', role: 'Ios Developer', image: require('../../assets/images/user/user10.jpg'), isActive: true }),
-  new User({ id: 11, name: 'Anna Sthesia', role: 'Web Designer', image: require('../../assets/images/user/user-01.jpg'), isActive: true }),
-  new User({ id: 12, name: 'Paul Molive', role: 'Game Developer', image: require('../../assets/images/user/user-05.jpg'), isActive: false }),
-  new User({ id: 13, name: 'Bob Frapples', role: 'Web Developer', image: require('../../assets/images/user/user-03.jpg'), isActive: false }),
-  new User({ id: 14, name: 'Barb Ackue', role: 'Ios Developer', image: require('../../assets/images/user/user-04.jpg'), isActive: true }),
-  new User({ id: 15, name: 'Greta Life', role: 'App Developer', image: require('../../assets/images/user/user-08.jpg'), isActive: true })
+  new User({ id: 1, name: 'Anna Sthesia', role: 'Developer', isPrivate: true, image: require('@/assets/images/user/user-01.jpg'), isActive: true }),
+  new User({ id: 2, name: 'Paul Molive', role: 'Web Designer', isPrivate: true, image: require('@/assets/images/user/user-05.jpg'), isActive: false }),
+  new User({ id: 3, name: 'Bob Frapples', role: 'App Developer', isPrivate: true, image: require('@/assets/images/user/user-03.jpg'), isActive: true }),
+  new User({ id: 4, name: 'Barb Ackue', role: 'Ios Developer', isPrivate: true, image: require('@/assets/images/user/user-04.jpg'), isActive: true }),
+  new User({ id: 5, name: 'Greta Life', role: 'Game Developer', isPrivate: true, image: require('@/assets/images/user/user-05.jpg'), isActive: false }),
+  new User({ id: 6, name: 'Ira Membrit', role: 'Software Developer', isPrivate: true, image: require('@/assets/images/user/user-06.jpg'), isActive: true }),
+  new User({ id: 7, name: 'Pete Sariya', role: 'Backend Developer', isPrivate: true, image: require('@/assets/images/user/user-07.jpg'), isActive: false }),
+  new User({ id: 8, name: 'Anna Sthesia', role: 'Web Developer', isPrivate: true, image: require('@/assets/images/user/user-08.jpg'), isActive: true }),
+  new User({ id: 9, name: 'Paul Molive', role: 'App Developer', isPrivate: true, image: require('@/assets/images/user/user-09.jpg'), isActive: false }),
+  new User({ id: 10, name: 'Bob Frapples', role: 'Ios Developer', isPrivate: true, image: require('@/assets/images/user/user10.jpg'), isActive: true }),
+  new User({ id: 11, name: 'Anna Sthesia', role: 'Web Designer', isPrivate: true, image: require('@/assets/images/user/user-01.jpg'), isActive: true }),
+  new User({ id: 12, name: 'Paul Molive', role: 'Game Developer', isPrivate: true, image: require('@/assets/images/user/user-05.jpg'), isActive: false }),
+  new User({ id: 13, name: 'Bob Frapples', role: 'Web Developer', isPrivate: true, image: require('@/assets/images/user/user-03.jpg'), isActive: false }),
+  new User({ id: 14, name: 'Barb Ackue', role: 'Ios Developer', isPrivate: true, image: require('@/assets/images/user/user-04.jpg'), isActive: true }),
+  new User({ id: 15, name: 'Greta Life', role: 'App Developer', isPrivate: true, image: require('@/assets/images/user/user-08.jpg'), isActive: true })
 ]
 
 export const MessagesUser1 = [

@@ -69,7 +69,7 @@
                       </ul>
                     </template>
                   </ToggleContent>
-                  <div class="chat-searchbar mt-4">
+                  <!-- <div class="chat-searchbar mt-4">
                     <div class="form-group chat-search-data m-0">
                       <input
                         id="chat-search"
@@ -80,10 +80,10 @@
                       >
                       <i class="ri-search-line" />
                     </div>
-                  </div>
+                  </div> -->
                 </div>
                 <div class="chat-sidebar-channel scroller mt-4 pl-3">
-                  <h5>Private Channel</h5>
+                  <!-- <h5>Private Channel</h5> -->
                   <tab-nav
                     id="chat-list-data"
                     :pills="true"
@@ -104,7 +104,7 @@
                       </tab-nav-items>
                     </template>
                   </tab-nav>
-                  <h5>Public Channel</h5>
+                  <!-- <h5>Public Channel</h5>
                   <tab-nav
                     id="chat-list-data"
                     :pills="true"
@@ -124,13 +124,13 @@
                         </template>
                       </tab-nav-items>
                     </template>
-                  </tab-nav>
+                  </tab-nav> -->
                 </div>
               </b-col>
 
               <div
                 class="col-lg-9 chat-data p-0 chat-data-right"
-                :style="`background: url(${require('../../../assets/images/page-img/100.jpg')}) no-repeat scroll center center;background-size: cover;`"
+                :style="`background: url(${require('@/assets/images/page-img/100.jpg')}) no-repeat scroll center center;background-size: cover;`"
               >
                 <tab-content id="v-pills-tabContent">
                   <tab-content-item
@@ -252,8 +252,8 @@
                             </template>
                           </ToggleContent>
                           <div class="chat-header-icons d-flex">
-                            <a class="iq-bg-primary iq-waves-effect mr-1 chat-icon-phone"><i class="ri-phone-line mr-0" /></a>
-                            <a class="iq-bg-primary iq-waves-effect mr-1 chat-icon-video"><i class="ri-vidicon-line  mr-0" /></a>
+                            <!-- <a class="iq-bg-primary iq-waves-effect mr-1 chat-icon-phone"><i class="ri-phone-line mr-0" /></a> -->
+                            <!-- <a class="iq-bg-primary iq-waves-effect mr-1 chat-icon-video"><i class="ri-vidicon-line  mr-0" /></a> -->
                             <a class="iq-bg-primary iq-waves-effect mr-1 chat-icon-delete"><i class="ri-delete-bin-line  mr-0" /></a>
                             <b-dropdown
                               id="dropdownMenuButton2"
@@ -372,12 +372,12 @@
 </template>
 
 <script>
-import { socialvue } from '../../../config/pluginInit'
-import ChatItem from '../../../components/Chat/ChatItem'
-import ToggleButton from '../../../components/Chat/ToggleButton'
-import ToggleContent from '../../../components/Chat/ToggleContent'
-import { Users, MessagesUser1 } from '../../../FackApi/api/chat'
-import User from '../../../Model/User'
+import { socialvue } from '@/config/pluginInit'
+import ChatItem from '@/components/Chat/ChatItem'
+import ToggleButton from '@/components/Chat/ToggleButton'
+import ToggleContent from '@/components/Chat/ToggleContent'
+import { Users, MessagesUser1 } from '@/FackApi/api/chat'
+import User from '@/Model/User'
 
 export default {
   name: 'Index',

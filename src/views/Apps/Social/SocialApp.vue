@@ -183,7 +183,7 @@
           </tab-content>
         </b-col>
         <b-col lg="4">
-          <IqCard>
+          <!-- <IqCard>
             <template v-slot:headerTitle>
               <h4 class="card-title">
                 Upcomming Birthday
@@ -213,7 +213,7 @@
                 </li>
               </ul>
             </template>
-          </IqCard>
+          </IqCard> -->
           <IqCard>
             <template v-slot:headerTitle>
               <h4 class="card-title">
@@ -260,7 +260,7 @@
     </b-col>
     <div class="col-sm-12 text-center">
       <img
-        src="../../../assets/images/page-img/page-load-loader.gif"
+        src="@/assets/images/page-img/page-load-loader.gif"
         alt="loader"
         style="height: 100px;"
       >
