@@ -8,7 +8,7 @@ const AuthLayout = () => import('../layouts/AuthLayouts/AuthLayout')
 /* all routes */
 const SocialProfile = () => import('../views/SocailMain/Profile/Profile')
 // const ProfileImage = () => import('../views/SocailMain/Profile/ProfileImage')
-// const ProfileVideo = () => import('../views/SocailMain/Profile/ProfileVideo')
+const ProfileVideo = () => import('../views/SocailMain/Profile/ProfileVideo')
 // const ProfileEvent = () => import('../views/SocailMain/Profile/ProfileEvent')
 const FriendList = () => import('../views/SocailMain/Friends/FriendList')
 // const File = () => import('../views/SocailMain/File/File')
@@ -115,12 +115,12 @@ const childRoutes = (prop, mode) => [
   //   meta: { auth: true, name: 'Your Photos', img: require('../assets/images/page-img/profile-bg5.jpg') },
   //   component: ProfileImage
   // },
-  // {
-  //   path: 'profile-video',
-  //   name: prop + '.profile-video',
-  //   meta: { auth: true, name: 'Profile Video', img: require('../assets/images/page-img/profile-bg9.jpg') },
-  //   component: ProfileVideo
-  // },
+  {
+    path: 'profile-video',
+    name: prop + '.profile-video',
+    meta: { auth: true, name: 'Profile Video', img: require('../assets/images/page-img/profile-bg9.jpg') },
+    component: ProfileVideo
+  },
   // {
   //   path: 'profile-event',
   //   name: prop + '.profile-event',
