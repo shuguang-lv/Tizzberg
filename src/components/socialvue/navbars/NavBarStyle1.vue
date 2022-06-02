@@ -52,7 +52,7 @@
           <ul class="navbar-nav ml-auto navbar-list">
             <li>
               <a
-                href="#"
+                href="/profile"
                 class="iq-waves-effect d-flex align-items-center"
               >
                 <img
@@ -364,7 +364,7 @@
                       <span class="text-white font-size-12">Available</span>
                     </div>
                     <router-link
-                      to="/"
+                      to="/profile"
                       class="iq-sub-card iq-bg-primary-hover"
                     >
                       <div class="media align-items-center">

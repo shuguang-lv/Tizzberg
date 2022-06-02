@@ -17,7 +17,7 @@
           <div class="user-img">
             <img
               class="avatar-60 rounded-circle"
-              src="../../../../assets/images/user/user-01.jpg"
+              src="../../../../assets/images/user/1.jpg"
             >
           </div>
           <form class="post-text ml-3 w-100">
