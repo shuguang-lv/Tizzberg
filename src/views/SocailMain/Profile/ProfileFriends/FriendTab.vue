@@ -13,9 +13,9 @@
         aria-controls="pills-all-friends"
         role="tab"
         :aria-selected="true"
-        title="All Friends"
+        title="Followers"
       />
-      <tab-nav-items
+      <!-- <tab-nav-items
         id="pills-recently-add"
         li-class=" "
         :active="false"
@@ -24,8 +24,8 @@
         role="tab"
         :aria-selected="false"
         title="Recently Added"
-      />
-      <tab-nav-items
+      /> -->
+      <!-- <tab-nav-items
         id="pills-closefriends"
         li-class=" "
         :active="false"
@@ -44,7 +44,7 @@
         role="tab"
         :aria-selected="false"
         title="Home/Town"
-      />
+      /> -->
       <tab-nav-items
         id="pills-following-add"
         li-class=" "

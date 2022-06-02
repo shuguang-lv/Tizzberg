@@ -6,7 +6,7 @@
           <div class="profile-header">
             <div class="cover-container">
               <img
-                src="../../../assets/images/page-img/profile-bg1.jpg"
+                src="@/assets/images/page-img/profile-bg1.jpg"
                 alt="profile-bg"
                 class="rounded img-fluid"
               >
@@ -18,7 +18,7 @@
             <div class="user-detail text-center mb-3">
               <div class="profile-img">
                 <img
-                  src="../../../assets/images/user/1.jpg"
+                  src="@/assets/images/user/1.jpg"
                   alt="profile-img"
                   class="avatar-130 img-fluid"
                 >
@@ -30,7 +30,7 @@
               </div>
             </div>
             <div class="profile-info p-4 d-flex align-items-center justify-content-between position-relative">
-              <div class="social-links">
+              <!-- <div class="social-links">
                 <ul class="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0">
                   <li
                     v-for="(item,index) in social"
@@ -44,7 +44,7 @@
                     ></a>
                   </li>
                 </ul>
-              </div>
+              </div> -->
               <div class="social-info">
                 <ul class="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0">
                   <li
@@ -79,7 +79,7 @@
                 aria-controls="pills-home"
                 role="tab"
                 :aria-selected="true"
-                title="Timeline"
+                title="Posts"
               />
               <tab-nav-items
                 id="pills-activity-tab"
@@ -99,7 +99,7 @@
                 aria-controls="pills-contact"
                 role="tab"
                 :aria-selected="false"
-                title="Friends"
+                title="Follow"
               />
               <tab-nav-items
                 id="pills-profile-tab"
@@ -109,7 +109,7 @@
                 aria-controls="pills-contact"
                 role="tab"
                 :aria-selected="false"
-                title="Photos"
+                title="Collections"
               />
             </tab-nav>
           </div>
@@ -125,7 +125,7 @@
         >
           <div class="iq-card-body p-0">
             <b-row>
-              <b-col lg="4">
+              <!-- <b-col lg="4">
                 <iq-card>
                   <template v-slot:body>
                     <a href="#"><span class="badge badge-pill badge-primary font-weight-normal ml-auto mr-1">
@@ -227,13 +227,13 @@
                     </ul>
                   </template>
                 </iq-card>
-              </b-col>
-              <b-col lg="8">
+              </b-col> -->
+              <b-col lg="12">
                 <div
                   id="post-modal-data"
                   class="iq-card"
                 >
-                  <AddSocialPost @addPost="addPost" />
+                  <!-- <AddSocialPost @addPost="addPost" /> -->
                   <div
                     v-for="post in socialPosts"
                     :key="post.id"
@@ -263,7 +263,7 @@
         >
           <div class="iq-card">
             <div class="iq-card-body">
-              <h2>Friends</h2>
+              <!-- <h2>Friends</h2> -->
               <FriendTab />
             </div>
           </div>
@@ -366,7 +366,7 @@
     </b-col>
     <div class="col-sm-12 text-center">
       <img
-        src="../../../assets/images/page-img/page-load-loader.gif"
+        src="@/assets/images/page-img/page-load-loader.gif"
         alt="loader"
         style="height: 100px;"
       >
@@ -375,10 +375,10 @@
 </template>
 
 <script>
-import { socialvue } from '../../../config/pluginInit'
+import { socialvue } from '@/config/pluginInit'
 import AddSocialPost from '../../Apps/Social/Components/AddSocialPost'
-import Post from '../../../Model/Post'
-import { Posts } from '../../../FackApi/api/SocialPost'
+import Post from '@/Model/Post'
+import { Posts } from '@/FackApi/api/SocialPost'
 import SocialPost from '../../Apps/Social/Components/SocialPost'
 import About from './ProfileFriends/About'
 import FriendTab from './ProfileFriends/FriendTab'
@@ -388,7 +388,7 @@ export default {
   components: {
     FriendTab,
     ProfileImage,
-    AddSocialPost,
+    // AddSocialPost,
     SocialPost,
     About
   },
@@ -397,60 +397,60 @@ export default {
       post: new Post(),
       socialPosts: Posts,
       social: [
-        require('../../../assets/images/icon/08.png'),
-        require('../../../assets/images/icon/09.png'),
-        require('../../../assets/images/icon/10.png'),
-        require('../../../assets/images/icon/11.png'),
-        require('../../../assets/images/icon/12.png'),
-        require('../../../assets/images/icon/13.png')
+        require('@/assets/images/icon/08.png'),
+        require('@/assets/images/icon/09.png'),
+        require('@/assets/images/icon/10.png'),
+        require('@/assets/images/icon/11.png'),
+        require('@/assets/images/icon/12.png'),
+        require('@/assets/images/icon/13.png')
       ],
       lifeEvent: [
         {
-          img: require('../../../assets/images/page-img/07.jpg'),
+          img: require('@/assets/images/page-img/07.jpg'),
           heading: 'Started New Job at Apple',
           date: 'January 24, 2019'
         },
         {
-          img: require('../../../assets/images/page-img/08.jpg'),
+          img: require('@/assets/images/page-img/08.jpg'),
           heading: 'Freelance Photographer',
           date: 'January 24, 2019'
         }
       ],
       friends: [
         {
-          img: require('../../../assets/images/user/05.jpg'),
+          img: require('@/assets/images/user/05.jpg'),
           name: 'Anna Rexia'
         },
         {
-          img: require('../../../assets/images/user/06.jpg'),
+          img: require('@/assets/images/user/06.jpg'),
           name: 'Tara Zona'
         },
         {
-          img: require('../../../assets/images/user/07.jpg'),
+          img: require('@/assets/images/user/07.jpg'),
           name: 'Polly Tech'
         },
         {
-          img: require('../../../assets/images/user/08.jpg'),
+          img: require('@/assets/images/user/08.jpg'),
           name: 'Bill Emia'
         },
         {
-          img: require('../../../assets/images/user/09.jpg'),
+          img: require('@/assets/images/user/09.jpg'),
           name: 'Moe Fugga'
         },
         {
-          img: require('../../../assets/images/user/10.jpg'),
+          img: require('@/assets/images/user/10.jpg'),
           name: 'Hal Appeno '
         },
         {
-          img: require('../../../assets/images/user/09.jpg'),
+          img: require('@/assets/images/user/09.jpg'),
           name: 'Zack Lee'
         },
         {
-          img: require('../../../assets/images/user/07.jpg'),
+          img: require('@/assets/images/user/07.jpg'),
           name: 'Terry Aki'
         },
         {
-          img: require('../../../assets/images/user/08.jpg'),
+          img: require('@/assets/images/user/08.jpg'),
           name: 'Greta Life'
         }
       ],
@@ -469,20 +469,20 @@ export default {
         }
       ],
       phtoes: [
-        require('../../../assets/images/page-img/g1.jpg'),
-        require('../../../assets/images/page-img/g1.jpg'),
-        require('../../../assets/images/page-img/g2.jpg'),
-        require('../../../assets/images/page-img/g3.jpg'),
-        require('../../../assets/images/page-img/g4.jpg'),
-        require('../../../assets/images/page-img/g5.jpg'),
-        require('../../../assets/images/page-img/g6.jpg'),
-        require('../../../assets/images/page-img/g7.jpg'),
-        require('../../../assets/images/page-img/g8.jpg')
+        require('@/assets/images/page-img/g1.jpg'),
+        require('@/assets/images/page-img/g1.jpg'),
+        require('@/assets/images/page-img/g2.jpg'),
+        require('@/assets/images/page-img/g3.jpg'),
+        require('@/assets/images/page-img/g4.jpg'),
+        require('@/assets/images/page-img/g5.jpg'),
+        require('@/assets/images/page-img/g6.jpg'),
+        require('@/assets/images/page-img/g7.jpg'),
+        require('@/assets/images/page-img/g8.jpg')
       ],
 
       profileImages: [
         {
-          img: require('../../../assets/images/page-img/51.jpg'),
+          img: require('@/assets/images/page-img/51.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
@@ -500,7 +500,7 @@ export default {
           ]
         },
         {
-          img: require('../../../assets/images/page-img/52.jpg'),
+          img: require('@/assets/images/page-img/52.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
@@ -518,7 +518,7 @@ export default {
           ]
         },
         {
-          img: require('../../../assets/images/page-img/53.jpg'),
+          img: require('@/assets/images/page-img/53.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
@@ -536,7 +536,7 @@ export default {
           ]
         },
         {
-          img: require('../../../assets/images/page-img/54.jpg'),
+          img: require('@/assets/images/page-img/54.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
@@ -554,7 +554,7 @@ export default {
           ]
         },
         {
-          img: require('../../../assets/images/page-img/55.jpg'),
+          img: require('@/assets/images/page-img/55.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
@@ -572,7 +572,7 @@ export default {
           ]
         },
         {
-          img: require('../../../assets/images/page-img/56.jpg'),
+          img: require('@/assets/images/page-img/56.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
@@ -590,7 +590,7 @@ export default {
           ]
         },
         {
-          img: require('../../../assets/images/page-img/57.jpg'),
+          img: require('@/assets/images/page-img/57.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
@@ -608,7 +608,7 @@ export default {
           ]
         },
         {
-          img: require('../../../assets/images/page-img/58.jpg'),
+          img: require('@/assets/images/page-img/58.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
@@ -626,7 +626,7 @@ export default {
           ]
         },
         {
-          img: require('../../../assets/images/page-img/51.jpg'),
+          img: require('@/assets/images/page-img/51.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
@@ -644,7 +644,7 @@ export default {
           ]
         },
         {
-          img: require('../../../assets/images/page-img/52.jpg'),
+          img: require('@/assets/images/page-img/52.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
@@ -662,7 +662,7 @@ export default {
           ]
         },
         {
-          img: require('../../../assets/images/page-img/53.jpg'),
+          img: require('@/assets/images/page-img/53.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
@@ -680,7 +680,7 @@ export default {
           ]
         },
         {
-          img: require('../../../assets/images/page-img/54.jpg'),
+          img: require('@/assets/images/page-img/54.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
@@ -698,7 +698,7 @@ export default {
           ]
         },
         {
-          img: require('../../../assets/images/page-img/55.jpg'),
+          img: require('@/assets/images/page-img/55.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
@@ -716,7 +716,7 @@ export default {
           ]
         },
         {
-          img: require('../../../assets/images/page-img/56.jpg'),
+          img: require('@/assets/images/page-img/56.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
@@ -734,7 +734,7 @@ export default {
           ]
         },
         {
-          img: require('../../../assets/images/page-img/57.jpg'),
+          img: require('@/assets/images/page-img/57.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
@@ -752,7 +752,7 @@ export default {
           ]
         },
         {
-          img: require('../../../assets/images/page-img/58.jpg'),
+          img: require('@/assets/images/page-img/58.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
@@ -770,7 +770,7 @@ export default {
           ]
         },
         {
-          img: require('../../../assets/images/page-img/51.jpg'),
+          img: require('@/assets/images/page-img/51.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
@@ -788,7 +788,7 @@ export default {
           ]
         },
         {
-          img: require('../../../assets/images/page-img/52.jpg'),
+          img: require('@/assets/images/page-img/52.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
@@ -806,7 +806,7 @@ export default {
           ]
         },
         {
-          img: require('../../../assets/images/page-img/53.jpg'),
+          img: require('@/assets/images/page-img/53.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
