@@ -81,6 +81,7 @@ const Profile = () => import("../views/User/Profile");
 const ProfileEdit = () => import("../views/User/ProfileEdit");
 const AddUser = () => import("../views/User/AddUser");
 const SocialApp = () => import("../views/Apps/Social/SocialApp");
+const PostDetail = () => import("../views/SocailMain/PostDetail");
 /* Todo */
 // const TodoListing = () => import('../views/Apps/Todo/TodoListing')
 const ChatIndex = () => import("../views/Apps/Chat/Index");
@@ -130,6 +131,12 @@ const childRoutes = (prop, mode) => [
     name: prop + '.profile-video',
     meta: { auth: true, name: 'Profile Video', img: require('../assets/images/page-img/profile-bg9.jpg') },
     component: ProfileVideo
+  },
+  {
+    path: "/post-detail",
+    name: prop + ".post",
+    meta: { auth: true, name: "Post Detail" },
+    component: PostDetail
   },
   // {
   //   path: 'profile-event',

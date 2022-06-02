@@ -99,13 +99,26 @@
       </div>
     </template>
     <hr class="m-0">
+
     <div class="user-post">
-      <p
-        v-if="post.description"
-        class="p-2"
-      >
-        {{ post.description }}
-      </p>
+      <div>
+        <div class="row">
+          <div class="col-4">
+            <h5
+              v-if="post.description"
+              class="p-2"
+            >
+              <b>{{ post.title }}</b>
+            </h5>  
+          </div>
+        </div>
+        <p
+          v-if="post.description"
+          class="p-2"
+        >
+          {{ post.description }}
+        </p>
+      </div>
       <div id="photo-grid">
         <photo-grid
           :box-height="'400px'"
@@ -118,6 +131,26 @@
             :src="image"
           >
         </photo-grid>
+      </div>
+      <div class="row justify-content-end">
+        <b-badge
+          variant="primary"
+          style="margin-right: 1em"
+        >
+          Nik Jon
+        </b-badge>
+        <b-badge
+          variant="primary"
+          style="margin-right: 1em"
+        >
+          Book
+        </b-badge>
+        <b-badge
+          variant="primary"
+          style="margin-right: 1em"
+        >
+          Food
+        </b-badge>
       </div>
     </div>
     <div class="comment-area p-3">
@@ -445,5 +478,8 @@ export default {
   .dropdown-menu .dropdown-item:focus, .dropdown-menu .dropdown-item:hover{
     background: transparent;
     color: var(--iq-primary) !important;
+  }
+  .tag{
+   padding-right: 5px;
   }
 </style>

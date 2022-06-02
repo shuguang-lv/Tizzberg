@@ -6,7 +6,9 @@ export const Posts = [
       require('../../assets/images/page-img/p1.jpg')
     ],
     image: require('../../assets/images/page-img/p1.jpg'),
-    description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+    title: 'The title of Post',
+    description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text' 
+    + 'of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.' ,
     id: '1',
     likes: 120,
     time: new Date('January 19, 2020 11:30:25'),
