@@ -23,9 +23,9 @@
       v-if="item.isPrivate"
       class="chat-meta float-right text-center mt-2 mr-1"
     >
-      <div class="chat-msg-counter bg-primary text-white">
+      <!-- <div class="chat-msg-counter bg-primary text-white">
         20
-      </div>
+      </div> -->
       <span class="text-nowrap">05 min</span>
     </div>
   </div>
