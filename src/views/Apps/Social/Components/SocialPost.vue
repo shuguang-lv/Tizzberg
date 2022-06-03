@@ -5,11 +5,31 @@
         <div class="d-flex flex-wrap">
           <div class="media-support-user-img mr-3">
             <b-img
+              id="user-img"
               rounded="circle"
               fluid
               :src="post.user.profile"
               alt=""
             />
+            <b-popover
+              id="popover-user-info"
+              target="user-img"
+              triggers="hover"
+              placement="left"
+            >
+              <template v-slot:title>
+                <small>User Info</small>
+              </template>
+              <b-row class="user-info-item">
+                <i class="fa fa-envelope popover-i" /> user@gmail.com
+              </b-row>
+              <b-row class="user-info-item">
+                <i class="fa fa-gift popover-i" /> May 10th 1998
+              </b-row>
+              <b-row class="user-info-item">
+                <i class="fa fa-user popover-i" /> Developer
+              </b-row>
+            </b-popover>
           </div>
           <div class="media-support-info mt-2">
             <h5 class="mb-0">
@@ -482,4 +502,14 @@ export default {
   .tag{
    padding-right: 5px;
   }
+  .popover-i {
+    color: #50b5ff;
+    margin-right: 0.5em;
+  }
+  .user-info-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
 </style>
