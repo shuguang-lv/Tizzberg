@@ -2,7 +2,7 @@
   <b-row>
     <b-col sm="12">
       <b-row class=" m-0 p-0">
-        <b-col lg="8">
+        <b-col lg="12">
           <tab-content id="pills-tabContent-2">
             <tab-content-item
               id="profile-feed"
@@ -182,8 +182,8 @@
             </tab-content-item>
           </tab-content>
         </b-col>
-        <b-col lg="4">
-          <!-- <IqCard>
+        <!-- <b-col lg="4"> -->
+        <!-- <IqCard>
             <template v-slot:headerTitle>
               <h4 class="card-title">
                 Upcomming Birthday
@@ -214,7 +214,7 @@
               </ul>
             </template>
           </IqCard> -->
-          <IqCard>
+        <!-- <IqCard>
             <template v-slot:headerTitle>
               <h4 class="card-title">
                 Suggested Pages
@@ -255,7 +255,7 @@
               </ul>
             </template>
           </IqCard>
-        </b-col>
+        </b-col> -->
       </b-row>
     </b-col>
     <div class="col-sm-12 text-center">

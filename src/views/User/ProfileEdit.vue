@@ -231,7 +231,7 @@
                                              </textarea>
                     </div>
                   </div>
-                  <button
+                  <!-- <button
                     type="submit"
                     class="btn btn-primary mr-2"
                   >
@@ -242,7 +242,7 @@
                     class="btn iq-bg-danger"
                   >
                     Cancle
-                  </button>
+                  </button> -->
                 </form>
               </div>
             </div>
@@ -293,7 +293,7 @@
                       value=""
                     >
                   </div>
-                  <button
+                  <!-- <button
                     type="submit"
                     class="btn btn-primary mr-2"
                   >
@@ -304,7 +304,7 @@
                     class="btn iq-bg-danger"
                   >
                     Cancle
-                  </button>
+                  </button> -->
                 </form>
               </div>
             </div>
@@ -444,7 +444,7 @@
                       </div>
                     </div>
                   </div>
-                  <button
+                  <!-- <button
                     type="submit"
                     class="btn btn-primary mr-2"
                   >
@@ -455,7 +455,7 @@
                     class="btn iq-bg-danger"
                   >
                     Cancle
-                  </button>
+                  </button> -->
                 </form>
               </div>
             </div>
@@ -502,7 +502,7 @@
                       value="https://getbootstrap.com"
                     >
                   </div>
-                  <button
+                  <!-- <button
                     type="submit"
                     class="btn btn-primary mr-2"
                   >
@@ -513,7 +513,7 @@
                     class="btn iq-bg-danger"
                   >
                     Cancle
-                  </button>
+                  </button> -->
                 </form>
               </div>
             </div>
@@ -525,7 +525,7 @@
 </template>
 
 <script>
-import { socialvue } from "../../config/pluginInit";
+import { socialvue } from "@/config/pluginInit";
 
 export default {
   name: "ProfileEdit",

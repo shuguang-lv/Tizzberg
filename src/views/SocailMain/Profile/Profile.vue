@@ -11,8 +11,25 @@
                 class="rounded img-fluid"
               >
               <ul class="header-nav d-flex flex-wrap justify-end p-0 m-0">
-                <li><a href="javascript:void(0);"><i class="ri-pencil-line" /></a></li>
-                <li><a href="javascript:void(0);"><i class="ri-settings-4-line" /></a></li>
+                <b-button
+                  v-b-modal.modal-1
+                  pill
+                  variant="light"
+                  class="mr-4"
+                >
+                  <i class="ri-pencil-fill" />
+                </b-button>
+                <b-modal
+                  id="modal-1"
+                  centered
+                  title="Edit Profile"
+                  ok-title="Save Changes"
+                  cancel-title="Close"
+                  size="xl"
+                  scrollable
+                >
+                  <ProfileEdit />
+                </b-modal>
               </ul>
             </div>
             <div class="user-detail text-center mb-3">
@@ -30,7 +47,9 @@
               </div>
               <div />
             </div>
-            <div class="profile-info p-4 d-flex align-items-center justify-content-between position-relative">
+            <div
+              class="profile-info p-4 d-flex align-items-center justify-content-between position-relative"
+            >
               <!-- <div class="social-links">
                 <ul class="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0">
                   <li
@@ -47,9 +66,11 @@
                 </ul>
               </div> -->
               <div class="social-info">
-                <ul class="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0">
+                <ul
+                  class="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0"
+                >
                   <li
-                    v-for="(i,index) in soicalInfo"
+                    v-for="(i, index) in soicalInfo"
                     :key="index"
                     class="text-center pl-3"
                   >
@@ -331,13 +352,15 @@
                 >
                   <b-row>
                     <b-col
-                      v-for="(item,index) in profileImages"
+                      v-for="(item, index) in profileImages"
                       :key="index"
                       md="6"
                       lg="3"
                       class="mb-3"
                     >
-                      <div class="user-images position-relative overflow-hidden">
+                      <div
+                        class="user-images position-relative overflow-hidden"
+                      >
                         <a href="#">
                           <img
                             :src="item.img"
@@ -347,15 +370,19 @@
                         </a>
                         <div class="image-hover-data">
                           <div class="product-elements-icon">
-                            <ul class="d-flex align-items-center m-0 p-0 list-inline">
+                            <ul
+                              class="d-flex align-items-center m-0 p-0 list-inline"
+                            >
                               <li
-                                v-for="(item,index1) in item.otherInfo"
+                                v-for="(item, index1) in item.otherInfo"
                                 :key="index1"
                               >
                                 <a
                                   href="#"
                                   class="pr-3 text-white"
-                                > {{ item.value }} <i :class="item.class" /> </a>
+                                >
+                                  {{ item.value }} <i :class="item.class" />
+                                </a>
                               </li>
                             </ul>
                           </div>
@@ -367,7 +394,9 @@
                           data-placement="top"
                           title=""
                           data-original-title="Edit or Remove"
-                        ><i class="ri-edit-2-fill" /></a>
+                        ><i
+                          class="ri-edit-2-fill"
+                        /></a>
                       </div>
                     </b-col>
                   </b-row>
@@ -389,7 +418,7 @@
       <img
         src="@/assets/images/page-img/page-load-loader.gif"
         alt="loader"
-        style="height: 100px;"
+        style="height: 100px"
       >
     </div>
   </b-row>
@@ -398,6 +427,7 @@
 <script>
 import { socialvue } from '@/config/pluginInit'
 import AddSocialPost from '../../Apps/Social/Components/AddSocialPost'
+import ProfileEdit from '@/views/User/ProfileEdit'
 import Post from '@/Model/Post'
 import { Posts } from '@/FackApi/api/SocialPost'
 import SocialPost from '../../Apps/Social/Components/SocialPost'
@@ -410,10 +440,11 @@ export default {
     FriendTab,
     ProfileImage,
     // AddSocialPost,
+    ProfileEdit,
     SocialPost,
-    About
+    About,
   },
-  data () {
+  data() {
     return {
       post: new Post(),
       socialPosts: Posts,
@@ -423,71 +454,71 @@ export default {
         require('@/assets/images/icon/10.png'),
         require('@/assets/images/icon/11.png'),
         require('@/assets/images/icon/12.png'),
-        require('@/assets/images/icon/13.png')
+        require('@/assets/images/icon/13.png'),
       ],
       lifeEvent: [
         {
           img: require('@/assets/images/page-img/07.jpg'),
           heading: 'Started New Job at Apple',
-          date: 'January 24, 2019'
+          date: 'January 24, 2019',
         },
         {
           img: require('@/assets/images/page-img/08.jpg'),
           heading: 'Freelance Photographer',
-          date: 'January 24, 2019'
-        }
+          date: 'January 24, 2019',
+        },
       ],
       friends: [
         {
           img: require('@/assets/images/user/05.jpg'),
-          name: 'Anna Rexia'
+          name: 'Anna Rexia',
         },
         {
           img: require('@/assets/images/user/06.jpg'),
-          name: 'Tara Zona'
+          name: 'Tara Zona',
         },
         {
           img: require('@/assets/images/user/07.jpg'),
-          name: 'Polly Tech'
+          name: 'Polly Tech',
         },
         {
           img: require('@/assets/images/user/08.jpg'),
-          name: 'Bill Emia'
+          name: 'Bill Emia',
         },
         {
           img: require('@/assets/images/user/09.jpg'),
-          name: 'Moe Fugga'
+          name: 'Moe Fugga',
         },
         {
           img: require('@/assets/images/user/10.jpg'),
-          name: 'Hal Appeno '
+          name: 'Hal Appeno ',
         },
         {
           img: require('@/assets/images/user/09.jpg'),
-          name: 'Zack Lee'
+          name: 'Zack Lee',
         },
         {
           img: require('@/assets/images/user/07.jpg'),
-          name: 'Terry Aki'
+          name: 'Terry Aki',
         },
         {
           img: require('@/assets/images/user/08.jpg'),
-          name: 'Greta Life'
-        }
+          name: 'Greta Life',
+        },
       ],
       soicalInfo: [
         {
           name: 'Post',
-          value: 690
+          value: 690,
         },
         {
           name: 'Followers',
-          value: 90
+          value: 90,
         },
         {
           name: 'Following',
-          value: 100
-        }
+          value: 100,
+        },
       ],
       phtoes: [
         require('@/assets/images/page-img/g1.jpg'),
@@ -498,7 +529,7 @@ export default {
         require('@/assets/images/page-img/g5.jpg'),
         require('@/assets/images/page-img/g6.jpg'),
         require('@/assets/images/page-img/g7.jpg'),
-        require('@/assets/images/page-img/g8.jpg')
+        require('@/assets/images/page-img/g8.jpg'),
       ],
 
       profileImages: [
@@ -507,353 +538,342 @@ export default {
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
-              value: 10
+              value: 10,
             },
             {
               class: 'ri-chat-3-line',
-              value: 2
-
+              value: 2,
             },
             {
               class: 'ri-share-forward-line',
-              value: 1
-            }
-          ]
+              value: 1,
+            },
+          ],
         },
         {
           img: require('@/assets/images/page-img/52.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
-              value: 10
+              value: 10,
             },
             {
               class: 'ri-chat-3-line',
-              value: 2
-
+              value: 2,
             },
             {
               class: 'ri-share-forward-line',
-              value: 1
-            }
-          ]
+              value: 1,
+            },
+          ],
         },
         {
           img: require('@/assets/images/page-img/53.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
-              value: 120
+              value: 120,
             },
             {
               class: 'ri-chat-3-line',
-              value: 21
-
+              value: 21,
             },
             {
               class: 'ri-share-forward-line',
-              value: 10
-            }
-          ]
+              value: 10,
+            },
+          ],
         },
         {
           img: require('@/assets/images/page-img/54.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
-              value: 100
+              value: 100,
             },
             {
               class: 'ri-chat-3-line',
-              value: 20
-
+              value: 20,
             },
             {
               class: 'ri-share-forward-line',
-              value: 120
-            }
-          ]
+              value: 120,
+            },
+          ],
         },
         {
           img: require('@/assets/images/page-img/55.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
-              value: 107
+              value: 107,
             },
             {
               class: 'ri-chat-3-line',
-              value: 20
-
+              value: 20,
             },
             {
               class: 'ri-share-forward-line',
-              value: 101
-            }
-          ]
+              value: 101,
+            },
+          ],
         },
         {
           img: require('@/assets/images/page-img/56.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
-              value: 105
+              value: 105,
             },
             {
               class: 'ri-chat-3-line',
-              value: 25
-
+              value: 25,
             },
             {
               class: 'ri-share-forward-line',
-              value: 15
-            }
-          ]
+              value: 15,
+            },
+          ],
         },
         {
           img: require('@/assets/images/page-img/57.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
-              value: 107
+              value: 107,
             },
             {
               class: 'ri-chat-3-line',
-              value: 27
-
+              value: 27,
             },
             {
               class: 'ri-share-forward-line',
-              value: 17
-            }
-          ]
+              value: 17,
+            },
+          ],
         },
         {
           img: require('@/assets/images/page-img/58.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
-              value: 106
+              value: 106,
             },
             {
               class: 'ri-chat-3-line',
-              value: 26
-
+              value: 26,
             },
             {
               class: 'ri-share-forward-line',
-              value: 14
-            }
-          ]
+              value: 14,
+            },
+          ],
         },
         {
           img: require('@/assets/images/page-img/51.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
-              value: 10
+              value: 10,
             },
             {
               class: 'ri-chat-3-line',
-              value: 2
-
+              value: 2,
             },
             {
               class: 'ri-share-forward-line',
-              value: 1
-            }
-          ]
+              value: 1,
+            },
+          ],
         },
         {
           img: require('@/assets/images/page-img/52.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
-              value: 10
+              value: 10,
             },
             {
               class: 'ri-chat-3-line',
-              value: 2
-
+              value: 2,
             },
             {
               class: 'ri-share-forward-line',
-              value: 1
-            }
-          ]
+              value: 1,
+            },
+          ],
         },
         {
           img: require('@/assets/images/page-img/53.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
-              value: 120
+              value: 120,
             },
             {
               class: 'ri-chat-3-line',
-              value: 21
-
+              value: 21,
             },
             {
               class: 'ri-share-forward-line',
-              value: 10
-            }
-          ]
+              value: 10,
+            },
+          ],
         },
         {
           img: require('@/assets/images/page-img/54.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
-              value: 100
+              value: 100,
             },
             {
               class: 'ri-chat-3-line',
-              value: 20
-
+              value: 20,
             },
             {
               class: 'ri-share-forward-line',
-              value: 120
-            }
-          ]
+              value: 120,
+            },
+          ],
         },
         {
           img: require('@/assets/images/page-img/55.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
-              value: 107
+              value: 107,
             },
             {
               class: 'ri-chat-3-line',
-              value: 20
-
+              value: 20,
             },
             {
               class: 'ri-share-forward-line',
-              value: 101
-            }
-          ]
+              value: 101,
+            },
+          ],
         },
         {
           img: require('@/assets/images/page-img/56.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
-              value: 105
+              value: 105,
             },
             {
               class: 'ri-chat-3-line',
-              value: 25
-
+              value: 25,
             },
             {
               class: 'ri-share-forward-line',
-              value: 15
-            }
-          ]
+              value: 15,
+            },
+          ],
         },
         {
           img: require('@/assets/images/page-img/57.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
-              value: 107
+              value: 107,
             },
             {
               class: 'ri-chat-3-line',
-              value: 27
-
+              value: 27,
             },
             {
               class: 'ri-share-forward-line',
-              value: 17
-            }
-          ]
+              value: 17,
+            },
+          ],
         },
         {
           img: require('@/assets/images/page-img/58.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
-              value: 106
+              value: 106,
             },
             {
               class: 'ri-chat-3-line',
-              value: 26
-
+              value: 26,
             },
             {
               class: 'ri-share-forward-line',
-              value: 14
-            }
-          ]
+              value: 14,
+            },
+          ],
         },
         {
           img: require('@/assets/images/page-img/51.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
-              value: 10
+              value: 10,
             },
             {
               class: 'ri-chat-3-line',
-              value: 2
-
+              value: 2,
             },
             {
               class: 'ri-share-forward-line',
-              value: 1
-            }
-          ]
+              value: 1,
+            },
+          ],
         },
         {
           img: require('@/assets/images/page-img/52.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
-              value: 10
+              value: 10,
             },
             {
               class: 'ri-chat-3-line',
-              value: 2
-
+              value: 2,
             },
             {
               class: 'ri-share-forward-line',
-              value: 1
-            }
-          ]
+              value: 1,
+            },
+          ],
         },
         {
           img: require('@/assets/images/page-img/53.jpg'),
           otherInfo: [
             {
               class: 'ri-thumb-up-line',
-              value: 120
+              value: 120,
             },
             {
               class: 'ri-chat-3-line',
-              value: 21
-
+              value: 21,
             },
             {
               class: 'ri-share-forward-line',
-              value: 10
-            }
-          ]
-        }
-      ]
+              value: 10,
+            },
+          ],
+        },
+      ],
     }
   },
-  mounted () {
+  mounted() {
     socialvue.index()
   },
   methods: {
-    addPost (post) {
+    addPost(post) {
       this.socialPosts.unshift(post)
-    }
-  }
+    },
+  },
 }
 </script>
+
+<style scoped>
+.profile-header .user-detail {
+  left: 50% !important;
+  width: 200px;
+  transform: translateX(-50%);
+}
+</style>

@@ -248,7 +248,7 @@ a:hover { text-decoration: none; }
 /*---------------------------------------------------------------------
                                 Sidebar
 -----------------------------------------------------------------------*/
-.iq-sidebar { position: fixed; z-index: 999; top: 75px; width: 250px; height: 100%; background: var(--iq-white); transition: all 0.3s ease-in-out; transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out; -ms-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; -webkit-transition: all 0.3s ease-in-out; -webkit-box-shadow: 0px 0px 20px 0px rgba(44, 101, 144, 0.1); -moz-box-shadow: 0px 0px 20px 0px rgba(44, 101, 144, 0.1); box-shadow: 0px 0px 20px 0px rgba(44, 101, 144, 0.1); }
+.iq-sidebar { position: fixed; z-index: 9; top: 75px; width: 250px; height: 100%; background: var(--iq-white); transition: all 0.3s ease-in-out; transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out; -ms-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; -webkit-transition: all 0.3s ease-in-out; -webkit-box-shadow: 0px 0px 20px 0px rgba(44, 101, 144, 0.1); -moz-box-shadow: 0px 0px 20px 0px rgba(44, 101, 144, 0.1); box-shadow: 0px 0px 20px 0px rgba(44, 101, 144, 0.1); }
 .iq-sidebar .iq-sidebar-logo { float: none; width: 100%; }
 .iq-sidebar #sidebar-scrollbar { margin-top: 15px; }
 
@@ -301,7 +301,7 @@ body.sidebar-main .iq-sidebar .iq-sidebar-menu .iq-menu li ul.iq-submenu-data li
 /*---------------------------------------------------------------------
                              Top Menu
 -----------------------------------------------------------------------*/
-.iq-top-navbar { padding: 0 15px; min-height: 73px; line-height: 73px; position: fixed; top: 0; left: auto; right: 0; width: 100%; display: inline-block; z-index: 9999; background: var(--iq-white); margin: 0; transition: all 0.45s ease 0s; box-shadow: 0px 0px 20px 0px rgba(44, 101, 144, 0.1); }
+.iq-top-navbar { padding: 0 15px; min-height: 73px; line-height: 73px; position: fixed; top: 0; left: auto; right: 0; width: 100%; display: inline-block; z-index: 99; background: var(--iq-white); margin: 0; transition: all 0.45s ease 0s; box-shadow: 0px 0px 20px 0px rgba(44, 101, 144, 0.1); }
 .iq-top-navbar .navbar-expand-lg { justify-content: space-between !important; }
 .iq-top-navbar .navbar-collapse { flex-grow: unset; }
 .iq-top-navbar.fixed-header { margin: 0; right: 0; width: calc(100% - 260px); border-radius: 0; transition: all 0.45s ease 0s; }
@@ -683,7 +683,7 @@ div#post-modal-data .modal .modal-dialog { max-width: 100%; margin: 0; }
                         Right Sidebar Menu
 ------------------------------------------------------------------- */
 #right-sidebar-scrollbar { height: 100vh; }
-.iq-sidebar-right-menu { position: fixed; top: 75px; right: -400px; width: 360px; background: var(--iq-border-light); overflow: hidden; z-index: 99; -webkit-transition: all 0.5s ease-out 0s; -moz-transition: all 0.5s ease-out 0s; -ms-transition: all 0.5s ease-out 0s; -o-transition: all 0.5s ease-out 0s; transition: all 0.5s ease-out 0s; }
+.iq-sidebar-right-menu { position: fixed; top: 75px; right: -400px; width: 360px; background: var(--iq-border-light); overflow: hidden; z-index: 9; -webkit-transition: all 0.5s ease-out 0s; -moz-transition: all 0.5s ease-out 0s; -ms-transition: all 0.5s ease-out 0s; -o-transition: all 0.5s ease-out 0s; transition: all 0.5s ease-out 0s; }
 .iq-sidebar-right-menu.film-side { right: 0; }
 .iq-sidebar-booking, .iq-sidebar-payment { padding: 30px; }
 .iq-booking-ticket { background: var(--iq-white); border-radius: 4px; padding: 30px 25px 30px; position: relative; }

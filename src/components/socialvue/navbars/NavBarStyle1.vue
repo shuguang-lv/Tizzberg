@@ -381,7 +381,7 @@
                         </div>
                       </div>
                     </router-link>
-                    <router-link
+                    <!-- <router-link
                       to="/user/profile-edit"
                       class="iq-sub-card iq-bg-warning-hover"
                     >
@@ -398,7 +398,7 @@
                           </p>
                         </div>
                       </div>
-                    </router-link>
+                    </router-link> -->
                     <router-link
                       to="/account-setting"
                       class="iq-sub-card iq-bg-info-hover"
