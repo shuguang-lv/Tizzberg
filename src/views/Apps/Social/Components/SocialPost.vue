@@ -46,6 +46,62 @@
           </div>
           <div class="iq-card-header-toolbar d-flex align-items-center">
             <b-dropdown
+              id="dropdownMenuButton-visibility"
+              right
+              variant="none"
+              menu-class="p-0"
+            >
+              <template v-slot:button-content>
+                <b-link
+                  href="javascript:void(0)"
+                  class="text-secondary"
+                >
+                  <i class="ml-3 ri-eye-line" />
+                </b-link>
+              </template>
+              <a
+                class="dropdown-item p-3"
+                href="javascript:void(0)"
+                @click="isFollowed(!post.is_follow)"
+              >
+                <div class="d-flex align-items-top">
+                  <div class="icon font-size-20"><i class="ri-open-arm-line" /></div>
+                  <div class="data ml-2">
+                    <span>
+                      <h6> Public </h6>
+                    </span>
+                    <p class="mb-0">This post is visible to all users</p>
+                  </div>
+                </div>
+              </a>
+              <a
+                href="javascript:void(0)"
+                class="dropdown-item p-3"
+              >
+                <div class="d-flex align-items-top">
+                  <div class="icon font-size-20"><i class="ri-group-line" /></div>
+                  <div class="data ml-2">
+                    <h6>Follower</h6>
+                    <p class="mb-0">This post is only visible to your followers</p>
+                  </div>
+                </div>
+              </a>
+              <a
+                href="javascript:void(0)"
+                class="dropdown-item p-3"
+              >
+                <div class="d-flex align-items-top">
+                  <div class="icon font-size-20"><i class="ri-git-repository-private-line" /></div>
+                  <div class="data ml-2">
+                    <h6>Private</h6>
+                    <p class="mb-0">Only yourself can see this post</p>
+                  </div>
+                </div>
+              </a>
+            </b-dropdown>
+          </div>
+          <div class="iq-card-header-toolbar d-flex align-items-center">
+            <b-dropdown
               id="dropdownMenuButton40"
               right
               variant="none"
@@ -94,7 +150,7 @@
                 class="dropdown-item p-3"
               >
                 <div class="d-flex align-items-top">
-                  <div class="icon font-size-20"><i class="ri-close-circle-line" /></div>
+                  <div class="icon font-size-20"><i class="ri-eye-off-line" /></div>
                   <div class="data ml-2">
                     <h6>Hide Post</h6>
                     <p class="mb-0">See fewer posts like this.</p>
@@ -110,6 +166,18 @@
                   <div class="data ml-2">
                     <h6>Notifications</h6>
                     <p class="mb-0">Turn on notifications for this post</p>
+                  </div>
+                </div>
+              </a>
+              <a
+                class="dropdown-item p-3"
+                href="javascript:void(0)"
+              >
+                <div class="d-flex align-items-top">
+                  <div class="icon font-size-20"><i class="ri-delete-bin-line" /></div>
+                  <div class="data ml-2">
+                    <h6>Delete Post</h6>
+                    <p class="mb-0">Delete this post</p>
                   </div>
                 </div>
               </a>
