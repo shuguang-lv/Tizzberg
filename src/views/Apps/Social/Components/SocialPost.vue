@@ -62,7 +62,6 @@
               <a
                 class="dropdown-item p-3"
                 href="javascript:void(0)"
-                @click="isFollowed(!post.is_follow)"
               >
                 <div class="d-flex align-items-top">
                   <div class="icon font-size-20"><i class="ri-open-arm-line" /></div>
