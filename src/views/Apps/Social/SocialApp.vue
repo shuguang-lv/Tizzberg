@@ -3,13 +3,55 @@
     <b-col sm="12">
       <b-row class=" m-0 p-0">
         <b-col lg="12">
+          <AddSocialPost @addPost="addPost" />
+          <IqCard class="iq-card">
+            <div class="iq-card-body p-0">
+              <div class="user-tabing">
+                <tab-nav
+                  id="pills-tab"
+                  :pills="true"
+                  class="nav nav-pills d-flex align-items-center justify-content-center profile-feed-items p-0 m-0"
+                >
+                  <tab-nav-items
+                    id="pills-feed-tab"
+                    class="col-sm-4 p-0"
+                    :active="true"
+                    href="#post-following"
+                    aria-controls="pills-home"
+                    role="tab"
+                    :aria-selected="true"
+                    title="Following"
+                  />
+                  <tab-nav-items
+                    id="pills-activity-tab"
+                    class="col-sm-4 p-0"
+                    :active="false"
+                    href="#post-hot"
+                    aria-controls="pills-profile"
+                    role="tab"
+                    :aria-selected="false"
+                    title="Hot"
+                  />
+                  <tab-nav-items
+                    id="pills-friend-tab"
+                    class="col-sm-4 p-0"
+                    :active="false"
+                    href="#post-latest"
+                    aria-controls="pills-contact"
+                    role="tab"
+                    :aria-selected="false"
+                    title="Latest"
+                  />
+                </tab-nav>
+              </div>
+            </div>
+          </IqCard>
           <tab-content id="pills-tabContent-2">
             <tab-content-item
-              id="profile-feed"
+              id="post-following"
               :active="true"
               aria-labelled-by="pills-feed-tab"
             >
-              <AddSocialPost @addPost="addPost" />
               <div
                 v-for="post in socialPosts"
                 :key="post.id"
@@ -18,6 +60,30 @@
               </div>
             </tab-content-item>
             <tab-content-item
+              id="post-hot"
+              :active="true"
+              aria-labelled-by="pills-feed-tab"
+            >
+              <div
+                v-for="post in socialPosts"
+                :key="post.id"
+              >
+                <SocialPost :post="post" />
+              </div>
+            </tab-content-item>
+            <tab-content-item
+              id="post-latest"
+              :active="true"
+              aria-labelled-by="pills-feed-tab"
+            >
+              <div
+                v-for="post in socialPosts"
+                :key="post.id"
+              >
+                <SocialPost :post="post" />
+              </div>
+            </tab-content-item>
+            <!-- <tab-content-item
               id="profile-activity"
               :active="false"
               aria-labelled-by="pills-activity-tab"
@@ -179,11 +245,11 @@
                   </div>
                 </template>
               </IqCard>
-            </tab-content-item>
-          </tab-content>
+            </tab-content-item> -->
+          </tab-content>        
         </b-col>
-        <!-- <b-col lg="4"> -->
-        <!-- <IqCard>
+        <!-- <b-col lg="4">
+          <IqCard>
             <template v-slot:headerTitle>
               <h4 class="card-title">
                 Upcomming Birthday
@@ -213,8 +279,8 @@
                 </li>
               </ul>
             </template>
-          </IqCard> -->
-        <!-- <IqCard>
+          </IqCard>
+          <IqCard>
             <template v-slot:headerTitle>
               <h4 class="card-title">
                 Suggested Pages
