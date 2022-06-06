@@ -147,7 +147,7 @@
               </div>
               <h6>Your Story</h6>
             </div>
-            <div class="iq-card-post-toolbar">
+            <!-- <div class="iq-card-post-toolbar">
               <b-dropdown
                 id="dropdownMenuButton40"
                 right
@@ -226,6 +226,61 @@
                     </div>
                   </div>
                 </b-dropdown-item>
+              </b-dropdown>
+            </div> -->
+            <div class="iq-card-header-toolbar d-flex align-items-center">
+              <b-dropdown
+                id="dropdownMenuButton-visibility"
+                right
+                variant="none"
+                menu-class="p-0"
+              >
+                <template v-slot:button-content>
+                  <b-link
+                    href="javascript:void(0)"
+                    class="text-secondary"
+                  >
+                    <i class="ml-3 ri-eye-line" />
+                  </b-link>
+                </template>
+                <a
+                  class="dropdown-item p-3"
+                  href="javascript:void(0)"
+                >
+                  <div class="d-flex align-items-top">
+                    <div class="icon font-size-20"><i class="ri-open-arm-line" /></div>
+                    <div class="data ml-2">
+                      <span>
+                        <h6> Public </h6>
+                      </span>
+                      <p class="mb-0">This post is visible to all users</p>
+                    </div>
+                  </div>
+                </a>
+                <a
+                  href="javascript:void(0)"
+                  class="dropdown-item p-3"
+                >
+                  <div class="d-flex align-items-top">
+                    <div class="icon font-size-20"><i class="ri-group-line" /></div>
+                    <div class="data ml-2">
+                      <h6>Follower</h6>
+                      <p class="mb-0">This post is only visible to your followers</p>
+                    </div>
+                  </div>
+                </a>
+                <a
+                  href="javascript:void(0)"
+                  class="dropdown-item p-3"
+                >
+                  <div class="d-flex align-items-top">
+                    <div class="icon font-size-20"><i class="ri-git-repository-private-line" /></div>
+                    <div class="data ml-2">
+                      <h6>Private</h6>
+                      <p class="mb-0">Only yourself can see this post</p>
+                    </div>
+                  </div>
+                </a>
               </b-dropdown>
             </div>
           </div>
