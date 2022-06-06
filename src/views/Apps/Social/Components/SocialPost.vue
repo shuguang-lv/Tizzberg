@@ -40,9 +40,9 @@
                 {{ post.user.name }}
               </b-link>
             </h5>
-            <p class="mb-0 text-secondary">
+            <!-- <p class="mb-0 text-secondary">
               {{ post.time | formatDate }}
-            </p>
+            </p> -->
           </div>
           <div class="iq-card-header-toolbar d-flex align-items-center">
             <b-dropdown
@@ -488,7 +488,7 @@
                 <b-link href="javascript:void(0);">
                   reply
                 </b-link>
-                <span>{{ postComment.user.time | formatDate }}</span>
+                <!-- <span>{{ postComment.user.time | formatDate }}</span> -->
               </div>
             </div>
           </div>

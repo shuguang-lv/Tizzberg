@@ -141,7 +141,7 @@ export default {
   },
   data () {
     return {
-      miniClass: '',
+      miniClass: 'right-sidebar',
       showChat: true,
       animated: { enter: 'zoomIn', exit: 'zoomOut' },
       animateClass: [
