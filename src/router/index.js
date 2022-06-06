@@ -9,10 +9,10 @@ const AuthLayout = () => import("../layouts/AuthLayouts/AuthLayout");
 const SocialProfile = () => import("../views/SocailMain/Profile/Profile");
 // const ProfileImage = () => import('../views/SocailMain/Profile/ProfileImage')
 const ProfileVideo = () => import('../views/SocailMain/Profile/ProfileVideo')
-// const ProfileEvent = () => import('../views/SocailMain/Profile/ProfileEvent')
+const Fiction = () => import('../views/SocailMain/Fiction/Fiction')
 const FriendList = () => import("../views/SocailMain/Friends/FriendList");
 // const File = () => import('../views/SocailMain/File/File')
-const Group = () => import("../views/SocailMain/Group/Group");
+const Explore = () => import("../views/SocailMain/Explore/Explore");
 // const Birthday = () => import('../views/SocailMain/Bithdate/Bithdate')
 // const Music = () => import('../views/SocailMain/Music/Music')
 const Notification = () =>
@@ -111,14 +111,14 @@ const childRoutes = (prop, mode) => [
     component: FriendList
   },
   {
-    path: "tags",
-    name: prop + ".group",
+    path: "explore",
+    name: prop + ".explore",
     meta: {
       auth: true,
-      name: "Tags",
+      name: "Explore",
       img: require("../assets/images/page-img/profile-bg7.jpg")
     },
-    component: Group
+    component: Explore
   },
   // {
   //   path: 'profile-image',
@@ -138,12 +138,12 @@ const childRoutes = (prop, mode) => [
     meta: { auth: true, name: "Post Detail" },
     component: PostDetail
   },
-  // {
-  //   path: 'profile-event',
-  //   name: prop + '.profile-event',
-  //   meta: { auth: true, name: 'Your Event', img: require('../assets/images/page-img/profile-bg6.jpg') },
-  //   component: ProfileEvent
-  // },
+  {
+    path: 'fiction',
+    name: prop + '.fiction',
+    meta: { auth: true, name: 'Fiction', img: require('../assets/images/page-img/profile-bg6.jpg') },
+    component: Fiction
+  },
   {
     path: "notification",
     name: prop + ".notification",

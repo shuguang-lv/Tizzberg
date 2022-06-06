@@ -12,75 +12,27 @@
     "icon": "las la-newspaper"
   },
   {
-    "title": "Profile",
-    "name": "sidebar.profile",
+    "title": "Explore",
+    "name": "Explore",
     "is_heading": false,
     "is_active": false,
     "link": {
-      "name": "social.profile"
-    },
-    "class_name": "",
-    "is_icon_class": true,
-    "icon": "las la-user"
-  },
-  {
-    "title": "Profile Video",
-    "name": "sidebar.profile_video",
-    "is_heading": false,
-    "is_active": false,
-    "link": {
-      "name": "social.profile-video"
-    },
-    "class_name": "",
-    "is_icon_class": true,
-    "icon": "las la-video"
-  },
-  {
-    "title": "Friend Lists",
-    "name": "Following",
-    "is_heading": false,
-    "is_active": false,
-    "link": {
-      "name": "social.friend-list"
-    },
-    "class_name": "",
-    "is_icon_class": true,
-    "icon": "las la-user-friends"
-  },
-  {
-    "title": "Group",
-    "name": "Tags",
-    "is_heading": false,
-    "is_active": false,
-    "link": {
-      "name": "social.group"
+      "name": "social.explore"
     },
     "class_name": "",
     "is_icon_class": true,
     "icon": "las la-tag"
   },
   {
-    "title": "Notification",
-    "name": "sidebar.notifications",
+    "title": "Fiction",
+    "name": "Fiction",
     "is_heading": false,
     "is_active": false,
     "link": {
-      "name": "social.notification"
+      "name": "social.fiction"
     },
     "class_name": "",
     "is_icon_class": true,
-    "icon": "las la-bell"
-  },
-  {
-    "title": "Chat",
-    "name": "sidebar.chat",
-    "is_heading": false,
-    "is_active": false,
-    "link": {
-      "name": "app.chat"
-    },
-    "class_name": "",
-    "is_icon_class": true,
-    "icon": "lab la-rocketchat"
+    "icon": "las la-film"
   }
 ]
