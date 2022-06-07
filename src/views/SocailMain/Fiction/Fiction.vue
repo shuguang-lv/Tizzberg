@@ -1,57 +1,67 @@
 <template>
-  <b-row>
-    <b-col
-      v-for="(item,index) in fiction"
-      :key="index"
-      class="col-md-6 col-lg-4"
-    >
-      <iq-card class="rounded iq-card-block iq-card-stretch iq-card-height">
-        <div class="event-images">
-          <a href="#">
-            <img
-              :src="item.backgroudimg"
-              class="img-fluid"
-              alt="Responsive image"
-            >
-          </a>
-        </div>
-        <b-card-body class="iq-card-body">
-          <div class="d-flex">
-            <div class="date-of-event">
-              <span>{{ item.month }}</span>
-              <h5>{{ item.date }}</h5>
-            </div>
-            <div class="events-detail ml-3">
-              <h5>{{ item.name }}</h5>
-              <p>{{ item.text }}</p>
-              <div class="event-member">
-                <div class="iq-media-group">
-                  <a
-                    v-for="(user,index) in seenUser"
-                    :key="index"
-                    href="#"
-                    class="iq-media"
-                  >
-                    <img
-                      class="img-fluid avatar-40 rounded-circle"
-                      :src="user"
-                      alt=""
+  <div>
+    <b-row>
+      <b-col class="col-md-12">
+        <AddFiction />
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col
+        v-for="(item,index) in fiction"
+        :key="index"
+        class="col-md-6 col-lg-4"
+      >
+        <iq-card class="rounded iq-card-block iq-card-stretch iq-card-height">
+          <div class="event-images">
+            <a href="#">
+              <img
+                :src="item.backgroudimg"
+                class="img-fluid"
+                alt="Responsive image"
+              >
+            </a>
+          </div>
+          <b-card-body class="iq-card-body">
+            <div class="d-flex">
+              <div class="date-of-event">
+                <span>{{ item.month }}</span>
+                <h5>{{ item.date }}</h5>
+              </div>
+              <div class="events-detail ml-3">
+                <h5>{{ item.name }}</h5>
+                <p>{{ item.text }}</p>
+                <div class="event-member">
+                  <div class="iq-media-group">
+                    <a
+                      v-for="(user,index) in seenUser"
+                      :key="index"
+                      href="#"
+                      class="iq-media"
                     >
-                  </a>
+                      <img
+                        class="img-fluid avatar-40 rounded-circle"
+                        :src="user"
+                        alt=""
+                      >
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </b-card-body>
-      </iq-card>
-    </b-col>
-  </b-row>
+          </b-card-body>
+        </iq-card>
+      </b-col>
+    </b-row>
+  </div>
 </template>
 
 <script>
 import { socialvue } from '../../../config/pluginInit'
+import AddFiction from './AddFiction'
+
 export default {
   name: 'Fiction',
+  components: { AddFiction  },
   data () {
     return {
       fiction: [
