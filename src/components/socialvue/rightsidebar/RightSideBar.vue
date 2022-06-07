@@ -13,28 +13,28 @@
             >
               <button
                 class="btn-chat-data btn"
-                :class="showChat ? 'active' : ''"
-                @click="showChat = true"
+                :class="showFollowing ? 'active' : ''"
+                @click="showFollowing = true"
               >
-                Chat
+                Following
               </button>
 
               <button
                 class="btn-customizer-data btn"
-                :class="!showChat ? 'active' : ''"
-                @click="showChat = false"
+                :class="!showFollowing ? 'active' : ''"
+                @click="showFollowing = false"
               >
-                Theme customizer
+                Followers
               </button>
             </div>
           </div>
           <!-- chat!-->
           <div
-            v-show="showChat"
+            v-show="showFollowing"
             class="media-height iq-chat-data-block active-block p-3"
           >
             <div
-              v-for="(item,index) in users"
+              v-for="(item,index) in followings"
               :key="index"
               class="media align-items-center mb-4"
             >
@@ -56,65 +56,32 @@
             </div>
           </div>
           <!-- customization !-->
-          <iq-card
-            v-show="!showChat"
-            class="shadow-none iq-customizer-block active-block"
+          <div
+            v-show="!showFollowing"
+            class="media-height iq-chat-data-block active-block p-3"
           >
-            <template v-slot:body>
-              <b-row>
-                <div class=" mt-4 mb-4 w-100" />
-                <b-col
-                  cols="12"
-                  class="justify-content-between"
+            <div
+              v-for="(item,index) in followers"
+              :key="index"
+              class="media align-items-center mb-4"
+            >
+              <div class="iq-profile-avatar status-online">
+                <img
+                  class="rounded-circle avatar-50"
+                  :src="item.img"
+                  alt=""
                 >
-                  <h4 class="text-left mb-2">
-                    {{ $t('customizer.colorMode') }}
-                  </h4>
-                  <div class="text-center d-flex">
-                    <img
-                      :src="require('../../../assets/images/customizer/light.jpg')"
-                      alt="light"
-                      class="img-fluid"
-                      style="height: 120px;border: 2px solid var(--iq-primary)"
-                      @click="themeMode(false)"
-                    >
-                    <img
-                      :src="require('../../../assets/images/customizer/dark.jpg')"
-                      alt="dark"
-                      class="img-fluid ml-2"
-                      style="height: 120px;border: 2px solid var(--iq-primary)"
-                      @click="themeMode(true)"
-                    >
-                  </div>
-                </b-col>
-                <div class="border mt-4 mb-4 w-100" />
-                <b-col
-                  cols="12"
-                  class="justify-content-between"
-                >
-                  <h4 class="text-left mb-2">
-                    {{ $t('customizer.rtlMode') }}
-                  </h4>
-                  <div class="text-center d-flex">
-                    <img
-                      :src="require('../../../assets/images/customizer/rtl.jpg')"
-                      alt="ltr"
-                      class="img-fluid"
-                      style="height: 120px;border: 2px solid var(--iq-primary)"
-                      @click="rtlChange(true)"
-                    >
-                    <img
-                      :src="require('../../../assets/images/customizer/rtl.jpg')"
-                      alt="rtl"
-                      class="img-fluid ml-2"
-                      style="height: 120px;border: 2px solid var(--iq-primary)"
-                      @click="rtlChange(false)"
-                    >
-                  </div>
-                </b-col>
-              </b-row>
-            </template>
-          </iq-card>
+              </div>
+              <div class="media-body ml-3">
+                <h6 class="mb-0">
+                  <a href="#">{{ item.name }}</a>
+                </h6>
+                <p class="mb-0">
+                  {{ item.time }}
+                </p>
+              </div>
+            </div>
+          </div>
           <!-- toogle!-->
           <div
             class="right-sidebar-toggle bg-primary mt-3"
@@ -132,8 +99,8 @@
 
 <script>
 import { mapActions } from 'vuex'
-import loader from '../../../assets/images/logo.png'
-import darkLoader from '../../../assets/images/logo-white.png'
+import loader from '@/assets/images/logo.png'
+import darkLoader from '@/assets/images/logo-white.png'
 export default {
   name: 'RightSideBarStyle1',
   props: {
@@ -142,7 +109,7 @@ export default {
   data () {
     return {
       miniClass: 'right-sidebar',
-      showChat: true,
+      showFollowing: true,
       animated: { enter: 'zoomIn', exit: 'zoomOut' },
       animateClass: [
         { value: { enter: 'zoomIn', exit: 'zoomOut' }, text: 'Zoom' },
@@ -152,57 +119,109 @@ export default {
       ],
       logo: loader,
       rtl: false,
-      users: [
+      followings: [
         {
-          img: require('../../../assets/images/user/01.jpg'),
+          img: require('@/assets/images/user/01.jpg'),
           name: 'Anna Sthesia',
           time: 'Just now'
         },
         {
-          img: require('../../../assets/images/user/02.jpg'),
+          img: require('@/assets/images/user/02.jpg'),
           name: 'Paul Molive',
           time: 'Admin'
         },
         {
-          img: require('../../../assets/images/user/03.jpg'),
+          img: require('@/assets/images/user/03.jpg'),
           name: 'Anna Mull',
           time: 'Admin'
         },
         {
-          img: require('../../../assets/images/user/04.jpg'),
+          img: require('@/assets/images/user/04.jpg'),
           name: 'Paige Turner',
           time: 'Admin'
         },
         {
-          img: require('../../../assets/images/user/05.jpg'),
+          img: require('@/assets/images/user/05.jpg'),
           name: 'Bob Frapples',
           time: 'Admin'
         },
         {
-          img: require('../../../assets/images/user/06.jpg'),
+          img: require('@/assets/images/user/06.jpg'),
           name: 'Barb Ackue',
           time: 'Admin'
         },
         {
-          img: require('../../../assets/images/user/07.jpg'),
+          img: require('@/assets/images/user/07.jpg'),
           name: 'Greta Life',
           time: 'Admin'
         },
         {
-          img: require('../../../assets/images/user/08.jpg'),
+          img: require('@/assets/images/user/08.jpg'),
           name: 'ra Membrit',
           time: 'Admin'
         },
         {
-          img: require('../../../assets/images/user/09.jpg'),
+          img: require('@/assets/images/user/09.jpg'),
           name: 'Pete Sariya',
           time: 'Admin'
         },
         {
-          img: require('../../../assets/images/user/10.jpg'),
+          img: require('@/assets/images/user/10.jpg'),
           name: 'ra Membrit',
           time: 'Admin'
         }
+      ],
+      followers: [
+        {
+          img: require('@/assets/images/user/02.jpg'),
+          name: 'Paul Molive',
+          time: 'Admin'
+        },
+          {
+            img: require('@/assets/images/user/01.jpg'),
+            name: 'Anna Sthesia',
+            time: 'Just now'
+          },
+        {
+          img: require('@/assets/images/user/04.jpg'),
+          name: 'Paige Turner',
+          time: 'Admin'
+        },
+          {
+            img: require('@/assets/images/user/03.jpg'),
+            name: 'Anna Mull',
+            time: 'Admin'
+          },
+        {
+          img: require('@/assets/images/user/05.jpg'),
+          name: 'Bob Frapples',
+          time: 'Admin'
+        },
+        {
+          img: require('@/assets/images/user/07.jpg'),
+          name: 'Greta Life',
+          time: 'Admin'
+        },
+          {
+            img: require('@/assets/images/user/06.jpg'),
+            name: 'Barb Ackue',
+            time: 'Admin'
+          },
+        {
+          img: require('@/assets/images/user/08.jpg'),
+          name: 'ra Membrit',
+          time: 'Admin'
+        },
+        {
+          img: require('@/assets/images/user/10.jpg'),
+          name: 'ra Membrit',
+          time: 'Admin'
+        },
+        {
+          img: require('@/assets/images/user/09.jpg'),
+          name: 'Pete Sariya',
+          time: 'Admin'
+        },
       ]
     }
   },

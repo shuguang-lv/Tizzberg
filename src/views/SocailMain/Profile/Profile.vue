@@ -82,24 +82,10 @@
                 </ul>
               </div>
               <div class="row justify-content-end">
-                <b-badge
-                  variant="primary"
-                  style="margin-right: 1em"
-                >
-                  Nik Jon
-                </b-badge>
-                <b-badge
-                  variant="primary"
-                  style="margin-right: 1em"
-                >
-                  Book
-                </b-badge>
-                <b-badge
-                  variant="primary"
-                  style="margin-right: 1em"
-                >
-                  Food
-                </b-badge>
+                <b-button variant="primary">
+                  <i class="ri-user-3-fill" />
+                  Painter
+                </b-button>
               </div>
             </div>
           </div>
@@ -147,7 +133,7 @@
                 id="pills-profile-tab"
                 class="col-sm-3 p-0"
                 :active="false"
-                href="#profile-profile"
+                href="#profile-collections"
                 aria-controls="pills-contact"
                 role="tab"
                 :aria-selected="false"
@@ -311,106 +297,64 @@
           </div>
         </tab-content-item>
         <tab-content-item
-          id="profile-profile"
+          id="profile-collections"
           :active="false"
           aria-labelled-by="pills-profile-tab"
         >
-          <iq-card>
-            <template v-slot:body>
-              <h2>Photos</h2>
-              <tab-nav
-                id="pills"
-                :pills="true"
-                class="nav nav-pills d-flex align-items-center justify-content-left friend-list-items p-0 mb-2"
-              >
-                <tab-nav-items
-                  id="pills-photo-you-tab"
-                  li-class=" "
-                  :active="true"
-                  href="#photo-you"
-                  aria-controls="pills-photo-you"
-                  role="tab"
-                  :aria-selected="true"
-                  title="Photo of you"
-                />
-                <tab-nav-items
-                  id="pills-your-photo-tab"
-                  li-class=" "
-                  :active="false"
-                  href="#your-photo"
-                  aria-controls="pills-your-photo"
-                  role="tab"
-                  :aria-selected="false"
-                  title="your photo"
-                />
-              </tab-nav>
-              <div class="tab-content">
-                <tab-content-item
-                  id="photo-you"
-                  :active="true"
-                  aria-labelled-by="pills-photo-you-tab"
-                >
-                  <b-row>
-                    <b-col
-                      v-for="(item, index) in profileImages"
-                      :key="index"
-                      md="6"
-                      lg="3"
-                      class="mb-3"
+          <b-row>
+            <b-col
+              v-for="(item,index) in profileEvent"
+              :key="index"
+              class="col-md-6 col-lg-4"
+            >
+              <iq-card class="rounded iq-card-block iq-card-stretch iq-card-height">
+                <div class="event-images">
+                  <a href="#">
+                    <img
+                      :src="item.backgroundImg"
+                      class="img-fluid"
+                      alt="Responsive image"
                     >
-                      <div
-                        class="user-images position-relative overflow-hidden"
-                      >
-                        <a href="#">
-                          <img
-                            :src="item.img"
-                            class="img-fluid rounded"
-                            alt="Responsive image"
+                  </a>
+                </div>
+                <b-card-body class="iq-card-body">
+                  <b-badge
+                    class="mb-2"
+                    pill
+                    :variant="item.type === 'post' ? 'success' : 'danger'"
+                  >
+                    {{ item.type }}
+                  </b-badge>
+                  <div class="d-flex">
+                    <div class="date-of-event">
+                      <span>{{ item.month }}</span>
+                      <h5>{{ item.date }}</h5>
+                    </div>
+                    <div class="events-detail ml-3">
+                      <h5>{{ item.name }}</h5>
+                      <p>{{ item.text }}</p>
+                      <div class="event-member">
+                        <div class="iq-media-group">
+                          <a
+                            v-for="(user,index) in seenUser"
+                            :key="index"
+                            href="#"
+                            class="iq-media"
                           >
-                        </a>
-                        <div class="image-hover-data">
-                          <div class="product-elements-icon">
-                            <ul
-                              class="d-flex align-items-center m-0 p-0 list-inline"
+                            <img
+                              class="img-fluid avatar-40 rounded-circle"
+                              :src="user"
+                              alt=""
                             >
-                              <li
-                                v-for="(item, index1) in item.otherInfo"
-                                :key="index1"
-                              >
-                                <a
-                                  href="#"
-                                  class="pr-3 text-white"
-                                >
-                                  {{ item.value }} <i :class="item.class" />
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
+                          </a>
                         </div>
-                        <a
-                          href="#"
-                          class="image-edit-btn"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title=""
-                          data-original-title="Edit or Remove"
-                        ><i
-                          class="ri-edit-2-fill"
-                        /></a>
                       </div>
-                    </b-col>
-                  </b-row>
-                </tab-content-item>
-                <tab-content-item
-                  id="your-photo"
-                  :active="false"
-                  aria-labelled-by="pills-your-photo-tab"
-                >
-                  <ProfileImage />
-                </tab-content-item>
-              </div>
-            </template>
-          </iq-card>
+                    </div>
+                  </div>
+                </b-card-body>
+              </iq-card>
+            </b-col>
+          </b-row>
         </tab-content-item>
       </div>
     </b-col>
@@ -438,7 +382,7 @@ export default {
   name: 'Profile',
   components: {
     FriendTab,
-    ProfileImage,
+    // ProfileImage,
     // AddSocialPost,
     ProfileEdit,
     SocialPost,
@@ -446,6 +390,87 @@ export default {
   },
   data() {
     return {
+      profileEvent: [
+        {
+          name: 'New Year Celibration',
+          text: 'Lorem Ipsum is simply dummy text of the',
+          backgroundImg: require('@/assets/images/page-img/52.jpg'),
+          month: 'Jan',
+          date: '01',
+          type: 'post',
+        },
+        {
+          name: 'Birthday Celibration',
+          text: 'Lorem Ipsum is simply dummy text of the',
+          backgroundImg: require('@/assets/images/page-img/53.jpg'),
+          month: 'Jan',
+          date: '24',
+          type: 'fiction',
+        },
+        {
+          name: 'New Year Celibration',
+          text: 'Lorem Ipsum is simply dummy text of the',
+          backgroundImg: require('@/assets/images/page-img/54.jpg'),
+          month: 'Jan',
+          date: '26',
+          type: 'post',
+        },
+        {
+          name: 'Republic Day',
+          text: 'Lorem Ipsum is simply dummy text of the',
+          backgroundImg: require('@/assets/images/page-img/55.jpg'),
+          month: 'Feb',
+          date: '01',
+          type: 'fiction',
+        },
+        {
+          name: 'Meetings & Conventions',
+          text: 'Lorem Ipsum is simply dummy text of the',
+          backgroundImg: require('@/assets/images/page-img/56.jpg'),
+          month: 'March',
+          date: '01',
+          type: 'post',
+        },
+        {
+          name: 'Fun Events and Festivals ',
+          text: 'Lorem Ipsum is simply dummy text of the',
+          backgroundImg: require('@/assets/images/page-img/57.jpg'),
+          month: 'March',
+          date: '11',
+          type: 'fiction',
+        },
+        {
+          name: 'Atlanta Retail Show',
+          text: 'Lorem Ipsum is simply dummy text of the',
+          backgroundImg: require('@/assets/images/page-img/58.jpg'),
+          month: 'Jan',
+          date: '01',
+          type: 'post',
+        },
+        {
+          name: 'Holi in the City',
+          text: 'Lorem Ipsum is simply dummy text of the',
+          backgroundImg: require('@/assets/images/page-img/53.jpg'),
+          month: 'March',
+          date: '14',
+          type: 'fiction',
+        },
+        {
+          name: 'Insurance Innovators',
+          text: 'Lorem Ipsum is simply dummy text of the',
+          backgroundImg: require('@/assets/images/page-img/59.jpg'),
+          month: 'Apr',
+          date: '12',
+          type: 'post',
+        },
+      ],
+      seenUser: [
+        require('@/assets/images/user/05.jpg'),
+        require('@/assets/images/user/06.jpg'),
+        require('@/assets/images/user/07.jpg'),
+        require('@/assets/images/user/08.jpg'),
+        require('@/assets/images/user/09.jpg'),
+      ],
       post: new Post(),
       socialPosts: Posts,
       social: [
