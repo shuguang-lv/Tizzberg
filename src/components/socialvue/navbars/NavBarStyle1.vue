@@ -50,7 +50,7 @@
           is-nav
         >
           <ul class="navbar-nav ml-auto navbar-list">
-            <li>
+            <li class="mr-4">
               <a
                 href="/profile"
                 class="iq-waves-effect d-flex align-items-center"
@@ -65,12 +65,15 @@
                 </div>
               </a>
             </li>
-            <li>
+            <li class="mr-4">
               <a
-                href="#"
+                href="/"
                 class="iq-waves-effect d-flex align-items-center"
               >
-                <i class="ri-home-line" />
+                <i
+                  class="ri-home-line"
+                  style="transform: scale(1.3)"
+                />
               </a>
             </li>
             <!-- <li class="nav-item">
@@ -131,10 +134,11 @@
                 </div>
               </div>
             </li> -->
-            <li class="nav-item">
+            <li class="nav-item mr-4">
               <a
                 href="#"
                 class="search-toggle iq-waves-effect"
+                style="transform: scale(1.5)"
               >
                 <Lottie
                   id="lottie-beil"
@@ -232,10 +236,11 @@
                 </div>
               </div>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown mr-4">
               <a
                 href="#"
                 class="search-toggle iq-waves-effect"
+                style="transform: scale(1.3)"
               >
                 <Lottie
                   id="lottie-mail"
@@ -351,6 +356,7 @@
               <a
                 href="#"
                 class="search-toggle iq-waves-effect d-flex align-items-center"
+                style="transform: scale(1.4)"
               >
                 <i class="ri-arrow-down-s-fill" />
               </a>
