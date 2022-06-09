@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import { socialvue } from '../../config/pluginInit'
-import { Posts } from '../../FackApi/api/SocialPost'
+import { socialvue } from '@/config/pluginInit'
+import { Posts } from '@/FackApi/api/SocialPost'
 import SocialPost from '../Apps/Social/Components/SocialPost'
 
 export default {

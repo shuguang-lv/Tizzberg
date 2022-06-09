@@ -10,19 +10,25 @@
         v-for="(item,index) in fiction"
         :key="index"
         class="col-md-6 col-lg-4"
+        style="cursor: pointer;"
+        @click="$router.push({ name: 'social.fiction-content' })"
       >
-        <iq-card class="rounded iq-card-block iq-card-stretch iq-card-height">
+        <iq-card
+          class="rounded iq-card-block iq-card-stretch iq-card-height"
+        >
           <div class="event-images">
-            <a href="#">
-              <img
-                :src="item.backgroudimg"
-                class="img-fluid"
-                alt="Responsive image"
-              >
-            </a>
+            <img
+              :src="item.backgroudimg"
+              class="img-fluid"
+              alt="Responsive image"
+            >
           </div>
-          <b-card-body class="iq-card-body">
-            <div class="d-flex">
+          <b-card-body
+            class="iq-card-body"
+          >
+            <div
+              class="d-flex"
+            >
               <div class="date-of-event">
                 <span>{{ item.month }}</span>
                 <h5>{{ item.date }}</h5>
@@ -56,7 +62,7 @@
 </template>
 
 <script>
-import { socialvue } from '../../../config/pluginInit'
+import { socialvue } from '@/config/pluginInit'
 import AddFiction from './AddFiction'
 
 export default {

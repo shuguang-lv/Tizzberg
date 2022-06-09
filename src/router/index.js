@@ -6,19 +6,20 @@ const Layout = () => import("../layouts/Layout");
 const AuthLayout = () => import("../layouts/AuthLayouts/AuthLayout");
 
 /* all routes */
-const SocialProfile = () => import("../views/SocailMain/Profile/Profile");
-// const ProfileImage = () => import('../views/SocailMain/Profile/ProfileImage')
-const ProfileVideo = () => import('../views/SocailMain/Profile/ProfileVideo')
-const Fiction = () => import('../views/SocailMain/Fiction/Fiction')
-const FriendList = () => import("../views/SocailMain/Friends/FriendList");
-// const File = () => import('../views/SocailMain/File/File')
-const Explore = () => import("../views/SocailMain/Explore/Explore");
-// const Birthday = () => import('../views/SocailMain/Bithdate/Bithdate')
-// const Music = () => import('../views/SocailMain/Music/Music')
+const SocialProfile = () => import("../views/SocialMain/Profile/Profile");
+// const ProfileImage = () => import('../views/SocialMain/Profile/ProfileImage')
+const ProfileVideo = () => import('../views/SocialMain/Profile/ProfileVideo')
+const Fiction = () => import('../views/SocialMain/Fiction/Fiction')
+const FictionContent = () => import('../views/SocialMain/Fiction/FictionContent')
+const FriendList = () => import("../views/SocialMain/Friends/FriendList");
+// const File = () => import('../views/SocialMain/File/File')
+const Explore = () => import("../views/SocialMain/Explore/Explore");
+// const Birthday = () => import('../views/SocialMain/Bithdate/Bithdate')
+// const Music = () => import('../views/SocialMain/Music/Music')
 const Notification = () =>
-  import("../views/SocailMain/Notifications/Notification");
-// const Weather = () => import('../views/SocailMain/Weather/Weather')
-const FriendRequest = () => import("../views/SocailMain/Friends/FriendRequest");
+  import("../views/SocialMain/Notifications/Notification");
+// const Weather = () => import('../views/SocialMain/Weather/Weather')
+const FriendRequest = () => import("../views/SocialMain/Friends/FriendRequest");
 /* UIElements View */
 // const UiAlerts = () => import('../views/core/UiAlerts.vue')
 // const UiButtons = () => import('../views/core/UiButtons.vue')
@@ -81,7 +82,7 @@ const Profile = () => import("../views/User/Profile");
 const ProfileEdit = () => import("../views/User/ProfileEdit");
 const AddUser = () => import("../views/User/AddUser");
 const SocialApp = () => import("../views/Apps/Social/SocialApp");
-const PostDetail = () => import("../views/SocailMain/PostDetail");
+const PostDetail = () => import("../views/SocialMain/PostDetail");
 /* Todo */
 // const TodoListing = () => import('../views/Apps/Todo/TodoListing')
 const ChatIndex = () => import("../views/Apps/Chat/Index");
@@ -143,6 +144,12 @@ const childRoutes = (prop, mode) => [
     name: prop + '.fiction',
     meta: { auth: true, name: 'Fiction', img: require('../assets/images/page-img/profile-bg6.jpg') },
     component: Fiction
+  },
+  {
+    path: 'fiction-content',
+    name: prop + '.fiction-content',
+    meta: { auth: true, name: 'Fiction Content' },
+    component: FictionContent
   },
   {
     path: "notification",
