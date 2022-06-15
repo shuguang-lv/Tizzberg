@@ -137,7 +137,7 @@
                 aria-controls="pills-contact"
                 role="tab"
                 :aria-selected="false"
-                title="Collections"
+                title="Ask & Message Board"
               />
             </tab-nav>
           </div>

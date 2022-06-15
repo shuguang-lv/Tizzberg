@@ -89,7 +89,7 @@ export const socialvue = {
       ],
       bookmark: true
     }
-    Store.dispatch('Setting/activePageAction', obj)
+    Store.dispatch('activePageAction', obj)
   },
   ripple () {
     $(document).on('click', '.iq-waves-effect', function (e) {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-row>
+    <b-row v-if="$store.getters.authUserState">
       <b-col class="col-md-12">
         <AddTag />
       </b-col>
@@ -66,6 +66,7 @@
               </div>
             </div>
             <button
+              v-if="$store.getters.authUserState"
               type="submit"
               class="btn btn-primary d-block w-100"
             >

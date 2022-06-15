@@ -49,11 +49,35 @@
           id="nav-collapse"
           is-nav
         >
-          <ul class="navbar-nav ml-auto navbar-list">
+          <ul
+            v-if="!$store.getters.authUserState"
+            class="navbar-nav ml-auto navbar-list"
+          >
+            <li class="mr-4">
+              <b-button
+                variant="primary"
+                @click="$router.push({ name: 'auth1.sign-in1' })"
+              >
+                Log in<i class="ri-login-box-line ml-2" />
+              </b-button>
+            </li>
+            <li>
+              <b-button
+                variant="outline-primary"
+                @click="$router.push({ name: 'auth1.sign-up1' })"
+              >
+                Sign up<i class="ri-user-add-line ml-2" />
+              </b-button>
+            </li>
+          </ul>
+          <ul
+            v-else
+            class="navbar-nav ml-auto navbar-list"
+          >
             <li class="mr-4">
               <a
-                href="/profile"
-                class="iq-waves-effect d-flex align-items-center"
+                href="#"
+                class="search-toggle iq-waves-effect d-flex align-items-center"
               >
                 <img
                   src="@/assets/images/user/1.jpg"
@@ -64,6 +88,80 @@
                   <h6 class="mb-0 line-height">Bni Cyst</h6>
                 </div>
               </a>
+              <div class="iq-sub-dropdown iq-user-dropdown">
+                <div class="iq-card shadow-none m-0">
+                  <div class="iq-card-body p-0 ">
+                    <div class="bg-primary p-3 line-height">
+                      <h5 class="mb-0 text-white line-height">
+                        Hello Bni Cyst
+                      </h5>
+                      <span class="text-white font-size-12">Available</span>
+                    </div>
+                    <router-link
+                      to="/profile"
+                      class="iq-sub-card iq-bg-primary-hover"
+                    >
+                      <div class="media align-items-center">
+                        <div class="rounded iq-card-icon iq-bg-primary">
+                          <i class="ri-file-user-line" />
+                        </div>
+                        <div class="media-body ml-3">
+                          <h6 class="mb-0 ">
+                            My Profile
+                          </h6>
+                          <p class="mb-0 font-size-12">
+                            View personal profile details.
+                          </p>
+                        </div>
+                      </div>
+                    </router-link>
+                    <!-- <router-link
+                      to="/user/profile-edit"
+                      class="iq-sub-card iq-bg-warning-hover"
+                    >
+                      <div class="media align-items-center">
+                        <div class="rounded iq-card-icon iq-bg-warning">
+                          <i class="ri-profile-line" />
+                        </div>
+                        <div class="media-body ml-3">
+                          <h6 class="mb-0 ">
+                            Edit Profile
+                          </h6>
+                          <p class="mb-0 font-size-12">
+                            Modify your personal details.
+                          </p>
+                        </div>
+                      </div>
+                    </router-link> -->
+                    <router-link
+                      to="/account-setting"
+                      class="iq-sub-card iq-bg-info-hover"
+                    >
+                      <div class="media align-items-center">
+                        <div class="rounded iq-card-icon iq-bg-info">
+                          <i class="ri-account-box-line" />
+                        </div>
+                        <div class="media-body ml-3">
+                          <h6 class="mb-0 ">
+                            Account settings
+                          </h6>
+                          <p class="mb-0 font-size-12">
+                            Manage your account parameters.
+                          </p>
+                        </div>
+                      </div>
+                    </router-link>
+                    <div class="d-inline-block w-100 text-center p-3">
+                      <b-button
+                        variant="primary"
+                        @click="$router.push({ name: 'auth1.sign-in1' })"
+                      >
+                        Sign out<i class="ri-login-box-line ml-2" />
+                      </b-button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </li>
             <li class="mr-4">
               <a
@@ -351,90 +449,6 @@
               </div>
             </li>
           </ul>
-          <ul class="navbar-list">
-            <li>
-              <a
-                href="#"
-                class="search-toggle iq-waves-effect d-flex align-items-center"
-                style="transform: scale(1.4)"
-              >
-                <i class="ri-arrow-down-s-fill" />
-              </a>
-              <div class="iq-sub-dropdown iq-user-dropdown">
-                <div class="iq-card shadow-none m-0">
-                  <div class="iq-card-body p-0 ">
-                    <div class="bg-primary p-3 line-height">
-                      <h5 class="mb-0 text-white line-height">
-                        Hello Bni Cyst
-                      </h5>
-                      <span class="text-white font-size-12">Available</span>
-                    </div>
-                    <router-link
-                      to="/profile"
-                      class="iq-sub-card iq-bg-primary-hover"
-                    >
-                      <div class="media align-items-center">
-                        <div class="rounded iq-card-icon iq-bg-primary">
-                          <i class="ri-file-user-line" />
-                        </div>
-                        <div class="media-body ml-3">
-                          <h6 class="mb-0 ">
-                            My Profile
-                          </h6>
-                          <p class="mb-0 font-size-12">
-                            View personal profile details.
-                          </p>
-                        </div>
-                      </div>
-                    </router-link>
-                    <!-- <router-link
-                      to="/user/profile-edit"
-                      class="iq-sub-card iq-bg-warning-hover"
-                    >
-                      <div class="media align-items-center">
-                        <div class="rounded iq-card-icon iq-bg-warning">
-                          <i class="ri-profile-line" />
-                        </div>
-                        <div class="media-body ml-3">
-                          <h6 class="mb-0 ">
-                            Edit Profile
-                          </h6>
-                          <p class="mb-0 font-size-12">
-                            Modify your personal details.
-                          </p>
-                        </div>
-                      </div>
-                    </router-link> -->
-                    <router-link
-                      to="/account-setting"
-                      class="iq-sub-card iq-bg-info-hover"
-                    >
-                      <div class="media align-items-center">
-                        <div class="rounded iq-card-icon iq-bg-info">
-                          <i class="ri-account-box-line" />
-                        </div>
-                        <div class="media-body ml-3">
-                          <h6 class="mb-0 ">
-                            Account settings
-                          </h6>
-                          <p class="mb-0 font-size-12">
-                            Manage your account parameters.
-                          </p>
-                        </div>
-                      </div>
-                    </router-link>
-                    <div class="d-inline-block w-100 text-center p-3">
-                      <a
-                        class="bg-primary iq-sign-btn"
-                        href="#"
-                        role="button"
-                      >Sign out<i class="ri-login-box-line ml-2" /></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-          </ul>
         </b-collapse>
       </nav>
     </div>
@@ -448,6 +462,9 @@ import SideBarItems from '../../../FackApi/json/SideBar'
 import Lottie from '../../../components/socialvue/lottie/Lottie'
 export default {
   name: 'NavBarStyle1',
+    components: {
+      Lottie
+    },
   props: {
     homeURL: { type: Object, default: () => ({ name: 'layout1.dashboard' }) },
     title: { type: String, default: 'Dashboard' },
@@ -455,18 +472,7 @@ export default {
     horizontal: { type: Boolean, default: false },
     items: { type: Array }
   },
-  mounted () {
-    document.addEventListener('click', this.closeSearch, true)
-  },
-  components: {
-    Lottie
-  },
-  computed: {
-    ...mapGetters({
-      bookmark: 'Setting/bookmarkState'
-    })
-  },
-  data () {
+    data () {
     return {
       sidebar: SideBarItems,
       globalSearch: '',
@@ -496,6 +502,14 @@ export default {
 
       ]
     }
+  },
+    computed: {
+      ...mapGetters({
+        bookmark: 'Setting/bookmarkState'
+      })
+    },
+  mounted () {
+    document.addEventListener('click', this.closeSearch, true)
   },
   methods: {
     miniSidebar () {

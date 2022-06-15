@@ -3,7 +3,10 @@
     <b-col sm="12">
       <b-row class=" m-0 p-0">
         <b-col lg="12">
-          <AddSocialPost @addPost="addPost" />
+          <AddSocialPost
+            v-if="$store.getters.authUserState"
+            @addPost="addPost"
+          />
           <IqCard class="iq-card">
             <div class="iq-card-body p-0">
               <div class="user-tabing">
@@ -246,7 +249,7 @@
                 </template>
               </IqCard>
             </tab-content-item> -->
-          </tab-content>        
+          </tab-content>
         </b-col>
         <!-- <b-col lg="4">
           <IqCard>

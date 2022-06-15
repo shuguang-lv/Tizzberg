@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-row>
+    <b-row v-if="$store.getters.authUserState">
       <b-col class="col-md-12">
         <AddFiction />
       </b-col>

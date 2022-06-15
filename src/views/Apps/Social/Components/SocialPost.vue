@@ -44,7 +44,10 @@
               {{ post.time | formatDate }}
             </p> -->
           </div>
-          <div class="iq-card-header-toolbar d-flex align-items-center">
+          <div
+            v-if="$store.getters.authUserState"
+            class="iq-card-header-toolbar d-flex align-items-center"
+          >
             <b-dropdown
               id="dropdownMenuButton-visibility"
               right
@@ -99,7 +102,10 @@
               </a>
             </b-dropdown>
           </div>
-          <div class="iq-card-header-toolbar d-flex align-items-center">
+          <div
+            v-if="$store.getters.authUserState"
+            class="iq-card-header-toolbar d-flex align-items-center"
+          >
             <b-dropdown
               id="dropdownMenuButton40"
               right
@@ -137,6 +143,18 @@
                 class="dropdown-item p-3"
               >
                 <div class="d-flex align-items-top">
+                  <div class="icon font-size-20"><i class="ri-flag-line" /></div>
+                  <div class="data ml-2">
+                    <h6>Pin Post</h6>
+                    <!-- <p class="mb-0">Add this to your saved items</p> -->
+                  </div>
+                </div>
+              </a>
+              <a
+                href="javascript:void(0)"
+                class="dropdown-item p-3"
+              >
+                <div class="d-flex align-items-top">
                   <div class="icon font-size-20"><i class="ri-save-line" /></div>
                   <div class="data ml-2">
                     <h6>Save Post</h6>
@@ -157,14 +175,14 @@
                 </div>
               </a>
               <a
-                class="dropdown-item p-3"
                 href="javascript:void(0)"
+                class="dropdown-item p-3"
               >
                 <div class="d-flex align-items-top">
                   <div class="icon font-size-20"><i class="ri-notification-line" /></div>
                   <div class="data ml-2">
-                    <h6>Notifications</h6>
-                    <p class="mb-0">Turn on notifications for this post</p>
+                    <h6>Report Post</h6>
+                    <!-- <p class="mb-0">See fewer posts like this.</p> -->
                   </div>
                 </div>
               </a>
@@ -180,6 +198,18 @@
                   </div>
                 </div>
               </a>
+              <a
+                class="dropdown-item p-3"
+                href="javascript:void(0)"
+              >
+                <div class="d-flex align-items-top">
+                  <div class="icon font-size-20"><i class="ri-forbid-line" /></div>
+                  <div class="data ml-2">
+                    <h6>Block User</h6>
+                    <!-- <p class="mb-0">Delete this post</p> -->
+                  </div>
+                </div>
+              </a>
             </b-dropdown>
           </div>
         </div>
@@ -189,16 +219,16 @@
 
     <div class="user-post">
       <div>
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-4">
             <h5
               v-if="post.description"
               class="p-2"
             >
               <b>{{ post.title }}</b>
-            </h5>  
+            </h5>
           </div>
-        </div>
+        </div> -->
         <p
           v-if="post.description"
           class="p-2"
@@ -245,7 +275,10 @@
         <div class="d-flex align-items-center justify-content-between">
           <div class="like-block position-relative d-flex align-items-center">
             <div class="d-flex align-items-center">
-              <div class="like-data">
+              <div
+                v-if="$store.getters.authUserState"
+                class="like-data"
+              >
                 <div class="dropdown">
                   <span
                     class="dropdown-toggle"
@@ -255,7 +288,7 @@
                     role="button"
                   >
                     <img
-                      :src="require('../../../../assets/images/icon/01.png')"
+                      :src="require('@/assets/images/icon/01.png')"
                       class="img-fluid"
                       alt=""
                     >
@@ -273,7 +306,7 @@
                       data-original-title="Like"
                       @click="isLiked(!post.is_liked)"
                     ><img
-                      :src="require('../../../../assets/images/icon/01.png')"
+                      :src="require('@/assets/images/icon/01.png')"
                       class="img-fluid"
                       alt=""
                     ></a>
@@ -286,7 +319,7 @@
                       data-original-title="Love"
                       @click="isLiked(!post.is_liked)"
                     ><img
-                      :src="require('../../../../assets/images/icon/02.png')"
+                      :src="require('@/assets/images/icon/02.png')"
                       class="img-fluid"
                       alt=""
                     ></a>
@@ -299,7 +332,7 @@
                       data-original-title="Happy"
                       @click="isLiked(!post.is_liked)"
                     ><img
-                      :src="require('../../../../assets/images/icon/03.png')"
+                      :src="require('@/assets/images/icon/03.png')"
                       class="img-fluid"
                       alt=""
                     ></a>
@@ -312,7 +345,7 @@
                       data-original-title="HaHa"
                       @click="isLiked(!post.is_liked)"
                     ><img
-                      :src="require('../../../../assets/images/icon/04.png')"
+                      :src="require('@/assets/images/icon/04.png')"
                       class="img-fluid"
                       alt=""
                     ></a>
@@ -325,7 +358,7 @@
                       data-original-title="Think"
                       @click="isLiked(!post.is_liked)"
                     ><img
-                      :src="require('../../../../assets/images/icon/05.png')"
+                      :src="require('@/assets/images/icon/05.png')"
                       class="img-fluid"
                       alt=""
                     ></a>
@@ -338,7 +371,7 @@
                       data-original-title="Sade"
                       @click="isLiked(!post.is_liked)"
                     ><img
-                      :src="require('../../../../assets/images/icon/06.png')"
+                      :src="require('@/assets/images/icon/06.png')"
                       class="img-fluid"
                       alt=""
                     ></a>
@@ -351,7 +384,7 @@
                       data-original-title="Lovely"
                       @click="isLiked(!post.is_liked)"
                     ><img
-                      :src="require('../../../../assets/images/icon/07.png')"
+                      :src="require('@/assets/images/icon/07.png')"
                       class="img-fluid"
                       alt=""
                     ></a>
@@ -474,7 +507,10 @@
               <p class="mb-0">
                 {{ postComment.user.msg }}
               </p>
-              <div class="d-flex flex-wrap align-items-center comment-activity">
+              <div
+                v-if="$store.getters.authUserState"
+                class="d-flex flex-wrap align-items-center comment-activity"
+              >
                 <b-link @click="isLikedComment(postCommentIndex, !postComment.is_commentLike)">
                   <span
                     v-if="!postComment.is_commentLike"
@@ -495,6 +531,7 @@
         </li>
       </ul>
       <b-form
+        v-if="$store.getters.authUserState"
         class="comment-text d-flex align-items-center mt-3"
         action="javascript:void(0);"
       >
@@ -547,7 +584,7 @@ export default {
     },
     saveComment (postComment) {
       this.post.comments.push({
-        image: require('../../../../assets/images/user/user-04.jpg'),
+        image: require('@/assets/images/user/user-04.jpg'),
         user: { name: 'Sandy S', msg: postComment, time: new Date() },
         is_commentLike: false
       })
@@ -570,7 +607,7 @@ export default {
    padding-right: 5px;
   }
   .popover-i {
-    color: #50b5ff;
+    color: #8ab6c9;
     margin-right: 0.5em;
   }
   .user-info-item {
