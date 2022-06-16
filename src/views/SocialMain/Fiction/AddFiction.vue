@@ -4,46 +4,18 @@
       id="fiction-modal-data"
       body-class="iq-card iq-card-block iq-card-stretch iq-card-height"
     >
-      <template v-slot:headerTitle>
-        <h4 class="card-title">
-          Create Fiction
-        </h4>
-      </template>
-      <div
+      <b-button
         v-b-modal.modal1
-        class="iq-card-body"
+        block
+        variant="outline-primary"
+        size="lg"
       >
-        <div class="d-flex align-items-center">
-          <form class="fiction-text ml-3 w-100">
-            <input
-              v-model="fiction.title"
-              type="text"
-              placeholder="Write the title of fiction here..."
-              class="rounded form-control"
-              style="margin-bottom:1em;"
-            >
-            <b-textarea
-              v-model="fiction.description"
-              type="text"
-              placeholder="Write simple description here..."
-              class="rounded form-control"
-              style="margin-top: 1em; height:5em;"
-            />
-            <b-textarea
-              v-model="fiction.content"
-              type="text"
-              placeholder="Write your fiction here..."
-              class="rounded form-control"
-              style="margin-top: 1em; height:15em;"
-            />
-          </form>
-        </div>
-        <hr>
-      </div>
+        Create a new story
+      </b-button>
       <b-modal
         id="modal1"
         centered
-        title="Create fiction"
+        title="Create a new story"
         hide-footer
       >
         <div class="d-flex align-items-center">
@@ -59,6 +31,13 @@
               v-model="fiction.title"
               type="text"
               placeholder="Write the title of fiction here..."
+              class="rounded form-control"
+              style="margin-bottom:1em;"
+            >
+            <input
+              v-model="fiction.authors"
+              type="text"
+              placeholder="Choose the authors of fiction here..."
               class="rounded form-control"
               style="margin-bottom:1em;"
             >
@@ -249,7 +228,7 @@
           class="btn btn-primary d-block w-100 mt-3"
           @click="addNewfiction(fiction)"
         >
-          Upload
+          Create
         </button>
       </b-modal>
     </iq-card>
