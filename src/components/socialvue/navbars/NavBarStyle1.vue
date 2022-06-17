@@ -153,6 +153,16 @@
                     </router-link>
                     <div class="d-inline-block w-100 text-center p-3">
                       <b-button
+                        block
+                        variant="outline-secondary"
+                        @click="$refs['identity-selector'].showModal()"
+                      >
+                        Switch your character<i class="ri-user-line ml-2" />
+                      </b-button>
+                      <IdentitySelector ref="identity-selector" />
+                    </div>
+                    <div class="d-inline-block w-100 text-center p-3">
+                      <b-button
                         variant="primary"
                         @click="$router.push({ name: 'auth1.sign-in1' })"
                       >
@@ -458,12 +468,14 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import SideBarItems from '../../../FackApi/json/SideBar'
-import Lottie from '../../../components/socialvue/lottie/Lottie'
+import SideBarItems from '@/FackApi/json/SideBar'
+import Lottie from '@/components/socialvue/lottie/Lottie'
+import IdentitySelector from '@/components/socialvue/modal/IdentitySelector'
 export default {
   name: 'NavBarStyle1',
     components: {
-      Lottie
+      Lottie,
+      IdentitySelector
     },
   props: {
     homeURL: { type: Object, default: () => ({ name: 'layout1.dashboard' }) },

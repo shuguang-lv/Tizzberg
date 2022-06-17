@@ -82,10 +82,14 @@
                 </ul>
               </div>
               <div class="row justify-content-end">
-                <b-button variant="primary">
+                <b-button
+                  variant="primary"
+                  @click="$refs['identity-selector'].showModal()"
+                >
                   <i class="ri-user-3-fill" />
                   Painter
                 </b-button>
+                <IdentitySelector ref="identity-selector" />
               </div>
             </div>
           </div>
@@ -378,6 +382,7 @@ import SocialPost from '../../Apps/Social/Components/SocialPost'
 import About from './ProfileFriends/About'
 import FriendTab from './ProfileFriends/FriendTab'
 import ProfileImage from './ProfileImage'
+import IdentitySelector from '@/components/socialvue/modal/IdentitySelector'
 export default {
   name: 'Profile',
   components: {
@@ -387,6 +392,7 @@ export default {
     ProfileEdit,
     SocialPost,
     About,
+    IdentitySelector
   },
   data() {
     return {
