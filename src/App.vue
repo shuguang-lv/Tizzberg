@@ -11,6 +11,8 @@ export default {
   },
   mounted () {
     socialvue.mainIndex()
+  },
+  methods: {
   }
 }
 </script>
