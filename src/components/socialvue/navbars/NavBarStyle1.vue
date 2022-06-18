@@ -161,13 +161,25 @@
                       </b-button>
                       <IdentitySelector ref="identity-selector" />
                     </div>
-                    <div class="d-inline-block w-100 text-center p-3">
+                    <div class="d-inline-block w-100 text-center">
                       <b-button
                         variant="primary"
-                        @click="$router.push({ name: 'auth1.sign-in1' })"
+                        @click="$refs['sign-out-modal'].show()"
                       >
                         Sign out<i class="ri-login-box-line ml-2" />
                       </b-button>
+                      <b-modal
+                        ref="sign-out-modal"
+                        hide-header
+                        centered
+                        :no-close-on-backdrop="true"
+                        :no-close-on-esc="true"
+                        @ok="$router.push({ name: 'auth1.sign-in1' })"
+                      >
+                        <div class="d-block text-center">
+                          <h4>Are you sure you want to log out?</h4>
+                        </div>
+                      </b-modal>
                     </div>
                   </div>
                 </div>

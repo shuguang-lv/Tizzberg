@@ -16,11 +16,14 @@
               <a
                 class="sign-in-logo mb-5"
                 href="#"
-              ><img
+              >
+                <h1 class="text-white">Tizzberg</h1>
+              <!-- <img
                 src="../../assets/images/logo-full.png"
                 class="img-fluid"
                 alt="logo"
-              ></a>
+              > -->
+              </a>
               <Slick :option="slickOptions">
                 <div class="item">
                   <img

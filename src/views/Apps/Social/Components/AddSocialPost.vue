@@ -314,7 +314,7 @@
         @ok="discardPost"
       >
         <div class="d-block text-center">
-          <h3>Discard this post? </h3>
+          <h4>Discard this post? </h4>
         </div>
       </b-modal>
     </iq-card>

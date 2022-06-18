@@ -3,10 +3,9 @@
     <h1 class="mb-0">
       Sign in
     </h1>
-    <p>Enter your email address and password to access admin panel.</p>
     <form class="mt-4">
       <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
+        <label for="exampleInputEmail1">Username / Email address</label>
         <input
           id="exampleInputEmail1"
           type="email"
@@ -14,7 +13,7 @@
           placeholder="Enter email"
         >
       </div>
-      <div class="form-group">
+      <div class="form-group mt-4">
         <label for="exampleInputPassword1">Password</label>
         <router-link
           :to="{ name: 'auth1.password-reset1' }"
@@ -29,8 +28,8 @@
           placeholder="Password"
         >
       </div>
-      <div class="d-inline-block w-100">
-        <div class="custom-control custom-checkbox d-inline-block mt-2 pt-1">
+      <div class="d-flex justify-content-between align-items-center w-100 mt-4">
+        <div class="custom-control custom-checkbox d-inline-block">
           <input
             id="customCheck1"
             type="checkbox"
@@ -43,7 +42,7 @@
         </div>
         <button
           type="submit"
-          class="btn btn-primary float-right"
+          class="btn btn-primary"
           @click="$router.push({ name: 'social.list' })"
         >
           Sign in

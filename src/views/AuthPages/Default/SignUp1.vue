@@ -3,15 +3,13 @@
     <h1 class="mb-0">
       Sign Up
     </h1>
-    <p>Enter your email address and password to access admin panel.</p>
     <form class="mt-4">
       <div class="form-group">
-        <label for="exampleInputEmail1">Your Full Name</label>
+        <label for="input-username">Username</label>
         <input
-          id="exampleInputEmail1"
-          type="email"
+          id="input-username"
           class="form-control mb-0"
-          placeholder="Your Full Name"
+          placeholder="Your Username"
         >
       </div>
       <div class="form-group">
@@ -23,6 +21,23 @@
           placeholder="Enter email"
         >
       </div>
+      <div class="d-inline-block w-100">
+        <button
+          type="submit"
+          class="btn btn-outline-primary float-right"
+        >
+          Send code
+        </button>
+      </div>
+      <div class="form-group">
+        <label for="input-code">Verification code</label>
+        <input
+          id="input-code"
+          class="form-control mb-0"
+          aria-describedby="codeHelp"
+          placeholder="Enter the code"
+        >
+      </div>
       <div class="form-group">
         <label for="exampleInputPassword1">Password</label>
         <input
@@ -31,8 +46,14 @@
           class="form-control mb-0"
           placeholder="Password"
         >
+        <input
+          id="exampleInputPassword2"
+          type="password"
+          class="form-control mb-0 mt-2"
+          placeholder="Re-enter your password"
+        >
       </div>
-      <div class="d-inline-block w-100">
+      <div class="d-inline-block w-100 mt-4">
         <div class="custom-control custom-checkbox d-inline-block mt-2 pt-1">
           <input
             id="customCheck1"

@@ -629,13 +629,14 @@ export default {
   mounted() {
     socialvue.index()
   },
-  beforeRouteLeave(to, from) {
+  beforeRouteLeave(to, from, next) {
     const currentPost = this.$refs['add-post'].post
     if (currentPost && currentPost.description.trim()) {
       window.localStorage.setItem('last-post', JSON.stringify(currentPost))
     } else {
       window.localStorage.removeItem('last-post')
     }
+    next()
   },
   methods: {
     addPost(post) {
