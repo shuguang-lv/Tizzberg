@@ -189,6 +189,7 @@
               <a
                 class="dropdown-item p-3"
                 href="javascript:void(0)"
+                @click="$refs['delete-post-modal'].show()"
               >
                 <div class="d-flex align-items-top">
                   <div class="icon font-size-20"><i class="ri-delete-bin-line" /></div>
@@ -197,6 +198,16 @@
                     <p class="mb-0">Delete this post</p>
                   </div>
                 </div>
+                <b-modal
+                  ref="delete-post-modal"
+                  hide-header
+                  :no-close-on-backdrop="true"
+                  :no-close-on-esc="true"
+                >
+                  <div class="d-block text-center">
+                    <h3>Are you sure you want to delete this post? </h3>
+                  </div>
+                </b-modal>
               </a>
               <a
                 class="dropdown-item p-3"
@@ -590,7 +601,7 @@ export default {
       })
 
       this.commentMessage = ''
-    }
+    },
   }
 }
 </script>

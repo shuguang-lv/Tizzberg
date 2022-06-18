@@ -17,38 +17,37 @@
           <div class="user-img">
             <img
               class="avatar-60 rounded-circle"
-              src="../../../../assets/images/user/1.jpg"
+              src="@/assets/images/user/1.jpg"
             >
           </div>
           <form class="post-text ml-3 w-100">
-            <input
+            <b-form-textarea
               v-model="post.description"
-              type="text"
-              placeholder="Write something about post..."
-              class="rounded form-control"
-              style="border:none;"
-            >
+              placeholder="Write something about post... (500 words maximum)"
+              max-rows="10"
+              :formatter="postFormatter"
+              :trim="true"
+            />
           </form>
         </div>
         <hr>
         <ul class="post-opt-block d-flex align-items-center list-inline m-0 p-0">
-          <li class="iq-bg-primary rounded p-2 pointer mr-3">
-            <a href="#" /><img
-              src="../../../../assets/images/small/07.png"
-              alt="icon"
-              class="img-fluid"
-            > Photo/Video
+          <li
+            v-for="(item,index) in tab"
+            :key="index"
+            class="iq-bg-primary rounded p-2 pointer mr-3"
+          >
+            <div class="iq-bg-primary rounded p-2 pointer mr-3">
+              <i
+                :class="item.icon + ' ri-xl' + ' mx-2'"
+                style="vertical-align: middle;"
+              />
+              {{ item.name }}
+            </div>
           </li>
-          <li class="iq-bg-primary rounded p-2 pointer mr-3">
+          <!-- <li class="iq-bg-primary rounded p-2 pointer mr-3">
             <a href="#" /><img
-              src="../../../../assets/images/small/08.png"
-              alt="icon"
-              class="img-fluid"
-            > Tag Friend
-          </li>
-          <li class="iq-bg-primary rounded p-2 pointer mr-3">
-            <a href="#" /><img
-              src="../../../../assets/images/small/09.png"
+              src="@/assets/images/small/09.png"
               alt="icon"
               class="img-fluid"
             > Feeling/Activity
@@ -91,31 +90,35 @@
                 </div>
               </div>
             </div>
-          </li>
+          </li> -->
         </ul>
       </div>
       <b-modal
         id="modal1"
+        ref="create-post-modal"
         centered
         title="Create Post"
         hide-footer
+        :no-close-on-backdrop="true"
+        :no-close-on-esc="true"
+        @close="closeModal"
       >
         <div class="d-flex align-items-center">
           <div class="user-img">
             <img
-              src="../../../../assets/images/user/1.jpg"
+              src="@/assets/images/user/1.jpg"
               alt="userimg"
               class="avatar-60 rounded-circle img-fluid"
             >
           </div>
           <form class="post-text ml-3 w-100">
-            <input
+            <b-form-textarea
               v-model="post.description"
-              type="text"
-              placeholder="Write something about post..."
-              class="rounded form-control"
-              style="border:none;"
-            >
+              placeholder="Write something about post... (500 words maximum)"
+              max-rows="10"
+              :formatter="postFormatter"
+              :trim="true"
+            />
           </form>
         </div>
         <hr>
@@ -126,26 +129,25 @@
             class="col-md-6 mb-3"
           >
             <div class="iq-bg-primary rounded p-2 pointer mr-3">
-              <a href="#" /><img
-                :src="item.icon"
-                alt="icon"
-                class="img-fluid"
-              >
+              <i
+                :class="item.icon + ' ri-xl' + ' mx-2'"
+                style="vertical-align: middle;"
+              />
               {{ item.name }}
             </div>
           </li>
         </ul>
         <div class="other-option">
           <div class="d-flex align-items-center justify-content-between">
-            <div class="d-flex align-items-center">
-              <div class="user-img mr-3">
+            <div class="d-flex align-items-center pl-2">
+              <!-- <div class="user-img mr-3">
                 <img
-                  src="../../../../assets/images/user/1.jpg"
+                  src="@/assets/images/user/1.jpg"
                   alt="userimg"
                   class="avatar-60 rounded-circle img-fluid"
                 >
-              </div>
-              <h6>Your Story</h6>
+              </div> -->
+              <h6>#Tags</h6>
             </div>
             <!-- <div class="iq-card-post-toolbar">
               <b-dropdown
@@ -285,72 +287,106 @@
             </div>
           </div>
         </div>
-        <button
-          class="btn btn-primary d-block w-100 mt-3"
-          @click="addNewPost(post)"
-        >
-          Post
-        </button>
+        <div class="d-flex justify-content-between px-2 mt-2">
+          <b-button
+            variant="outline-primary"
+            style="width: 48%;"
+          >
+            Save as draft
+          </b-button>
+          <b-button
+            variant="primary"
+            style="width: 48%;"
+            @click="addNewPost(post)"
+          >
+            Post
+          </b-button>
+        </div>
+      </b-modal>
+      <b-modal
+        ref="discard-post-modal"
+        hide-header
+        ok-title="Discard"
+        cancel-title="Nevermind"
+        :no-close-on-backdrop="true"
+        :no-close-on-esc="true"
+        @cancel="$refs['discard-post-modal'].hide()"
+        @ok="discardPost"
+      >
+        <div class="d-block text-center">
+          <h3>Discard this post? </h3>
+        </div>
       </b-modal>
     </iq-card>
   </div>
 </template>
 
 <script>
-import Post from '../../../../Model/Post'
+import Post from '@/Model/Post'
 export default {
   name: 'AddSocialPost',
-  data () {
+  data() {
     return {
       post: new Post(),
       tab: [
         {
-          icon: require('../../../../assets/images/small/07.png'),
-          name: ' Photo/Video'
+          icon: 'ri-image-fill',
+          name: 'Photo/Video',
         },
         {
-          icon: require('../../../../assets/images/small/08.png'),
-          name: ' Tag Friend'
+          icon: 'ri-price-tag-3-fill',
+          name: 'Tags',
         },
-        {
-          icon: require('../../../../assets/images/small/09.png'),
-          name: 'Feeling/Activity'
-        },
-        {
-          icon: require('../../../../assets/images/small/10.png'),
-          name: 'Check in'
-        },
-        {
-          icon: require('../../../../assets/images/small/11.png'),
-          name: 'Live Video'
-        },
-        {
-          icon: require('../../../../assets/images/small/12.png'),
-          name: ' Gif'
-        },
-        {
-          icon: require('../../../../assets/images/small/13.png'),
-          name: 'Watch Party'
-        },
-        {
-          icon: require('../../../../assets/images/small/14.png'),
-          name: ' Play with Friends'
-        }
-      ]
+        // {
+        //   icon: require('@/assets/images/small/09.png'),
+        //   name: 'Feeling/Activity'
+        // },
+        // {
+        //   icon: require('@/assets/images/small/10.png'),
+        //   name: 'Check in'
+        // },
+        // {
+        //   icon: require('@/assets/images/small/11.png'),
+        //   name: 'Live Video'
+        // },
+        // {
+        //   icon: require('@/assets/images/small/12.png'),
+        //   name: ' Gif'
+        // },
+        // {
+        //   icon: require('@/assets/images/small/13.png'),
+        //   name: 'Watch Party'
+        // },
+        // {
+        //   icon: require('@/assets/images/small/14.png'),
+        //   name: ' Play with Friends'
+        // }
+      ],
     }
   },
+  beforeMount() {
+    const lastPost = JSON.parse(window.localStorage.getItem('last-post'))
+    this.post = lastPost || this.post
+    window.addEventListener('beforeunload', () => {
+      if (this.post.description.trim()) {
+        window.localStorage.setItem('last-post', JSON.stringify(this.post))
+      } else {
+        window.localStorage.removeItem('last-post')
+      }
+    })
+  },
   methods: {
-    addNewPost (post) {
+    addNewPost(post) {
       this.$emit('addPost', post)
       this.post = new Post()
       this.$bvModal.hide('modal1')
     },
-    resetPost () {
+    resetPost() {
       this.post = new Post()
     },
-    previewImage: function (event) {
+    previewImage: function(event) {
       const files = event.target.files
-      Object.keys(files).forEach(i => {
+      Object.keys(files).forEach((i) => {
         const file = files[i]
         const reader = new FileReader()
         reader.onload = (e) => {
@@ -358,7 +394,22 @@ export default {
         }
         reader.readAsDataURL(file)
       })
-    }
-  }
+    },
+    postFormatter(content) {
+      if (content.length && content.match(/\S+/g).length > 500) {
+        return content.split(/\s+/, 500).join(' ')
+      } else {
+        return content
+      }
+    },
+    closeModal(bvModalEvent) {
+      bvModalEvent.preventDefault()
+      this.$refs['discard-post-modal'].show()
+    },
+    discardPost() {
+      this.post = new Post()
+      this.$refs['create-post-modal'].hide()
+    },
+  },
 }
 </script>
