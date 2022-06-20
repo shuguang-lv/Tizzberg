@@ -34,17 +34,21 @@
     </v-app-bar>
 
     <v-main>
-      <router-view />
+      <router-view :key="$route.fullPath" />
     </v-main>
   </v-app>
 </template>
 
 <script>
 export default {
-  name: "App",
+  name: 'App',
 
   data: () => ({
     //
   }),
-};
+}
 </script>
+
+<style>
+/* @import url('~simpledotcss/simple.min.css'); */
+</style>
