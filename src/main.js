@@ -19,6 +19,8 @@ Vue.use(Plugin, {
 })
 Vue.use(VueCryptojs)
 
+Vue.prototype.$appName = process.env.VUE_APP_NAME
+
 new Vue({
   router,
   store,

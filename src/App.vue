@@ -1,50 +1,66 @@
 <template>
-  <v-app>
-    <v-app-bar app color="primary" dark>
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
+  <v-app :style="{ background: $vuetify.theme.themes.light.background }">
+    <v-navigation-drawer
+      absolute
+      :mini-variant.sync="showNavDrawer"
+      hide-overlay
+    >
+      <!-- -->
+    </v-navigation-drawer>
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
+    <v-app-bar app color="white" elevation="5" height="80px">
+      <v-app-bar-nav-icon
+        class="ml-2"
+        @click="showNavDrawer = !showNavDrawer"
+      ></v-app-bar-nav-icon>
+      <v-toolbar-title class="text-h4 secondary--text">{{
+        $appName
+      }}</v-toolbar-title>
     </v-app-bar>
 
+    <!-- Sizes your content based upon application components -->
     <v-main>
-      <router-view :key="$route.fullPath" />
+      <!-- Provides the application the proper gutter -->
+      <v-container fluid class="fill-height">
+        <!-- If using vue-router -->
+        <v-row class="fill-height">
+          <v-col cols="11">
+            <router-view :key="$route.fullPath"></router-view>
+          </v-col>
+          <v-col cols="1" align-self="center">
+            <v-btn
+              depressed
+              large
+              absolute
+              right
+              color="accent"
+              @click="showFriendList = !showFriendList"
+            >
+              <v-icon v-if="showFriendList"> mdi-chevron-double-right </v-icon>
+              <v-icon v-else> mdi-chevron-double-left </v-icon>
+            </v-btn></v-col
+          >
+        </v-row>
+      </v-container>
+      <v-navigation-drawer v-model="showFriendList" app hide-overlay right>
+        <!-- -->
+      </v-navigation-drawer>
     </v-main>
+
+    <v-footer padless elevation="3" color="white">
+      <v-col class="text-center primary--text" cols="12">
+        Copyright 2022 <strong>{{ $appName }}</strong> All Rights Reserved.
+      </v-col>
+    </v-footer>
   </v-app>
 </template>
 
 <script>
 export default {
   name: 'App',
-
   data: () => ({
-    //
+    showNavDrawer: true,
+    showFriendList: false,
   }),
 }
 </script>
