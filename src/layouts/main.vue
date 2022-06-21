@@ -1,6 +1,8 @@
 <script>
+import NavBarUser from '@/components/nav-bar-user.vue'
+
 export default {
-  components: {},
+  components: { NavBarUser },
   data() {
     return {
       showFriendList: false,
@@ -28,6 +30,8 @@ export default {
       <v-toolbar-title class="text-h4 secondary--text">{{
         $appName
       }}</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <NavBarUser></NavBarUser>
     </v-app-bar>
     <!-- Sizes your content based upon application components -->
     <v-main

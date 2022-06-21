@@ -19,6 +19,9 @@ Vue.use(Plugin, {
 })
 Vue.use(VueCryptojs)
 
+// event bus
+export const eventBus = new Vue()
+Vue.prototype.$emitter = eventBus
 Vue.prototype.$appName = process.env.VUE_APP_NAME
 
 new Vue({

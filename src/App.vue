@@ -11,11 +11,18 @@ export default {
   </v-app>
 </template>
 
-<style>
+<style lang="scss">
 /* @import url('~simpledotcss/simple.min.css'); */
+// https://github.com/rstacruz/nprogress
+@import '~nprogress/nprogress.css';
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+#nprogress .bar {
+  background: #8ab6c9;
 }
 </style>
