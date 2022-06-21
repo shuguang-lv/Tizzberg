@@ -1,23 +1,18 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import modules from './modules'
+import dispatchActionForAllModules from '@/utils/dispatch-action-for-all-modules'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: {
-    authUser: {
-      id: 'sh46s546sdg564sdffs4hsd6fh',
-      name: 'Admin SocialV',
-      mobileNo: null,
-      email: 'admin@socialvue.com',
-      profileImage: null,
-      password: 'admin123',
-    },
-  },
-  getters: {
-    authUserState: (state) => state.authUser,
-  },
-  mutations: {},
-  actions: {},
-  modules: {},
+  modules,
+  // Enable strict mode in development to get a warning
+  // when mutating state outside of a mutation.
+  // https://vuex.vuejs.org/guide/strict.html
+  strict: process.env.NODE_ENV !== 'production',
 })
+
+// Automatically run the `init` action for every module,
+// if one exists.
+dispatchActionForAllModules('init')
