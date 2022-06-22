@@ -25,4 +25,9 @@ export default {
 #nprogress .bar {
   background: #8ab6c9;
 }
+
+// remove unnecessary scrollbar
+html {
+  overflow-y: auto !important;
+}
 </style>
