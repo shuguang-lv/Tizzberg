@@ -1,27 +1,32 @@
 export const AV = require('leancloud-storage');
 
-export async function userSignUp({username='',firstName="",lastName="",email="",emailVerified='',mobilePhoneNumber='',password='',identity=[],currentIdentity=''}) {
+export async function userSignUp(user_info,{username='',email="",mobilePhoneNumber='',password=''}) {
     const user = new AV.User()
+    // user.set('firstName', firstName)
+    // user.set('lastName', lastName)
+    // user.set('identity', identity)
+    // user.set('currentIdentity', currentIdentity)
+    // user.set('followedTag', followedTag)
+    // user.set('savedPost', savedPost)
+    // user.set('emailVerified', emailVerified)
+    user.set(user_info)
     user.setUsername(username)
-    user.set('firstName', firstName)
-    user.set('lastName', lastName)
-    user.set('firstName', identity)
-    user.set('lastName', currentIdentity)
     user.setEmail(email)
-    user.set('emailVerified', emailVerified)
     user.setMobilePhoneNumber(mobilePhoneNumber)
     user.setPassword(password)
     return user.signUp()
 }
 
-export async function deleteUser({objectId=''}) {
-    const user = AV.User.createWithoutData('user', objectId);
-    return user.destroy();
+export async function deleteCurrentUser(userId) {
+    const user = AV.User.current();
+    if (user.get('objectId') === userId) {
+        return user.destroy();
+    } 
 }
 
 //TODO: authentication ?
-export async function editUser(objectId,config,{username,firstName,lastName,identity,currentIdentity,email,emailVerified,mobilePhoneNumber}) {
-    const user = AV.User.createWithoutData('User', objectId);
+export async function editUser(config,{username,firstName,lastName,identity,currentIdentity,email,emailVerified,mobilePhoneNumber,followedTag,savedPost}) {
+    const user = AV.User.current();
     if (username) {user.set('username',username)}
     if (firstName) {user.set('firstName', firstName)}
     if (lastName) {user.set('lastName', lastName)}
@@ -30,12 +35,17 @@ export async function editUser(objectId,config,{username,firstName,lastName,iden
     if (email) {user.set('email', email)}
     if (emailVerified) {user.set('emailVerified', emailVerified)}
     if (mobilePhoneNumber) {user.set('mobilePhoneNumber', mobilePhoneNumber)}
+    if (followedTag) {user.set('followedTag', followedTag)}
+    if (savedPost) {user.set('followedTag', savedPost)}
     return user.save(null,config);
 }
 
-
 export async function userSignIn(username,password) {
     return AV.User.logIn(username, password)
+}
+
+export async function userSignOut() {
+    return AV.User.logOut();
 }
 
 export async function emailVerify(email) {
@@ -46,9 +56,15 @@ export async function passwordResetByEmail(email) {
     return AV.User.requestPasswordReset(email);
 }
 
+export async function createIdentity(identity,config) {
+    const user = AV.User.current();
+    if (identity) {identity.add('identity',identity)}
+    return user.save(null,config);
+}
+
 export async function changeIdentity(identity,config) {
     const user = AV.User.current();
-    if (identity) {user.set('identity',identity)}
+    if (identity) {user.set('currentIdentity',identity)}
     return user.save(null,config);
 }
 
@@ -78,6 +94,7 @@ export async function getUnreadMessageCount() {
 }
 
 export async function followUser(user_object_id) {
+    //TODO: verify user id
     return AV.User.current().follow(user_object_id)
 }
 
@@ -85,13 +102,13 @@ export async function unfollowUser(user_object_id) {
     return AV.User.current().unfollow(user_object_id)
 }
 
-export async function getAllFollower(user_object_id) {
+export async function getAllFollower() {
     var query = AV.User.current().followerQuery();
     query.include('follower');
     return query.find();
 }
 
-export async function getAllFans(user_object_id) {
+export async function getAllFollowee() {
     var query = AV.User.current().followeeQuery();
     query.include('followee');
     return query.find();

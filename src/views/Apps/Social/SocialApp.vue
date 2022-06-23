@@ -345,11 +345,15 @@ import IqCard from '@/components/socialvue/cards/iq-card'
 import SocialPost from './Components/SocialPost'
 import AddSocialPost from './Components/AddSocialPost'
 
+// import Post from '@/models/Post.js'
+// import * as postApi from '@/api/Post.js'
+
 export default {
   name: 'SocialApp',
   components: { IqCard, AddSocialPost, SocialPost },
   data() {
     return {
+      // post: new Post(),
       suggestionEvent: [
         {
           img: require('@/assets/images/page-img/42.png'),
@@ -628,6 +632,7 @@ export default {
   },
   mounted() {
     socialvue.index()
+    // this.createPost(this.post)
   },
   beforeRouteLeave(to, from, next) {
     const currentPost = this.$refs['add-post'].post
@@ -642,6 +647,15 @@ export default {
     addPost(post) {
       this.socialPosts.unshift(post)
     },
+    // createPost(post) {
+    //   try {
+    //     let res = postApi.addPost(post)
+    //     postApi.deletePost('62b33c9c5f903a0feb5764f0')
+    //     console.log(res)
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
+    // }
   },
 }
 </script>
