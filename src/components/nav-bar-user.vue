@@ -17,7 +17,7 @@ export default {}
         </v-sheet>
 
         <v-list>
-          <v-list-item color="primary" to="/" two-line>
+          <v-list-item color="primary" :to="{ name: 'profile' }" two-line>
             <v-list-item-icon class="ma-auto mr-4">
               <v-icon color="primary" large>mdi-account-eye-outline</v-icon>
             </v-list-item-icon>
@@ -29,7 +29,7 @@ export default {}
             </v-list-item-content>
           </v-list-item>
           <v-divider></v-divider>
-          <v-list-item color="primary" to="/" two-line>
+          <v-list-item color="primary" link two-line>
             <v-list-item-icon class="ma-auto mr-4">
               <v-icon color="primary" large>mdi-account-edit-outline</v-icon>
             </v-list-item-icon>
@@ -41,7 +41,7 @@ export default {}
             </v-list-item-content>
           </v-list-item>
           <v-divider></v-divider>
-          <v-list-item color="primary" to="/" two-line>
+          <v-list-item color="primary" link two-line>
             <v-list-item-icon class="ma-auto mr-4">
               <v-icon color="primary" large>mdi-account-switch-outline</v-icon>
             </v-list-item-icon>
@@ -54,7 +54,7 @@ export default {}
         </v-list>
 
         <v-card-actions class="mb-4 d-flex justify-center">
-          <v-btn color="primary" depressed class="pa-4">
+          <v-btn color="primary" depressed class="pa-4" :to="{ name: 'login' }">
             Sign out <v-icon class="ml-2">mdi-logout</v-icon>
           </v-btn>
         </v-card-actions>
@@ -63,7 +63,7 @@ export default {}
 
     <div class="text-h5 mx-4">John Wick</div>
 
-    <v-btn icon large :to="{ name: 'home' }" color="primary" class="mx-4">
+    <v-btn icon large :to="{ name: 't-square' }" color="primary" class="mx-4">
       <v-icon>mdi-home-outline</v-icon>
     </v-btn>
 

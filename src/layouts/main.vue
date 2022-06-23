@@ -21,6 +21,7 @@ export default {
       :mini-variant.sync="showNavDrawer"
       hide-overlay
       class="pt-16"
+      width="300"
     >
       <NavBarRoutes class="mt-8"></NavBarRoutes>
     </v-navigation-drawer>
