@@ -1,5 +1,23 @@
 <script>
-export default {}
+import { authMethods } from '@/store/helpers'
+
+export default {
+  methods: {
+    ...authMethods,
+    openLogoutDialog() {
+      this.$Dialog({
+        title: 'Logout',
+        content: 'Are you sure you want to log out?',
+        confirmButton: {
+          action: async () => {
+            await this.logOut()
+            this.$router.push({ name: 'login' })
+          },
+        },
+      })
+    },
+  },
+}
 </script>
 
 <template>
@@ -54,7 +72,13 @@ export default {}
         </v-list>
 
         <v-card-actions class="mb-4 d-flex justify-center">
-          <v-btn color="primary" depressed class="pa-4" :to="{ name: 'login' }">
+          <v-btn
+            color="primary"
+            depressed
+            class="pa-4"
+            link
+            @click="openLogoutDialog"
+          >
             Sign out <v-icon class="ml-2">mdi-logout</v-icon>
           </v-btn>
         </v-card-actions>

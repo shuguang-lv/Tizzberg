@@ -5,6 +5,12 @@ export default {
   components: {
     Layout,
   },
+  props: {
+    user: {
+      type: Object,
+      required: true,
+    },
+  },
 }
 </script>
 

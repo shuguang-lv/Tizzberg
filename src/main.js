@@ -6,6 +6,8 @@ import vuetify from './plugins/vuetify'
 import VueDayjs from 'vue-dayjs-plugin'
 import { Plugin } from 'vue2-storage'
 import VueCryptojs from 'vue-cryptojs'
+import Dialog from './components/dialog'
+import Snackbar from './components/snackbar'
 
 Vue.config.productionTip = false
 
@@ -23,6 +25,8 @@ Vue.use(VueCryptojs)
 export const eventBus = new Vue()
 Vue.prototype.$emitter = eventBus
 Vue.prototype.$appName = process.env.VUE_APP_NAME
+Vue.prototype.$Dialog = Dialog
+Vue.prototype.$Snackbar = Snackbar
 
 new Vue({
   router,

@@ -30,4 +30,8 @@ export default {
 html {
   overflow-y: auto !important;
 }
+
+.v-application {
+  background: transparent !important;
+}
 </style>
