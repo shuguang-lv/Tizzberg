@@ -46,6 +46,24 @@ function lazyLoadView(AsyncView) {
   })
 }
 
+const fetchUser = (routeTo, routeFrom, next) => {
+  store
+    // Try to fetch the user's information by their username
+    .dispatch('users/fetchUser', { username: routeTo.params.username })
+    .then((user) => {
+      // Add the user to `meta.tmp`, so that it can
+      // be provided as a prop.
+      routeTo.meta.tmp.user = user
+      // Continue to the route.
+      next()
+    })
+    .catch(() => {
+      // If a user with the provided username could not be
+      // found, redirect to the 404 page.
+      next({ name: '404', params: { resource: 'User' } })
+    })
+}
+
 const routes = [
   {
     path: '/',
@@ -66,6 +84,11 @@ const routes = [
     path: '/fiction',
     name: 'fiction',
     component: () => lazyLoadView(import('../views/fiction.vue')),
+  },
+  {
+    path: '/signup',
+    name: 'signup',
+    component: () => lazyLoadView(import('../views/signup.vue')),
   },
   {
     path: '/login',
@@ -103,27 +126,20 @@ const routes = [
       // and the `props` function, we must create an object for temporary
       // data only used during route resolution.
       tmp: {},
-      beforeResolve(routeTo, routeFrom, next) {
-        store
-          // Try to fetch the user's information by their username
-          .dispatch('users/fetchUser', { username: routeTo.params.username })
-          .then((user) => {
-            // Add the user to `meta.tmp`, so that it can
-            // be provided as a prop.
-            routeTo.meta.tmp.user = user
-            // Continue to the route.
-            next()
-          })
-          .catch(() => {
-            // If a user with the provided username could not be
-            // found, redirect to the 404 page.
-            next({ name: '404', params: { resource: 'User' } })
-          })
-      },
+      beforeResolve: fetchUser,
     },
     // Set the user from the route params, once it's set in the
     // beforeResolve route guard.
     props: (route) => ({ user: route.meta.tmp.user }),
+  },
+  {
+    path: '/reset-password',
+    name: 'reset-password',
+    component: () => lazyLoadView(import('../views/reset-pwd.vue')),
+    meta: {
+      authRequired: true,
+    },
+    props: () => ({ user: store.state.auth.currentUser || {} }),
   },
   {
     path: '/logout',

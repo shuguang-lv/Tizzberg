@@ -46,7 +46,7 @@ export default {
       <v-container fluid class="fill-height d-flex align-start py-6">
         <!-- If using vue-router -->
         <v-row class="fill-height">
-          <v-col cols="12">
+          <v-col cols="12" class="d-flex flex-column align-center">
             <!-- page main content -->
             <slot />
           </v-col>

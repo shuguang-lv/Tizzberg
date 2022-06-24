@@ -5,8 +5,13 @@ export default {}
 <template>
   <v-main class="fill-height">
     <!-- Provides the application the proper gutter -->
-    <v-container fluid class="fill-height d-flex">
-      <slot />
+    <v-container fluid class="fill-height d-flex justify-center py-0 pl-16">
+      <div class="text-h2 secondary--text font-weight-regular mx-16">
+        {{ $appName }}
+      </div>
+      <v-sheet class="ml-16 pa-16" color="white" height="100%" width="650"
+        ><slot
+      /></v-sheet>
       <section class="sign-in-page">
         <div id="container-inside">
           <div id="circle-small" />
