@@ -90,9 +90,6 @@ export default {
         >
           Sign in
         </v-btn>
-        <v-btn @click="clear">
-          clear
-        </v-btn>
       </form>
     </v-container>
 
@@ -105,9 +102,7 @@ export default {
         </v-col>
         <v-col class="col-md-2">
           <!-- <a class="secondary--text font-weight-regular" >Sign up</a> -->
-          <v-btn text class="secondary--text font-weight-regular" @click="toSignUp">
-            Sign up
-          </v-btn>
+          <router-link :to="{ path: '/signup' }">Sign up</router-link>
         </v-col>
       </v-row>
     </v-container>
