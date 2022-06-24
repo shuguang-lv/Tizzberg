@@ -8,6 +8,14 @@ export default {
   data() {
     return {
       flowWidth: '50vw',
+      showPostEditor: false,
+      post: {
+        title: '',
+        content: '',
+      },
+      postRules: [
+        (v) => !v || v.trim().split(/\s+/).length <= 800 || 'Max 800 words',
+      ],
       selectedTab: 'tab-hot',
       tabs: [
         {
@@ -69,7 +77,84 @@ export default {
           action: 'error',
         },
       ],
+      postAccess: [
+        {
+          text: 'Public',
+          description: 'This post is visible to all users',
+          icon: 'mdi-eye-outline',
+          value: 'public',
+        },
+        {
+          text: 'Follower',
+          description: 'This post is visible to your followers',
+          icon: 'mdi-account-multiple-outline',
+          value: 'follower',
+        },
+        {
+          text: 'Private',
+          description: 'Only yourself can see this post',
+          icon: 'mdi-lock-outline',
+          value: 'private',
+        },
+      ],
+      postTags: [
+        {
+          text: 'TagA',
+          value: 'a',
+        },
+        {
+          text: 'TagB',
+          value: 'b',
+        },
+        {
+          text: 'TagC',
+          value: 'c',
+        },
+      ],
     }
+  },
+  beforeMount() {
+    const lastPost = JSON.parse(window.localStorage.getItem('last-post'))
+    this.post = lastPost || this.post
+    window.addEventListener('beforeunload', () => {
+      if (this.post.content.trim()) {
+        window.localStorage.setItem('last-post', JSON.stringify(this.post))
+      } else {
+        window.localStorage.removeItem('last-post')
+      }
+    })
+  },
+  // beforeRouteLeave() {
+  //   if (this.post && this.post.content.trim()) {
+  //     window.localStorage.setItem('last-post', JSON.stringify(this.post))
+  //   } else {
+  //     window.localStorage.removeItem('last-post')
+  //   }
+  // },
+  methods: {
+    discardPost() {
+      if (!this.post.content.trim()) {
+        this.showPostEditor = false
+        return
+      }
+      this.$Dialog({
+        title: 'Discard this post ?',
+        cancelButton: {
+          text: 'Nevermind',
+          action: () => {},
+        },
+        confirmButton: {
+          text: 'Discard',
+          action: () => {
+            this.post = {
+              title: '',
+              content: '',
+            }
+            this.showPostEditor = false
+          },
+        },
+      })
+    },
   },
 }
 </script>
@@ -90,6 +175,7 @@ export default {
           append-icon="mdi-pencil"
           hide-details
           outlined
+          @click="showPostEditor = !showPostEditor"
         ></v-text-field>
       </v-card-text>
     </v-card>
@@ -220,6 +306,85 @@ export default {
         </v-card>
       </v-tab-item>
     </v-tabs-items>
+
+    <!-- post editor -->
+    <v-dialog v-model="showPostEditor" persistent closable max-width="700">
+      <v-card tile>
+        <v-card-title class="text-h5 secondary--text">
+          Create Post
+          <v-spacer></v-spacer>
+          <v-btn icon color="primary" @click="discardPost">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+        <v-divider></v-divider>
+        <v-card-text class="d-flex align-center pt-4">
+          <v-avatar color="primary" size="60" class="mr-6">
+            <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"
+          /></v-avatar>
+          <v-textarea
+            v-model="post.content"
+            append-outer-icon="mdi-image"
+            label="write your post here"
+            rows="10"
+            counter
+            :rules="postRules"
+            clearable
+            outlined
+          >
+            <template v-slot:counter="{}">
+              {{ post.content ? post.content.trim().split(/\s+/).length : 0 }} /
+              800</template
+            >
+          </v-textarea>
+        </v-card-text>
+        <div class="d-flex px-4 mt-n4">
+          <v-select
+            :items="postTags"
+            filled
+            clearable
+            hide-details
+            chips
+            deletable-chips
+            multiple
+            disable-lookup
+            single-line
+            label="Tags"
+          >
+          </v-select>
+          <v-spacer class="mx-16"></v-spacer>
+          <v-select
+            :items="postAccess"
+            filled
+            disable-lookup
+            hide-details
+            label="Access"
+          >
+            <template v-slot:item="{ item, on, attrs }">
+              <v-list-item link class="px-8" v-bind="attrs" v-on="on">
+                <v-list-item-icon>
+                  <v-icon v-text="item.icon"></v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title v-text="item.text"></v-list-item-title>
+                  <v-list-item-subtitle
+                    v-text="item.description"
+                  ></v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+          </v-select>
+        </div>
+        <v-divider class="mb-2 mt-4"></v-divider>
+        <v-card-actions class="pb-4">
+          <v-btn depressed large outlined color="primary" width="200">
+            Save as draft
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn depressed large color="primary" width="200"> Post </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </Layout>
 </template>
 
