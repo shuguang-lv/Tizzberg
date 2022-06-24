@@ -34,4 +34,8 @@ html {
 .v-application {
   background: transparent !important;
 }
+
+.v-tabs-items {
+  background: transparent !important;
+}
 </style>
