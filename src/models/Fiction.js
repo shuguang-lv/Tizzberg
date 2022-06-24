@@ -3,6 +3,7 @@ import { is } from 'ramda'
 export default class Fiction {
   constructor (fiction = {}) {
     this.title = is(String, fiction.title) ? fiction.title : ''
+    this.description = is(String, fiction.description) ? fiction.description : ''
     this.content = is(String, fiction.content) ? fiction.content : ''
     this.chapterId = is(String, fiction.chapterId) ? fiction.chapterId : []
     this.tag = is(String, fiction.tag) ? fiction.tag : []

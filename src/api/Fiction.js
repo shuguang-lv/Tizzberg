@@ -20,7 +20,7 @@ export async function deletefiction({objectId=''}) {
     deleteObj(objectId,'Fiction')
 }
 
-export async function editfiction(objectId,config,{title,content,chapterId,tag,deleted,author,view_count,edit_access}) {
+export async function editfiction(objectId,config,{title,content,description,chapterId,tag,deleted,author,view_count,edit_access}) {
     const query = new AV.Query('Fiction');
     query.equalTo('objectId', objectId);
     query.find().then((res) => {
@@ -28,6 +28,7 @@ export async function editfiction(objectId,config,{title,content,chapterId,tag,d
         if (chapterId) {fiction.set('chapterId',chapterId)}
         if (title) {fiction.set('title', title)}
         if (content) {fiction.set('content', content)}
+        if (description) {fiction.set('description', description)}
         if (tag) {fiction.set('tag', tag)}
         if (deleted) {fiction.set('deleted', deleted)}
         if (author) {fiction.set('author', author)}
