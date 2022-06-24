@@ -10,8 +10,8 @@ export default {}
         {{ $appName }}
       </div>
       <v-sheet class="ml-16 pa-16" color="white" height="100%" width="650"
-        ><slot
-      /></v-sheet>
+        ><slot/>
+      </v-sheet>
       <section class="sign-in-page">
         <div id="container-inside">
           <div id="circle-small" />
