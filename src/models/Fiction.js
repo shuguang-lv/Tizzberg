@@ -1,15 +1,15 @@
-import { is } from 'ramda'
+import { isString, isBoolean, isNumber } from 'lodash'
 
 export default class Fiction {
-  constructor (fiction = {}) {
-    this.title = is(String, fiction.title) ? fiction.title : ''
-    this.description = is(String, fiction.description) ? fiction.description : ''
-    this.content = is(String, fiction.content) ? fiction.content : ''
-    this.chapterId = is(String, fiction.chapterId) ? fiction.chapterId : []
-    this.tag = is(String, fiction.tag) ? fiction.tag : []
-    this.author = is(String, fiction.author) ? fiction.author : []
-    this.edit_access = is(String, fiction.edit_access) ? fiction.edit_access : ''
-    this.deleted = is(Boolean, fiction.deleted) ? fiction.deleted : false
-    this.view_count = is(Number, fiction.view_count) ? fiction.view_count : 0
+  constructor(fiction = {}) {
+    this.title = isString(fiction.title) ? fiction.title : ''
+    this.description = isString(fiction.description) ? fiction.description : ''
+    this.content = isString(fiction.content) ? fiction.content : ''
+    this.chapterId = isString(fiction.chapterId) ? fiction.chapterId : []
+    this.tag = isString(fiction.tag) ? fiction.tag : []
+    this.author = isString(fiction.author) ? fiction.author : []
+    this.edit_access = isString(fiction.edit_access) ? fiction.edit_access : ''
+    this.deleted = isBoolean(fiction.deleted) ? fiction.deleted : false
+    this.view_count = isNumber(fiction.view_count) ? fiction.view_count : 0
   }
 }

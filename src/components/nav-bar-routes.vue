@@ -1,5 +1,6 @@
 <script>
 export default {
+  name: 'NavBarRoutes',
   data() {
     return {
       routes: [

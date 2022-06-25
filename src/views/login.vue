@@ -1,42 +1,40 @@
 <script>
-import { authMethods } from '@/store/helpers'
 import Layout from '@/layouts/auth.vue'
+import { authMethods } from '@/store/helpers'
+import { logInUser } from '@/api/User.js'
 
 export default {
+  name: 'Login',
   components: {
     Layout,
   },
   data() {
     return {
-      username: '',
+      logIning: false,
+      showPassword: false,
+      identifier: '',
       password: '',
-      authError: null,
-      tryingToLogIn: false,
+      checkbox: false,
+      required: (v) => !!v || 'This field is required',
     }
   },
   methods: {
     ...authMethods,
-    // Try to log the user in with the username
-    // and password they provided.
-    tryToLogIn() {
-      this.tryingToLogIn = true
-      // Reset the authError if it existed.
-      this.authError = null
-      return this.logIn({
-        username: this.username,
-        password: this.password,
-      })
-        .then((token) => {
-          console.log(token)
-          this.tryingToLogIn = false
-
+    async logIn() {
+      this.logIning = true
+      if (this.$refs.form.validate()) {
+        try {
+          const user = await logInUser(this.identifier, this.password)
+          console.log(user)
+          console.log(this.$User.current())
           // Redirect to the originally requested page, or to the home page
           this.$router.push(this.$route.query.redirectFrom || { name: 'home' })
-        })
-        .catch((error) => {
-          this.tryingToLogIn = false
-          this.authError = error
-        })
+        } catch (error) {
+          console.log(error)
+          this.$Snackbar.error(error.rawMessage)
+        }
+      }
+      this.logIning = false
     },
   },
 }
@@ -46,11 +44,10 @@ export default {
   <Layout>
     <div class="text-h4 mb-12 secondary--text font-weight-medium">Log in</div>
 
-    <form>
+    <v-form ref="form" lazy-validation>
       <v-text-field
-        v-model="username"
-        :error-messages="usernameErrors"
-        :rules="nameRules"
+        v-model="identifier"
+        :rules="[required]"
         label="Username / Email address"
         outlined
         required
@@ -59,25 +56,33 @@ export default {
       ></v-text-field>
       <v-text-field
         v-model="password"
-        :error-messages="passwordErrors"
+        :rules="[required]"
         label="Password"
         outlined
         required
         clearable
-        type="password"
+        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+        :type="showPassword ? 'text' : 'password'"
+        @click:append="showPassword = !showPassword"
       ></v-text-field>
       <div class="d-flex justify-space-between align-center mb-8">
         <v-checkbox
           v-model="checkbox"
-          :error-messages="checkboxErrors"
           label="Remember Me"
           required
         ></v-checkbox>
-        <v-btn depressed large color="primary" @click="tryToLogIn">
+        <v-btn
+          depressed
+          large
+          color="primary"
+          :loading="logIning"
+          :disabled="logIning"
+          @click="logIn"
+        >
           Sign in
         </v-btn>
       </div>
-    </form>
+    </v-form>
 
     <v-divider class="mb-8"></v-divider>
 

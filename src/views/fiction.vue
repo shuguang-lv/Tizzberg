@@ -2,6 +2,7 @@
 import Layout from '@/layouts/main.vue'
 
 export default {
+  name: 'Fiction',
   components: {
     Layout,
   },
@@ -125,7 +126,10 @@ export default {
     this.fiction = lastFiction || this.fiction
     window.addEventListener('beforeunload', () => {
       if (this.fiction.content.trim()) {
-        window.localStorage.setItem('last-fiction', JSON.stringify(this.fiction))
+        window.localStorage.setItem(
+          'last-fiction',
+          JSON.stringify(this.fiction)
+        )
       } else {
         window.localStorage.removeItem('last-fiction')
       }
@@ -218,10 +222,7 @@ export default {
             <v-card-title>Cafe Badilico</v-card-title>
 
             <v-card-text>
-              <v-row
-                align="center"
-                class="mx-0"
-              >
+              <v-row align="center" class="mx-0">
                 <v-rating
                   :value="4.5"
                   color="amber"
@@ -231,31 +232,41 @@ export default {
                   size="14"
                 ></v-rating>
 
-                <div class="my-1 grey--text ms-4">
-                  4.5 (413)
-                </div>
+                <div class="my-1 grey--text ms-4">4.5 (413)</div>
               </v-row>
 
-              <div class="my-2 ">
-                <v-chip label small class="mr-1 my-1 font-weight-bold" color="#8ab6c9">
+              <div class="my-2">
+                <v-chip
+                  label
+                  small
+                  class="mr-1 my-1 font-weight-bold"
+                  color="#8ab6c9"
+                >
                   Food
                 </v-chip>
-                <v-chip label small class="mr-1 my-1 font-weight-bold" color="#8ab6c9">
+                <v-chip
+                  label
+                  small
+                  class="mr-1 my-1 font-weight-bold"
+                  color="#8ab6c9"
+                >
                   Italy
-                </v-chip>                
+                </v-chip>
               </div>
 
               <v-chip label small class="my-1 font-weight-bold" color="#8ab6c9">
                 03.17.2000
               </v-chip>
 
-              <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating.</div>
+              <div>
+                Small plates, salads & sandwiches - an intimate setting with 12
+                indoor seats plus patio seating.
+              </div>
             </v-card-text>
           </v-card>
         </v-col>
       </v-row>
     </v-container>
-
 
     <!-- fiction editor -->
     <v-dialog v-model="showFictionEditor" persistent closable max-width="700">
@@ -269,7 +280,7 @@ export default {
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text class="d-flex align-center pt-4">
-          <v-avatar color="primary" size="60" class="mr-6" >
+          <v-avatar color="primary" size="60" class="mr-6">
             <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"
           /></v-avatar>
           <v-text-field
@@ -287,31 +298,37 @@ export default {
         </v-card-text>
         <v-card-text>
           <v-textarea
-              v-model="fiction.description"
-              label="write your fiction's description here"
-              :rules="fictionDescriptionRules"
-              rows="10"
-              counter
-              clearable
-              outlined
+            v-model="fiction.description"
+            label="write your fiction's description here"
+            :rules="fictionDescriptionRules"
+            rows="10"
+            counter
+            clearable
+            outlined
           >
             <template v-slot:counter="{}">
-              {{ fiction.description ? fiction.description.trim().split(/\s+/).length : 0 }} /
-              200</template
+              {{
+                fiction.description
+                  ? fiction.description.trim().split(/\s+/).length
+                  : 0
+              }}
+              / 200</template
             >
           </v-textarea>
           <v-textarea
-              v-model="fiction.content"
-              label="write your fiction here"
-              rows="10"
-              counter
-              :rules="fictionContentRules"
-              clearable
-              outlined
+            v-model="fiction.content"
+            label="write your fiction here"
+            rows="10"
+            counter
+            :rules="fictionContentRules"
+            clearable
+            outlined
           >
             <template v-slot:counter="{}">
-              {{ fiction.content ? fiction.content.trim().split(/\s+/).length : 0 }} /
-              800</template
+              {{
+                fiction.content ? fiction.content.trim().split(/\s+/).length : 0
+              }}
+              / 800</template
             >
           </v-textarea>
         </v-card-text>

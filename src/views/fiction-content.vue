@@ -4,7 +4,7 @@ import SideCatalog from 'vue-side-catalog'
 import 'vue-side-catalog/lib/vue-side-catalog.css'
 
 export default {
-  name: 'fiction-content',
+  name: 'FictionContent',
   components: {
     SideCatalog,
     Layout,

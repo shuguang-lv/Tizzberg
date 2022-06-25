@@ -2,19 +2,8 @@
 export default {
   name: 'App',
   data: () => ({}),
-  methods: {
-    initializeConnection() {
-      const AV = require('leancloud-storage');
-      AV.init({ 
-        appId: "5Y6XfcEGs057U6eBhhYiIBy0-MdYXbMMI",
-        appKey: "QIt08R1MMkbnQuFO7TPtR6up",
-        serverURL: "https://5y6xfceg.api.lncldglobal.com"
-      });
-    },
-  },
-  mounted () {
-    this.initializeConnection()
-  },
+  methods: {},
+  mounted() {},
 }
 </script>
 

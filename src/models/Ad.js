@@ -1,11 +1,11 @@
-import { is } from 'ramda'
+import { isString, isNumber } from 'lodash'
 
 export default class Ad {
-  constructor (ad = {}) {
-    this.title = is(String, ad.title) ? ad.title : ''
-    this.URL = is(String, ad.URL) ? ad.URL : ''
-    this.imgURL = is(String, ad.imgURL) ? ad.imgURL : ''
-    this.description = is(String, ad.description) ? ad.description : ''
-    this.num_click = is(Number, ad.num_click) ? ad.num_click : 0
+  constructor(ad = {}) {
+    this.title = isString(ad.title) ? ad.title : ''
+    this.URL = isString(ad.URL) ? ad.URL : ''
+    this.imgURL = isString(ad.imgURL) ? ad.imgURL : ''
+    this.description = isString(ad.description) ? ad.description : ''
+    this.num_click = isNumber(ad.num_click) ? ad.num_click : 0
   }
 }

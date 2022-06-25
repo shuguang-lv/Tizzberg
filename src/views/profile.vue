@@ -2,6 +2,7 @@
 import Layout from '@/layouts/main.vue'
 
 export default {
+  name: 'Profile',
   components: {
     Layout,
   },

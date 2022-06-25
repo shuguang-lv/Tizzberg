@@ -1,5 +1,6 @@
 <script>
 export default {
+  name: 'IdentityEditor',
   data() {
     return {
       showDialog: false,

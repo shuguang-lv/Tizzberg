@@ -1,6 +1,6 @@
-import { is } from 'ramda'
+// import { is } from 'ramda'
 
-export default class Message {
-  constructor (message = {}) {
-  }
-}
+// export default class Message {
+//   constructor (message = {}) {
+//   }
+// }

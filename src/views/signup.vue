@@ -1,41 +1,65 @@
 <script>
 import Layout from '@/layouts/auth.vue'
+import { signUpUser } from '@/api/User.js'
+import User from '@/models/User.js'
+import { authMethods } from '@/store/helpers'
 
 export default {
+  name: 'Signup',
   components: {
     Layout,
   },
   data: () => ({
-    valid: true,
-    name: '',
+    signingUp: false,
+    newUser: new User(),
     nameRules: [
       (v) => !!v || 'Name is required',
       (v) => (v && v.length <= 10) || 'Name must be less than 10 characters',
     ],
-    email: '',
     emailRules: [
       (v) => !!v || 'E-mail is required',
       (v) => /.+@.+\..+/.test(v) || 'E-mail must be valid',
     ],
-    password: '',
+    showPassword: false,
     passwordRules: [
       (v) => !!v || 'Password is required',
       (v) =>
         /^(?=.*[a-zA-Z])(?=.*[0-9])[A-Za-z0-9]{8,18}$/.test(v) ||
         'Password must be valid',
     ],
-    confirm_password: '',
-    confirmPasswordRules: [
-      // TODO: same password check
-      (v) => !!v || 'Please Confirm your Password',
-      (v) =>
-        /^(?=.*[a-zA-Z])(?=.*[0-9])[A-Za-z0-9]{8,18}$/.test(v) ||
-        'Password must be valid',
-    ],
+    showConfirmPassword: false,
     checkbox: false,
+    checkboxRules: [
+      (v) => !!v || 'Please accept terms and conditions before sign-up',
+    ],
   }),
-
-  methods: {},
+  computed: {
+    confirmPasswordRules() {
+      return [
+        (v) =>
+          v === this.newUser.password ||
+          'Two passwords entered should be the same',
+      ]
+    },
+  },
+  methods: {
+    ...authMethods,
+    async signUp() {
+      this.signingUp = true
+      if (this.$refs.form.validate()) {
+        try {
+          const user = await signUpUser(this.newUser)
+          console.log(user)
+          console.log(this.$User.current())
+        } catch (error) {
+          console.log(error)
+          this.$Snackbar.error(error.rawMessage)
+        }
+      }
+      this.signingUp = false
+    },
+    verifyEmail() {},
+  },
 }
 </script>
 
@@ -43,10 +67,9 @@ export default {
   <Layout>
     <div class="text-h4 mb-12 secondary--text font-weight-medium">Sign Up</div>
 
-    <form ref="form" lazy-validation>
+    <v-form ref="form" lazy-validation>
       <v-text-field
-        v-model="username"
-        :error-messages="usernameErrors"
+        v-model="newUser.username"
         :rules="nameRules"
         label="Username"
         required
@@ -57,7 +80,7 @@ export default {
       <div class="d-flex mb-4">
         <v-text-field
           class="mr-2"
-          v-model="email"
+          v-model="newUser.email"
           :rules="emailRules"
           label="E-mail"
           required
@@ -69,41 +92,53 @@ export default {
         </v-btn>
       </div>
       <v-text-field
-        v-model="password"
-        :error-messages="passwordErrors"
+        v-model="newUser.password"
         label="Password"
         :rules="passwordRules"
         required
         outlined
         clearable
         class="mb-4"
+        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+        :type="showPassword ? 'text' : 'password'"
+        @click:append="showPassword = !showPassword"
       ></v-text-field>
       <v-text-field
-        v-model="confirm_password"
-        :error-messages="passwordErrors"
         label="Re-enter your Password"
         :rules="confirmPasswordRules"
         required
         outlined
         clearable
         class="mb-4"
+        :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
+        :type="showConfirmPassword ? 'text' : 'password'"
+        @click:append="showConfirmPassword = !showConfirmPassword"
       ></v-text-field>
       <div class="d-flex justify-space-between align-center mb-8">
         <div class="d-flex align-center">
           <v-checkbox
             class="mr-2"
             v-model="checkbox"
-            :error-messages="checkboxErrors"
             label="I accept "
+            :rules="checkboxRules"
             required
           ></v-checkbox>
-          <router-link class="d-flex align-center" :to="{ path: '/signup' }"
+          <router-link class="d-flex align-center" :to="{ name: 'signup' }"
             >Terms and Conditions</router-link
           >
         </div>
-        <v-btn depressed large color="primary" @click="signUp"> Sign up </v-btn>
+        <v-btn
+          depressed
+          large
+          color="primary"
+          :loading="signingUp"
+          :disabled="signingUp"
+          @click="signUp"
+        >
+          Sign up
+        </v-btn>
       </div>
-    </form>
+    </v-form>
 
     <v-divider class="mb-8"></v-divider>
 

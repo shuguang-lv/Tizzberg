@@ -2,6 +2,7 @@
 import Layout from '@/layouts/auth.vue'
 
 export default {
+  name: 'ResetPwd',
   components: {
     Layout,
   },
