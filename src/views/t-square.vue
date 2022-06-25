@@ -1,9 +1,12 @@
 <script>
 import Layout from '@/layouts/main.vue'
+import IdentityEditor from '@/components/identity-editor.vue'
+import { authComputed } from '@/store/helpers'
 
 export default {
   components: {
     Layout,
+    IdentityEditor,
   },
   data() {
     return {
@@ -113,6 +116,9 @@ export default {
       ],
     }
   },
+  computed: {
+    ...authComputed,
+  },
   beforeMount() {
     const lastPost = JSON.parse(window.localStorage.getItem('last-post'))
     this.post = lastPost || this.post
@@ -161,13 +167,20 @@ export default {
 
 <template>
   <Layout>
+    <identity-editor ref="identity"></identity-editor>
+
     <v-card rounded class="pa-2 mb-6" elevation="1" :width="flowWidth">
       <v-card-title class="text-h4 mb-2 primary--text font-weight-medium">
         T-Square
       </v-card-title>
       <v-divider class="mb-2"></v-divider>
-      <v-card-text class="d-flex align-center">
-        <v-avatar color="primary" size="80" class="mr-6">
+      <v-card-text v-if="loggedIn" class="d-flex align-center">
+        <v-avatar
+          color="primary"
+          size="80"
+          class="mr-6 clickable"
+          @click="$refs['identity'].show()"
+        >
           <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"
         /></v-avatar>
         <v-text-field
@@ -217,7 +230,7 @@ export default {
             <div>
               <v-chip class="mr-4" color="primary" outlined> Tag </v-chip>
               <v-icon color="secondary" class="mx-2">mdi-pin</v-icon>
-              <v-menu bottom left rounded="lg">
+              <v-menu :disabled="!loggedIn" bottom left rounded="lg">
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn large icon v-bind="attrs" v-on="on">
                     <v-icon>mdi-dots-vertical</v-icon>
@@ -260,14 +273,21 @@ export default {
           ></v-img>
           <div class="d-flex justify-space-between align-center px-4">
             <div>
-              <v-btn fab small depressed color="secondary" class="mr-4">
+              <v-btn
+                :disabled="!loggedIn"
+                fab
+                small
+                depressed
+                color="secondary"
+                class="mr-4"
+              >
                 <v-icon>mdi-thumb-up</v-icon>
               </v-btn>
               <span class="mr-4 secondary--text">120 Likes</span>
               <span class="secondary--text">2 Comments</span>
             </div>
             <div>
-              <v-btn icon color="secondary" class="mr-2">
+              <v-btn :disabled="!loggedIn" icon color="secondary" class="mr-2">
                 <v-icon>mdi-share-variant-outline</v-icon>
               </v-btn>
               <span class="secondary--text">99 Share</span>
@@ -289,12 +309,13 @@ export default {
                 aliquam ratione. Consequatur, quo.
               </div>
               <div class="text-end">
-                <v-btn color="grey" text>Unlike</v-btn>
-                <v-btn color="primary" text>Reply</v-btn>
+                <v-btn :disabled="!loggedIn" color="grey" text>Unlike</v-btn>
+                <v-btn :disabled="!loggedIn" color="primary" text>Reply</v-btn>
               </div>
             </div>
           </div>
           <v-text-field
+            :disabled="!loggedIn"
             label="Leave your comments here"
             append-icon="mdi-send"
             hide-details
@@ -319,7 +340,12 @@ export default {
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text class="d-flex align-center pt-4">
-          <v-avatar color="primary" size="60" class="mr-6">
+          <v-avatar
+            color="primary"
+            size="70"
+            class="mr-6 clickable"
+            @click="$refs['identity'].show()"
+          >
             <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"
           /></v-avatar>
           <v-textarea
