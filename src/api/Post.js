@@ -24,7 +24,7 @@ export async function deletePost(objectId='') {
  * change the pinned status of post
  * @returns 
  */
-export async function pinPost(config,postId) {
+export async function pinPost() {
     // const user = AV.User.current();
     // user.add('pinned',postId);
     // return user.save(null,config);
@@ -52,7 +52,6 @@ export async function editPost(objectId,config,{title,content,deleted,author,vie
  * @returns 
  */
  export async function likePost(config,postId,userId) {
-    const user = AV.User.current();
     const query = new AV.Query('Post');
     query.equalTo('objectId', postId);
     query.find().then((res) => {
@@ -102,7 +101,7 @@ export async function editPost(objectId,config,{title,content,deleted,author,vie
  */
 export async function getAllPost() {
     const query = new AV.Query('Post');
-    return query.find()
+    return await query.find()
 }
 
 /**

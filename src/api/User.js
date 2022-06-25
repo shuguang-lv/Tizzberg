@@ -114,3 +114,8 @@ export async function getAllFollowee() {
     return query.find();
 }
 
+export async function getCurrentUser() {
+    console.log( AV.User.current())
+    return await AV.User.current();
+}
+

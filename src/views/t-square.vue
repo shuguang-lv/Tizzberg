@@ -2,6 +2,9 @@
 import Layout from '@/layouts/main.vue'
 import IdentityEditor from '@/components/identity-editor.vue'
 import { authComputed } from '@/store/helpers'
+import * as userAPI from  '@/api/User'
+import * as postAPI from  '@/api/Post'
+import Post from '@/models/Post'
 
 export default {
   components: {
@@ -12,10 +15,8 @@ export default {
     return {
       flowWidth: '50vw',
       showPostEditor: false,
-      post: {
-        title: '',
-        content: '',
-      },
+      post: new Post(),
+      postList: [],
       postRules: [
         (v) => !v || v.trim().split(/\s+/).length <= 800 || 'Max 800 words',
       ],
@@ -48,10 +49,17 @@ export default {
         {
           title: 'Delete Post',
           icon: 'mdi-delete-outline',
-          action: () =>
+          action: (n) =>
             this.$Dialog({
               title: 'Delete this post',
               content: 'Are you sure you want to delete this post?',
+              post_position: n,
+              confirmButton: {
+                action: (async (n) => {
+                  await postAPI.deletePost(this.postList[n-1].id)
+                }).bind(this, n)
+              },
+
             }),
         },
         {
@@ -130,6 +138,9 @@ export default {
       }
     })
   },
+  mounted (){
+    this.getAllPost();
+  },
   // beforeRouteLeave() {
   //   if (this.post && this.post.content.trim()) {
   //     window.localStorage.setItem('last-post', JSON.stringify(this.post))
@@ -161,6 +172,16 @@ export default {
         },
       })
     },
+    async addPost(post) {
+      post.author = await userAPI.getCurrentUser();
+      postAPI.addPost(post);
+    },
+    async getAllPost() {
+      this.postList = await postAPI.getAllPost();
+    },
+    deletePost (postId) {
+      return postAPI.deletePost(postId)
+    }
   },
 }
 </script>
@@ -213,7 +234,7 @@ export default {
     <v-tabs-items v-model="selectedTab">
       <v-tab-item v-for="tab in tabs" :key="tab.value" :value="tab.value">
         <v-card
-          v-for="n in 5"
+          v-for="n in postList.length"
           :key="n"
           rounded
           class="px-2 py-4 mb-6"
@@ -243,7 +264,7 @@ export default {
                     link
                     class="px-8"
                     color="primary"
-                    @click="item.action"
+                    @click="item.action(n)"
                   >
                     <v-list-item-icon>
                       <v-icon v-text="item.icon"></v-icon>
@@ -259,11 +280,7 @@ export default {
             </div>
           </div>
           <v-divider class="mb-2"></v-divider>
-          <v-card-text class="d-flex align-center text-body-1">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae
-            illum nemo sunt totam repudiandae deserunt hic inventore. Voluptatum
-            minus nobis fugiat praesentium doloremque illo voluptatem optio,
-            eveniet voluptas? Ea, expedita?
+          <v-card-text class="d-flex align-center text-body-1"  v-text="postList[n-1].attributes.content">
           </v-card-text>
           <v-chip class="ml-4 mb-4" color="primary" outlined> Tag </v-chip>
           <v-img
@@ -385,6 +402,7 @@ export default {
             disable-lookup
             hide-details
             label="Access"
+            v-model="post.visibility"
           >
             <template v-slot:item="{ item, on, attrs }">
               <v-list-item link class="px-8" v-bind="attrs" v-on="on">
@@ -407,7 +425,7 @@ export default {
             Save as draft
           </v-btn>
           <v-spacer></v-spacer>
-          <v-btn depressed large color="primary" width="200"> Post </v-btn>
+          <v-btn depressed large color="primary" width="200" @click="addPost(post)"> Post </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
