@@ -41,7 +41,7 @@ export default {
   <Layout>
     <v-container>
       <div class="text-h4 secondary--text font-weight-regular">
-        Log in
+        Sign Up
       </div>
     </v-container>
 
@@ -103,9 +103,9 @@ export default {
         </div>
         <v-btn
           class="mr-4"
-          @click="signIn"
+          @click="signUp"
         >
-          Sign in
+          Sign up
         </v-btn>
       </form>
     </v-container>

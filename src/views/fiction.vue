@@ -193,6 +193,7 @@ export default {
           :key="n"
           cols="12"
           sm="4"
+          @click="$router.push({ name: 'fiction-content' })"
         >
           <v-card
             rounded
