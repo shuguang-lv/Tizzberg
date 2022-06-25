@@ -70,11 +70,21 @@ export default {
       <v-divider></v-divider>
       <v-card-text class="text-h6 py-4">{{ content }}</v-card-text>
       <v-card-actions class="pb-4">
-        <v-btn depressed :color="cancelButton.color" @click="cancel">
+        <v-btn
+          depressed
+          width="200"
+          :color="cancelButton.color"
+          @click="cancel"
+        >
           {{ cancelButton.text }}
         </v-btn>
         <v-spacer></v-spacer>
-        <v-btn depressed :color="confirmButton.color" @click="confirm">
+        <v-btn
+          depressed
+          width="200"
+          :color="confirmButton.color"
+          @click="confirm"
+        >
           {{ confirmButton.text }}
         </v-btn>
       </v-card-actions>

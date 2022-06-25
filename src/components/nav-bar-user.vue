@@ -35,7 +35,7 @@ export default {
         /></v-avatar>
       </template>
 
-      <v-card width="350" flat>
+      <v-card class="pb-2" width="350" flat>
         <v-sheet color="primary" class="white--text">
           <v-card-title> John Wick </v-card-title>
           <v-card-subtitle> a cool man </v-card-subtitle>
@@ -83,7 +83,7 @@ export default {
           <v-divider></v-divider>
         </v-list>
 
-        <v-card-actions class="mb-4 d-flex justify-center">
+        <v-card-actions class="d-flex justify-center">
           <v-btn
             color="primary"
             depressed
