@@ -38,4 +38,14 @@ html {
 .v-tabs-items {
   background: transparent !important;
 }
+
+.clickable {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.clickable:hover {
+  transform: scale(0.9);
+  transition: 0.3s;
+}
 </style>

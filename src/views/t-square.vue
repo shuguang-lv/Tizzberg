@@ -1,9 +1,11 @@
 <script>
 import Layout from '@/layouts/main.vue'
+import IdentityEditor from '@/components/identity-editor.vue'
 
 export default {
   components: {
     Layout,
+    IdentityEditor,
   },
   data() {
     return {
@@ -161,13 +163,20 @@ export default {
 
 <template>
   <Layout>
+    <identity-editor ref="identity"></identity-editor>
+
     <v-card rounded class="pa-2 mb-6" elevation="1" :width="flowWidth">
       <v-card-title class="text-h4 mb-2 primary--text font-weight-medium">
         T-Square
       </v-card-title>
       <v-divider class="mb-2"></v-divider>
       <v-card-text class="d-flex align-center">
-        <v-avatar color="primary" size="80" class="mr-6">
+        <v-avatar
+          color="primary"
+          size="80"
+          class="mr-6 clickable"
+          @click="$refs['identity'].show()"
+        >
           <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"
         /></v-avatar>
         <v-text-field
@@ -319,7 +328,12 @@ export default {
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text class="d-flex align-center pt-4">
-          <v-avatar color="primary" size="60" class="mr-6">
+          <v-avatar
+            color="primary"
+            size="70"
+            class="mr-6 clickable"
+            @click="$refs['identity'].show()"
+          >
             <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"
           /></v-avatar>
           <v-textarea

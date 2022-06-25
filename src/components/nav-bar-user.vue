@@ -1,7 +1,11 @@
 <script>
 import { authMethods } from '@/store/helpers'
+import IdentityEditor from './identity-editor.vue'
 
 export default {
+  components: {
+    IdentityEditor,
+  },
   methods: {
     ...authMethods,
     openLogoutDialog() {
@@ -22,12 +26,15 @@ export default {
 
 <template>
   <div class="d-flex align-center">
+    <identity-editor ref="identity"></identity-editor>
+
     <v-menu offset-y left transition="slide-y-transition">
       <template v-slot:activator="{ on, attrs }">
         <v-avatar color="primary" size="56" v-bind="attrs" v-on="on"
           ><img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"
         /></v-avatar>
       </template>
+
       <v-card width="350" flat>
         <v-sheet color="primary" class="white--text">
           <v-card-title> John Wick </v-card-title>
@@ -59,7 +66,12 @@ export default {
             </v-list-item-content>
           </v-list-item>
           <v-divider></v-divider>
-          <v-list-item color="primary" link two-line>
+          <v-list-item
+            color="primary"
+            link
+            two-line
+            @click="$refs['identity'].show()"
+          >
             <v-list-item-icon class="ma-auto mr-4">
               <v-icon color="primary" large>mdi-account-switch-outline</v-icon>
             </v-list-item-icon>
