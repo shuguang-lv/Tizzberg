@@ -22,7 +22,7 @@ export default {
       hide-overlay
       expand-on-hover
       class="pt-6"
-      width="300"
+      width="200"
     >
       <v-app-bar-nav-icon class="ml-2"></v-app-bar-nav-icon>
       <NavBarRoutes class="mt-8"></NavBarRoutes>

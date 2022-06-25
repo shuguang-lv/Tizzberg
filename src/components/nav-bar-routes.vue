@@ -18,6 +18,16 @@ export default {
           path: 'fiction',
           icon: 'mdi-book-open-page-variant-outline',
         },
+        {
+          title: 'Chat',
+          path: 'chat',
+          icon: 'mdi-chat-processing-outline',
+        },
+        {
+          title: 'Profile',
+          path: 'profile',
+          icon: 'mdi-account-box-outline',
+        },
       ],
     }
   },

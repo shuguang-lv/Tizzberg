@@ -170,14 +170,14 @@ export default {
     <identity-editor ref="identity"></identity-editor>
 
     <v-card rounded class="pa-2 mb-6" elevation="1" :width="flowWidth">
-      <v-card-title class="text-h4 mb-2 primary--text font-weight-medium">
+      <v-card-title class="text-h5 mb-2 primary--text font-weight-medium">
         T-Square
       </v-card-title>
       <v-divider class="mb-2"></v-divider>
       <v-card-text v-if="loggedIn" class="d-flex align-center">
         <v-avatar
           color="primary"
-          size="80"
+          size="60"
           class="mr-6 clickable"
           @click="$refs['identity'].show()"
         >
@@ -198,7 +198,7 @@ export default {
         grow
         active-class="white--text primary"
         slider-color="secondary"
-        height="70"
+        height="50"
       >
         <v-tab
           v-for="tab in tabs"
@@ -228,9 +228,8 @@ export default {
               <div class="text-subtitle-1">Nik Jon</div>
             </div>
             <div>
-              <v-chip class="mr-4" color="primary" outlined> Tag </v-chip>
               <v-icon color="secondary" class="mx-2">mdi-pin</v-icon>
-              <v-menu :disabled="!loggedIn" bottom left rounded="lg">
+              <v-menu :disabled="!loggedIn" bottom right rounded="lg">
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn large icon v-bind="attrs" v-on="on">
                     <v-icon>mdi-dots-vertical</v-icon>
@@ -266,6 +265,7 @@ export default {
             minus nobis fugiat praesentium doloremque illo voluptatem optio,
             eveniet voluptas? Ea, expedita?
           </v-card-text>
+          <v-chip class="ml-4 mb-4" color="primary" outlined> Tag </v-chip>
           <v-img
             src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
             height="500px"

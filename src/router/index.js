@@ -86,6 +86,15 @@ const routes = [
     component: () => lazyLoadView(import('../views/fiction.vue')),
   },
   {
+    path: '/chat',
+    name: 'chat',
+    component: () => lazyLoadView(import('../views/chat.vue')),
+    meta: {
+      authRequired: true,
+    },
+    props: () => ({ user: store.state.auth.currentUser || {} }),
+  },
+  {
     path: '/signup',
     name: 'signup',
     component: () => lazyLoadView(import('../views/signup.vue')),

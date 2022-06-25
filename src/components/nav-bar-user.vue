@@ -1,10 +1,13 @@
 <script>
-import { authMethods } from '@/store/helpers'
+import { authMethods, authComputed } from '@/store/helpers'
 import IdentityEditor from './identity-editor.vue'
 
 export default {
   components: {
     IdentityEditor,
+  },
+  computed: {
+    ...authComputed,
   },
   methods: {
     ...authMethods,
@@ -28,7 +31,28 @@ export default {
   <div class="d-flex align-center">
     <identity-editor ref="identity"></identity-editor>
 
-    <v-menu offset-y left transition="slide-y-transition">
+    <v-btn
+      v-if="!loggedIn"
+      depressed
+      large
+      color="primary"
+      width="100"
+      :to="{ name: 'login' }"
+      >Login</v-btn
+    >
+    <v-btn
+      v-if="!loggedIn"
+      class="mr-4 ml-8"
+      depressed
+      large
+      outlined
+      color="primary"
+      width="100"
+      :to="{ name: 'signup' }"
+      >Signup</v-btn
+    >
+
+    <v-menu v-if="loggedIn" offset-y left transition="slide-y-transition">
       <template v-slot:activator="{ on, attrs }">
         <v-avatar color="primary" size="56" v-bind="attrs" v-on="on"
           ><img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"
@@ -97,13 +121,13 @@ export default {
       </v-card>
     </v-menu>
 
-    <div class="text-h5 mx-4">John Wick</div>
+    <div v-if="loggedIn" class="text-h5 mx-4">John Wick</div>
 
     <v-btn icon large :to="{ name: 't-square' }" color="primary" class="mx-4">
       <v-icon>mdi-home-outline</v-icon>
     </v-btn>
 
-    <v-menu offset-y left transition="slide-y-transition">
+    <v-menu v-if="loggedIn" offset-y left transition="slide-y-transition">
       <template v-slot:activator="{ on, attrs }">
         <v-btn icon large color="primary" class="mx-4" v-bind="attrs" v-on="on">
           <v-badge dot color="warning">
@@ -152,7 +176,7 @@ export default {
       </v-card>
     </v-menu>
 
-    <v-menu offset-y left transition="slide-y-transition">
+    <v-menu v-if="loggedIn" offset-y left transition="slide-y-transition">
       <template v-slot:activator="{ on, attrs }">
         <v-btn icon large color="primary" class="mx-4" v-bind="attrs" v-on="on">
           <v-badge dot color="warning">
