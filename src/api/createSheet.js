@@ -1,38 +1,38 @@
-import { add } from 'lodash';
+// import { add } from 'lodash';
 
-AV.init({ 
-  appId: "5Y6XfcEGs057U6eBhhYiIBy0-MdYXbMMI",
-  appKey: "QIt08R1MMkbnQuFO7TPtR6up",
-  serverURL: "https://5y6xfceg.api.lncldglobal.com"
-});
+// AV.init({ 
+//   appId: "5Y6XfcEGs057U6eBhhYiIBy0-MdYXbMMI",
+//   appKey: "QIt08R1MMkbnQuFO7TPtR6up",
+//   serverURL: "https://5y6xfceg.api.lncldglobal.com"
+// });
 
-const AV = require('leancloud-storage');
-const { Query, User } = AV;
+// const AV = require('leancloud-storage');
+// const { Query, User } = AV;
 
 
-const Tag = AV.Object.extend('Tag');
-const Post = AV.Object.extend('Post');
-const Fiction = AV.Object.extend('Fiction');
-const Chapter = AV.Object.extend('Chapter');
-const Message = AV.Object.extend('Message');
-const Ad = AV.Object.extend('Ad');
+// const Tag = AV.Object.extend('Tag');
+// const Post = AV.Object.extend('Post');
+// const Fiction = AV.Object.extend('Fiction');
+// const Chapter = AV.Object.extend('Chapter');
+// const Message = AV.Object.extend('Message');
+// const Ad = AV.Object.extend('Ad');
 
-export async function addTag({title="xxx",icon=""}) {
-  const tag = new Tag()
-  tag.set('title', title)
-  return tag.save()
-}
+// export async function addTag({title="xxx",icon=""}) {
+//   const tag = new Tag()
+//   tag.set('title', title)
+//   return tag.save()
+// }
 
-try {
-  const tag = await addTag({title: '',icon: ''})
+// try {
+//   const tag = await addTag({title: '',icon: ''})
 
-} catch (error) {
+// } catch (error) {
   
-}
+// }
 
 
-  // 注册子类
-  AV.Object.register(Tag);
+//   // 注册子类
+//   AV.Object.register(Tag);
 
 // class Post extends AV.Status {
 //     // self-defined attributes and methods

@@ -1,6 +1,6 @@
 <script>
 import Layout from '@/layouts/auth.vue'
-import { signUpUser } from '@/api/User.js'
+import { signUpUser } from '@/api/user.js'
 import User from '@/models/User.js'
 import { authMethods } from '@/store/helpers'
 
@@ -50,11 +50,11 @@ export default {
         try {
           const user = await signUpUser(this.newUser)
           console.log(user)
-          console.log(this.$User.current())
-          this.$Snackbar.success('Signed up successfully')
+          console.log(this.$user.current())
+          this.$snackbar.success('Signed up successfully')
         } catch (error) {
           console.log(error)
-          this.$Snackbar.error(error.rawMessage)
+          this.$snackbar.error(error.rawMessage)
         }
       }
       this.signingUp = false

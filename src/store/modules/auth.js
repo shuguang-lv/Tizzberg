@@ -77,7 +77,7 @@ function getSavedState(key) {
 }
 
 function saveState(key, state) {
-  window.localStorage.setItem(key, JSON.stringify(state))
+  this.$storage.set(key, JSON.stringify(state))
 }
 
 function setDefaultAuthHeaders(state) {

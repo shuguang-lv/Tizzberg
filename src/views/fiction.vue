@@ -44,7 +44,7 @@ export default {
           title: 'Pin Fiction',
           icon: 'mdi-pin-outline',
           action: () =>
-            this.$Dialog({
+            this.$dialog({
               title: 'Pin this fiction',
               content:
                 'This will appear at the top of your blog and replace any previous pinned fiction. Are you sure?',
@@ -54,7 +54,7 @@ export default {
           title: 'Delete Fiction',
           icon: 'mdi-delete-outline',
           action: () =>
-            this.$Dialog({
+            this.$dialog({
               title: 'Delete this fiction',
               content: 'Are you sure you want to delete this fiction?',
             }),
@@ -190,24 +190,21 @@ export default {
     }
   },
   beforeMount() {
-    const lastFiction = JSON.parse(window.localStorage.getItem('last-fiction'))
+    const lastFiction = this.$storage.get('last-fiction')
     this.fiction = lastFiction || this.fiction
     window.addEventListener('beforeunload', () => {
       if (this.fiction.content.trim()) {
-        window.localStorage.setItem(
-          'last-fiction',
-          JSON.stringify(this.fiction)
-        )
+        this.$storage.set('last-fiction', this.fiction)
       } else {
-        window.localStorage.removeItem('last-fiction')
+        this.$storage.remove('last-fiction')
       }
     })
   },
   // beforeRouteLeave() {
   //   if (this.fiction && this.fiction.content.trim()) {
-  //     window.localStorage.setItem('last-fiction', JSON.stringify(this.fiction))
+  //     this.$storage.set('last-fiction', JSON.stringify(this.fiction))
   //   } else {
-  //     window.localStorage.removeItem('last-fiction')
+  //     this.$storage.remove('last-fiction')
   //   }
   // },
   methods: {
@@ -216,7 +213,7 @@ export default {
         this.showFictionEditor = false
         return
       }
-      this.$Dialog({
+      this.$dialog({
         title: 'Discard this fiction ?',
         cancelButton: {
           text: 'Nevermind',

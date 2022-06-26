@@ -1,5 +1,5 @@
 export const AV = require('leancloud-storage');
-import { deleteObj } from '../api/common'
+import { deleteObj } from './common'
 const Chapter = AV.Object.extend('Chapter');
 
 export async function addchapter(chapter_info) {

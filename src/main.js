@@ -15,6 +15,7 @@ import { Plugin } from 'vue2-storage'
 import VueCryptojs from 'vue-cryptojs'
 import Dialog from './components/dialog'
 import Snackbar from './components/snackbar'
+import Overlay from './components/overlay'
 
 Vue.config.productionTip = false
 
@@ -32,9 +33,10 @@ Vue.use(VueCryptojs)
 export const eventBus = new Vue()
 Vue.prototype.$emitter = eventBus
 Vue.prototype.$appName = process.env.VUE_APP_NAME
-Vue.prototype.$Dialog = Dialog
-Vue.prototype.$Snackbar = Snackbar
-Vue.prototype.$User = AV.User
+Vue.prototype.$dialog = Dialog
+Vue.prototype.$snackbar = Snackbar
+Vue.prototype.$overlay = Overlay
+Vue.prototype.$user = AV.User
 
 new Vue({
   router,

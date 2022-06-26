@@ -1,7 +1,7 @@
 <script>
 import IdentityEditor from './identity-editor.vue'
 import { authMethods, authComputed } from '@/store/helpers'
-import { logOutUser } from '@/api/User.js'
+import { logOutUser } from '@/api/user.js'
 
 export default {
   name: 'NavBarUser',
@@ -17,13 +17,13 @@ export default {
     ...authComputed,
   },
   created() {
-    const user = this.$User.current()
+    const user = this.$user.current()
     this.username = user ? user.getUsername() : ''
   },
   methods: {
     ...authMethods,
     openLogoutDialog() {
-      this.$Dialog({
+      this.$dialog({
         title: 'Logout',
         content: 'Are you sure you want to log out?',
         confirmButton: {
@@ -43,7 +43,7 @@ export default {
     <identity-editor ref="identity"></identity-editor>
 
     <v-btn
-      v-if="!$User.current()"
+      v-if="!$user.current()"
       depressed
       large
       color="primary"
@@ -52,7 +52,7 @@ export default {
       >Login</v-btn
     >
     <v-btn
-      v-if="!$User.current()"
+      v-if="!$user.current()"
       class="mr-4 ml-8"
       depressed
       large
@@ -64,7 +64,7 @@ export default {
     >
 
     <v-menu
-      v-if="$User.current()"
+      v-if="$user.current()"
       offset-y
       left
       transition="slide-y-transition"
@@ -137,14 +137,14 @@ export default {
       </v-card>
     </v-menu>
 
-    <div v-if="$User.current()" class="text-h5 mx-4">{{ username }}</div>
+    <div v-if="$user.current()" class="text-h5 mx-4">{{ username }}</div>
 
     <v-btn icon large :to="{ name: 't-square' }" color="primary" class="mx-4">
       <v-icon>mdi-home-outline</v-icon>
     </v-btn>
 
     <v-menu
-      v-if="$User.current()"
+      v-if="$user.current()"
       offset-y
       left
       transition="slide-y-transition"
@@ -198,7 +198,7 @@ export default {
     </v-menu>
 
     <v-menu
-      v-if="$User.current()"
+      v-if="$user.current()"
       offset-y
       left
       transition="slide-y-transition"

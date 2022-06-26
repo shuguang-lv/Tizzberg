@@ -1,4 +1,4 @@
-import { deleteObj } from '../api/common'
+import { deleteObj } from './common'
 export const AV = require('leancloud-storage');
 const Tag = AV.Object.extend('Tag');
 

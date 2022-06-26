@@ -1,38 +1,35 @@
 <script>
 import Layout from '@/layouts/main.vue'
 import IdentityEditor from '@/components/identity-editor.vue'
+import PostEditor from '@/components/post-editor.vue'
 import { authComputed } from '@/store/helpers'
-import * as userAPI from  '@/api/User'
-import * as postAPI from  '@/api/Post'
-import Post from '@/models/Post'
+import { getPostList, deletePost } from '@/api/post.js'
+import { fetchUserMemo } from '@/api/user.js'
+// import Post from '@/models/Post'
 
 export default {
   components: {
     Layout,
     IdentityEditor,
+    PostEditor,
   },
   data() {
     return {
       flowWidth: '50vw',
-      showPostEditor: false,
-      post: new Post(),
       postList: [],
-      postRules: [
-        (v) => !v || v.trim().split(/\s+/).length <= 800 || 'Max 800 words',
-      ],
-      selectedTab: 'tab-hot',
+      selectedTab: 'hot',
       tabs: [
         {
           title: 'Hot',
-          value: 'tab-hot',
+          value: 'hot',
         },
         {
           title: 'Following',
-          value: 'tab-following',
+          value: 'following',
         },
         {
           title: 'Latest',
-          value: 'tab-latest',
+          value: 'latest',
         },
       ],
       postActions: [
@@ -40,7 +37,7 @@ export default {
           title: 'Pin Post',
           icon: 'mdi-pin-outline',
           action: () =>
-            this.$Dialog({
+            this.$dialog({
               title: 'Pin this post',
               content:
                 'This will appear at the top of your blog and replace any previous pinned post. Are you sure?',
@@ -49,17 +46,25 @@ export default {
         {
           title: 'Delete Post',
           icon: 'mdi-delete-outline',
-          action: (n) =>
-            this.$Dialog({
+          action: (id) =>
+            this.$dialog({
               title: 'Delete this post',
               content: 'Are you sure you want to delete this post?',
-              post_position: n,
               confirmButton: {
-                action: (async (n) => {
-                  await postAPI.deletePost(this.postList[n-1].id)
-                }).bind(this, n)
+                action: (async (id, deletePost) => {
+                  this.$overlay.open()
+                  try {
+                    await deletePost(id)
+                    await this.getPostList()
+                    this.$overlay.close()
+                    this.$snackbar.warning('A post was deleted')
+                  } catch (error) {
+                    console.log(error)
+                    this.$overlay.close()
+                    this.$snackbar.error(error.rawMessage)
+                  }
+                }).bind(this, id, deletePost),
               },
-
             }),
         },
         {
@@ -88,119 +93,49 @@ export default {
           action: 'error',
         },
       ],
-      postAccess: [
-        {
-          text: 'Public',
-          description: 'This post is visible to all users',
-          icon: 'mdi-eye-outline',
-          value: 'public',
-        },
-        {
-          text: 'Follower',
-          description: 'This post is visible to your followers',
-          icon: 'mdi-account-multiple-outline',
-          value: 'follower',
-        },
-        {
-          text: 'Private',
-          description: 'Only yourself can see this post',
-          icon: 'mdi-lock-outline',
-          value: 'private',
-        },
-      ],
-      postTags: [
-        {
-          text: 'TagA',
-          value: 'a',
-        },
-        {
-          text: 'TagB',
-          value: 'b',
-        },
-        {
-          text: 'TagC',
-          value: 'c',
-        },
-      ],
     }
   },
   computed: {
     ...authComputed,
   },
-  beforeMount() {
-    const lastPost = JSON.parse(window.localStorage.getItem('last-post'))
-    this.post = lastPost || this.post
-    window.addEventListener('beforeunload', () => {
-      if (this.post.content.trim()) {
-        window.localStorage.setItem('last-post', JSON.stringify(this.post))
-      } else {
-        window.localStorage.removeItem('last-post')
-      }
-    })
+  async mounted() {
+    await this.getPostList()
   },
-  mounted (){
-    this.getAllPost();
-  },
-  // beforeRouteLeave() {
-  //   if (this.post && this.post.content.trim()) {
-  //     window.localStorage.setItem('last-post', JSON.stringify(this.post))
-  //   } else {
-  //     window.localStorage.removeItem('last-post')
-  //   }
-  // },
   methods: {
-    discardPost() {
-      if (!this.post.content.trim()) {
-        this.showPostEditor = false
-        return
+    async getPostList() {
+      try {
+        this.postList = await getPostList(this.selectedTab)
+        this.$nextTick(async () => {
+          for (let post of this.postList) {
+            const user = await fetchUserMemo(post.get('authorId'))
+            this.$set(post, 'authorName', user ? user.getUsername() : '')
+          }
+        })
+      } catch (error) {
+        console.log(error)
+        this.$snackbar.error(error.rawMessage)
       }
-      this.$Dialog({
-        title: 'Discard this post ?',
-        cancelButton: {
-          text: 'Nevermind',
-          action: () => {},
-        },
-        confirmButton: {
-          text: 'Discard',
-          action: () => {
-            this.post = {
-              title: '',
-              content: '',
-            }
-            this.showPostEditor = false
-          },
-        },
-      })
     },
-    async addPost(post) {
-      post.author = await userAPI.getCurrentUser();
-      postAPI.addPost(post);
-    },
-    async getAllPost() {
-      this.postList = await postAPI.getAllPost();
-    },
-    deletePost (postId) {
-      return postAPI.deletePost(postId)
-    }
   },
 }
 </script>
 
 <template>
   <Layout>
-    <identity-editor ref="identity"></identity-editor>
+    <identity-editor ref="identity-editor"></identity-editor>
+    <post-editor ref="post-editor" @created="getPostList"></post-editor>
 
     <v-card rounded class="pa-2 mb-6" elevation="1" :width="flowWidth">
       <v-card-title class="text-h5 mb-2 primary--text font-weight-medium">
         T-Square
       </v-card-title>
       <v-divider class="mb-2"></v-divider>
-      <v-card-text v-if="loggedIn" class="d-flex align-center">
+      <v-card-text v-if="$user.current()" class="d-flex align-center">
         <v-avatar
           color="primary"
           size="60"
           class="mr-6 clickable"
-          @click="$refs['identity'].show()"
+          @click="$refs['identity-editor'].show()"
         >
           <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"
         /></v-avatar>
@@ -209,7 +144,7 @@ export default {
           append-icon="mdi-pencil"
           hide-details
           outlined
-          @click="showPostEditor = !showPostEditor"
+          @click="$refs['post-editor'].show()"
         ></v-text-field>
       </v-card-text>
     </v-card>
@@ -220,6 +155,7 @@ export default {
         active-class="white--text primary"
         slider-color="secondary"
         height="50"
+        @change="getPostList"
       >
         <v-tab
           v-for="tab in tabs"
@@ -234,8 +170,8 @@ export default {
     <v-tabs-items v-model="selectedTab">
       <v-tab-item v-for="tab in tabs" :key="tab.value" :value="tab.value">
         <v-card
-          v-for="n in postList.length"
-          :key="n"
+          v-for="(post, index) in postList"
+          :key="index"
           rounded
           class="px-2 py-4 mb-6"
           elevation="1"
@@ -246,11 +182,13 @@ export default {
               <v-avatar color="primary" size="50" class="mr-4">
                 <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"
               /></v-avatar>
-              <div class="text-subtitle-1">Nik Jon</div>
+              <div class="text-subtitle-1">
+                {{ post.authorName }}
+              </div>
             </div>
             <div>
               <v-icon color="secondary" class="mx-2">mdi-pin</v-icon>
-              <v-menu :disabled="!loggedIn" bottom right rounded="lg">
+              <v-menu :disabled="!$user.current()" bottom right rounded="lg">
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn large icon v-bind="attrs" v-on="on">
                     <v-icon>mdi-dots-vertical</v-icon>
@@ -264,7 +202,7 @@ export default {
                     link
                     class="px-8"
                     color="primary"
-                    @click="item.action(n)"
+                    @click="item.action(post.getObjectId())"
                   >
                     <v-list-item-icon>
                       <v-icon v-text="item.icon"></v-icon>
@@ -280,9 +218,20 @@ export default {
             </div>
           </div>
           <v-divider class="mb-2"></v-divider>
-          <v-card-text class="d-flex align-center text-body-1"  v-text="postList[n-1].attributes.content">
+          <v-card-text
+            class="d-flex align-center text-body-1"
+            v-text="post.get('content')"
+          >
           </v-card-text>
-          <v-chip class="ml-4 mb-4" color="primary" outlined> Tag </v-chip>
+          <v-chip
+            v-for="(tag, index) in post.get('tags')"
+            :key="index"
+            class="ml-4 mr-2 mb-4"
+            color="primary"
+            outlined
+          >
+            {{ tag }}
+          </v-chip>
           <v-img
             src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
             height="500px"
@@ -291,7 +240,7 @@ export default {
           <div class="d-flex justify-space-between align-center px-4">
             <div>
               <v-btn
-                :disabled="!loggedIn"
+                :disabled="!$user.current()"
                 fab
                 small
                 depressed
@@ -304,7 +253,12 @@ export default {
               <span class="secondary--text">2 Comments</span>
             </div>
             <div>
-              <v-btn :disabled="!loggedIn" icon color="secondary" class="mr-2">
+              <v-btn
+                :disabled="!$user.current()"
+                icon
+                color="secondary"
+                class="mr-2"
+              >
                 <v-icon>mdi-share-variant-outline</v-icon>
               </v-btn>
               <span class="secondary--text">99 Share</span>
@@ -326,13 +280,17 @@ export default {
                 aliquam ratione. Consequatur, quo.
               </div>
               <div class="text-end">
-                <v-btn :disabled="!loggedIn" color="grey" text>Unlike</v-btn>
-                <v-btn :disabled="!loggedIn" color="primary" text>Reply</v-btn>
+                <v-btn :disabled="!$user.current()" color="grey" text
+                  >Unlike</v-btn
+                >
+                <v-btn :disabled="!$user.current()" color="primary" text
+                  >Reply</v-btn
+                >
               </div>
             </div>
           </div>
           <v-text-field
-            :disabled="!loggedIn"
+            :disabled="!$user.current()"
             label="Leave your comments here"
             append-icon="mdi-send"
             hide-details
@@ -344,91 +302,6 @@ export default {
         </v-card>
       </v-tab-item>
     </v-tabs-items>
-
-    <!-- post editor -->
-    <v-dialog v-model="showPostEditor" persistent closable max-width="700">
-      <v-card tile>
-        <v-card-title class="text-h5 secondary--text">
-          Create Post
-          <v-spacer></v-spacer>
-          <v-btn icon color="primary" @click="discardPost">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </v-card-title>
-        <v-divider></v-divider>
-        <v-card-text class="d-flex align-center pt-4">
-          <v-avatar
-            color="primary"
-            size="70"
-            class="mr-6 clickable"
-            @click="$refs['identity'].show()"
-          >
-            <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"
-          /></v-avatar>
-          <v-textarea
-            v-model="post.content"
-            append-outer-icon="mdi-image"
-            label="write your post here"
-            rows="10"
-            counter
-            :rules="postRules"
-            clearable
-            outlined
-          >
-            <template v-slot:counter="{}">
-              {{ post.content ? post.content.trim().split(/\s+/).length : 0 }} /
-              800</template
-            >
-          </v-textarea>
-        </v-card-text>
-        <div class="d-flex px-4 mt-n4">
-          <v-select
-            :items="postTags"
-            filled
-            clearable
-            hide-details
-            chips
-            deletable-chips
-            multiple
-            disable-lookup
-            single-line
-            label="Tags"
-          >
-          </v-select>
-          <v-spacer class="mx-16"></v-spacer>
-          <v-select
-            :items="postAccess"
-            filled
-            disable-lookup
-            hide-details
-            label="Access"
-            v-model="post.visibility"
-          >
-            <template v-slot:item="{ item, on, attrs }">
-              <v-list-item link class="px-8" v-bind="attrs" v-on="on">
-                <v-list-item-icon>
-                  <v-icon v-text="item.icon"></v-icon>
-                </v-list-item-icon>
-                <v-list-item-content>
-                  <v-list-item-title v-text="item.text"></v-list-item-title>
-                  <v-list-item-subtitle
-                    v-text="item.description"
-                  ></v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
-            </template>
-          </v-select>
-        </div>
-        <v-divider class="mb-2 mt-4"></v-divider>
-        <v-card-actions class="pb-4">
-          <v-btn depressed large outlined color="primary" width="200">
-            Save as draft
-          </v-btn>
-          <v-spacer></v-spacer>
-          <v-btn depressed large color="primary" width="200" @click="addPost(post)"> Post </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
   </Layout>
 </template>
 

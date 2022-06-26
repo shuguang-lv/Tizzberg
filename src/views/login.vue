@@ -1,7 +1,7 @@
 <script>
 import Layout from '@/layouts/auth.vue'
 import { authMethods } from '@/store/helpers'
-import { logInUser } from '@/api/User.js'
+import { logInUser } from '@/api/user.js'
 
 export default {
   name: 'Login',
@@ -26,13 +26,13 @@ export default {
         try {
           const user = await logInUser(this.identifier, this.password)
           console.log(user)
-          console.log(this.$User.current())
-          this.$Snackbar.success('Logged in successfully')
+          console.log(this.$user.current())
+          this.$snackbar.success('Logged in successfully')
           // Redirect to the originally requested page, or to the home page
           this.$router.push(this.$route.query.redirectFrom || { name: 'home' })
         } catch (error) {
           console.log(error)
-          this.$Snackbar.error(error.rawMessage)
+          this.$snackbar.error(error.rawMessage)
         }
       }
       this.logIning = false

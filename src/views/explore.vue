@@ -2,8 +2,8 @@
 import Layout from '@/layouts/main.vue'
 // import IdentityEditor from '@/components/identity-editor.vue'
 import { authComputed } from '@/store/helpers'
-import * as userAPI from  '@/api/User'
-import * as topicAPI from  '@/api/Topic'
+import * as userAPI from '@/api/User'
+import * as topicAPI from '@/api/Topic'
 import Topic from '@/models/Topic'
 
 export default {
@@ -42,7 +42,7 @@ export default {
           title: 'Pin Topic',
           icon: 'mdi-pin-outline',
           action: () =>
-            this.$Dialog({
+            this.$dialog({
               title: 'Pin this topic',
               content:
                 'This will appear at the top of your blog and replace any previous pinned topic. Are you sure?',
@@ -51,8 +51,8 @@ export default {
         {
           title: 'Delete Topic',
           icon: 'mdi-delete-outline',
-          action: (n) =>
-            this.$Dialog({
+          action: () =>
+            this.$dialog({
               title: 'Delete this topic',
               content: 'Are you sure you want to delete this topic?',
               topic_position: n,
@@ -132,19 +132,18 @@ export default {
           otherinfo: [
             {
               info: 'Like',
-              value: '600'
+              value: '600',
             },
             {
               info: 'Member',
-              value: '320'
+              value: '320',
             },
             {
               info: 'Visit',
-              value: '1.2k'
-            }
+              value: '1.2k',
+            },
           ],
-          exploreMember: [
-          ]
+          exploreMember: [],
         },
         {
           backgroundimg: '',
@@ -154,20 +153,19 @@ export default {
           otherinfo: [
             {
               info: 'Like',
-              value: '600'
+              value: '600',
             },
             {
               info: 'Member',
-              value: '320'
+              value: '320',
             },
             {
               info: 'Visit',
-              value: '1.2k'
-            }
+              value: '1.2k',
+            },
           ],
-          exploreMember: [
-          ]
-        },        
+          exploreMember: [],
+        },
         {
           backgroundimg: '',
           exploreimg: '',
@@ -176,43 +174,42 @@ export default {
           otherinfo: [
             {
               info: 'Like',
-              value: '600'
+              value: '600',
             },
             {
               info: 'Member',
-              value: '320'
+              value: '320',
             },
             {
               info: 'Visit',
-              value: '1.2k'
-            }
+              value: '1.2k',
+            },
           ],
-          exploreMember: [
-          ]
-        }
-      ]
+          exploreMember: [],
+        },
+      ],
     }
   },
   beforeMount() {
-    const lastTopic = JSON.parse(window.localStorage.getItem('last-topic'))
+    const lastTopic = this.$storage.get('last-topic')
     this.topic = lastTopic || this.topic
     window.addEventListener('beforeunload', () => {
       if (this.topic.content.trim()) {
-        window.localStorage.setItem('last-topic', JSON.stringify(this.topic))
+        this.$storage.set('last-topic', this.topic)
       } else {
-        window.localStorage.removeItem('last-topic')
+        this.$storage.remove('last-topic')
       }
     })
   },
   // beforeRouteLeave() {
   //   if (this.topic && this.topic.content.trim()) {
-  //     window.localStorage.setItem('last-topic', JSON.stringify(this.topic))
+  //     this.$storage.set('last-topic', JSON.stringify(this.topic))
   //   } else {
-  //     window.localStorage.removeItem('last-topic')
+  //     this.$storage.remove('last-topic')
   //   }
   // },
-  mounted () {
-    this.topicList = this.getAllTopic();
+  mounted() {
+    this.topicList = this.getAllTopic()
   },
   computed: {
     ...authComputed,
@@ -223,7 +220,7 @@ export default {
         this.showTopicEditor = false
         return
       }
-      this.$Dialog({
+      this.$dialog({
         title: 'Discard this topic ?',
         cancelButton: {
           text: 'Nevermind',
@@ -251,16 +248,16 @@ export default {
     deleteTopic(topicId) {
       return topicAPI.deleteTopic(topicId)
     },
-    viewTopicDetail (n) {
-      this.$router.push({path:`/topic-detail/${this.topicList[n - 1].id}`})
-    }
+    viewTopicDetail(n) {
+      this.$router.push({ path: `/topic-detail/${this.topicList[n - 1].id}` })
+    },
   },
 }
 </script>
 
 <template>
   <Layout>
-    <div >
+    <div>
       <v-card rounded class="pa-2 mb-6" elevation="1" :width="flowWidth">
         <v-card-title class="text-h4 mb-2 primary--text font-weight-medium">
           T-Square
@@ -280,7 +277,7 @@ export default {
         </v-card-text>
       </v-card>
 
-      <div class="mb-6" :style="{ }" :width="flowWidth">
+      <div class="mb-6" :style="{}" :width="flowWidth">
         <v-tabs
           v-model="selectedTab"
           grow
@@ -311,7 +308,9 @@ export default {
             <div class="d-flex justify-space-between align-center">
               <div class="d-flex align-center pa-4">
                 <v-avatar color="primary" size="50" class="mr-4">
-                  <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"
+                  <img
+                    src="https://cdn.vuetifyjs.com/images/john.jpg"
+                    alt="John"
                 /></v-avatar>
                 <div class="text-subtitle-1">Nik Jon</div>
               </div>
@@ -347,7 +346,11 @@ export default {
               </div>
             </div>
             <v-divider class="mb-2"></v-divider>
-            <v-card-text class="d-flex align-center text-h5"  v-text="topicList[n-1].attributes.title" @click="viewTopicDetail(n)">
+            <v-card-text
+              class="d-flex align-center text-h5"
+              v-text="topicList[n - 1].attributes.title"
+              @click="viewTopicDetail(n)"
+            >
             </v-card-text>
             <v-chip class="ml-4 mb-4" color="primary" outlined> Tag </v-chip>
             <!-- <v-img
@@ -371,7 +374,12 @@ export default {
                 <span class="secondary--text">2 Replies</span>
               </div>
               <div>
-                <v-btn :disabled="!loggedIn" icon color="secondary" class="mr-2">
+                <v-btn
+                  :disabled="!loggedIn"
+                  icon
+                  color="secondary"
+                  class="mr-2"
+                >
                   <v-icon>mdi-share-variant-outline</v-icon>
                 </v-btn>
                 <span class="secondary--text">99 Share</span>
@@ -394,7 +402,9 @@ export default {
                 </div>
                 <div class="text-end">
                   <v-btn :disabled="!loggedIn" color="grey" text>Unlike</v-btn>
-                  <v-btn :disabled="!loggedIn" color="primary" text>Reply</v-btn>
+                  <v-btn :disabled="!loggedIn" color="primary" text
+                    >Reply</v-btn
+                  >
                 </div>
               </div>
             </div>
@@ -468,7 +478,7 @@ export default {
 
     <!-- topic editor -->
     <v-dialog v-model="showTopicEditor" persistent closable max-width="700">
-      <v-card tile class="d-flex flex-column ">
+      <v-card tile class="d-flex flex-column">
         <v-card-title class="text-h5 secondary--text">
           Edit Topic
           <v-spacer></v-spacer>
@@ -505,11 +515,7 @@ export default {
             outlined
           >
             <template v-slot:counter="{}">
-              {{
-                topic.content
-                  ? topic.content.trim().split(/\s+/).length
-                  : 0
-              }}
+              {{ topic.content ? topic.content.trim().split(/\s+/).length : 0 }}
               / 200</template
             >
           </v-textarea>
@@ -523,9 +529,7 @@ export default {
               outlined
           >
             <template v-slot:counter="{}">
-              {{
-                topic.content ? topic.content.trim().split(/\s+/).length : 0
-              }}
+              {{ topic.content ? topic.content.trim().split(/\s+/).length : 0 }}
               / 800</template
             >
           </v-textarea> -->
@@ -565,7 +569,15 @@ export default {
             Save as draft
           </v-btn>
           <v-spacer></v-spacer>
-          <v-btn depressed large color="primary" width="200" @click="addTopic(topic)"> Topic </v-btn>
+          <v-btn
+            depressed
+            large
+            color="primary"
+            width="200"
+            @click="addTopic(topic)"
+          >
+            Topic
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

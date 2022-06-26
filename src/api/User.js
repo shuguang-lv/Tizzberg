@@ -1,4 +1,7 @@
 const AV = require('leancloud-storage')
+import { memoize } from 'lodash'
+
+// memoize.Cache = WeakMap
 
 export async function signUpUser(userObj) {
   const user = new AV.User()
@@ -22,6 +25,17 @@ export async function logInUser(identifier, password) {
 export async function logOutUser() {
   return AV.User.logOut()
 }
+
+export const fetchUserMemo = memoize(async (userId = 'random') => {
+  const query = new AV.Query('_User')
+  try {
+    const user = await query.get(userId)
+    return user
+  } catch (error) {
+    console.log(error);
+    return null
+  }
+})
 
 export async function deleteCurrentUser(userId) {
   const user = AV.User.current()
