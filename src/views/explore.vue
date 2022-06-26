@@ -1,5 +1,10 @@
 <script>
 import Layout from '@/layouts/main.vue'
+// import IdentityEditor from '@/components/identity-editor.vue'
+// import { authComputed } from '@/store/helpers'
+// import * as userAPI from  '@/api/User'
+// import * as topicAPI from  '@/api/Post'
+// import Topic from '@/models/Post'
 
 export default {
   components: {
@@ -118,6 +123,74 @@ export default {
           value: 'c',
         },
       ],
+      exploreInfo: [
+        {
+          backgroundimg: '',
+          exploreimg: '',
+          title: 'Designer',
+          text: 'Lorem Ipsum data',
+          otherinfo: [
+            {
+              info: 'Like',
+              value: '600'
+            },
+            {
+              info: 'Member',
+              value: '320'
+            },
+            {
+              info: 'Visit',
+              value: '1.2k'
+            }
+          ],
+          exploreMember: [
+          ]
+        },
+        {
+          backgroundimg: '',
+          exploreimg: '',
+          title: 'Designer',
+          text: 'Lorem Ipsum data',
+          otherinfo: [
+            {
+              info: 'Like',
+              value: '600'
+            },
+            {
+              info: 'Member',
+              value: '320'
+            },
+            {
+              info: 'Visit',
+              value: '1.2k'
+            }
+          ],
+          exploreMember: [
+          ]
+        },        
+        {
+          backgroundimg: '',
+          exploreimg: '',
+          title: 'Designer',
+          text: 'Lorem Ipsum data',
+          otherinfo: [
+            {
+              info: 'Like',
+              value: '600'
+            },
+            {
+              info: 'Member',
+              value: '320'
+            },
+            {
+              info: 'Visit',
+              value: '1.2k'
+            }
+          ],
+          exploreMember: [
+          ]
+        }
+      ]
     }
   },
   beforeMount() {
@@ -189,8 +262,8 @@ export default {
       </v-card>
       <v-row class="pa-2 mb-6" elevation="1">
         <v-col
-          v-for="n in 9"
-          :key="n"
+          v-for="item in exploreInfo"
+          :key="item"
           cols="12"
           sm="4"
         >
@@ -213,12 +286,29 @@ export default {
               height="250"
               src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
             ></v-img>
-
+<!-- 
             <v-card-title>Cafe Badilico</v-card-title>
 
             <v-card-text>
               <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating.</div>
-            </v-card-text>
+            </v-card-text> -->
+
+            <div class="pt-3 pb-3">
+              <h2 class="text-center">{{ item.title }}</h2>
+              <p class="text-center">{{ item.text }}</p>
+            </div>
+            <div class="d-flex justify-center d-inline-block pb-3">
+                <div
+                  v-for="(item,index) in item.otherinfo"
+                  :key="index"
+                  class="d-flex flex-column pl-3 pr-3"
+                >
+                  <p class="mb-0 text-center">
+                    {{ item.info }}
+                  </p>
+                  <h6 class="mb-0 text-center">{{ item.value }}</h6>
+                </div>
+            </div>
 
             <v-row >
               <v-col class="d-flex justify-center">
@@ -236,9 +326,9 @@ export default {
 
     <!-- topic editor -->
     <v-dialog v-model="showTopicEditor" persistent closable max-width="700">
-      <v-card tile>
+      <v-card tile class="d-flex flex-column ">
         <v-card-title class="text-h5 secondary--text">
-          Create Topic
+          Edit Topic
           <v-spacer></v-spacer>
           <v-btn icon color="primary" @click="discardTopic">
             <v-icon>mdi-close</v-icon>
@@ -277,7 +367,7 @@ export default {
               200</template
             >
           </v-textarea>
-          <v-textarea
+          <!-- <v-textarea
               v-model="topic.content"
               label="write your topic here"
               rows="10"
@@ -290,10 +380,14 @@ export default {
               {{ topic.content ? topic.content.trim().split(/\s+/).length : 0 }} /
               800</template
             >
-          </v-textarea>
+          </v-textarea> -->
         </v-card-text>
 
-        <div class="d-flex px-4 mt-n4">
+        <div class="d-flex pl-6 mt-n4">
+          <v-checkbox
+            v-model="checkbox"
+            label="Send me topic reply notifications"
+          ></v-checkbox>
           <v-spacer class="mx-16"></v-spacer>
           <v-select
             :items="topicAccess"

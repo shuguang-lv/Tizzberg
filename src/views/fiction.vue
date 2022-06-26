@@ -118,6 +118,74 @@ export default {
           value: 'c',
         },
       ],
+      exploreInfo: [
+        {
+          backgroundimg: '',
+          exploreimg: '',
+          title: 'Designer',
+          text: 'Lorem Ipsum data',
+          otherinfo: [
+            {
+              info: 'Like',
+              value: '600'
+            },
+            {
+              info: 'Member',
+              value: '320'
+            },
+            {
+              info: 'Visit',
+              value: '1.2k'
+            }
+          ],
+          exploreMember: [
+          ]
+        },
+        {
+          backgroundimg: '',
+          exploreimg: '',
+          title: 'Designer',
+          text: 'Lorem Ipsum data',
+          otherinfo: [
+            {
+              info: 'Like',
+              value: '600'
+            },
+            {
+              info: 'Member',
+              value: '320'
+            },
+            {
+              info: 'Visit',
+              value: '1.2k'
+            }
+          ],
+          exploreMember: [
+          ]
+        },        
+        {
+          backgroundimg: '',
+          exploreimg: '',
+          title: 'Designer',
+          text: 'Lorem Ipsum data',
+          otherinfo: [
+            {
+              info: 'Like',
+              value: '600'
+            },
+            {
+              info: 'Member',
+              value: '320'
+            },
+            {
+              info: 'Visit',
+              value: '1.2k'
+            }
+          ],
+          exploreMember: [
+          ]
+        }
+      ]
     }
   },
   beforeMount() {
@@ -189,8 +257,8 @@ export default {
       </v-card>
       <v-row class="pa-2 mb-6" elevation="1">
         <v-col
-          v-for="n in 9"
-          :key="n"
+          v-for="item in exploreInfo"
+          :key="item"
           cols="12"
           sm="4"
           @click="$router.push({ name: 'fiction-content' })"
@@ -214,42 +282,23 @@ export default {
               height="250"
               src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
             ></v-img>
-
-            <v-card-title>Cafe Badilico</v-card-title>
-
             <v-card-text>
-              <v-row
-                align="center"
-                class="mx-0"
-              >
-                <v-rating
-                  :value="4.5"
-                  color="amber"
-                  dense
-                  half-increments
-                  readonly
-                  size="14"
-                ></v-rating>
-
-                <div class="my-1 grey--text ms-4">
-                  4.5 (413)
-                </div>
-              </v-row>
-
-              <div class="my-2 ">
-                <v-chip label small class="mr-1 my-1 font-weight-bold" color="#8ab6c9">
-                  Food
-                </v-chip>
-                <v-chip label small class="mr-1 my-1 font-weight-bold" color="#8ab6c9">
-                  Italy
-                </v-chip>                
+              <div class="pt-3 pb-3">
+                <h2 class="text-center">{{ item.title }}</h2>
+                <p class="text-center">{{ item.text }}</p>
               </div>
-
-              <v-chip label small class="my-1 font-weight-bold" color="#8ab6c9">
-                03.17.2000
-              </v-chip>
-
-              <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating.</div>
+              <div class="d-flex justify-center d-inline-block pb-3">
+                  <div
+                    v-for="(item,index) in item.otherinfo"
+                    :key="index"
+                    class="d-flex flex-column pl-3 pr-3"
+                  >
+                    <p class="mb-0 text-center">
+                      {{ item.info }}
+                    </p>
+                    <h6 class="mb-0 text-center">{{ item.value }}</h6>
+                  </div>
+              </div>
             </v-card-text>
           </v-card>
         </v-col>
