@@ -21,6 +21,7 @@ export async function deleteComment({objectId=''}) {
 }
 
 export async function editComment(objectId,config,{parent,content,deleted,author,view_count,likeUser,tag,visibility}) {
+    console.log(likeUser,tag,visibility)
     const query = new AV.Query('Comment');
     query.equalTo('objectId', objectId);
     query.find().then((res) => {

@@ -8,6 +8,7 @@ import { fetchUserMemo } from '@/api/user.js'
 // import Post from '@/models/Post'
 
 export default {
+  name: 'TSquare',
   components: {
     Layout,
     IdentityEditor,

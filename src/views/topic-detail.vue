@@ -6,7 +6,7 @@ import * as topicAPI from '@/api/topic'
 import Topic from '@/models/Topic'
 
 export default {
-  name: 'Explore',
+  name: 'TopicDetail',
   components: {
     Layout,
   },
