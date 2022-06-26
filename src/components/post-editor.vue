@@ -78,6 +78,7 @@ export default {
         console.log(post)
         this.$snackbar.success('Post was created successfully')
         this.$storage.remove('last-post')
+        Object.assign(this.post, new Post())
         this.hide()
         this.$emit('created')
       } catch (error) {

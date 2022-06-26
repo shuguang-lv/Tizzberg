@@ -197,8 +197,8 @@ export default {
 
                 <v-list>
                   <v-list-item
-                    v-for="(item, i) in postActions"
-                    :key="i"
+                    v-for="item in postActions"
+                    :key="item.title"
                     link
                     class="px-8"
                     color="primary"
@@ -224,9 +224,9 @@ export default {
           >
           </v-card-text>
           <v-chip
-            v-for="(tag, index) in post.get('tags')"
-            :key="index"
-            class="ml-4 mr-2 mb-4"
+            v-for="tag in post.get('tags')"
+            :key="tag"
+            class="ml-4 mb-4"
             color="primary"
             outlined
           >

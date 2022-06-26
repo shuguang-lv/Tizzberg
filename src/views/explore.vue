@@ -2,8 +2,8 @@
 import Layout from '@/layouts/main.vue'
 // import IdentityEditor from '@/components/identity-editor.vue'
 import { authComputed } from '@/store/helpers'
-import * as userAPI from '@/api/User'
-import * as topicAPI from '@/api/Topic'
+import * as userAPI from '@/api/user'
+import * as topicAPI from '@/api/topic'
 import Topic from '@/models/Topic'
 
 export default {
@@ -55,11 +55,11 @@ export default {
             this.$dialog({
               title: 'Delete this topic',
               content: 'Are you sure you want to delete this topic?',
-              topic_position: n,
+              // topic_position: n,
               confirmButton: {
-                action: (async (n) => {
-                  await topicAPI.deleteTopic(this.topicList[n - 1].id)
-                }).bind(this, n),
+                // action: (async (n) => {
+                //   await topicAPI.deleteTopic(this.topicList[n - 1].id)
+                // }).bind(this, n),
               },
             }),
         },
