@@ -2,7 +2,6 @@
 import Layout from '@/layouts/main.vue'
 // import IdentityEditor from '@/components/identity-editor.vue'
 import { authComputed } from '@/store/helpers'
-import * as userAPI from '@/api/user'
 import * as topicAPI from '@/api/topic'
 import Topic from '@/models/Topic'
 
@@ -26,15 +25,15 @@ export default {
       topicContentRules: [
         (v) => !v || v.trim().split(/\s+/).length <= 800 || 'Max 800 words',
       ],
-      selectedTab: 'tab-hot',
+      selectedTab: 'hot',
       tabs: [
         {
           title: 'Hot',
-          value: 'tab-hot',
+          value: 'hot',
         },
         {
           title: 'Latest',
-          value: 'tab-latest',
+          value: 'latest',
         },
       ],
       topicActions: [
@@ -238,9 +237,12 @@ export default {
         },
       })
     },
-    async addTopic(topic) {
-      topic.author = await userAPI.getCurrentUser()
-      topicAPI.addTopic(topic)
+    async createTopic(topic) {
+      const newTopic = new Topic()
+      newTopic.title = topic.title
+      newTopic.content = topic.content
+      newTopic.authorId = this.$user.current().getObjectId()
+      topicAPI.addTopic(newTopic)
     },
     async getAllTopic() {
       this.topicList = await topicAPI.getAllTopic()
@@ -259,16 +261,17 @@ export default {
   <Layout>
     <div>
       <v-card rounded class="pa-2 mb-6" elevation="1" :width="flowWidth">
-        <v-card-title class="text-h4 mb-2 primary--text font-weight-medium">
-          T-Square
-        </v-card-title>
-        <v-divider class="mb-2"></v-divider>
-        <v-card-text class="d-flex align-center">
-          <v-avatar color="primary" size="80" class="mr-6">
+        <v-card-text v-if="$user.current()" class="d-flex align-center">
+          <v-avatar
+            color="primary"
+            size="60"
+            class="mr-6 clickable"
+            @click="$refs['identity-editor'].show()"
+          >
             <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"
           /></v-avatar>
           <v-text-field
-            label="What happened in your world today?"
+            label="Create a topic here"
             append-icon="mdi-pencil"
             hide-details
             outlined
@@ -295,6 +298,7 @@ export default {
           </v-tab>
         </v-tabs>
       </div>
+
       <v-tabs-items v-model="selectedTab">
         <v-tab-item v-for="tab in tabs" :key="tab.value" :value="tab.value">
           <v-card
@@ -305,59 +309,15 @@ export default {
             elevation="1"
             :width="flowWidth"
           >
-            <div class="d-flex justify-space-between align-center">
-              <div class="d-flex align-center pa-4">
-                <v-avatar color="primary" size="50" class="mr-4">
-                  <img
-                    src="https://cdn.vuetifyjs.com/images/john.jpg"
-                    alt="John"
-                /></v-avatar>
-                <div class="text-subtitle-1">Nik Jon</div>
-              </div>
-              <div>
-                <v-icon color="secondary" class="mx-2">mdi-pin</v-icon>
-                <v-menu :disabled="!loggedIn" bottom right rounded="lg">
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn large icon v-bind="attrs" v-on="on">
-                      <v-icon>mdi-dots-vertical</v-icon>
-                    </v-btn>
-                  </template>
-
-                  <v-list>
-                    <v-list-item
-                      v-for="(item, i) in topicActions"
-                      :key="i"
-                      link
-                      class="px-8"
-                      color="primary"
-                      @click="item.action(n)"
-                    >
-                      <v-list-item-icon>
-                        <v-icon v-text="item.icon"></v-icon>
-                      </v-list-item-icon>
-                      <v-list-item-content>
-                        <v-list-item-title
-                          v-text="item.title"
-                        ></v-list-item-title>
-                      </v-list-item-content>
-                    </v-list-item>
-                  </v-list>
-                </v-menu>
-              </div>
-            </div>
-            <v-divider class="mb-2"></v-divider>
+            <v-card-title>Title</v-card-title>
+            <v-divider></v-divider>
             <v-card-text
-              class="d-flex align-center text-h5"
+              class="d-flex align-center text-body-1"
               v-text="topicList[n - 1].attributes.title"
               @click="viewTopicDetail(n)"
             >
             </v-card-text>
             <v-chip class="ml-4 mb-4" color="primary" outlined> Tag </v-chip>
-            <!-- <v-img
-              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-              height="500px"
-              class="mb-4"
-            ></v-img> -->
             <div class="d-flex justify-space-between align-center px-4">
               <div>
                 <v-btn
@@ -574,9 +534,9 @@ export default {
             large
             color="primary"
             width="200"
-            @click="addTopic(topic)"
+            @click="createTopic(topic)"
           >
-            Topic
+            Create
           </v-btn>
         </v-card-actions>
       </v-card>

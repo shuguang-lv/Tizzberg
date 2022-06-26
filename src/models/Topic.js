@@ -5,7 +5,7 @@ export default class Topic {
     this.title = isString(topic.title) ? topic.title : ''
     this.content = isString(topic.content) ? topic.content : ''
     this.tag = isString(topic.tag) ? topic.tag : []
-    this.author = isString(topic.author) ? topic.author : ''
+    this.authorId = isString(topic.authorId) ? topic.authorId : ''
     this.likeUser = isString(topic.likeUser) ? topic.likeUser : []
     this.visibility = isString(topic.visibility) ? topic.visibility : ''
     this.deleted = isBoolean(topic.deleted) ? topic.deleted : false

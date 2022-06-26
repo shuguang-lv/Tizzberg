@@ -8,7 +8,7 @@ export default {
   },
   data() {
     return {
-      flowWidth: '65vw',
+      flowWidth: '50vw',
       showFictionEditor: false,
       fiction: {
         title: '',
@@ -128,19 +128,18 @@ export default {
           otherinfo: [
             {
               info: 'Like',
-              value: '600'
+              value: '600',
             },
             {
               info: 'Member',
-              value: '320'
+              value: '320',
             },
             {
               info: 'Visit',
-              value: '1.2k'
-            }
+              value: '1.2k',
+            },
           ],
-          exploreMember: [
-          ]
+          exploreMember: [],
         },
         {
           backgroundimg: '',
@@ -150,20 +149,19 @@ export default {
           otherinfo: [
             {
               info: 'Like',
-              value: '600'
+              value: '600',
             },
             {
               info: 'Member',
-              value: '320'
+              value: '320',
             },
             {
               info: 'Visit',
-              value: '1.2k'
-            }
+              value: '1.2k',
+            },
           ],
-          exploreMember: [
-          ]
-        },        
+          exploreMember: [],
+        },
         {
           backgroundimg: '',
           exploreimg: '',
@@ -172,21 +170,20 @@ export default {
           otherinfo: [
             {
               info: 'Like',
-              value: '600'
+              value: '600',
             },
             {
               info: 'Member',
-              value: '320'
+              value: '320',
             },
             {
               info: 'Visit',
-              value: '1.2k'
-            }
+              value: '1.2k',
+            },
           ],
-          exploreMember: [
-          ]
-        }
-      ]
+          exploreMember: [],
+        },
+      ],
     }
   },
   beforeMount() {
@@ -239,16 +236,21 @@ export default {
   <Layout>
     <div>
       <v-card rounded class="pa-2 mb-6" elevation="1" :width="flowWidth">
-        <v-card-title class="text-h4 mb-2 primary--text font-weight-medium">
-          T-Square
+        <v-card-title class="text-h5 mb-2 primary--text font-weight-medium">
+          Fiction
         </v-card-title>
         <v-divider class="mb-2"></v-divider>
-        <v-card-text class="d-flex align-center">
-          <v-avatar color="primary" size="80" class="mr-6">
+        <v-card-text v-if="$user.current()" class="d-flex align-center">
+          <v-avatar
+            color="primary"
+            size="60"
+            class="mr-6 clickable"
+            @click="$refs['identity-editor'].show()"
+          >
             <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"
           /></v-avatar>
           <v-text-field
-            label="What happened in your world today?"
+            label="Create a new story"
             append-icon="mdi-pencil"
             hide-details
             outlined
@@ -256,7 +258,7 @@ export default {
           ></v-text-field>
         </v-card-text>
       </v-card>
-      <v-row class="pa-2 mb-6" elevation="1" >
+      <v-row class="pa-2 mb-6" elevation="1">
         <v-col
           v-for="item in exploreInfo"
           :key="item"
@@ -290,16 +292,16 @@ export default {
                 <p class="text-center">{{ item.text }}</p>
               </div>
               <div class="d-flex justify-center d-inline-block pb-3">
-                  <div
-                    v-for="(item,index) in item.otherinfo"
-                    :key="index"
-                    class="d-flex flex-column pl-3 pr-3"
-                  >
-                    <p class="mb-0 text-center">
-                      {{ item.info }}
-                    </p>
-                    <h6 class="mb-0 text-center">{{ item.value }}</h6>
-                  </div>
+                <div
+                  v-for="(item, index) in item.otherinfo"
+                  :key="index"
+                  class="d-flex flex-column pl-3 pr-3"
+                >
+                  <p class="mb-0 text-center">
+                    {{ item.info }}
+                  </p>
+                  <h6 class="mb-0 text-center">{{ item.value }}</h6>
+                </div>
               </div>
             </v-card-text>
           </v-card>

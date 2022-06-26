@@ -2,17 +2,9 @@ import { deleteObj } from './common'
 export const AV = require('leancloud-storage');
 const Topic = AV.Object.extend('Topic');
 
-export async function addTopic(topic_info) {
+export async function addTopic(topicObj) {
     const topic = new Topic()
-    // topic.set('title', title)
-    // topic.set('content', content)
-    // topic.set('deleted', deleted)
-    // topic.set('author', author)
-    // topic.set('view_count', view_count)
-    // topic.set('likeUser', likeUser)
-    // topic.set('tag', tag)
-    // topic.set('visibility', visibility)
-    topic.set(topic_info)
+    topic.set(topicObj)
     return topic.save()
 }
 
