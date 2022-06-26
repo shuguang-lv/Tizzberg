@@ -13,6 +13,7 @@ export default {
   data() {
     return {
         id: null,
+        flowWidth: "50vw",
         topic: new Topic(),
         topicActions: [
         {
@@ -136,6 +137,7 @@ export default {
         rounded
         class="px-2 py-4 mb-6"
         elevation="1"
+        :width="flowWidth"
     >
         <div class="d-flex justify-space-between align-center">
             <div class="d-flex align-center pa-4">

@@ -8,7 +8,7 @@ export default {
   },
   data() {
     return {
-      flowWidth: '50vw',
+      flowWidth: '65vw',
       showFictionEditor: false,
       fiction: {
         title: '',
@@ -240,8 +240,8 @@ export default {
 
 <template>
   <Layout>
-    <v-container>
-      <v-card rounded class="pa-2 mb-6" elevation="1">
+    <div>
+      <v-card rounded class="pa-2 mb-6" elevation="1" :width="flowWidth">
         <v-card-title class="text-h4 mb-2 primary--text font-weight-medium">
           T-Square
         </v-card-title>
@@ -259,7 +259,7 @@ export default {
           ></v-text-field>
         </v-card-text>
       </v-card>
-      <v-row class="pa-2 mb-6" elevation="1">
+      <v-row class="pa-2 mb-6" elevation="1" >
         <v-col
           v-for="item in exploreInfo"
           :key="item"
@@ -273,6 +273,7 @@ export default {
             :loading="loading"
             class="mx-auto my-12"
             max-width="374"
+            :width="flowWidth"
           >
             <template slot="progress">
               <v-progress-linear
@@ -307,7 +308,7 @@ export default {
           </v-card>
         </v-col>
       </v-row>
-    </v-container>
+    </div>
 
     <!-- fiction editor -->
     <v-dialog v-model="showFictionEditor" persistent closable max-width="700">

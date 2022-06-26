@@ -260,8 +260,8 @@ export default {
 
 <template>
   <Layout>
-    <v-container>
-      <v-card rounded class="pa-2 mb-6" elevation="1">
+    <div >
+      <v-card rounded class="pa-2 mb-6" elevation="1" :width="flowWidth">
         <v-card-title class="text-h4 mb-2 primary--text font-weight-medium">
           T-Square
         </v-card-title>
@@ -280,7 +280,7 @@ export default {
         </v-card-text>
       </v-card>
 
-      <div class="mb-6" :style="{ }">
+      <div class="mb-6" :style="{ }" :width="flowWidth">
         <v-tabs
           v-model="selectedTab"
           grow
@@ -306,6 +306,7 @@ export default {
             rounded
             class="px-2 py-4 mb-6"
             elevation="1"
+            :width="flowWidth"
           >
             <div class="d-flex justify-space-between align-center">
               <div class="d-flex align-center pa-4">
@@ -463,7 +464,7 @@ export default {
           </v-card>
         </v-col>
       </v-row> -->
-    </v-container>
+    </div>
 
     <!-- topic editor -->
     <v-dialog v-model="showTopicEditor" persistent closable max-width="700">
