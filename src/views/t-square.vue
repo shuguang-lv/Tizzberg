@@ -2,12 +2,11 @@
 import Layout from '@/layouts/main.vue'
 import IdentityEditor from '@/components/identity-editor.vue'
 import { authComputed } from '@/store/helpers'
-import * as userAPI from '@/api/User'
-import * as postAPI from '@/api/Post'
+import * as userAPI from  '@/api/User'
+import * as postAPI from  '@/api/Post'
 import Post from '@/models/Post'
 
 export default {
-  name: 'TSquare',
   components: {
     Layout,
     IdentityEditor,
@@ -57,9 +56,10 @@ export default {
               post_position: n,
               confirmButton: {
                 action: (async (n) => {
-                  await postAPI.deletePost(this.postList[n - 1].id)
-                }).bind(this, n),
+                  await postAPI.deletePost(this.postList[n-1].id)
+                }).bind(this, n)
               },
+
             }),
         },
         {
@@ -138,8 +138,8 @@ export default {
       }
     })
   },
-  mounted() {
-    this.getAllPost()
+  mounted (){
+    this.getAllPost();
   },
   // beforeRouteLeave() {
   //   if (this.post && this.post.content.trim()) {
@@ -173,15 +173,15 @@ export default {
       })
     },
     async addPost(post) {
-      post.author = await userAPI.getCurrentUser()
-      postAPI.addPost(post)
+      post.author = await userAPI.getCurrentUser();
+      postAPI.addPost(post);
     },
     async getAllPost() {
-      this.postList = await postAPI.getAllPost()
+      this.postList = await postAPI.getAllPost();
     },
-    deletePost(postId) {
+    deletePost (postId) {
       return postAPI.deletePost(postId)
-    },
+    }
   },
 }
 </script>
@@ -195,7 +195,7 @@ export default {
         T-Square
       </v-card-title>
       <v-divider class="mb-2"></v-divider>
-      <v-card-text v-if="$User.current()" class="d-flex align-center">
+      <v-card-text v-if="loggedIn" class="d-flex align-center">
         <v-avatar
           color="primary"
           size="60"
@@ -250,7 +250,7 @@ export default {
             </div>
             <div>
               <v-icon color="secondary" class="mx-2">mdi-pin</v-icon>
-              <v-menu :disabled="!$User.current()" bottom right rounded="lg">
+              <v-menu :disabled="!loggedIn" bottom right rounded="lg">
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn large icon v-bind="attrs" v-on="on">
                     <v-icon>mdi-dots-vertical</v-icon>
@@ -280,10 +280,7 @@ export default {
             </div>
           </div>
           <v-divider class="mb-2"></v-divider>
-          <v-card-text
-            class="d-flex align-center text-body-1"
-            v-text="postList[n - 1].attributes.content"
-          >
+          <v-card-text class="d-flex align-center text-body-1"  v-text="postList[n-1].attributes.content">
           </v-card-text>
           <v-chip class="ml-4 mb-4" color="primary" outlined> Tag </v-chip>
           <v-img
@@ -294,7 +291,7 @@ export default {
           <div class="d-flex justify-space-between align-center px-4">
             <div>
               <v-btn
-                :disabled="!$User.current()"
+                :disabled="!loggedIn"
                 fab
                 small
                 depressed
@@ -307,12 +304,7 @@ export default {
               <span class="secondary--text">2 Comments</span>
             </div>
             <div>
-              <v-btn
-                :disabled="!$User.current()"
-                icon
-                color="secondary"
-                class="mr-2"
-              >
+              <v-btn :disabled="!loggedIn" icon color="secondary" class="mr-2">
                 <v-icon>mdi-share-variant-outline</v-icon>
               </v-btn>
               <span class="secondary--text">99 Share</span>
@@ -334,17 +326,13 @@ export default {
                 aliquam ratione. Consequatur, quo.
               </div>
               <div class="text-end">
-                <v-btn :disabled="!$User.current()" color="grey" text
-                  >Unlike</v-btn
-                >
-                <v-btn :disabled="!$User.current()" color="primary" text
-                  >Reply</v-btn
-                >
+                <v-btn :disabled="!loggedIn" color="grey" text>Unlike</v-btn>
+                <v-btn :disabled="!loggedIn" color="primary" text>Reply</v-btn>
               </div>
             </div>
           </div>
           <v-text-field
-            :disabled="!$User.current()"
+            :disabled="!loggedIn"
             label="Leave your comments here"
             append-icon="mdi-send"
             hide-details
@@ -437,15 +425,7 @@ export default {
             Save as draft
           </v-btn>
           <v-spacer></v-spacer>
-          <v-btn
-            depressed
-            large
-            color="primary"
-            width="200"
-            @click="addPost(post)"
-          >
-            Post
-          </v-btn>
+          <v-btn depressed large color="primary" width="200" @click="addPost(post)"> Post </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

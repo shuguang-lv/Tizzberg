@@ -112,5 +112,15 @@ export async function getAllTopic() {
 export async function getVisibityTopic(visibility) {
     const query = new AV.Query('Topic');
     query.equalTo('visibility', visibility);
-    return query.find()
+    return await query.find()
+}
+
+/**
+ * 
+ * @param {*} get topic
+ */
+ export async function getTopic(topicId) {
+    const query = new AV.Query('Topic');
+    query.equalTo('objectId', topicId);
+    return await query.find()
 }

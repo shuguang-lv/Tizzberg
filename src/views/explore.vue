@@ -1,10 +1,10 @@
 <script>
 import Layout from '@/layouts/main.vue'
 // import IdentityEditor from '@/components/identity-editor.vue'
-// import { authComputed } from '@/store/helpers'
-// import * as userAPI from  '@/api/User'
-// import * as topicAPI from  '@/api/Post'
-// import Topic from '@/models/Post'
+import { authComputed } from '@/store/helpers'
+import * as userAPI from  '@/api/User'
+import * as topicAPI from  '@/api/Topic'
+import Topic from '@/models/Topic'
 
 export default {
   name: 'Explore',
@@ -15,11 +15,8 @@ export default {
     return {
       flowWidth: '50vw',
       showTopicEditor: false,
-      topic: {
-        title: '',
-        description: '',
-        content: '',
-      },
+      topic: new Topic(),
+      topicList: [],
       topicTitleRules: [
         (v) => !v || v.trim().split(/\s+/).length <= 80 || 'Max 80 words',
       ],
@@ -34,10 +31,6 @@ export default {
         {
           title: 'Hot',
           value: 'tab-hot',
-        },
-        {
-          title: 'Following',
-          value: 'tab-following',
         },
         {
           title: 'Latest',
@@ -58,10 +51,16 @@ export default {
         {
           title: 'Delete Topic',
           icon: 'mdi-delete-outline',
-          action: () =>
+          action: (n) =>
             this.$Dialog({
               title: 'Delete this topic',
               content: 'Are you sure you want to delete this topic?',
+              topic_position: n,
+              confirmButton: {
+                action: (async (n) => {
+                  await topicAPI.deleteTopic(this.topicList[n - 1].id)
+                }).bind(this, n),
+              },
             }),
         },
         {
@@ -93,19 +92,19 @@ export default {
       topicAccess: [
         {
           text: 'Public',
-          description: 'This topic is visible to all users',
+          content: 'This topic is visible to all users',
           icon: 'mdi-eye-outline',
           value: 'public',
         },
         {
-          text: 'Cooperate',
-          description: 'This topic is visible to your followers',
+          text: 'Follower',
+          content: 'This topic is visible to your followers',
           icon: 'mdi-account-multiple-outline',
           value: 'follower',
         },
         {
           text: 'Private',
-          description: 'Only yourself can see this topic',
+          content: 'Only yourself can see this topic',
           icon: 'mdi-lock-outline',
           value: 'private',
         },
@@ -212,6 +211,12 @@ export default {
   //     window.localStorage.removeItem('last-topic')
   //   }
   // },
+  mounted () {
+    this.topicList = this.getAllTopic();
+  },
+  computed: {
+    ...authComputed,
+  },
   methods: {
     discardTopic() {
       if (!this.topic.content.trim()) {
@@ -236,6 +241,19 @@ export default {
         },
       })
     },
+    async addTopic(topic) {
+      topic.author = await userAPI.getCurrentUser()
+      topicAPI.addTopic(topic)
+    },
+    async getAllTopic() {
+      this.topicList = await topicAPI.getAllTopic()
+    },
+    deleteTopic(topicId) {
+      return topicAPI.deleteTopic(topicId)
+    },
+    viewTopicDetail (n) {
+      this.$router.push({path:`/topic-detail/${this.topicList[n - 1].id}`})
+    }
   },
 }
 </script>
@@ -261,7 +279,138 @@ export default {
           ></v-text-field>
         </v-card-text>
       </v-card>
-      <v-row class="pa-2 mb-6" elevation="1">
+
+      <div class="mb-6" :style="{ }">
+        <v-tabs
+          v-model="selectedTab"
+          grow
+          active-class="white--text primary"
+          slider-color="secondary"
+          height="50"
+        >
+          <v-tab
+            v-for="tab in tabs"
+            :key="tab.value"
+            class="text-subtitle-1"
+            :href="`#${tab.value}`"
+          >
+            {{ tab.title }}
+          </v-tab>
+        </v-tabs>
+      </div>
+      <v-tabs-items v-model="selectedTab">
+        <v-tab-item v-for="tab in tabs" :key="tab.value" :value="tab.value">
+          <v-card
+            v-for="n in topicList.length"
+            :key="n"
+            rounded
+            class="px-2 py-4 mb-6"
+            elevation="1"
+          >
+            <div class="d-flex justify-space-between align-center">
+              <div class="d-flex align-center pa-4">
+                <v-avatar color="primary" size="50" class="mr-4">
+                  <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"
+                /></v-avatar>
+                <div class="text-subtitle-1">Nik Jon</div>
+              </div>
+              <div>
+                <v-icon color="secondary" class="mx-2">mdi-pin</v-icon>
+                <v-menu :disabled="!loggedIn" bottom right rounded="lg">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn large icon v-bind="attrs" v-on="on">
+                      <v-icon>mdi-dots-vertical</v-icon>
+                    </v-btn>
+                  </template>
+
+                  <v-list>
+                    <v-list-item
+                      v-for="(item, i) in topicActions"
+                      :key="i"
+                      link
+                      class="px-8"
+                      color="primary"
+                      @click="item.action(n)"
+                    >
+                      <v-list-item-icon>
+                        <v-icon v-text="item.icon"></v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-content>
+                        <v-list-item-title
+                          v-text="item.title"
+                        ></v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+              </div>
+            </div>
+            <v-divider class="mb-2"></v-divider>
+            <v-card-text class="d-flex align-center text-h5"  v-text="topicList[n-1].attributes.title" @click="viewTopicDetail(n)">
+            </v-card-text>
+            <v-chip class="ml-4 mb-4" color="primary" outlined> Tag </v-chip>
+            <!-- <v-img
+              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+              height="500px"
+              class="mb-4"
+            ></v-img> -->
+            <div class="d-flex justify-space-between align-center px-4">
+              <div>
+                <v-btn
+                  :disabled="!loggedIn"
+                  fab
+                  small
+                  depressed
+                  color="secondary"
+                  class="mr-4"
+                >
+                  <v-icon>mdi-thumb-up</v-icon>
+                </v-btn>
+                <span class="mr-4 secondary--text">120 Likes</span>
+                <span class="secondary--text">2 Replies</span>
+              </div>
+              <div>
+                <v-btn :disabled="!loggedIn" icon color="secondary" class="mr-2">
+                  <v-icon>mdi-share-variant-outline</v-icon>
+                </v-btn>
+                <span class="secondary--text">99 Share</span>
+              </div>
+            </div>
+            <v-divider class="my-4"></v-divider>
+            <div v-for="n in 2" :key="n" class="d-flex align-start mx-4">
+              <v-avatar color="primary" size="50" class="mr-4">
+                <img
+                  src="https://i0.wp.com/www.cssscript.com/wp-content/uploads/2020/12/Customizable-SVG-Avatar-Generator-In-JavaScript-Avataaars.js.png?fit=438%2C408&ssl=1"
+                  alt="John"
+              /></v-avatar>
+              <div>
+                <div class="text-subtitle-1">Desmond</div>
+                <div class="grey--text">
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                  Doloribus unde harum, enim magnam recusandae beatae porro nemo
+                  in itaque exercitationem incidunt minus alias maxime sed omnis
+                  aliquam ratione. Consequatur, quo.
+                </div>
+                <div class="text-end">
+                  <v-btn :disabled="!loggedIn" color="grey" text>Unlike</v-btn>
+                  <v-btn :disabled="!loggedIn" color="primary" text>Reply</v-btn>
+                </div>
+              </div>
+            </div>
+            <v-text-field
+              :disabled="!loggedIn"
+              label="Leave your replies here"
+              append-icon="mdi-send"
+              hide-details
+              outlined
+              clearable
+              type="text"
+              class="mx-4 mt-4"
+            ></v-text-field>
+          </v-card>
+        </v-tab-item>
+      </v-tabs-items>
+      <!-- <v-row class="pa-2 mb-6" elevation="1">
         <v-col
           v-for="item in exploreInfo"
           :key="item"
@@ -287,12 +436,7 @@ export default {
               height="250"
               src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
             ></v-img>
-<!-- 
-            <v-card-title>Cafe Badilico</v-card-title>
 
-            <v-card-text>
-              <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating.</div>
-            </v-card-text> -->
 
             <div class="pt-3 pb-3">
               <h2 class="text-center">{{ item.title }}</h2>
@@ -318,7 +462,7 @@ export default {
             </v-row>
           </v-card>
         </v-col>
-      </v-row>
+      </v-row> -->
     </v-container>
 
     <!-- topic editor -->
@@ -351,8 +495,8 @@ export default {
         </v-card-text>
         <v-card-text>
           <v-textarea
-            v-model="topic.description"
-            label="write your topic's description here"
+            v-model="topic.content"
+            label="write your topic's content here"
             :rules="topicDescriptionRules"
             rows="10"
             counter
@@ -361,8 +505,8 @@ export default {
           >
             <template v-slot:counter="{}">
               {{
-                topic.description
-                  ? topic.description.trim().split(/\s+/).length
+                topic.content
+                  ? topic.content.trim().split(/\s+/).length
                   : 0
               }}
               / 200</template
@@ -407,7 +551,7 @@ export default {
                 <v-list-item-content>
                   <v-list-item-title v-text="item.text"></v-list-item-title>
                   <v-list-item-subtitle
-                    v-text="item.description"
+                    v-text="item.content"
                   ></v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
@@ -420,7 +564,7 @@ export default {
             Save as draft
           </v-btn>
           <v-spacer></v-spacer>
-          <v-btn depressed large color="primary" width="200"> Topic </v-btn>
+          <v-btn depressed large color="primary" width="200" @click="addTopic(topic)"> Topic </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

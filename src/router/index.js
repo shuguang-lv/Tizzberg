@@ -84,6 +84,11 @@ const routes = [
     component: () => lazyLoadView(import('../views/explore.vue')),
   },
   {
+    path: '/topic-detail/:id',
+    name: 'topic-detail',
+    component: () => lazyLoadView(import('../views/topic-detail.vue')),
+  },
+  {
     path: '/fiction',
     name: 'fiction',
     component: () => lazyLoadView(import('../views/fiction.vue')),
