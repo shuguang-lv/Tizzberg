@@ -27,6 +27,7 @@ export default {
           const user = await logInUser(this.identifier, this.password)
           console.log(user)
           console.log(this.$User.current())
+          this.$Snackbar.success('Logged in successfully')
           // Redirect to the originally requested page, or to the home page
           this.$router.push(this.$route.query.redirectFrom || { name: 'home' })
         } catch (error) {

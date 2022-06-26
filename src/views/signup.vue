@@ -51,6 +51,7 @@ export default {
           const user = await signUpUser(this.newUser)
           console.log(user)
           console.log(this.$User.current())
+          this.$Snackbar.success('Signed up successfully')
         } catch (error) {
           console.log(error)
           this.$Snackbar.error(error.rawMessage)
