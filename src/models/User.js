@@ -1,14 +1,18 @@
-import { is } from 'ramda'
+import { isString, isArray } from 'lodash'
 
 export default class User {
-  constructor (user = {}) {
-    this.username = is(String, user.username) ? user.username : ''
-    this.firstName = is(String, user.firstName) ? user.firstName : ''
-    this.lastName = is(String, user.lastName) ? user.lastName : ''
-    this.dob = is(String, user.dob) ? user.dob : ''
-    this.currentIdentity = is(String, user.currentIdentity) ? user.currentIdentity : ''
-    this.identity = is(String, user.identity) ? user.identity : []
-    this.followedTag = is(String, user.followedTag) ? user.followedTag : []
-    this.savedPost = is(String, user.savedPost) ? user.savedPost : []
+  constructor(user = {}) {
+    this.username = isString(user.username) ? user.username : ''
+    this.password = isString(user.password) ? user.password : ''
+    this.firstName = isString(user.firstName) ? user.firstName : ''
+    this.lastName = isString(user.lastName) ? user.lastName : ''
+    this.picture = isString(user.picture) ? user.picture : ''
+    this.email = isString(user.email) ? user.email : ''
+    this.currentIdentity = isString(user.currentIdentity)
+      ? user.currentIdentity
+      : ''
+    this.identities = isArray(user.identities) ? user.identities : []
+    this.followedTags = isArray(user.followedTags) ? user.followedTags : []
+    this.savedPosts = isArray(user.savedPosts) ? user.savedPosts : []
   }
 }

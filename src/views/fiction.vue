@@ -2,6 +2,7 @@
 import Layout from '@/layouts/main.vue'
 
 export default {
+  name: 'Fiction',
   components: {
     Layout,
   },
@@ -193,7 +194,10 @@ export default {
     this.fiction = lastFiction || this.fiction
     window.addEventListener('beforeunload', () => {
       if (this.fiction.content.trim()) {
-        window.localStorage.setItem('last-fiction', JSON.stringify(this.fiction))
+        window.localStorage.setItem(
+          'last-fiction',
+          JSON.stringify(this.fiction)
+        )
       } else {
         window.localStorage.removeItem('last-fiction')
       }
@@ -305,7 +309,6 @@ export default {
       </v-row>
     </v-container>
 
-
     <!-- fiction editor -->
     <v-dialog v-model="showFictionEditor" persistent closable max-width="700">
       <v-card tile>
@@ -318,7 +321,7 @@ export default {
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text class="d-flex align-center pt-4">
-          <v-avatar color="primary" size="60" class="mr-6" >
+          <v-avatar color="primary" size="60" class="mr-6">
             <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"
           /></v-avatar>
           <v-text-field
@@ -336,31 +339,37 @@ export default {
         </v-card-text>
         <v-card-text>
           <v-textarea
-              v-model="fiction.description"
-              label="write your fiction's description here"
-              :rules="fictionDescriptionRules"
-              rows="10"
-              counter
-              clearable
-              outlined
+            v-model="fiction.description"
+            label="write your fiction's description here"
+            :rules="fictionDescriptionRules"
+            rows="10"
+            counter
+            clearable
+            outlined
           >
             <template v-slot:counter="{}">
-              {{ fiction.description ? fiction.description.trim().split(/\s+/).length : 0 }} /
-              200</template
+              {{
+                fiction.description
+                  ? fiction.description.trim().split(/\s+/).length
+                  : 0
+              }}
+              / 200</template
             >
           </v-textarea>
           <v-textarea
-              v-model="fiction.content"
-              label="write your fiction here"
-              rows="10"
-              counter
-              :rules="fictionContentRules"
-              clearable
-              outlined
+            v-model="fiction.content"
+            label="write your fiction here"
+            rows="10"
+            counter
+            :rules="fictionContentRules"
+            clearable
+            outlined
           >
             <template v-slot:counter="{}">
-              {{ fiction.content ? fiction.content.trim().split(/\s+/).length : 0 }} /
-              800</template
+              {{
+                fiction.content ? fiction.content.trim().split(/\s+/).length : 0
+              }}
+              / 800</template
             >
           </v-textarea>
         </v-card-text>

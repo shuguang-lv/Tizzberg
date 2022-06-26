@@ -1,5 +1,6 @@
 <script>
 export default {
+  name: 'FriendList',
   data() {
     return {
       selectedTab: 'tab-following',

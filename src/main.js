@@ -1,3 +1,10 @@
+const AV = require('leancloud-storage')
+AV.init({ 
+  appId: "5Y6XfcEGs057U6eBhhYiIBy0-MdYXbMMI",
+  appKey: "QIt08R1MMkbnQuFO7TPtR6up",
+  serverURL: "https://5y6xfceg.api.lncldglobal.com"
+});
+
 import Vue from 'vue'
 import App from './app.vue'
 import router from './router'
@@ -27,6 +34,7 @@ Vue.prototype.$emitter = eventBus
 Vue.prototype.$appName = process.env.VUE_APP_NAME
 Vue.prototype.$Dialog = Dialog
 Vue.prototype.$Snackbar = Snackbar
+Vue.prototype.$User = AV.User
 
 new Vue({
   router,

@@ -7,6 +7,7 @@ import Layout from '@/layouts/main.vue'
 // import Topic from '@/models/Post'
 
 export default {
+  name: 'Explore',
   components: {
     Layout,
   },
@@ -310,19 +311,15 @@ export default {
                 </div>
             </div>
 
-            <v-row >
+            <v-row>
               <v-col class="d-flex justify-center">
-                <v-btn width="90%" class="ma-4">
-                  Collect
-                </v-btn>
+                <v-btn width="90%" class="ma-4"> Collect </v-btn>
               </v-col>
             </v-row>
-
           </v-card>
         </v-col>
       </v-row>
     </v-container>
-
 
     <!-- topic editor -->
     <v-dialog v-model="showTopicEditor" persistent closable max-width="700">
@@ -336,7 +333,7 @@ export default {
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text class="d-flex align-center pt-4">
-          <v-avatar color="primary" size="60" class="mr-6" >
+          <v-avatar color="primary" size="60" class="mr-6">
             <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"
           /></v-avatar>
           <v-text-field
@@ -354,17 +351,21 @@ export default {
         </v-card-text>
         <v-card-text>
           <v-textarea
-              v-model="topic.description"
-              label="write your topic's description here"
-              :rules="topicDescriptionRules"
-              rows="10"
-              counter
-              clearable
-              outlined
+            v-model="topic.description"
+            label="write your topic's description here"
+            :rules="topicDescriptionRules"
+            rows="10"
+            counter
+            clearable
+            outlined
           >
             <template v-slot:counter="{}">
-              {{ topic.description ? topic.description.trim().split(/\s+/).length : 0 }} /
-              200</template
+              {{
+                topic.description
+                  ? topic.description.trim().split(/\s+/).length
+                  : 0
+              }}
+              / 200</template
             >
           </v-textarea>
           <!-- <v-textarea
@@ -377,8 +378,10 @@ export default {
               outlined
           >
             <template v-slot:counter="{}">
-              {{ topic.content ? topic.content.trim().split(/\s+/).length : 0 }} /
-              800</template
+              {{
+                topic.content ? topic.content.trim().split(/\s+/).length : 0
+              }}
+              / 800</template
             >
           </v-textarea> -->
         </v-card-text>

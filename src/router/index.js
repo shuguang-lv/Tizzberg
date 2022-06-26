@@ -6,6 +6,9 @@ import NProgress from 'nprogress/nprogress'
 
 Vue.use(VueRouter)
 
+const AV = require('leancloud-storage')
+const checkLoginState = AV.User.current
+
 // Lazy-loads view components, but with better UX. A loading view
 // will be used if the component takes a while to load, falling
 // back to a timeout view in case the page fails to load. You can
@@ -111,7 +114,7 @@ const routes = [
     meta: {
       beforeResolve(routeTo, routeFrom, next) {
         // If the user is already logged in
-        if (store.getters['auth/loggedIn']) {
+        if (checkLoginState()) {
           // Redirect to the home page instead
           next({ name: 'home' })
         } else {
@@ -216,7 +219,7 @@ router.beforeEach((routeTo, routeFrom, next) => {
   if (!authRequired) return next()
 
   // If auth is required and the user is logged in...
-  if (store.getters['auth/loggedIn']) {
+  if (checkLoginState()) {
     // Validate the local user token...
     return store.dispatch('auth/validate').then((validUser) => {
       // Then continue if the token still represents a valid user,

@@ -1,11 +1,11 @@
-import { is } from 'ramda'
+import { isString, isBoolean, isNumber } from 'lodash'
 
 export default class Comment {
-  constructor (comment = {}) {
-    this.parent = is(String, comment.parent) ? comment.parent : ''
-    this.content = is(String, comment.content) ? comment.content : ''
-    this.author = is(String, comment.author) ? comment.author : ''
-    this.deleted = is(Boolean, comment.deleted) ? comment.deleted : false
-    this.view_count = is(Number, comment.view_count) ? comment.view_count : 0
+  constructor(comment = {}) {
+    this.parent = isString(comment.parent) ? comment.parent : ''
+    this.content = isString(comment.content) ? comment.content : ''
+    this.author = isString(comment.author) ? comment.author : ''
+    this.deleted = isBoolean(comment.deleted) ? comment.deleted : false
+    this.view_count = isNumber(comment.view_count) ? comment.view_count : 0
   }
 }

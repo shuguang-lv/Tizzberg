@@ -1,13 +1,24 @@
 <script>
-import { authMethods, authComputed } from '@/store/helpers'
 import IdentityEditor from './identity-editor.vue'
+import { authMethods, authComputed } from '@/store/helpers'
+import { logOutUser } from '@/api/User.js'
 
 export default {
+  name: 'NavBarUser',
   components: {
     IdentityEditor,
   },
+  data() {
+    return {
+      username: '',
+    }
+  },
   computed: {
     ...authComputed,
+  },
+  created() {
+    const user = this.$User.current()
+    this.username = user ? user.getUsername() : ''
   },
   methods: {
     ...authMethods,
@@ -16,10 +27,10 @@ export default {
         title: 'Logout',
         content: 'Are you sure you want to log out?',
         confirmButton: {
-          action: async () => {
-            await this.logOut()
+          action: (async (logOutUser) => {
+            await logOutUser()
             this.$router.push({ name: 'login' })
-          },
+          }).bind(this, logOutUser),
         },
       })
     },
@@ -32,7 +43,7 @@ export default {
     <identity-editor ref="identity"></identity-editor>
 
     <v-btn
-      v-if="!loggedIn"
+      v-if="!$User.current()"
       depressed
       large
       color="primary"
@@ -41,7 +52,7 @@ export default {
       >Login</v-btn
     >
     <v-btn
-      v-if="!loggedIn"
+      v-if="!$User.current()"
       class="mr-4 ml-8"
       depressed
       large
@@ -52,7 +63,12 @@ export default {
       >Signup</v-btn
     >
 
-    <v-menu v-if="loggedIn" offset-y left transition="slide-y-transition">
+    <v-menu
+      v-if="$User.current()"
+      offset-y
+      left
+      transition="slide-y-transition"
+    >
       <template v-slot:activator="{ on, attrs }">
         <v-avatar color="primary" size="56" v-bind="attrs" v-on="on"
           ><img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"
@@ -61,7 +77,7 @@ export default {
 
       <v-card class="pb-2" width="350" flat>
         <v-sheet color="primary" class="white--text">
-          <v-card-title> John Wick </v-card-title>
+          <v-card-title> {{ username }} </v-card-title>
           <v-card-subtitle> a cool man </v-card-subtitle>
         </v-sheet>
 
@@ -121,13 +137,18 @@ export default {
       </v-card>
     </v-menu>
 
-    <div v-if="loggedIn" class="text-h5 mx-4">John Wick</div>
+    <div v-if="$User.current()" class="text-h5 mx-4">{{ username }}</div>
 
     <v-btn icon large :to="{ name: 't-square' }" color="primary" class="mx-4">
       <v-icon>mdi-home-outline</v-icon>
     </v-btn>
 
-    <v-menu v-if="loggedIn" offset-y left transition="slide-y-transition">
+    <v-menu
+      v-if="$User.current()"
+      offset-y
+      left
+      transition="slide-y-transition"
+    >
       <template v-slot:activator="{ on, attrs }">
         <v-btn icon large color="primary" class="mx-4" v-bind="attrs" v-on="on">
           <v-badge dot color="warning">
@@ -176,7 +197,12 @@ export default {
       </v-card>
     </v-menu>
 
-    <v-menu v-if="loggedIn" offset-y left transition="slide-y-transition">
+    <v-menu
+      v-if="$User.current()"
+      offset-y
+      left
+      transition="slide-y-transition"
+    >
       <template v-slot:activator="{ on, attrs }">
         <v-btn icon large color="primary" class="mx-4" v-bind="attrs" v-on="on">
           <v-badge dot color="warning">
