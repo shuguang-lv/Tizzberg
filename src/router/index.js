@@ -129,21 +129,21 @@ const routes = [
       },
     },
   },
+  // {
+  //   path: '/profile',
+  //   name: 'profile',
+  //   component: () => lazyLoadView(import('../views/profile.vue')),
+  //   meta: {
+  //     authRequired: true,
+  //   },
+  //   props: () => ({ user: store.state.auth.currentUser || {} }),
+  // },
   {
-    path: '/profile',
-    name: 'profile',
-    component: () => lazyLoadView(import('../views/profile.vue')),
+    path: '/profile/:id',
+    name: 'Profile',
+    component: () => lazyLoadView(import('../views/explore.vue')),
     meta: {
-      authRequired: true,
-    },
-    props: () => ({ user: store.state.auth.currentUser || {} }),
-  },
-  {
-    path: '/profile/:username',
-    name: 'username-profile',
-    component: () => lazyLoadView(import('../views/profile.vue')),
-    meta: {
-      authRequired: true,
+      authRequired: false,
       // HACK: In order to share data between the `beforeResolve` hook
       // and the `props` function, we must create an object for temporary
       // data only used during route resolution.

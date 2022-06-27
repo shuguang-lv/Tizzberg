@@ -26,12 +26,21 @@ export default {
         },
         {
           title: 'Profile',
-          path: 'profile',
+          path: `/profile/${this.getUserId()}`,
           icon: 'mdi-account-box-outline',
         },
       ],
     }
   },
+  methods : {
+    getUserId () {
+      console.log(this.$user.current().getObjectId())
+      return this.$user.current().getObjectId()
+    }
+  },
+  beforeCreate () {
+    this.getUserId()
+  }
 }
 </script>
 
@@ -40,7 +49,7 @@ export default {
     <v-list-item
       v-for="route in routes"
       :key="route.title"
-      :to="{ name: route.path }"
+      :to="{ path: route.path  }"
       color="primary"
       two-line
       link
