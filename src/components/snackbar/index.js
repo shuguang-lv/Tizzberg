@@ -41,7 +41,7 @@ export default {
   success(message) {
     return openSnackbar({ type: 'success', message })
   },
-  warning(message) {
+  warn(message) {
     return openSnackbar({ type: 'warning', message })
   },
   error(message) {

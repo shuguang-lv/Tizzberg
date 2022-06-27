@@ -27,6 +27,13 @@ export default {
           const user = await logInUser(this.identifier, this.password)
           console.log(user)
           console.log(this.$user.current())
+          if (!user.get('emailVerified')) {
+            await this.$user.logOut()
+            this.$user.requestEmailVerify(user.getEmail())
+            this.$snackbar.warn('Please verify your email first')
+            this.logIning = false
+            return
+          }
           this.$snackbar.success('Logged in successfully')
           // Redirect to the originally requested page, or to the home page
           this.$router.push(this.$route.query.redirectFrom || { name: 'home' })

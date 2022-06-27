@@ -12,20 +12,26 @@ export default {
   data: () => ({
     signingUp: false,
     newUser: new User(),
+    isEmailVerified: true,
     nameRules: [
-      (v) => !!v || 'Name is required',
-      (v) => (v && v.length <= 10) || 'Name must be less than 10 characters',
+      (v) => !!v || 'Username is required',
+      (v) =>
+        /(?=^.{3,20}$)^[a-zA-Z][a-zA-Z0-9]*[._-]?[a-zA-Z0-9]+$/g.test(v) ||
+        'Username must be 3-20 characters long and can only contain letters, numbers, underscores, dashes, and periods',
     ],
     emailRules: [
       (v) => !!v || 'E-mail is required',
-      (v) => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+      (v) =>
+        /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i.test(
+          v
+        ) || 'E-mail must be valid',
     ],
     showPassword: false,
     passwordRules: [
       (v) => !!v || 'Password is required',
       (v) =>
-        /^(?=.*[a-zA-Z])(?=.*[0-9])[A-Za-z0-9]{8,18}$/.test(v) ||
-        'Password must be valid',
+        /^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{6,})\S$/.test(v) ||
+        'Password must has a minimum of 6 characters, at least 1 uppercase letter, 1 lowercase letter, and 1 number with no spaces.',
     ],
     showConfirmPassword: false,
     checkbox: false,
@@ -42,6 +48,12 @@ export default {
       ]
     },
   },
+  mounted() {
+    window.addEventListener('beforeunload', this.logOutUnverifiedUser)
+  },
+  beforeRouteLeave() {
+    this.logOutUnverifiedUser()
+  },
   methods: {
     ...authMethods,
     async signUp() {
@@ -51,6 +63,7 @@ export default {
           const user = await signUpUser(this.newUser)
           console.log(user)
           console.log(this.$user.current())
+          this.isEmailVerified = false
           this.$snackbar.success('Signed up successfully')
         } catch (error) {
           console.log(error)
@@ -59,7 +72,24 @@ export default {
       }
       this.signingUp = false
     },
-    verifyEmail() {},
+    async verifyEmail() {
+      await this.$user.current().fetch()
+      if (this.$user.current().get('emailVerified')) {
+        this.isEmailVerified = true
+      }
+    },
+    resendEmail() {
+      this.$user.requestEmailVerify(this.$user.current().getEmail())
+    },
+    async logOutUnverifiedUser() {
+      if (!this.isEmailVerified && this.$user.current()) {
+        try {
+          await this.$user.logOut()
+        } catch (error) {
+          console.log(error)
+        }
+      }
+    },
   },
 }
 </script>
@@ -78,20 +108,28 @@ export default {
         clearable
         class="mb-4"
       ></v-text-field>
-      <div class="d-flex mb-4">
-        <v-text-field
-          class="mr-2"
-          v-model="newUser.email"
-          :rules="emailRules"
-          label="E-mail"
-          required
-          outlined
-          clearable
-        ></v-text-field>
-        <v-btn large outlined color="primary" @click="verifyEmail">
-          Send Email
-        </v-btn>
-      </div>
+      <v-text-field
+        v-model="newUser.email"
+        :rules="emailRules"
+        label="E-mail"
+        required
+        outlined
+        clearable
+      ></v-text-field>
+      <v-alert v-if="isEmailVerified" text color="warning" class="mb-8">
+        <div class="mb-2">
+          An email with a verification link has been sent to the email address
+          you provided. Please click that link to verify your email so that you
+          can login to your account.
+        </div>
+        <div class="d-flex">
+          <v-spacer></v-spacer>
+          <v-btn color="warning" outlined class="mr-4" @click="verifyEmail">
+            Verify
+          </v-btn>
+          <v-btn color="warning" outlined @click="resendEmail"> Resend </v-btn>
+        </div>
+      </v-alert>
       <v-text-field
         v-model="newUser.password"
         label="Password"
@@ -99,7 +137,7 @@ export default {
         required
         outlined
         clearable
-        class="mb-4"
+        class="my-4"
         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
         :type="showPassword ? 'text' : 'password'"
         @click:append="showPassword = !showPassword"

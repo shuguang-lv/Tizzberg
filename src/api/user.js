@@ -22,10 +22,6 @@ export async function logInUser(identifier, password) {
     }
 }
 
-export async function logOutUser() {
-  return AV.User.logOut()
-}
-
 export const fetchUserMemo = memoize(async (userId = 'random') => {
   const query = new AV.Query('_User')
   try {

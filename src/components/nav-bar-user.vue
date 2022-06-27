@@ -1,7 +1,6 @@
 <script>
 import IdentityEditor from './identity-editor.vue'
 import { authMethods, authComputed } from '@/store/helpers'
-import { logOutUser } from '@/api/user.js'
 
 export default {
   name: 'NavBarUser',
@@ -27,10 +26,14 @@ export default {
         title: 'Logout',
         content: 'Are you sure you want to log out?',
         confirmButton: {
-          action: (async (logOutUser) => {
-            await logOutUser()
-            this.$router.push({ name: 'login' })
-          }).bind(this, logOutUser),
+          action: (async () => {
+            try {
+              await this.$user.logOut()
+              this.$router.push({ name: 'login' })
+            } catch (error) {
+              console.log(error)
+            }
+          }).bind(this),
         },
       })
     },

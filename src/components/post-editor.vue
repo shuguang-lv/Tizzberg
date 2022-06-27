@@ -174,9 +174,7 @@ export default {
                 :input-value="selected"
                 label
               >
-                <span class="pr-2">
-                  {{ item }}
-                </span>
+                <span class="pr-2"> #{{ item }} </span>
                 <v-icon small @click="parent.selectItem(item)">
                   $delete
                 </v-icon>
@@ -207,7 +205,7 @@ export default {
             </template>
           </v-select>
         </div>
-        <v-divider class="mb-2 mt-4"></v-divider>
+        <v-divider class="mb-2"></v-divider>
         <v-card-actions class="pb-4">
           <v-btn depressed large outlined color="primary" width="200">
             Save as draft

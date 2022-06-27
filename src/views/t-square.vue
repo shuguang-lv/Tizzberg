@@ -24,10 +24,10 @@ export default {
           title: 'Hot',
           value: 'hot',
         },
-        {
-          title: 'Following',
-          value: 'following',
-        },
+        // {
+        //   title: 'Following',
+        //   value: 'following',
+        // },
         {
           title: 'Latest',
           value: 'latest',
@@ -58,7 +58,7 @@ export default {
                     await deletePost(id)
                     await this.getPostList()
                     this.$overlay.close()
-                    this.$snackbar.warning('A post was deleted')
+                    this.$snackbar.warn('A post was deleted')
                   } catch (error) {
                     console.log(error)
                     this.$overlay.close()
@@ -224,15 +224,16 @@ export default {
             v-text="post.get('content')"
           >
           </v-card-text>
-          <v-chip
+          <v-btn
             v-for="tag in post.get('tags')"
             :key="tag"
-            class="ml-4 mb-4"
             color="primary"
-            outlined
+            class="mb-4"
+            style="text-transform: unset !important"
+            text
           >
-            {{ tag }}
-          </v-chip>
+            #{{ tag }}
+          </v-btn>
           <v-img
             src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
             height="500px"
