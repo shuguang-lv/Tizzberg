@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import store from '@/store'
+// import store from '@/store'
 // Adds a loading bar at the top during page loads.
 import NProgress from 'nprogress/nprogress'
 
 Vue.use(VueRouter)
 
+import { fetchUserMemo } from '@/api/user'
 const AV = require('leancloud-storage')
-const checkLoginState = AV.User.current
+const checkCurrentUser = AV.User.current
 
 // Lazy-loads view components, but with better UX. A loading view
 // will be used if the component takes a while to load, falling
@@ -49,22 +50,19 @@ function lazyLoadView(AsyncView) {
   })
 }
 
-const fetchUser = (routeTo, routeFrom, next) => {
-  store
-    // Try to fetch the user's information by their username
-    .dispatch('users/fetchUser', { username: routeTo.params.username })
-    .then((user) => {
-      // Add the user to `meta.tmp`, so that it can
-      // be provided as a prop.
-      routeTo.meta.tmp.user = user
-      // Continue to the route.
-      next()
-    })
-    .catch(() => {
-      // If a user with the provided username could not be
-      // found, redirect to the 404 page.
-      next({ name: '404', params: { resource: 'User' } })
-    })
+const fetchUser = async (routeTo, routeFrom, next) => {
+  const user = await fetchUserMemo(routeTo.params.userid)
+  if (user) {
+    // Add the user to `meta.tmp`, so that it can
+    // be provided as a prop.
+    routeTo.meta.tmp.user = user
+    // Continue to the route.
+    next()
+  } else {
+    // If a user with the provided userid could not be
+    // found, redirect to the 404 page.
+    next({ name: '404', params: { resource: 'User' } })
+  }
 }
 
 const routes = [
@@ -105,7 +103,7 @@ const routes = [
     meta: {
       authRequired: true,
     },
-    props: () => ({ user: store.state.auth.currentUser || {} }),
+    props: () => ({ user: checkCurrentUser() || {} }),
   },
   {
     path: '/signup',
@@ -119,7 +117,7 @@ const routes = [
     meta: {
       beforeResolve(routeTo, routeFrom, next) {
         // If the user is already logged in
-        if (checkLoginState()) {
+        if (checkCurrentUser()) {
           // Redirect to the home page instead
           next({ name: 'home' })
         } else {
@@ -136,10 +134,10 @@ const routes = [
     meta: {
       authRequired: true,
     },
-    props: () => ({ user: store.state.auth.currentUser || {} }),
+    props: () => ({ user: checkCurrentUser() || {} }),
   },
   {
-    path: '/profile/:username',
+    path: '/profile/:userid',
     name: 'username-profile',
     component: () => lazyLoadView(import('../views/profile.vue')),
     meta: {
@@ -161,23 +159,23 @@ const routes = [
     meta: {
       authRequired: true,
     },
-    props: () => ({ user: store.state.auth.currentUser || {} }),
+    props: () => ({ user: checkCurrentUser() || {} }),
   },
-  {
-    path: '/logout',
-    name: 'logout',
-    meta: {
-      authRequired: true,
-      beforeResolve(routeTo, routeFrom, next) {
-        store.dispatch('auth/logOut')
-        const authRequiredOnPreviousRoute = routeFrom.matched.some(
-          (route) => route.meta.authRequired
-        )
-        // Navigate back to previous page, or home as a fallback
-        next(authRequiredOnPreviousRoute ? { name: 'home' } : { ...routeFrom })
-      },
-    },
-  },
+  // {
+  //   path: '/logout',
+  //   name: 'logout',
+  //   meta: {
+  //     authRequired: true,
+  //     beforeResolve(routeTo, routeFrom, next) {
+  //       store.dispatch('auth/logOut')
+  //       const authRequiredOnPreviousRoute = routeFrom.matched.some(
+  //         (route) => route.meta.authRequired
+  //       )
+  //       // Navigate back to previous page, or home as a fallback
+  //       next(authRequiredOnPreviousRoute ? { name: 'home' } : { ...routeFrom })
+  //     },
+  //   },
+  // },
   {
     path: '/404',
     name: '404',
@@ -224,13 +222,15 @@ router.beforeEach((routeTo, routeFrom, next) => {
   if (!authRequired) return next()
 
   // If auth is required and the user is logged in...
-  if (checkLoginState()) {
-    // Validate the local user token...
-    return store.dispatch('auth/validate').then((validUser) => {
-      // Then continue if the token still represents a valid user,
-      // otherwise redirect to login.
-      validUser ? next() : redirectToLogin()
-    })
+  if (checkCurrentUser()) {
+    // // Validate the local user token...
+    // return store.dispatch('auth/validate').then((validUser) => {
+    //   // Then continue if the token still represents a valid user,
+    //   // otherwise redirect to login.
+    //   validUser ? next() : redirectToLogin()
+    // })
+    next()
+    return
   }
 
   // If auth is required and the user is NOT currently logged in,

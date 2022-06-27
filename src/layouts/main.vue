@@ -34,19 +34,31 @@ export default {
       }}</v-toolbar-title>
       <v-spacer></v-spacer>
       <NavBarUser></NavBarUser>
-      <v-btn
-        depressed
-        large
-        absolute
-        right
-        color="accent"
-        style="top: 100px"
-        class="mt-2"
-        @click="showFriendList = !showFriendList"
-      >
-        <v-icon v-if="showFriendList"> mdi-chevron-double-right </v-icon>
-        <v-icon v-else> mdi-chevron-double-left </v-icon>
-      </v-btn>
+      <div class="d-flex flex-column tool-button-group pb-6 pr-4">
+        <v-btn fab large color="tertiary">
+          <v-icon color="white"> mdi-magnify </v-icon>
+        </v-btn>
+        <v-btn
+          fab
+          large
+          color="tertiary"
+          class="my-6"
+          @click="showFriendList = !showFriendList"
+        >
+          <v-icon v-if="showFriendList" color="white">
+            mdi-chevron-double-right
+          </v-icon>
+          <v-icon v-else color="white"> mdi-chevron-double-left </v-icon>
+        </v-btn>
+        <v-btn
+          fab
+          large
+          color="tertiary"
+          @click="$vuetify.goTo(0, { duration: 500, easing: 'easeInOutCubic' })"
+        >
+          <v-icon color="white"> mdi-chevron-up </v-icon>
+        </v-btn>
+      </div>
     </v-app-bar>
 
     <!-- Sizes your content based upon application components -->
@@ -84,4 +96,11 @@ export default {
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.tool-button-group {
+  position: absolute;
+  right: 0;
+  top: 100vh;
+  transform: translateY(-100%);
+}
+</style>

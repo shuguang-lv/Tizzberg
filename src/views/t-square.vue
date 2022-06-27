@@ -126,7 +126,7 @@ export default {
     <identity-editor ref="identity-editor"></identity-editor>
     <post-editor ref="post-editor" @created="getPostList"></post-editor>
 
-    <v-card rounded class="pa-2 mb-6" elevation="1" :width="flowWidth">
+    <v-card rounded class="pa-2" elevation="3" :width="flowWidth">
       <v-card-title class="text-h5 mb-2 primary--text font-weight-medium">
         T-Square
       </v-card-title>
@@ -149,12 +149,12 @@ export default {
         ></v-text-field>
       </v-card-text>
     </v-card>
-    <div class="mb-6" :style="{ width: flowWidth }">
+    <div class="mt-8" :style="{ width: flowWidth }">
       <v-tabs
         v-model="selectedTab"
         grow
         active-class="white--text primary"
-        slider-color="secondary"
+        slider-color="tertiary"
         height="50"
         @change="getPostList"
       >
@@ -174,8 +174,8 @@ export default {
           v-for="(post, index) in postList"
           :key="index"
           rounded
-          class="px-2 py-4 mb-6"
-          elevation="1"
+          class="px-2 py-4 my-8 mx-4"
+          elevation="3"
           :width="flowWidth"
         >
           <div class="d-flex justify-space-between align-center">

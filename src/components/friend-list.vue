@@ -13,7 +13,7 @@ export default {
 
 <template>
   <div>
-    <v-tabs v-model="selectedTab" centered color="accent">
+    <v-tabs v-model="selectedTab" centered color="primary">
       <v-tab href="#tab-following"> Following </v-tab>
       <v-tab href="#tab-followers"> Followers </v-tab>
     </v-tabs>
@@ -43,7 +43,7 @@ export default {
         <v-pagination
           v-model="followingPage"
           :length="2"
-          color="accent"
+          color="primary"
         ></v-pagination>
       </v-tab-item>
       <v-tab-item value="tab-followers">
@@ -70,7 +70,7 @@ export default {
         <v-pagination
           v-model="followerPage"
           :length="2"
-          color="accent"
+          color="primary"
         ></v-pagination>
       </v-tab-item>
     </v-tabs-items>

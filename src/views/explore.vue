@@ -260,7 +260,7 @@ export default {
 <template>
   <Layout>
     <div>
-      <v-card rounded class="pa-2 mb-6" elevation="1" :width="flowWidth">
+      <v-card rounded class="pa-2 mb-6" elevation="3" :width="flowWidth">
         <v-card-text v-if="$user.current()" class="d-flex align-center">
           <v-avatar
             color="primary"
@@ -306,7 +306,7 @@ export default {
             :key="n"
             rounded
             class="px-2 py-4 mb-6"
-            elevation="1"
+            elevation="3"
             :width="flowWidth"
           >
             <v-card-title>Title</v-card-title>

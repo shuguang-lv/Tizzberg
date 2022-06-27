@@ -235,7 +235,7 @@ export default {
 <template>
   <Layout>
     <div>
-      <v-card rounded class="pa-2 mb-6" elevation="1" :width="flowWidth">
+      <v-card rounded class="pa-2 mb-6" elevation="3" :width="flowWidth">
         <v-card-title class="text-h5 mb-2 primary--text font-weight-medium">
           Fiction
         </v-card-title>
@@ -268,7 +268,7 @@ export default {
         >
           <v-card
             rounded
-            elevation="2"
+            elevation="3"
             :loading="loading"
             class="mx-auto my-12"
             max-width="374"
