@@ -16,6 +16,8 @@ export default {
       password: '',
       checkbox: false,
       required: (v) => !!v || 'This field is required',
+      email: '',
+      showDialog: false,
     }
   },
   methods: {
@@ -43,6 +45,17 @@ export default {
         }
       }
       this.logIning = false
+    },
+    async sendResetPwdEmail() {
+      try {
+        await this.$user.requestPasswordReset(this.email)
+        this.$snackbar.success(
+          'An email has been sent to you with instructions to reset your password'
+        )
+      } catch (error) {
+        console.log(error)
+        this.$snackbar.error(error.rawMessage)
+      }
     },
   },
 }
@@ -94,12 +107,54 @@ export default {
 
     <v-divider class="mb-8"></v-divider>
 
-    <div class="d-flex">
+    <div class="d-flex mb-6">
       <div class="secondary--text font-weight-regular mr-4">
         Don't have an account?
       </div>
       <router-link :to="{ name: 'signup' }">Sign up</router-link>
     </div>
+    <a @click="showDialog = true">Forget your password?</a>
+
+    <v-dialog v-model="showDialog" persistent max-width="500">
+      <v-card tile>
+        <v-card-title class="text-h5 secondary--text">
+          Reset password
+        </v-card-title>
+        <v-divider></v-divider>
+        <v-card-text class="text-subtitle-1 py-4">
+          Enter the email address you used to register this account and a
+          password resetting email will be sent to that email
+          <v-text-field
+            v-model="email"
+            label="E-mail"
+            class="mt-4"
+            hide-details
+            required
+            outlined
+            clearable
+          ></v-text-field>
+        </v-card-text>
+        <v-card-actions class="pb-4">
+          <v-btn
+            outlined
+            width="200"
+            color="primary"
+            @click="showDialog = false"
+          >
+            Cancel
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn
+            depressed
+            width="200"
+            color="primary"
+            @click="sendResetPwdEmail"
+          >
+            Send
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </Layout>
 </template>
 

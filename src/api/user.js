@@ -13,25 +13,29 @@ export async function signUpUser(userObj) {
 }
 
 export async function logInUser(identifier, password) {
-    if (/.+@.+\..+/.test(identifier)) {
-        // email
-        return AV.User.loginWithEmail(identifier, password)
-    } else {
-        // username
-        return AV.User.logIn(identifier, password)
-    }
+  if (/.+@.+\..+/.test(identifier)) {
+    // email
+    return AV.User.loginWithEmail(identifier, password)
+  } else {
+    // username
+    return AV.User.logIn(identifier, password)
+  }
 }
 
-export const fetchUserMemo = memoize(async (userId = 'random') => {
+const _fetchUser = async (userId = 'random') => {
   const query = new AV.Query('_User')
   try {
     const user = await query.get(userId)
     return user
   } catch (error) {
-    console.log(error);
+    console.log(error)
     return null
   }
-})
+}
+
+export const fetchUserMemo = memoize(_fetchUser)
+
+export const fetchUser = _fetchUser
 
 export async function deleteCurrentUser(userId) {
   const user = AV.User.current()

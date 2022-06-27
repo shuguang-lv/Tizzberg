@@ -68,7 +68,7 @@ export default {
         {{ title }}
       </v-card-title>
       <v-divider></v-divider>
-      <v-card-text class="text-h6 py-4">{{ content }}</v-card-text>
+      <v-card-text class="text-subtitle-1 py-4">{{ content }}</v-card-text>
       <v-card-actions class="pb-4">
         <v-btn
           depressed
