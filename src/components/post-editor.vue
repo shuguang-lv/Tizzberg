@@ -17,7 +17,7 @@ export default {
   data() {
     return {
       showPostEditor: false,
-      savingPost: false,
+      creatingPost: false,
       postRules: [
         (v) => !v || v.trim().split(/\s+/).length <= 800 || 'Max 800 words',
       ],
@@ -70,9 +70,12 @@ export default {
     hide() {
       this.showPostEditor = false
     },
-    async createPost() {
-      this.savingPost = true
+    async createPost(mode = 'finished') {
+      this.creatingPost = true
       this.post.authorId = this.$user.current().getObjectId()
+      if (mode === 'draft') {
+        this.post.status = 'draft'
+      }
       try {
         const post = await createPost(this.post)
         console.log(post)
@@ -85,7 +88,7 @@ export default {
         console.log(error)
         this.$snackbar.error(error.rawMessage)
       }
-      this.savingPost = false
+      this.creatingPost = false
     },
     discardPost() {
       if (!this.post.content.trim()) {
@@ -114,7 +117,7 @@ export default {
 <template>
   <div>
     <identity-editor ref="identity"></identity-editor>
-    <v-dialog v-model="showPostEditor" persistent closable max-width="700">
+    <v-dialog v-model="showPostEditor" persistent closable max-width="800">
       <v-card tile>
         <v-card-title class="text-h5 secondary--text">
           Create Post
@@ -207,7 +210,16 @@ export default {
         </div>
         <v-divider class="mb-2"></v-divider>
         <v-card-actions class="pb-4">
-          <v-btn depressed large outlined color="primary" width="200">
+          <v-btn
+            depressed
+            large
+            outlined
+            color="primary"
+            width="200"
+            :loading="creatingPost"
+            :disabled="creatingPost || !post.content.trim()"
+            @click="createPost('draft')"
+          >
             Save as draft
           </v-btn>
           <v-spacer></v-spacer>
@@ -216,8 +228,8 @@ export default {
             large
             color="primary"
             width="200"
-            :loading="savingPost"
-            :disabled="savingPost"
+            :loading="creatingPost"
+            :disabled="creatingPost || !post.content.trim()"
             @click="createPost"
           >
             Post

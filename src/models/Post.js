@@ -1,4 +1,4 @@
-import { isString, isBoolean, isNumber, isArray } from 'lodash'
+import { isString, isNumber, isArray } from 'lodash'
 
 export default class Post {
   constructor(post = {}) {
@@ -7,8 +7,8 @@ export default class Post {
     this.tags = isArray(post.tags) ? post.tags : []
     this.authorId = isString(post.authorId) ? post.authorId : ''
     // this.likeUser = isString(post.likeUser) ? post.likeUser : []
-    this.visibility = isString(post.visibility) ? post.visibility : ''
-    this.deleted = isBoolean(post.deleted) ? post.deleted : false
+    this.visibility = isString(post.visibility) ? post.visibility : 'public'
+    this.status = isString(post.status) ? post.status : '' // deleted, draft
     this.view_count = isNumber(post.view_count) ? post.view_count : 0
   }
 }

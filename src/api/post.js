@@ -10,7 +10,8 @@ export async function createPost(postObj) {
 
 export async function getPostList(filter = 'hot') {
   const query = new AV.Query('Post')
-  query.equalTo('deleted', false)
+  query.notEqualTo('status', 'deleted')
+  query.notEqualTo('status', 'draft')
   query.equalTo('visibility', 'public')
   switch (filter) {
     case 'hot':
@@ -43,7 +44,7 @@ export async function pinPost() {
 export async function editPost(
   objectId,
   config,
-  { title, content, deleted, author, view_count, likeUser, tag, visibility }
+  { title, content, status, author, view_count, likeUser, tag, visibility }
 ) {
   const query = new AV.Query('Post')
   query.equalTo('objectId', objectId)
@@ -55,8 +56,8 @@ export async function editPost(
     if (content) {
       post.set('content', content)
     }
-    if (deleted) {
-      post.set('deleted', deleted)
+    if (status) {
+      post.set('status', status)
     }
     if (author) {
       post.set('author', author)
