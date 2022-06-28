@@ -1,5 +1,6 @@
-const AV = require('leancloud-storage')
 import { memoize } from 'lodash'
+
+const AV = require('leancloud-storage')
 
 // memoize.Cache = WeakMap
 

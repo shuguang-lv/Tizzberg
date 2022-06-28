@@ -116,7 +116,7 @@ export default {
         outlined
         clearable
       ></v-text-field>
-      <v-alert v-if="isEmailVerified" text color="warning" class="mb-8">
+      <v-alert v-if="!isEmailVerified" text color="warning" class="mb-8">
         <div class="mb-2">
           An email with a verification link has been sent to the email address
           you provided. Please click that link to verify your email so that you
