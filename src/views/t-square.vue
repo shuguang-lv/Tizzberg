@@ -38,6 +38,7 @@ export default {
         {
           title: 'Pin Post',
           icon: 'mdi-pin-outline',
+          privilege: 'self',
           action: () =>
             this.$dialog({
               title: 'Pin this post',
@@ -48,6 +49,7 @@ export default {
         {
           title: 'Delete Post',
           icon: 'mdi-delete-outline',
+          privilege: 'self',
           action: (id) =>
             this.$dialog({
               title: 'Delete this post',
@@ -72,26 +74,31 @@ export default {
         {
           title: 'Save Post',
           icon: 'mdi-content-save-outline',
+          privilege: 'both',
           action: 'error',
         },
         {
           title: 'Hide Post',
           icon: 'mdi-eye-off-outline',
+          privilege: 'other',
           action: 'error',
         },
         {
           title: 'Report Post',
           icon: 'mdi-alert',
+          privilege: 'other',
           action: 'error',
         },
         {
           title: 'Follow User',
           icon: 'mdi-account-star-outline',
+          privilege: 'other',
           action: 'error',
         },
         {
           title: 'Block User',
           icon: 'mdi-account-cancel-outline',
+          privilege: 'other',
           action: 'error',
         },
       ],
@@ -225,7 +232,13 @@ export default {
 
                   <v-list>
                     <v-list-item
-                      v-for="item in postActions"
+                      v-for="item in postActions.filter(
+                        (action) =>
+                          action.privilege === 'both' ||
+                          ($user.current().getObjectId() == post.get('authorId')
+                            ? action.privilege === 'self'
+                            : action.privilege === 'other')
+                      )"
                       :key="item.title"
                       link
                       class="px-8"
@@ -265,7 +278,7 @@ export default {
             src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
             height="500px"
             class="mb-4"
-          ></v-img> -->
+            ></v-img> -->
             <div class="d-flex justify-space-between align-center px-4">
               <div>
                 <v-btn
@@ -326,7 +339,7 @@ export default {
               outlined
               clearable
               type="text"
-              class="mx-4 mt-4"
+              class="ma-4"
             ></v-text-field>
           </v-card>
         </v-tab-item>
