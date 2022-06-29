@@ -1,9 +1,18 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify/lib/framework'
+import { VSnackbar, VBtn, VIcon, VDialog, VOverlay } from 'vuetify/lib'
 import { preset } from 'vue-cli-plugin-vuetify-preset-reply/preset'
 // import colors from 'vuetify/lib/util/colors'
 
-Vue.use(Vuetify)
+Vue.use(Vuetify, {
+  components: {
+    VSnackbar,
+    VBtn,
+    VIcon,
+    VDialog,
+    VOverlay
+  }
+})
 
 export default new Vuetify({
   preset,

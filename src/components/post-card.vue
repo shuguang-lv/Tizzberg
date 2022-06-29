@@ -141,8 +141,11 @@ export default {
     <div class="d-flex justify-space-between align-center">
       <div class="d-flex align-center pa-4">
         <v-avatar color="primary" size="50" class="mr-4">
-          <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"
-        /></v-avatar>
+          <v-img
+            src="https://avatars.dicebear.com/api/micah/desmond.svg"
+            alt="John"
+          ></v-img
+        ></v-avatar>
         <div class="text-subtitle-1">
           {{ post.authorName }}
         </div>
@@ -242,10 +245,11 @@ export default {
     <v-divider class="my-4"></v-divider>
     <div v-for="n in 2" :key="n" class="d-flex align-start mx-4">
       <v-avatar color="primary" size="50" class="mr-4">
-        <img
-          src="https://i0.wp.com/www.cssscript.com/wp-content/uploads/2020/12/Customizable-SVG-Avatar-Generator-In-JavaScript-Avataaars.js.png?fit=438%2C408&ssl=1"
+        <v-img
+          src="https://avatars.dicebear.com/api/micah/comment.svg"
           alt="John"
-      /></v-avatar>
+        ></v-img
+      ></v-avatar>
       <div>
         <div class="text-subtitle-1">Desmond</div>
         <div class="grey--text">

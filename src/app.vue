@@ -8,7 +8,7 @@ export default {
 </script>
 
 <template>
-  <v-app>
+  <v-app class="custom-scrollbar">
     <router-view :key="$route.fullPath"></router-view>
   </v-app>
 </template>
@@ -49,5 +49,18 @@ html {
 .clickable:hover {
   transform: scale(0.9);
   transition: 0.3s;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #8ab6c9;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #648d9c;
+  border-radius: 20px;
 }
 </style>

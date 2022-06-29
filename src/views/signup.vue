@@ -2,7 +2,6 @@
 import Layout from '@/layouts/auth.vue'
 import { signUpUser } from '@/api/user.js'
 import User from '@/models/User.js'
-import { authMethods } from '@/store/helpers'
 
 export default {
   name: 'Signup',
@@ -55,7 +54,6 @@ export default {
     this.logOutUnverifiedUser()
   },
   methods: {
-    ...authMethods,
     async signUp() {
       this.signingUp = true
       if (this.$refs.form.validate()) {

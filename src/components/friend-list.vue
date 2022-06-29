@@ -30,9 +30,10 @@ export default {
           >
             <v-list-item-icon class="ma-auto mr-4">
               <v-avatar color="primary" size="40" rounded="lg"
-                ><img
-                  src="https://i0.wp.com/www.cssscript.com/wp-content/uploads/2020/12/Customizable-SVG-Avatar-Generator-In-JavaScript-Avataaars.js.png?fit=438%2C408&ssl=1"
-              /></v-avatar>
+                ><v-img
+                  src="https://avatars.dicebear.com/api/micah/friend.svg"
+                ></v-img
+              ></v-avatar>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title class="text-wrap">Michael</v-list-item-title>
@@ -57,9 +58,10 @@ export default {
           >
             <v-list-item-icon class="ma-auto mr-4">
               <v-avatar color="primary" size="40" rounded="lg"
-                ><img
-                  src="https://i0.wp.com/www.cssscript.com/wp-content/uploads/2020/12/Customizable-SVG-Avatar-Generator-In-JavaScript-Avataaars.js.png?fit=438%2C408&ssl=1"
-              /></v-avatar>
+                ><v-img
+                  src="https://avatars.dicebear.com/api/micah/friend.svg"
+                ></v-img
+              ></v-avatar>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title class="text-wrap">Michael</v-list-item-title>

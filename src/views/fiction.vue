@@ -247,8 +247,11 @@ export default {
             class="mr-6 clickable"
             @click="$refs['identity-editor'].show()"
           >
-            <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"
-          /></v-avatar>
+            <v-img
+              src="https://avatars.dicebear.com/api/micah/desmond.svg"
+              alt="John"
+            ></v-img
+          ></v-avatar>
           <v-text-field
             label="Create a new story"
             append-icon="mdi-pencil"
@@ -322,8 +325,11 @@ export default {
         <v-divider></v-divider>
         <v-card-text class="d-flex align-center pt-4">
           <v-avatar color="primary" size="60" class="mr-6">
-            <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"
-          /></v-avatar>
+            <v-img
+              src="https://avatars.dicebear.com/api/micah/desmond.svg"
+              alt="John"
+            ></v-img
+          ></v-avatar>
           <v-text-field
             class="d-flex align-center pt-6"
             v-model="fiction.title"

@@ -1,6 +1,5 @@
 <script>
 import Layout from '@/layouts/auth.vue'
-import { authMethods } from '@/store/helpers'
 import { logInUser } from '@/api/user.js'
 
 export default {
@@ -21,7 +20,6 @@ export default {
     }
   },
   methods: {
-    ...authMethods,
     async logIn() {
       this.logIning = true
       if (this.$refs.form.validate()) {

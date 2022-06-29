@@ -1,9 +1,9 @@
 const AV = require('leancloud-storage')
-AV.init({ 
-  appId: "5Y6XfcEGs057U6eBhhYiIBy0-MdYXbMMI",
-  appKey: "QIt08R1MMkbnQuFO7TPtR6up",
-  serverURL: "https://5y6xfceg.api.lncldglobal.com"
-});
+AV.init({
+  appId: process.env.VUE_APP_ID,
+  appKey: process.env.VUE_APP_KEY,
+  serverURL: process.env.VUE_APP_SERVER_URL,
+})
 
 import Vue from 'vue'
 import App from './app.vue'
@@ -29,9 +29,6 @@ Vue.use(Plugin, {
 })
 Vue.use(VueCryptojs)
 
-// event bus
-export const eventBus = new Vue()
-Vue.prototype.$emitter = eventBus
 Vue.prototype.$appName = process.env.VUE_APP_NAME
 Vue.prototype.$dialog = Dialog
 Vue.prototype.$snackbar = Snackbar

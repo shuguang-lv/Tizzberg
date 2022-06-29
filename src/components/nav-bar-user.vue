@@ -1,6 +1,5 @@
 <script>
 import IdentityEditor from './identity-editor.vue'
-import { authMethods, authComputed } from '@/store/helpers'
 
 export default {
   name: 'NavBarUser',
@@ -12,15 +11,12 @@ export default {
       username: '',
     }
   },
-  computed: {
-    ...authComputed,
-  },
+  computed: {},
   created() {
     const user = this.$user.current()
     this.username = user ? user.getUsername() : ''
   },
   methods: {
-    ...authMethods,
     openLogoutDialog() {
       this.$dialog({
         title: 'Logout',
@@ -74,8 +70,11 @@ export default {
     >
       <template v-slot:activator="{ on, attrs }">
         <v-avatar color="primary" size="56" v-bind="attrs" v-on="on"
-          ><img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"
-        /></v-avatar>
+          ><v-img
+            src="https://avatars.dicebear.com/api/micah/desmond.svg"
+            alt="John"
+          ></v-img
+        ></v-avatar>
       </template>
 
       <v-card class="pb-2" width="350" flat>
@@ -180,9 +179,10 @@ export default {
             <v-list-item color="primary" two-line>
               <v-list-item-icon class="ma-auto mr-4">
                 <v-avatar color="primary" size="40" rounded="lg"
-                  ><img
-                    src="https://i0.wp.com/www.cssscript.com/wp-content/uploads/2020/12/Customizable-SVG-Avatar-Generator-In-JavaScript-Avataaars.js.png?fit=438%2C408&ssl=1"
-                /></v-avatar>
+                  ><v-img
+                    src="https://avatars.dicebear.com/api/micah/user.svg"
+                  ></v-img
+                ></v-avatar>
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title class="text-wrap"
@@ -234,9 +234,10 @@ export default {
             <v-list-item color="primary" two-line>
               <v-list-item-icon class="ma-auto mr-4">
                 <v-avatar color="primary" size="40" rounded="lg"
-                  ><img
-                    src="https://i0.wp.com/www.cssscript.com/wp-content/uploads/2020/12/Customizable-SVG-Avatar-Generator-In-JavaScript-Avataaars.js.png?fit=438%2C408&ssl=1"
-                /></v-avatar>
+                  ><v-img
+                    src="https://avatars.dicebear.com/api/micah/user.svg"
+                  ></v-img
+                ></v-avatar>
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title>some messages</v-list-item-title>

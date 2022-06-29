@@ -134,8 +134,11 @@ export default {
             class="mr-6 clickable"
             @click="$refs['identity'].show()"
           >
-            <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"
-          /></v-avatar>
+            <v-img
+              src="https://avatars.dicebear.com/api/micah/desmond.svg"
+              alt="John"
+            ></v-img
+          ></v-avatar>
           <v-textarea
             v-model="post.content"
             append-outer-icon="mdi-image"

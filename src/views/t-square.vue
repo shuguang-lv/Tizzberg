@@ -3,9 +3,17 @@ import Layout from '@/layouts/main.vue'
 import IdentityEditor from '@/components/identity-editor.vue'
 import PostEditor from '@/components/post-editor.vue'
 import PostCard from '@/components/post-card.vue'
-import { authComputed } from '@/store/helpers'
 import { getPostList } from '@/api/post.js'
+// import { debounce } from 'lodash'
 // import Post from '@/models/Post'
+
+// const checkBottomVisible = debounce(
+//   () =>
+//     document.documentElement.clientHeight + window.scrollY >=
+//     (document.documentElement.scrollHeight ||
+//       document.documentElement.clientHeight),
+//   300
+// )
 
 export default {
   name: 'TSquare',
@@ -36,24 +44,38 @@ export default {
       ],
     }
   },
-  computed: {
-    ...authComputed,
-  },
+  computed: {},
   async mounted() {
-    await this.getPostList()
+    await this.getPostList('refresh')
   },
   methods: {
-    async getPostList() {
+    async getPostList(mode = 'refresh') {
       this.loadingPostList = true
       try {
-        this.postList = await getPostList(this.selectedTab)
-        this.$nextTick(async () => {
-          this.loadingPostList = false
-        })
+        if (mode === 'refresh') {
+          this.postList = await getPostList(this.selectedTab)
+        } else {
+          this.$nextTick(async () => {
+            this.postList.push.apply(
+              this.postList,
+              await getPostList(this.selectedTab)
+            )
+          })
+        }
       } catch (error) {
         console.log(error)
         this.$snackbar.error(error.rawMessage)
-        this.loadingPostList = false
+      }
+      this.loadingPostList = false
+    },
+    onScroll() {
+      if (
+        document.documentElement.clientHeight + window.scrollY >=
+        (document.documentElement.scrollHeight ||
+          document.documentElement.clientHeight)
+      ) {
+        console.log(123)
+        // this.getPostList('load')
       }
     },
   },
@@ -61,9 +83,12 @@ export default {
 </script>
 
 <template>
-  <Layout>
+  <Layout v-scroll="onScroll">
     <identity-editor ref="identity-editor"></identity-editor>
-    <post-editor ref="post-editor" @created="getPostList"></post-editor>
+    <post-editor
+      ref="post-editor"
+      @created="getPostList('refresh')"
+    ></post-editor>
 
     <v-card rounded class="pa-2" elevation="3" width="50vw">
       <v-card-title class="text-h5 mb-2 primary--text font-weight-medium">
@@ -77,8 +102,11 @@ export default {
           class="mr-6 clickable"
           @click="$refs['identity-editor'].show()"
         >
-          <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"
-        /></v-avatar>
+          <v-img
+            src="https://avatars.dicebear.com/api/micah/desmond.svg"
+            alt="John"
+          ></v-img
+        ></v-avatar>
         <v-text-field
           label="What happened in your world today?"
           append-icon="mdi-pencil"
@@ -95,7 +123,7 @@ export default {
         active-class="white--text primary"
         slider-color="tertiary"
         height="50"
-        @change="getPostList"
+        @change="getPostList('refresh')"
       >
         <v-tab
           v-for="tab in tabs"
@@ -134,7 +162,7 @@ export default {
             v-for="(post, index) in postList"
             :key="index"
             :post="post"
-            @refresh="getPostList"
+            @refresh="getPostList('refresh')"
           ></post-card>
         </v-tab-item>
       </v-tabs-items>

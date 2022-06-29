@@ -1,7 +1,6 @@
 <script>
 import Layout from '@/layouts/main.vue'
 // import IdentityEditor from '@/components/identity-editor.vue'
-import { authComputed } from '@/store/helpers'
 import * as topicAPI from '@/api/topic'
 import Topic from '@/models/Topic'
 
@@ -210,9 +209,7 @@ export default {
   mounted() {
     this.topicList = this.getAllTopic()
   },
-  computed: {
-    ...authComputed,
-  },
+  computed: {},
   methods: {
     discardTopic() {
       if (!this.topic.content.trim()) {
@@ -268,8 +265,11 @@ export default {
             class="mr-6 clickable"
             @click="$refs['identity-editor'].show()"
           >
-            <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"
-          /></v-avatar>
+            <v-img
+              src="https://avatars.dicebear.com/api/micah/desmond.svg"
+              alt="John"
+            ></v-img
+          ></v-avatar>
           <v-text-field
             label="Create a topic here"
             append-icon="mdi-pencil"
@@ -348,10 +348,11 @@ export default {
             <v-divider class="my-4"></v-divider>
             <div v-for="n in 2" :key="n" class="d-flex align-start mx-4">
               <v-avatar color="primary" size="50" class="mr-4">
-                <img
+                <v-img
                   src="https://i0.wp.com/www.cssscript.com/wp-content/uploads/2020/12/Customizable-SVG-Avatar-Generator-In-JavaScript-Avataaars.js.png?fit=438%2C408&ssl=1"
                   alt="John"
-              /></v-avatar>
+                ></v-img
+              ></v-avatar>
               <div>
                 <div class="text-subtitle-1">Desmond</div>
                 <div class="grey--text">
@@ -449,8 +450,11 @@ export default {
         <v-divider></v-divider>
         <v-card-text class="d-flex align-center pt-4">
           <v-avatar color="primary" size="60" class="mr-6">
-            <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"
-          /></v-avatar>
+            <v-img
+              src="https://avatars.dicebear.com/api/micah/desmond.svg"
+              alt="John"
+            ></v-img
+          ></v-avatar>
           <v-text-field
             class="d-flex align-center pt-6"
             v-model="topic.title"
