@@ -1,5 +1,6 @@
 <script>
 import Layout from '@/layouts/main.vue'
+import TopicCard from '@/components/topic-card.vue'
 // import IdentityEditor from '@/components/identity-editor.vue'
 import { authComputed } from '@/store/helpers'
 import * as topicAPI from '@/api/topic'
@@ -9,6 +10,7 @@ export default {
   name: 'Explore',
   components: {
     Layout,
+    TopicCard,
   },
   data() {
     return {
@@ -251,7 +253,7 @@ export default {
       return topicAPI.deleteTopic(topicId)
     },
     viewTopicDetail(n) {
-      this.$router.push({ path: `/topic-detail/${this.topicList[n - 1].id}` })
+      this.$router.push({ name: 'topic-detail', query: {id: this.topicList[n - 1].id}})
     },
   },
 }
@@ -301,7 +303,7 @@ export default {
 
       <v-tabs-items v-model="selectedTab">
         <v-tab-item v-for="tab in tabs" :key="tab.value" :value="tab.value">
-          <v-card
+          <!-- <v-card
             v-for="n in topicList.length"
             :key="n"
             rounded
@@ -378,7 +380,17 @@ export default {
               type="text"
               class="mx-4 mt-4"
             ></v-text-field>
-          </v-card>
+          </v-card> -->
+          <div
+            v-for="(topic, index) in topicList"
+            :key="index"
+          >
+            <TopicCard 
+              :topicActions="topicActions" 
+              :topic="topic"  
+            >
+            </TopicCard>
+          </div>
         </v-tab-item>
       </v-tabs-items>
       <!-- <v-row class="pa-2 mb-6" elevation="1">

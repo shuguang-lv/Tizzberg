@@ -1,4 +1,5 @@
 <script>
+
 export default {
   name: 'NavBarRoutes',
   data() {
@@ -26,16 +27,21 @@ export default {
         },
         {
           title: 'Profile',
-          path: `/profile/${this.getUserId()}`,
+          path: 'Profile',
           icon: 'mdi-account-box-outline',
         },
       ],
     }
   },
   methods : {
-    getUserId () {
-      console.log(this.$user.current().getObjectId())
-      return this.$user.current().getObjectId()
+    toPage (route) {
+      if (route.title === 'Profile') {
+        let id = this.$user.current().getObjectId()
+        this.$router.push({ name: route.path, query: { id: id } }) 
+      }
+      else {
+        this.$router.push({ name: route.path }) 
+      }
     }
   },
   beforeCreate () {
@@ -49,10 +55,10 @@ export default {
     <v-list-item
       v-for="route in routes"
       :key="route.title"
-      :to="{ path: route.path  }"
       color="primary"
       two-line
       link
+      @click="toPage(route)"
     >
       <v-list-item-icon class="my-auto mr-4">
         <v-icon>{{ route.icon }}</v-icon>

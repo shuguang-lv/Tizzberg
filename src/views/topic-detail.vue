@@ -88,7 +88,7 @@ export default {
   // },
   mounted() {
     console.log(this.$route.params.id)
-    this.id = this.$route.params.id
+    this.id = this.$route.query.id
     this.topic = this.getTopic(this.id)
   },
   computed: {

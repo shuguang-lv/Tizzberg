@@ -84,7 +84,7 @@ const routes = [
     component: () => lazyLoadView(import('../views/explore.vue')),
   },
   {
-    path: '/topic-detail/:id',
+    path: '/topic-detail',
     name: 'topic-detail',
     component: () => lazyLoadView(import('../views/topic-detail.vue')),
   },
@@ -139,9 +139,9 @@ const routes = [
   //   props: () => ({ user: store.state.auth.currentUser || {} }),
   // },
   {
-    path: '/profile/:id',
+    path: '/profile',
     name: 'Profile',
-    component: () => lazyLoadView(import('../views/explore.vue')),
+    component: () => lazyLoadView(import('../views/profile.vue')),
     meta: {
       authRequired: false,
       // HACK: In order to share data between the `beforeResolve` hook

@@ -2,6 +2,7 @@
 import Layout from '@/layouts/main.vue'
 import IdentityEditor from '@/components/identity-editor.vue'
 import PostEditor from '@/components/post-editor.vue'
+import PostCard from '@/components/post-card.vue'
 import { authComputed } from '@/store/helpers'
 import { getPostList, deletePost } from '@/api/post.js'
 import { fetchUserMemo } from '@/api/user.js'
@@ -13,6 +14,7 @@ export default {
     Layout,
     IdentityEditor,
     PostEditor,
+    PostCard,
   },
   data() {
     return {
@@ -170,7 +172,7 @@ export default {
     </div>
     <v-tabs-items v-model="selectedTab">
       <v-tab-item v-for="tab in tabs" :key="tab.value" :value="tab.value">
-        <v-card
+        <!-- <v-card
           v-for="(post, index) in postList"
           :key="index"
           rounded
@@ -300,9 +302,21 @@ export default {
             type="text"
             class="mx-4 mt-4"
           ></v-text-field>
-        </v-card>
+        </v-card> -->
+        <div
+          v-for="(post, index) in postList"
+          :key="index"
+        >
+          <PostCard 
+            :articleActions="postActions" 
+            :article="post"  
+            :flowWidth="flowWidth"
+          >
+          </PostCard>
+        </div>
       </v-tab-item>
     </v-tabs-items>
+
   </Layout>
 </template>
 
