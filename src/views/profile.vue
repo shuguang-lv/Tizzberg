@@ -2,29 +2,36 @@
 import Layout from '@/layouts/main.vue'
 import { authComputed } from '@/store/helpers'
 import { getPostList, deletePost } from '@/api/post.js'
+import * as BlogAPI from '@/api/blog.js'
 import { fetchUserMemo } from '@/api/user.js'
+import BlogEditor from '@/components/blog-editor.vue'
 import PostCard from '@/components/post-card.vue'
+import IdentityEditor from '@/components/identity-editor.vue'
 export default {
   name: 'Profile',
   components: {
     PostCard,
+    BlogEditor,
+    IdentityEditor,
     Layout,
   },
   data() {
     return {
       postList: [],
+      blogList: [],
       flowWidth: '60vw',
       selectedTab: 'post',
+      selectedTag:'',
       user: {
         name: 'Yunxuan',
         background: require('@/assets/profile-bg1.jpg'),
         currentIdentity: 'painter',
         about: [
           'Contact & Basic Info',
-          'Details About You',
-          'Work and Education'
+          'My identities',
+          'My tags',
         ],
-        otherinfo: [
+        statistic: [
           {
             info: 'Like',
             value: '600',
@@ -38,6 +45,34 @@ export default {
             value: '1.2k',
           },
         ],
+        contactInfo: [
+          {
+            title: 'Email',
+            content: '123345@gmail.com'
+          },
+          {
+            title: 'Address',
+            content: '123345@gmail.com'
+          },
+          {
+            title: 'Personal website',
+            content: 'https://github.com/jack'
+          },
+          {
+            title: 'Mobile',
+            content: '1234534646767'
+          },
+        ],
+        experience: {
+          education: [],
+          work: []
+        },
+        tags: [
+          'Reading',
+          'Fishing',
+          'Cooking',
+          'Writer'
+        ]
       },
       tabs: [
         {
@@ -51,10 +86,6 @@ export default {
         {
           title: 'About',
           value: 'about',
-        },
-        {
-          title: 'Follow',
-          value: 'follow',
         },
         {
           title: 'Ask & Message Board',
@@ -124,51 +155,51 @@ export default {
       ],
       blogActions: [
         {
-          title: 'Pin Post',
+          title: 'Pin Blog',
           icon: 'mdi-pin-outline',
           action: () =>
             this.$dialog({
-              title: 'Pin this post',
+              title: 'Pin this blog',
               content:
-                'This will appear at the top of your blog and replace any previous pinned post. Are you sure?',
+                'This will appear at the top of your blog and replace any previous pinned blog. Are you sure?',
             }),
         },
         {
-          title: 'Delete Post',
+          title: 'Delete Blog',
           icon: 'mdi-delete-outline',
           action: (id) =>
             this.$dialog({
-              title: 'Delete this post',
-              content: 'Are you sure you want to delete this post?',
+              title: 'Delete this blog',
+              content: 'Are you sure you want to delete this blog?',
               confirmButton: {
-                action: (async (id, deletePost) => {
+                action: (async (id, deleteBlog) => {
                   this.$overlay.open()
                   try {
-                    await deletePost(id)
-                    await this.getPostList()
+                    await deleteBlog(id)
+                    await this.getBlogList()
                     this.$overlay.close()
-                    this.$snackbar.warning('A post was deleted')
+                    this.$snackbar.warning('A blog was deleted')
                   } catch (error) {
                     console.log(error)
                     this.$overlay.close()
                     this.$snackbar.error(error.rawMessage)
                   }
-                }).bind(this, id, deletePost),
+                }).bind(this, id, BlogAPI.deleteBlog),
               },
             }),
         },
         {
-          title: 'Save Post',
+          title: 'Save Blog',
           icon: 'mdi-content-save-outline',
           action: 'error',
         },
         {
-          title: 'Hide Post',
+          title: 'Hide Blog',
           icon: 'mdi-eye-off-outline',
           action: 'error',
         },
         {
-          title: 'Report Post',
+          title: 'Report Blog',
           icon: 'mdi-alert',
           action: 'error',
         },
@@ -205,6 +236,7 @@ export default {
   // },
   async mounted() {
       await this.getPostList()
+      await this.getBlogList()
   },
   computed: {
     ...authComputed,
@@ -224,12 +256,30 @@ export default {
         this.$snackbar.error(error.rawMessage)
       }
     },
+    async getBlogList() {
+      try {
+        this.blogList = await BlogAPI.getBlogList(this.selectedTab)
+        this.$nextTick(async () => {
+          for (let blog of this.blogList) {
+            const user = await fetchUserMemo(blog.get('authorId'))
+            this.$set(blog, 'authorName', user ? user.getUsername() : '')
+          }
+        })
+      } catch (error) {
+        console.log(error)
+        this.$snackbar.error(error.rawMessage)
+      }
+    },
   },
 }
 </script>
 
 <template>
   <Layout>
+    <identity-editor ref="identity-editor"></identity-editor>
+    <blog-editor ref="blog-editor" @created="getBlogList"></blog-editor>   
+    <contactInfo-editor ref="contactInfo-editor"></contactInfo-editor >   
+
     <v-row>
       <v-col md="12">
         <v-card
@@ -250,7 +300,7 @@ export default {
             <v-col md="4" class="d-flex align-center">
                 <div class="d-flex justify-center d-inline-block pb-3 ml-6">
                   <div
-                    v-for="(item, index) in user.otherinfo"
+                    v-for="(item, index) in user.statistic"
                     :key="index"
                     class="d-flex flex-column pl-3 pr-3"
                   >
@@ -303,7 +353,7 @@ export default {
 
         <v-card :style="{ width: flowWidth }" elevation="2" rounded>
           <v-tabs-items v-model="selectedTab" class="mt-4" elevation="2">
-            <v-tab-item :value="tabs[0].value" :style="{ width: flowWidth }">            
+            <v-tab-item :value="tabs[0].value" :style="{ width: flowWidth }">      
               <div
                 v-for="(post, index) in postList"
                 :key="index"
@@ -311,6 +361,41 @@ export default {
                 <PostCard 
                   :articleActions="postActions" 
                   :article="post"  
+                  :flowWidth="flowWidth"
+                >
+                </PostCard>
+              </div>
+            </v-tab-item>
+            <v-tab-item :value="tabs[1].value" :style="{ width: flowWidth }">               
+              <v-card rounded class="pa-2 mb-6" :width="flowWidth">
+                <v-card-title class="text-h5 mb-2 primary--text font-weight-medium">
+                  T-Square
+                </v-card-title>
+                <v-divider class="mb-2"></v-divider>
+                <v-card-text v-if="$user.current()" class="d-flex align-center">
+                  <v-avatar
+                    color="primary"
+                    size="60"
+                    class="mr-6 clickable"
+                  >
+                    <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"
+                  /></v-avatar>
+                  <v-text-field
+                    label="What happened in your world today?"
+                    append-icon="mdi-pencil"
+                    hide-details
+                    outlined
+                    @click="$refs['blog-editor'].show()"
+                  ></v-text-field>
+                </v-card-text>
+              </v-card>
+              <div
+                v-for="(blog, index) in blogList"
+                :key="index"
+              >
+                <PostCard 
+                  :articleActions="blogActions" 
+                  :article="blog"  
                   :flowWidth="flowWidth"
                 >
                 </PostCard>
@@ -333,40 +418,124 @@ export default {
                   </v-tab>
                   <v-tab class="d-flex justify-start">
                     <v-icon left>
-                      mdi-school
+                      mdi-tag
                     </v-icon>
                     {{user.about[2]}}
                   </v-tab>
 
                   <v-tab-item>
                     <v-card flat>
-                      <v-card-text>
-                        <p class="mb-0">
-                          Phasellus dolor. Fusce neque. Fusce fermentum odio nec arcu. Pellentesque libero tortor, tincidunt et, tincidunt eget, semper nec, quam. Phasellus blandit leo ut odio.
-                        </p>
+                      <v-list
+                        two-line
+                        subheader
+                      >
+                        <v-subheader class="d-flex justify-space-between">
+                          <h2>Contact</h2> 
+                          <!-- <v-btn 
+                            small
+                            @click="$refs['contactInfo-editor'].show()"
+                          >
+                            <v-icon small>mdi-pen</v-icon>
+                            Edit info
+                          </v-btn> -->
+                        </v-subheader>
+                        <v-list-item
+                          v-for="(info,index) in user.contactInfo"
+                          :key="index"
+                        >
+                          <v-list-item-content>
+                            <v-list-item-title>{{info.title}}</v-list-item-title>
+                            <v-list-item-subtitle>{{info.content}}</v-list-item-subtitle>
+                          </v-list-item-content>
+                        </v-list-item>
+                      </v-list>
+                    </v-card>
+                  </v-tab-item>
+                  <v-tab-item>
+                    <v-card flat>
+                      <v-card-text class="d-flex flex-column align-start">
+                        <v-card-title>My identities</v-card-title>
+                        <v-chip-group
+                          v-model="selectedTag"
+                          class="ml-3"
+                          color="#8ab6c9"
+                          column
+                        >
+                          <v-chip
+                            v-for="(tag,index) in user.tags"
+                            :key="index"
+                          >
+                            {{tag}}
+                          </v-chip>
+                        </v-chip-group>
+                        <v-btn 
+                          class="ml-3 mt-3" 
+                          @click="$refs['identity-editor'].show()"
+                        >
+                          Manage my identities
+                        </v-btn>
                       </v-card-text>
                     </v-card>
                   </v-tab-item>
                   <v-tab-item>
                     <v-card flat>
-                      <v-card-text>
-                        <p class="mb-0">
-                          Donec venenatis vulputate lorem. Aenean viverra rhoncus pede. In dui magna, posuere eget, vestibulum et, tempor auctor, justo. Fusce commodo aliquam arcu. Suspendisse enim turpis, dictum sed, iaculis a, condimentum nec, nisi.
-                        </p>
-                      </v-card-text>
-                    </v-card>
-                  </v-tab-item>
-                  <v-tab-item>
-                    <v-card flat>
-                      <v-card-text>
-                        <p class="mb-0">
-                          Cras sagittis. Phasellus nec sem in justo pellentesque facilisis. Proin sapien ipsum, porta a, auctor quis, euismod ut, mi. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nam at tortor in tellus interdum sagittis.
-                        </p>
+                      <v-card-text class="d-flex flex-column align-start">
+                        <v-card-title>My Tags</v-card-title>
+                        <v-chip-group
+                          v-model="selectedTag"
+                          class="ml-3"
+                          color="#8ab6c9"
+                          column
+                        >
+                          <v-chip
+                            v-for="(tag,index) in user.tags"
+                            :key="index"
+                          >
+                            {{tag}}
+                          </v-chip>
+                        </v-chip-group>
+                        <v-btn 
+                          class="ml-3 mt-3" 
+                        >
+                          Add a new tag
+                        </v-btn>
                       </v-card-text>
                     </v-card>
                   </v-tab-item>
                 </v-tabs>
               </v-card>
+            </v-tab-item>
+            <v-tab-item :value="tabs[3].value" :style="{ width: flowWidth }">            
+              <v-row>
+                <v-col cols="3">
+                  <v-card outlined rounded elevation="2" class="ma-3">
+                    <v-card-title>
+                      Welcome to your Ask & Message Board
+                    </v-card-title>
+                    <v-card-text>
+                      This is your Ask & Message Board.
+                      People will come here and choose to leave
+                      any messages or ask you some questions.
+                      Say something to people whoever come here!
+                    </v-card-text>
+                  </v-card>
+                </v-col>
+                <v-col class="d-flex flex-column">
+                  <v-card rounded>
+                    <v-textarea
+                      height="5vw"
+                      class="ma-3"
+                      solo
+                      label="Leave your message here..."
+                    ></v-textarea>
+                  </v-card>
+                  <v-card outlined rounded elevation="2" class="mx-3 mb-3">
+                    <v-card-title>
+                      Message Board
+                    </v-card-title>
+                  </v-card>
+                </v-col>
+              </v-row>
             </v-tab-item>
           </v-tabs-items>
         </v-card>

@@ -7,7 +7,7 @@ export default {
   },
   props: {
     articleActions: Array,
-    article: Array,
+    article: Object,
     flowWidth: String,
   },
   data() {
@@ -15,11 +15,11 @@ export default {
     }
   },
   beforeMount() {
-    const lastTopic = this.$storage.get('last-topic')
-    this.topic = lastTopic || this.topic
+    const lastArticle = this.$storage.get('last-topic')
+    this.article = lastArticle || this.article
     window.addEventListener('beforeunload', () => {
-      if (this.topic.content.trim()) {
-        this.$storage.set('last-topic', this.topic)
+      if (this.article.content.trim()) {
+        this.$storage.set('last-topic', this.article)
       } else {
         this.$storage.remove('last-topic')
       }
