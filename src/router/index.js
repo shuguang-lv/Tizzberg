@@ -4,6 +4,15 @@ import VueRouter from 'vue-router'
 // Adds a loading bar at the top during page loads.
 import NProgress from 'nprogress/nprogress'
 
+/*
+ * 以下四行代码是为了解决vue-route进入当前所在组件时报错问题：
+ * Uncaught (in promise) NavigationDuplicated: Avoided redundant navigation to current location
+ */
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch((err) => err)
+}
+
 Vue.use(VueRouter)
 
 import { fetchUserMemo } from '@/api/user'

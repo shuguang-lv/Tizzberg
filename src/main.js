@@ -8,7 +8,8 @@ AV.init({
 import Vue from 'vue'
 import App from './app.vue'
 import router from './router'
-import store from './store'
+import pinia from './store'
+import { PiniaVuePlugin } from 'pinia'
 import vuetify from './plugins/vuetify'
 import VueDayjs from 'vue-dayjs-plugin'
 import { Plugin } from 'vue2-storage'
@@ -16,9 +17,12 @@ import VueCryptojs from 'vue-cryptojs'
 import Dialog from './components/dialog'
 import Snackbar from './components/snackbar'
 import Overlay from './components/overlay'
+import VueCompositionAPI from '@vue/composition-api'
 
 Vue.config.productionTip = false
 
+Vue.use(PiniaVuePlugin)
+Vue.use(VueCompositionAPI)
 Vue.use(VueDayjs)
 Vue.use(Plugin)
 Vue.use(Plugin, {
@@ -37,7 +41,7 @@ Vue.prototype.$user = AV.User
 
 new Vue({
   router,
-  store,
   vuetify,
+  pinia,
   render: (h) => h(App),
 }).$mount('#app')

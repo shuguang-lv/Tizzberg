@@ -11,7 +11,6 @@ export default class User {
     this.currentIdentity = isString(user.currentIdentity)
       ? user.currentIdentity
       : ''
-    this.identities = isArray(user.identities) ? user.identities : []
     this.followedTags = isArray(user.followedTags) ? user.followedTags : []
     this.savedPosts = isArray(user.savedPosts) ? user.savedPosts : []
   }

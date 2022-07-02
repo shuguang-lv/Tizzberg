@@ -1,18 +1,7 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import modules from './modules'
-import dispatchActionForAllModules from '@/utils/dispatch-action-for-all-modules'
+import { createPinia } from 'pinia'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
-Vue.use(Vuex)
+const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
 
-export default new Vuex.Store({
-  modules,
-  // Enable strict mode in development to get a warning
-  // when mutating state outside of a mutation.
-  // https://vuex.vuejs.org/guide/strict.html
-  strict: process.env.NODE_ENV !== 'production',
-})
-
-// Automatically run the `init` action for every module,
-// if one exists.
-dispatchActionForAllModules('init')
+export default pinia
