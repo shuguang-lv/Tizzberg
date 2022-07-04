@@ -4,16 +4,8 @@ import IdentityEditor from '@/components/identity-editor.vue'
 import PostEditor from '@/components/post-editor.vue'
 import PostCard from '@/components/post-card.vue'
 import { getPostList } from '@/api/post.js'
-// import { debounce } from 'lodash'
+import { debounce } from 'lodash'
 // import Post from '@/models/Post'
-
-// const checkBottomVisible = debounce(
-//   () =>
-//     document.documentElement.clientHeight + window.scrollY >=
-//     (document.documentElement.scrollHeight ||
-//       document.documentElement.clientHeight),
-//   300
-// )
 
 export default {
   name: 'TSquare',
@@ -25,6 +17,7 @@ export default {
   },
   data() {
     return {
+      skip: 0,
       postList: [],
       loadingPostList: false,
       selectedTab: 'hot',
@@ -42,11 +35,21 @@ export default {
           value: 'latest',
         },
       ],
+      infiniteScroll: debounce(() => {
+        // detect if bottom is reached
+        const scrollY = window.scrollY
+        const visible = document.documentElement.clientHeight
+        const pageHeight = document.documentElement.scrollHeight
+        if (Math.abs(pageHeight - (visible + scrollY)) < 1) {
+          this.getPostList('load')
+        }
+      }, 100),
     }
   },
   computed: {},
   async mounted() {
     await this.getPostList('refresh')
+    window.onscroll = this.infiniteScroll
   },
   methods: {
     async getPostList(mode = 'refresh') {
@@ -54,11 +57,12 @@ export default {
       try {
         if (mode === 'refresh') {
           this.postList = await getPostList(this.selectedTab)
-        } else {
+        } else if (mode === 'load') {
+          this.skip += process.env.VUE_APP_PAGE_SIZE
           this.$nextTick(async () => {
             this.postList.push.apply(
               this.postList,
-              await getPostList(this.selectedTab)
+              await getPostList(this.selectedTab, this.skip)
             )
           })
         }
@@ -68,22 +72,12 @@ export default {
       }
       this.loadingPostList = false
     },
-    onScroll() {
-      if (
-        document.documentElement.clientHeight + window.scrollY >=
-        (document.documentElement.scrollHeight ||
-          document.documentElement.clientHeight)
-      ) {
-        console.log(123)
-        // this.getPostList('load')
-      }
-    },
   },
 }
 </script>
 
 <template>
-  <Layout v-scroll="onScroll">
+  <Layout>
     <identity-editor ref="identity-editor"></identity-editor>
     <post-editor
       ref="post-editor"
@@ -123,7 +117,10 @@ export default {
         active-class="white--text primary"
         slider-color="tertiary"
         height="50"
-        @change="getPostList('refresh')"
+        @change="
+          skip = 0
+          getPostList('refresh')
+        "
       >
         <v-tab
           v-for="tab in tabs"
@@ -143,7 +140,7 @@ export default {
         indeterminate
         style="
           z-index: 99;
-          position: absolute;
+          position: fixed;
           top: 40vh;
           left: 50%;
           transform: translate(-50%, 0);

@@ -8,11 +8,13 @@ export async function createPost(postObj) {
   return post.save()
 }
 
-export async function getPostList(filter = 'hot') {
+export async function getPostList(filter = 'hot', skip = 0) {
   const query = new AV.Query('Post')
   query.notEqualTo('status', 'deleted')
   query.notEqualTo('status', 'draft')
   query.equalTo('visibility', 'public')
+  query.limit(10)
+  query.skip(skip)
   switch (filter) {
     case 'hot':
       break
