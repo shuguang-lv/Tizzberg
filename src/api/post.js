@@ -18,15 +18,15 @@ export async function getPostList(filter = 'hot', skip = 0) {
   switch (filter) {
     case 'hot':
       break
-    case 'following':
-      break
+    // case 'following':
+    //   break
     case 'latest':
       query.descending('createdAt')
       break
     default:
       break
   }
-  return await query.find()
+  return query.find()
 }
 
 export async function deletePost(postId = '') {

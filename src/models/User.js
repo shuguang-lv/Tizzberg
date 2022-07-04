@@ -8,8 +8,8 @@ export default class User {
     this.lastName = isString(user.lastName) ? user.lastName : ''
     this.picture = isString(user.picture) ? user.picture : ''
     this.email = isString(user.email) ? user.email : ''
-    this.currentIdentity = isString(user.currentIdentity)
-      ? user.currentIdentity
+    this.currentCharacter = isString(user.currentCharacter)
+      ? user.currentCharacter
       : ''
     this.followedTags = isArray(user.followedTags) ? user.followedTags : []
     this.savedPosts = isArray(user.savedPosts) ? user.savedPosts : []

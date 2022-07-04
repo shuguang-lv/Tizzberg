@@ -1,6 +1,8 @@
 import { memoize } from 'lodash'
+import { sleep } from './common'
 
 const AV = require('leancloud-storage')
+const Character = AV.Object.extend('Character')
 
 // memoize.Cache = WeakMap
 
@@ -24,6 +26,7 @@ export async function logInUser(identifier, password) {
 }
 
 const _fetchUser = async (userId = 'random') => {
+  await sleep(100)
   const query = new AV.Query('_User')
   try {
     const user = await query.get(userId)
@@ -40,10 +43,59 @@ export const fetchUser = _fetchUser
 
 export async function deleteCurrentUser(userId) {
   const user = AV.User.current()
-  if (user.get('objectId') === userId) {
-    return user.destroy()
+  if (user.get('objectId') !== userId) {
+    return Promise.reject('user not match')
+  }
+  // delete all characters of this user
+  try {
+    const characters = await fetchCharacters(userId)
+    await AV.Object.destroyAll(characters)
+  } catch (error) {
+    return Promise.reject(error)
+  }
+  return user.destroy()
+}
+
+export async function fetchCharacter(characterId) {
+  const query = new AV.Query('Character')
+  try {
+    const character = await query.get(characterId)
+    return character
+  } catch (error) {
+    console.log(error)
+    return null
   }
 }
+
+export async function fetchCharacters(userId) {
+  const query = new AV.Query('Character')
+  query.equalTo('userId', userId)
+  return query.find()
+}
+
+export async function setCurrentCharacter(userId, characterId) {
+  const user = await _fetchUser(userId)
+  user.set('currentCharacter', characterId)
+  return user.save()
+}
+
+export async function createCharacter(characterObj) {
+  const character = new Character()
+  character.set(characterObj)
+  const currentUserId = AV.User.current().get('objectId')
+  if (character.get('userId') === currentUserId) {
+    return character.save()
+  } else {
+    return Promise.reject('user not match')
+  }
+}
+
+export async function deleteCharacter(characterId) {
+  const character = AV.Object.createWithoutData('Character', characterId)
+  return character.destroy()
+}
+
+/************************************************************************* */
 
 //TODO: authentication ?
 export async function editUser(

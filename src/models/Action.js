@@ -6,6 +6,7 @@ export default class Action {
     this.userCharacterId = isString(action.userCharacterId) ? action.userCharacterId : ''
     this.targetId = isString(action.targetId) ? action.targetId : ''
     this.targetClass = isString(action.targetClass) ? action.targetClass : ''
+    this.type = isString(action.type) ? action.type : ''
     this.content = isString(action.content) ? action.content : ''
     this.status = isString(action.status) ? action.status : ''
   }

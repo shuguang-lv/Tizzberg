@@ -1,7 +1,10 @@
+import { sleep } from './common'
+
 const AV = require('leancloud-storage')
 const Like = AV.Object.extend('Like')
 
 export async function countLikes(postId = '') {
+  await sleep(100)
   const query = new AV.Query('Like');
   query.equalTo('targetId', postId);
   query.equalTo('targetClass', 'Post');
@@ -20,6 +23,7 @@ export async function unlikePost(likeId = '') {
 }
 
 export async function checkPostLiked(userId = '', postId = '') {
+  await sleep(100)
   const query = new AV.Query('Like');
   query.equalTo('userId', userId);
   query.equalTo('targetId', postId);

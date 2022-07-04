@@ -127,7 +127,7 @@ export default {
           </v-btn>
         </v-card-title>
         <v-divider></v-divider>
-        <v-card-text class="d-flex align-center pt-4">
+        <v-card-text class="d-flex align-center pt-8">
           <v-avatar
             color="primary"
             size="70"

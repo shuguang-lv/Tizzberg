@@ -2,6 +2,7 @@
 import { deletePost } from '@/api/post.js'
 import { fetchUserMemo } from '@/api/user.js'
 import { checkPostLiked, likePost, unlikePost, countLikes } from '@/api/like.js'
+import { replyToPost, fetchPostReplies } from '@/api/comment.js'
 import Action from '@/models/Action'
 
 export default {
@@ -18,6 +19,13 @@ export default {
       liking: false,
       likeCount: 0,
       deletePostApi: deletePost,
+      replying: false,
+      replies: [],
+      newReply: new Action({
+        userId: this.$user.current() ? this.$user.current().getObjectId() : '',
+        targetId: this.post.getObjectId(),
+        targetClass: 'Post',
+      }),
       postActions: [
         {
           title: 'Pin Post',
@@ -74,13 +82,17 @@ export default {
       const user = await fetchUserMemo(this.post.get('authorId'))
       this.$set(this.post, 'authorName', user ? user.getUsername() : '')
       // this.post.authorName = user ? user.getUsername() : ''
-      this.isLiked = await checkPostLiked(
-        this.$user.current().getObjectId(),
-        this.post.getObjectId()
-      )
+      this.isLiked = this.$user.current()
+        ? await checkPostLiked(
+            this.$user.current().getObjectId(),
+            this.post.getObjectId()
+          )
+        : false
       this.likeCount = await countLikes(this.post.getObjectId())
+      await this.updateReplyList()
     } catch (error) {
       console.log(error)
+      this.$snackbar.error(error.rawMessage)
     }
   },
   methods: {
@@ -118,6 +130,7 @@ export default {
         this.likeCount++
       } catch (error) {
         console.log(error)
+        this.$snackbar.error(error.rawMessage)
       }
       this.liking = false
     },
@@ -129,8 +142,40 @@ export default {
         this.likeCount--
       } catch (error) {
         console.log(error)
+        this.$snackbar.error(error.rawMessage)
       }
       this.liking = false
+    },
+    async replyToPost() {
+      if (!this.newReply.content.trim()) {
+        return
+      }
+      this.replying = true
+      try {
+        await replyToPost(this.newReply)
+        this.newReply.content = ''
+        await this.updateReplyList()
+      } catch (error) {
+        console.log(error)
+        this.$snackbar.error(error.rawMessage)
+      }
+      this.replying = false
+    },
+    async updateReplyList() {
+      try {
+        this.replies = []
+        const replies = await fetchPostReplies(this.post.getObjectId())
+        this.$nextTick(async () => {
+          for (let reply of replies) {
+            const user = await fetchUserMemo(reply.get('userId'))
+            reply.userName = user ? user.getUsername() : ''
+            this.replies.push(reply)
+          }
+        })
+      } catch (error) {
+        console.log(error)
+        this.$snackbar.error(error.rawMessage)
+      }
     },
   },
 }
@@ -164,7 +209,8 @@ export default {
               v-for="item in postActions.filter(
                 (action) =>
                   action.privilege === 'both' ||
-                  ($user.current().getObjectId() == post.get('authorId')
+                  ($user.current() &&
+                  $user.current().getObjectId() == post.get('authorId')
                     ? action.privilege === 'self'
                     : action.privilege === 'other')
               )"
@@ -233,7 +279,7 @@ export default {
           <v-icon color="white">mdi-thumb-up</v-icon>
         </v-btn>
         <span class="mr-4 secondary--text">{{ likeCount }} Likes</span>
-        <span class="secondary--text">2 Comments</span>
+        <span class="secondary--text">{{ replies.length }} Replies</span>
       </div>
       <div>
         <v-btn :disabled="!$user.current()" icon color="secondary" class="mr-2">
@@ -243,20 +289,21 @@ export default {
       </div>
     </div>
     <v-divider class="my-4"></v-divider>
-    <div v-for="n in 2" :key="n" class="d-flex align-start mx-4">
+    <div
+      v-for="reply in replies"
+      :key="reply.getObjectId()"
+      class="d-flex align-start mx-4"
+    >
       <v-avatar color="primary" size="50" class="mr-4">
         <v-img
           src="https://avatars.dicebear.com/api/micah/comment.svg"
           alt="John"
         ></v-img
       ></v-avatar>
-      <div>
-        <div class="text-subtitle-1">Desmond</div>
+      <div style="width: 100%">
+        <div class="text-subtitle-1">{{ reply.userName }}</div>
         <div class="grey--text">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloribus
-          unde harum, enim magnam recusandae beatae porro nemo in itaque
-          exercitationem incidunt minus alias maxime sed omnis aliquam ratione.
-          Consequatur, quo.
+          {{ reply.get('content') }}
         </div>
         <div class="text-end">
           <v-btn :disabled="!$user.current()" color="grey" text>Unlike</v-btn>
@@ -264,16 +311,33 @@ export default {
         </div>
       </div>
     </div>
-    <v-text-field
-      :disabled="!$user.current()"
-      label="Leave your comments here"
-      append-icon="mdi-send"
+    <v-textarea
+      v-model="newReply.content"
+      :disabled="!$user.current() || replying"
+      label="Reply to this post"
       hide-details
       outlined
       clearable
+      auto-grow
+      rows="1"
       type="text"
       class="ma-4"
-    ></v-text-field>
+      color="primary"
+      :ref="post.getObjectId()"
+      @click="
+        $vuetify.goTo($refs[post.getObjectId()], {
+          duration: 500,
+          offset: 400,
+          easing: 'easeInOutCubic',
+        })
+      "
+    >
+      <template #append-outer>
+        <v-btn icon height="100%" color="tertiary" @click="replyToPost"
+          ><v-icon>mdi-send</v-icon></v-btn
+        >
+      </template>
+    </v-textarea>
   </v-card>
 </template>
 
