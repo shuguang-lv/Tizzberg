@@ -1,25 +1,24 @@
 <script>
 import Layout from '@/layouts/main.vue'
+import Flow from '@/layouts/flow.vue'
 import IdentityEditor from '@/components/identity-editor.vue'
 import PostEditor from '@/components/post-editor.vue'
 import PostCard from '@/components/post-card.vue'
 import { getPostList } from '@/api/post.js'
-import { debounce } from 'lodash'
 // import Post from '@/models/Post'
 
 export default {
   name: 'TSquare',
   components: {
     Layout,
+    Flow,
     IdentityEditor,
     PostEditor,
     PostCard,
   },
   data() {
     return {
-      skip: 0,
-      postList: [],
-      loadingPostList: false,
+      getPostList: getPostList,
       selectedTab: 'hot',
       tabs: [
         {
@@ -35,44 +34,10 @@ export default {
           value: 'latest',
         },
       ],
-      infiniteScroll: debounce(() => {
-        // detect if bottom is reached
-        const scrollY = window.scrollY
-        const visible = document.documentElement.clientHeight
-        const pageHeight = document.documentElement.scrollHeight
-        if (Math.abs(pageHeight - (visible + scrollY)) < 1) {
-          this.getPostList('load')
-        }
-      }, 100),
     }
   },
   computed: {},
-  async mounted() {
-    await this.getPostList('refresh')
-    window.onscroll = this.infiniteScroll
-  },
-  methods: {
-    async getPostList(mode = 'refresh') {
-      this.loadingPostList = true
-      try {
-        if (mode === 'refresh') {
-          this.postList = await getPostList(this.selectedTab)
-        } else if (mode === 'load') {
-          this.skip += process.env.VUE_APP_PAGE_SIZE
-          this.$nextTick(async () => {
-            this.postList.push.apply(
-              this.postList,
-              await getPostList(this.selectedTab, this.skip)
-            )
-          })
-        }
-      } catch (error) {
-        console.log(error)
-        this.$snackbar.error(error.rawMessage)
-      }
-      this.loadingPostList = false
-    },
-  },
+  methods: {},
 }
 </script>
 
@@ -81,7 +46,7 @@ export default {
     <identity-editor ref="identity-editor"></identity-editor>
     <post-editor
       ref="post-editor"
-      @created="getPostList('refresh')"
+      @created="$refs[selectedTab][0].updateList()"
     ></post-editor>
 
     <v-card rounded class="pa-2" elevation="3" width="50vw">
@@ -117,10 +82,6 @@ export default {
         active-class="white--text primary"
         slider-color="tertiary"
         height="50"
-        @change="
-          skip = 0
-          getPostList('refresh')
-        "
       >
         <v-tab
           v-for="tab in tabs"
@@ -132,38 +93,31 @@ export default {
         </v-tab>
       </v-tabs>
     </div>
-    <v-fade-transition
-      ><v-progress-circular
-        v-if="loadingPostList"
-        :size="100"
-        color="primary"
-        indeterminate
-        style="
-          z-index: 99;
-          position: fixed;
-          top: 40vh;
-          left: 50%;
-          transform: translate(-50%, 0);
-        "
-      ></v-progress-circular
-    ></v-fade-transition>
-    <v-slide-y-transition>
-      <v-tabs-items v-if="!loadingPostList" v-model="selectedTab">
-        <v-tab-item
-          v-for="tab in tabs"
-          :key="tab.value"
-          :value="tab.value"
-          style="position: relative"
+    <v-tabs-items v-model="selectedTab">
+      <v-tab-item
+        v-for="tab in tabs"
+        :key="tab.value"
+        :value="tab.value"
+        style="position: relative"
+      >
+        <Flow
+          v-if="selectedTab === tab.value"
+          :fetchListApi="getPostList"
+          :fetchListApiOptions="{ filter: selectedTab }"
+          :ref="tab.value"
+          v-slot="{ list, updateList }"
         >
-          <post-card
-            v-for="(post, index) in postList"
-            :key="index"
-            :post="post"
-            @refresh="getPostList('refresh')"
-          ></post-card>
-        </v-tab-item>
-      </v-tabs-items>
-    </v-slide-y-transition>
+          <v-slide-y-transition group
+            ><post-card
+              v-for="(post, index) in list"
+              :key="index"
+              :post="post"
+              @refresh="updateList('refresh')"
+            ></post-card
+          ></v-slide-y-transition>
+        </Flow>
+      </v-tab-item>
+    </v-tabs-items>
   </Layout>
 </template>
 

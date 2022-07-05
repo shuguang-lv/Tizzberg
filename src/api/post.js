@@ -8,7 +8,7 @@ export async function createPost(postObj) {
   return post.save()
 }
 
-export async function getPostList(filter = 'hot', skip = 0) {
+export async function getPostList(skip = 0, { filter = 'hot' }) {
   const query = new AV.Query('Post')
   query.notEqualTo('status', 'deleted')
   query.notEqualTo('status', 'draft')

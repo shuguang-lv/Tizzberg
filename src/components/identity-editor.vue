@@ -71,7 +71,7 @@ export default {
         </div>
       </v-card-text>
       <v-divider></v-divider>
-      <v-card-actions class="pt-8 pb-8 d-flex justify-center">
+      <v-card-actions class="py-4 d-flex justify-center">
         <!-- <v-btn depressed large color="warning" class="px-4">
           Delete Identity
         </v-btn> -->

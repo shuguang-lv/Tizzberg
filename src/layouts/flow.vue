@@ -1,0 +1,77 @@
+<script>
+import { debounce } from 'lodash'
+
+export default {
+  props: {
+    fetchListApi: {
+      type: Function,
+      required: true,
+    },
+    fetchListApiOptions: {
+      type: Object,
+      required: false,
+    },
+  },
+  data() {
+    return {
+      skip: 0,
+      list: [],
+      loadingList: false,
+      infiniteScroll: debounce(() => {
+        // detect if bottom is reached
+        const scrollY = window.scrollY
+        const visible = document.documentElement.clientHeight
+        const pageHeight = document.documentElement.scrollHeight
+        if (Math.abs(pageHeight - (visible + scrollY)) < 1) {
+          this.updateList('load')
+        }
+      }, 100),
+    }
+  },
+  async mounted() {
+    await this.updateList('refresh')
+    window.onscroll = this.infiniteScroll
+  },
+  beforeDestroy() {
+    window.onscroll = null
+  },
+  methods: {
+    async updateList(mode = 'refresh') {
+      this.loadingList = true
+      try {
+        if (mode === 'refresh') {
+          this.skip = 0
+          this.list = await this.fetchListApi(0, this.fetchListApiOptions)
+        } else if (mode === 'load') {
+          this.skip += process.env.VUE_APP_PAGE_SIZE
+          this.$nextTick(async () => {
+            this.list.push.apply(
+              this.list,
+              await this.fetchListApi(this.skip, this.fetchListApiOptions)
+            )
+          })
+        }
+      } catch (error) {
+        console.log(error)
+        this.$snackbar.error(error.rawMessage)
+      }
+      this.loadingList = false
+    },
+  },
+}
+</script>
+
+<template>
+  <div>
+    <v-progress-circular
+      v-if="loadingList"
+      :size="100"
+      color="primary"
+      indeterminate
+      class="my-16"
+    ></v-progress-circular>
+    <slot v-bind:updateList="updateList" v-bind:list="list" />
+  </div>
+</template>
+
+<style lang="scss" scoped></style>
