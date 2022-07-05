@@ -4,13 +4,16 @@ import { authComputed } from '@/store/helpers'
 import { getPostList, deletePost } from '@/api/post.js'
 import * as BlogAPI from '@/api/blog.js'
 import { fetchUserMemo } from '@/api/user.js'
+import { getAllProfileMessage, sendProfileMessage } from '@/api/profileMessage.js'
 import BlogEditor from '@/components/blog-editor.vue'
 import PostCard from '@/components/post-card.vue'
+import MessageCard from '@/components/message-card.vue'
 import IdentityEditor from '@/components/identity-editor.vue'
 export default {
   name: 'Profile',
   components: {
     PostCard,
+    MessageCard,
     BlogEditor,
     IdentityEditor,
     Layout,
@@ -19,6 +22,8 @@ export default {
     return {
       postList: [],
       blogList: [],
+      messageList: [],
+      inputMessage: '',
       flowWidth: '60vw',
       selectedTab: 'post',
       selectedTag:'',
@@ -214,6 +219,7 @@ export default {
           action: 'error',
         },
       ],
+
     }
   },
   beforeMount() {
@@ -237,6 +243,7 @@ export default {
   async mounted() {
       await this.getPostList()
       await this.getBlogList()
+      await this.getAllProfileMessage()
   },
   computed: {
     ...authComputed,
@@ -269,6 +276,26 @@ export default {
         console.log(error)
         this.$snackbar.error(error.rawMessage)
       }
+    },
+    async getAllProfileMessage() {
+      try {
+        this.messageList = await getAllProfileMessage()
+        console.log(this.messageList)
+      } catch (error) {
+        console.log(error)
+        this.$snackbar.error(error.rawMessage)
+      }
+    },
+    async sendProfileMessage(content) {
+      let receiverId = this.$route.query.id
+      console.log(receiverId)
+      try {
+        sendProfileMessage(receiverId,content)
+      } catch (error) {
+        console.log(error)
+        this.$snackbar.error(error.rawMessage)
+      }
+      this.savingPost = false
     },
   },
 }
@@ -522,17 +549,41 @@ export default {
                 </v-col>
                 <v-col class="d-flex flex-column">
                   <v-card rounded>
-                    <v-textarea
-                      height="5vw"
-                      class="ma-3"
-                      solo
-                      label="Leave your message here..."
-                    ></v-textarea>
+                    <v-form class="d-flex align-center ma-3">
+                      <v-textarea
+                        v-model="inputMessage"
+                        height="5vw"
+                        solo
+                        label="Leave your message here..."
+                      ></v-textarea>
+                      <v-btn
+                        class="mx-2 mb-6"
+                        fab
+                        dark
+                        small
+                        color="primary"
+                        @click="sendProfileMessage(inputMessage)"
+                      >
+                        <v-icon dark>
+                          mdi-send
+                        </v-icon>
+                      </v-btn>
+                    </v-form>
                   </v-card>
                   <v-card outlined rounded elevation="2" class="mx-3 mb-3">
                     <v-card-title>
                       Message Board
                     </v-card-title>
+                    <div
+                      v-for="(message, index) in messageList"
+                      :key="index"
+                    >
+                        <MessageCard     
+                          :messageActions="messageActions" 
+                          :message="message"
+                        >
+                        </MessageCard>
+                    </div>
                   </v-card>
                 </v-col>
               </v-row>
