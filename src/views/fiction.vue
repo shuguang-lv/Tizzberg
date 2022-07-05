@@ -8,7 +8,7 @@ export default {
   },
   data() {
     return {
-      flowWidth: '50vw',
+      flowWidth: '60vw',
       showFictionEditor: false,
       fiction: {
         title: '',
@@ -235,34 +235,38 @@ export default {
 <template>
   <Layout>
     <div>
-      <v-card rounded class="pa-2 mb-6" elevation="3" :width="flowWidth">
-        <v-card-title class="text-h5 mb-2 primary--text font-weight-medium">
-          Fiction
-        </v-card-title>
-        <v-divider class="mb-2"></v-divider>
-        <v-card-text v-if="$user.current()" class="d-flex align-center">
-          <v-avatar
-            color="primary"
-            size="60"
-            class="mr-6 clickable"
-            @click="$refs['identity-editor'].show()"
-          >
-            <v-img
-              src="https://avatars.dicebear.com/api/micah/desmond.svg"
-              alt="John"
-            ></v-img
-          ></v-avatar>
-          <v-text-field
-            label="Create a new story"
-            append-icon="mdi-pencil"
-            hide-details
-            outlined
-            @click="showFictionEditor = !showFictionEditor"
-          ></v-text-field>
-        </v-card-text>
-      </v-card>
-      <v-row class="pa-2 mb-6" elevation="1">
+      <v-row>
+        <v-col class="d-flex justify-center">
+            <v-card rounded class="pa-2 mb-6" elevation="1" :width="flowWidth">
+              <v-card-title class="text-h5 mb-2 primary--text font-weight-medium">
+                Fiction
+              </v-card-title>
+              <v-divider class="mb-2"></v-divider>
+              <v-card-text v-if="$user.current()" class="d-flex align-center">
+                <v-avatar
+                  color="primary"
+                  size="60"
+                  class="mr-6 clickable"
+                  @click="$refs['identity-editor'].show()"
+                >
+                  <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"
+                /></v-avatar>
+                <v-text-field
+                  label="Create a new story"
+                  append-icon="mdi-pencil"
+                  hide-details
+                  outlined
+                  @click="showFictionEditor = !showFictionEditor"
+                ></v-text-field>
+              </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
+
+      <v-row class="mb-6 mx-20" elevation="1">
         <v-col
+          :width="flowWidth"
+          class="d-flex justify-center"
           v-for="item in exploreInfo"
           :key="item"
           cols="12"
@@ -271,11 +275,10 @@ export default {
         >
           <v-card
             rounded
-            elevation="3"
+            elevation="2"
             :loading="loading"
-            class="mx-auto my-12"
-            max-width="374"
-            :width="flowWidth"
+            class="my-3"
+            max-width="320"
           >
             <template slot="progress">
               <v-progress-linear
@@ -290,7 +293,7 @@ export default {
               src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
             ></v-img>
             <v-card-text>
-              <div class="pt-3 pb-3">
+              <div class="pt-2 pb-2">
                 <h2 class="text-center">{{ item.title }}</h2>
                 <p class="text-center">{{ item.text }}</p>
               </div>
@@ -325,11 +328,8 @@ export default {
         <v-divider></v-divider>
         <v-card-text class="d-flex align-center pt-4">
           <v-avatar color="primary" size="60" class="mr-6">
-            <v-img
-              src="https://avatars.dicebear.com/api/micah/desmond.svg"
-              alt="John"
-            ></v-img
-          ></v-avatar>
+            <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"
+          /></v-avatar>
           <v-text-field
             class="d-flex align-center pt-6"
             v-model="fiction.title"
@@ -429,5 +429,4 @@ export default {
     </v-dialog>
   </Layout>
 </template>
-
 <style lang="scss" scoped></style>
