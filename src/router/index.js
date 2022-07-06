@@ -64,7 +64,7 @@ const fetchUser = async (routeTo, routeFrom, next) => {
   if (user) {
     // Add the user to `meta.tmp`, so that it can
     // be provided as a prop.
-    routeTo.meta.tmp.user = user
+    routeTo.meta.tmp.user = JSON.stringify(user.toJSON())
     // Continue to the route.
     next()
   } else {

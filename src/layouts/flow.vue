@@ -41,13 +41,18 @@ export default {
       try {
         if (mode === 'refresh') {
           this.skip = 0
-          this.list = await this.fetchListApi(0, this.fetchListApiOptions)
+          const list = await this.fetchListApi(0, this.fetchListApiOptions)
+          this.list = list.map((item) => item.toJSON())
         } else if (mode === 'load') {
           this.skip += process.env.VUE_APP_PAGE_SIZE
+          const list = await this.fetchListApi(
+            this.skip,
+            this.fetchListApiOptions
+          )
           this.$nextTick(async () => {
             this.list.push.apply(
               this.list,
-              await this.fetchListApi(this.skip, this.fetchListApiOptions)
+              list.map((item) => item.toJSON())
             )
           })
         }

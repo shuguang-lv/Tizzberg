@@ -23,7 +23,7 @@ export default {
       replies: [],
       newReply: new Action({
         userId: this.$user.current() ? this.$user.current().getObjectId() : '',
-        targetId: this.post.getObjectId(),
+        targetId: this.post.objectId,
         targetClass: 'Post',
       }),
       postActions: [
@@ -79,16 +79,18 @@ export default {
   },
   async mounted() {
     try {
-      const user = await fetchUserMemo(this.post.get('authorId'))
-      this.$set(this.post, 'authorName', user ? user.getUsername() : '')
-      // this.post.authorName = user ? user.getUsername() : ''
+      const user = await fetchUserMemo(this.post.authorId)
+      this.post.authorName = user ? user.toJSON().username : ''
       this.isLiked = this.$user.current()
         ? await checkPostLiked(
             this.$user.current().getObjectId(),
-            this.post.getObjectId()
+            this.post.objectId
           )
         : false
-      this.likeCount = await countLikes(this.post.getObjectId())
+      if (this.isLiked) {
+        this.isLiked = this.isLiked.toJSON()
+      }
+      this.likeCount = await countLikes(this.post.objectId)
       await this.updateReplyList()
     } catch (error) {
       console.log(error)
@@ -120,13 +122,14 @@ export default {
     async likePost() {
       this.liking = true
       try {
-        this.isLiked = await likePost(
+        const res = await likePost(
           new Action({
             userId: this.$user.current().getObjectId(),
-            targetId: this.post.getObjectId(),
+            targetId: this.post.objectId,
             targetClass: 'Post',
           })
         )
+        this.isLiked = res.toJSON()
         this.likeCount++
       } catch (error) {
         console.log(error)
@@ -137,7 +140,7 @@ export default {
     async unlikePost() {
       this.liking = true
       try {
-        await unlikePost(this.isLiked.getObjectId())
+        await unlikePost(this.isLiked.objectId)
         this.isLiked = false
         this.likeCount--
       } catch (error) {
@@ -164,11 +167,14 @@ export default {
     async updateReplyList() {
       try {
         this.replies = []
-        const replies = await fetchPostReplies(this.post.getObjectId())
+        let replies = await fetchPostReplies(this.post.objectId)
+        if (replies.length > 0) {
+          replies = replies.map((reply) => reply.toJSON())
+        }
         this.$nextTick(async () => {
           for (let reply of replies) {
-            const user = await fetchUserMemo(reply.get('userId'))
-            reply.userName = user ? user.getUsername() : ''
+            const user = await fetchUserMemo(reply.userId)
+            reply.userName = user ? user.toJSON().username : ''
             this.replies.push(reply)
           }
         })
@@ -210,7 +216,7 @@ export default {
                 (action) =>
                   action.privilege === 'both' ||
                   ($user.current() &&
-                  $user.current().getObjectId() == post.get('authorId')
+                  $user.current().getObjectId() == post.authorId
                     ? action.privilege === 'self'
                     : action.privilege === 'other')
               )"
@@ -218,7 +224,7 @@ export default {
               link
               class="px-8"
               color="primary"
-              @click="item.action(post.getObjectId())"
+              @click="item.action(post.objectId)"
             >
               <v-list-item-icon>
                 <v-icon v-text="item.icon"></v-icon>
@@ -232,13 +238,10 @@ export default {
       </div>
     </div>
     <v-divider class="mb-2"></v-divider>
-    <v-card-text
-      class="d-flex align-center text-body-1"
-      v-text="post.get('content')"
-    >
+    <v-card-text class="d-flex align-center text-body-1" v-text="post.content">
     </v-card-text>
     <v-btn
-      v-for="tag in post.get('tags')"
+      v-for="tag in post.tags"
       :key="tag"
       color="primary"
       class="mb-4"
@@ -291,7 +294,7 @@ export default {
     <v-divider class="my-4"></v-divider>
     <div
       v-for="reply in replies"
-      :key="reply.getObjectId()"
+      :key="reply.objectId"
       class="d-flex align-start mx-4"
     >
       <v-avatar color="primary" size="50" class="mr-4">
@@ -303,7 +306,7 @@ export default {
       <div style="width: 100%">
         <div class="text-subtitle-1">{{ reply.userName }}</div>
         <div class="grey--text">
-          {{ reply.get('content') }}
+          {{ reply.content }}
         </div>
         <div class="text-end">
           <v-btn :disabled="!$user.current()" color="grey" text>Unlike</v-btn>
@@ -323,9 +326,9 @@ export default {
       type="text"
       class="ma-4"
       color="primary"
-      :ref="post.getObjectId()"
+      :ref="post.objectId"
       @click="
-        $vuetify.goTo($refs[post.getObjectId()], {
+        $vuetify.goTo($refs[post.objectId], {
           duration: 500,
           offset: 400,
           easing: 'easeInOutCubic',

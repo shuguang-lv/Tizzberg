@@ -24,12 +24,13 @@ export default {
       this.logIning = true
       if (this.$refs.form.validate()) {
         try {
-          const user = await logInUser(this.identifier, this.password)
+          const user = (
+            await logInUser(this.identifier, this.password)
+          ).toJSON()
           console.log(user)
-          console.log(this.$user.current())
-          if (!user.get('emailVerified')) {
+          if (!user.emailVerified) {
             await this.$user.logOut()
-            this.$user.requestEmailVerify(user.getEmail())
+            this.$user.requestEmailVerify(user.email)
             this.$snackbar.warn('Please verify your email first')
             this.logIning = false
             return

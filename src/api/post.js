@@ -33,6 +33,8 @@ export async function deletePost(postId = '') {
   return deleteObj(postId, 'Post')
 }
 
+/*************************************************************************** */
+
 /**
  * change the pinned status of post
  * @returns

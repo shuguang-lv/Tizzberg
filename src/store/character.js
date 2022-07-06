@@ -1,6 +1,9 @@
 import { defineStore } from 'pinia'
 import { fetchCharacter, fetchCharacters, setCurrentCharacter, createCharacter, deleteCharacter } from '@/api/user'
 
+// const AV = require('leancloud-storage')
+// const user = AV.User.current().toJSON()
+
 export const useCharacterStore = defineStore('character', {
   persist: true,
   state: () => ({
@@ -28,7 +31,8 @@ export const useCharacterStore = defineStore('character', {
   actions: {
     async getCharacters(userId) {
       try {
-        this.characters = await fetchCharacters(userId)
+        const characters = await fetchCharacters(userId)
+        this.characters = characters.map(character => character.toJSON())
       } catch (error) {
         console.log(error);
       }
@@ -36,7 +40,8 @@ export const useCharacterStore = defineStore('character', {
     async switchCharacter(userId, characterId) {
       try {
         await setCurrentCharacter(userId, characterId)
-        this.currentCharacter = await fetchCharacter(characterId)
+        const character = await fetchCharacter(characterId)
+        this.currentCharacter = character.toJSON()
       } catch (error) {
         console.log(error);
       }
