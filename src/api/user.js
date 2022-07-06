@@ -1,5 +1,5 @@
-import { memoize } from 'lodash'
-import { sleep } from './common'
+import { memoize, throttle } from 'lodash'
+import { THROTTLE_WAIT, sleep, SLEEP_TIME } from './common'
 
 const AV = require('leancloud-storage')
 const Character = AV.Object.extend('Character')
@@ -25,8 +25,8 @@ export async function logInUser(identifier, password) {
   }
 }
 
-const _fetchUser = async (userId = 'random') => {
-  await sleep(100)
+const _fetchUser = throttle(async (userId = 'random') => {
+  await sleep(SLEEP_TIME)
   const query = new AV.Query('_User')
   try {
     const user = await query.get(userId)
@@ -35,7 +35,7 @@ const _fetchUser = async (userId = 'random') => {
     console.log(error)
     return null
   }
-}
+}, THROTTLE_WAIT)
 
 export const fetchUserMemo = memoize(_fetchUser)
 
@@ -56,7 +56,8 @@ export async function deleteCurrentUser(userId) {
   return user.destroy()
 }
 
-export async function fetchCharacter(characterId) {
+const _fetchCharacter = throttle(async (characterId) => {
+  await sleep(SLEEP_TIME)
   const query = new AV.Query('Character')
   try {
     const character = await query.get(characterId)
@@ -65,7 +66,11 @@ export async function fetchCharacter(characterId) {
     console.log(error)
     return null
   }
-}
+}, THROTTLE_WAIT)
+
+export const fetchCharacterMemo = memoize(_fetchCharacter)
+
+export const fetchCharacter = _fetchCharacter
 
 export async function fetchCharacters(userId) {
   const query = new AV.Query('Character')

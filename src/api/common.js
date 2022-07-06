@@ -13,3 +13,7 @@ export async function deleteObj(id, className) {
 }
 
 export const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+
+export const THROTTLE_WAIT = 0
+
+export const SLEEP_TIME = 100

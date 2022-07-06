@@ -1,16 +1,17 @@
-import { deleteObj, sleep } from './common'
+import { throttle } from 'lodash'
+import { deleteObj, THROTTLE_WAIT, sleep, SLEEP_TIME } from './common'
 
 const AV = require('leancloud-storage')
 const Reply = AV.Object.extend('Reply')
 
-export async function fetchPostReplies(postId = '') {
-  await sleep(100)
+export const fetchPostReplies = throttle(async (postId = '') => {
+  await sleep(SLEEP_TIME)
   const query = new AV.Query('Reply')
   query.equalTo('targetId', postId)
   query.equalTo('targetClass', 'Post')
   query.descending('createdAt')
   return query.find()
-}
+}, THROTTLE_WAIT)
 
 export async function replyToPost(replyObj) {
   const reply = new Reply()
