@@ -7,9 +7,7 @@ export default {
     return {
       creatingCharacter: false,
       showDialog: false,
-      newCharacter: new Character({
-        userId: this.$root.currentUser ? this.$root.currentUser.objectId : '',
-      }),
+      newCharacter: new Character(),
       nameRules: [
         (v) => !!v || 'Username is required',
         (v) =>
@@ -30,12 +28,11 @@ export default {
       this.creatingCharacter = true
       if (this.$refs.form.validate()) {
         try {
+          this.newCharacter.userId = this.$root.currentUser
+            ? this.$root.currentUser.objectId
+            : ''
           await this.$root.createCharacter(this.newCharacter)
-          this.newCharacter = new Character({
-            userId: this.$root.currentUser
-              ? this.$root.currentUser.objectId
-              : '',
-          })
+          this.newCharacter = new Character()
         } catch (error) {
           console.log(error)
           this.$snackbar.error(error.rawMessage)

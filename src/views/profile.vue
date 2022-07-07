@@ -130,7 +130,7 @@ export default {
               alt="John"
           /></v-avatar>
           <div class="text-h4 mt-2">
-            {{ $root.currentUser.username }}
+            {{ $root.currentCharacter.name }}
           </div>
         </div>
         <v-btn

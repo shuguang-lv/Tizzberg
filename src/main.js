@@ -97,6 +97,7 @@ new Vue({
         await setCurrentCharacter(this.currentUser.objectId, characterId)
         const character = await fetchCharacter(characterId)
         this.currentCharacter = character ? character.toJSON() : {}
+        this.$emit('character-changed', this.currentCharacter)
       } catch (error) {
         console.log(error)
       }

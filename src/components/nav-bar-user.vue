@@ -20,6 +20,8 @@ export default {
             try {
               await this.$user.logOut()
               this.$root.currentUser = null
+              this.$root.currentCharacter = {}
+              this.$root.characters = []
               this.$router.push({ name: 'login' })
             } catch (error) {
               console.log(error)
@@ -74,7 +76,7 @@ export default {
 
       <v-card class="pb-2" width="350" flat>
         <v-sheet color="primary" class="white--text">
-          <v-card-title> {{ $root.currentUser.username }} </v-card-title>
+          <v-card-title> {{ $root.currentCharacter.name }} </v-card-title>
           <v-card-subtitle> a cool man </v-card-subtitle>
         </v-sheet>
 
@@ -135,7 +137,7 @@ export default {
     </v-menu>
 
     <div v-if="$root.currentUser" class="text-h5 mx-4">
-      {{ $root.currentUser.username }}
+      {{ $root.currentCharacter.name }}
     </div>
 
     <v-btn icon large :to="{ name: 't-square' }" color="primary" class="mx-4">
