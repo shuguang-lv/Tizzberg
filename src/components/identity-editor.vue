@@ -9,7 +9,7 @@ export default {
       showDialog: false,
       newCharacter: new Character(),
       nameRules: [
-        (v) => !!v || 'Username is required',
+        (v) => !!v || 'Name is required',
         (v) =>
           /(?=^.{3,20}$)^[a-zA-Z][a-zA-Z0-9]*[._-]?[a-zA-Z0-9]+$/g.test(v) ||
           'Name must be 3-20 characters long and can only contain letters, numbers, underscores, dashes, and periods',
@@ -45,6 +45,7 @@ export default {
       try {
         await this.$root.switchCharacter(characterId)
         this.$overlay.close()
+        this.$router.go(0)
       } catch (error) {
         console.log(error)
         this.$overlay.close()
@@ -98,7 +99,7 @@ export default {
           <div>
             <v-avatar color="primary" size="50" class="mr-4">
               <v-img
-                src="https://avatars.dicebear.com/api/micah/character.svg"
+                :src="`https://avatars.dicebear.com/api/micah/${character.objectId}.svg`"
               ></v-img
             ></v-avatar>
             <span

@@ -134,7 +134,7 @@ export default {
         <div class="d-flex align-center pa-4">
           <v-avatar color="primary" size="50" class="mr-4">
             <v-img
-              src="https://avatars.dicebear.com/api/micah/desmond.svg"
+              :src="`https://avatars.dicebear.com/api/micah/${$root.currentCharacter.objectId}.svg`"
               alt="John"
             ></v-img
           ></v-avatar>

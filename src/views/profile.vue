@@ -126,7 +126,7 @@ export default {
         >
           <v-avatar color="primary" size="150">
             <img
-              src="https://avatars.dicebear.com/api/micah/desmond.svg"
+              :src="`https://avatars.dicebear.com/api/micah/${$root.currentCharacter.objectId}.svg`"
               alt="John"
           /></v-avatar>
           <div class="text-h4 mt-2">
@@ -173,8 +173,8 @@ export default {
         >
           <v-slide-y-transition group
             ><post-card
-              v-for="(post, index) in list"
-              :key="index"
+              v-for="post in list"
+              :key="post.objectId"
               :post="post"
               @refresh="updateList('refresh')"
             ></post-card

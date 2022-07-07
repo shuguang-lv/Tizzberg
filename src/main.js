@@ -60,28 +60,36 @@ new Vue({
   },
   async created() {
     if (AV.User.current()) {
-      await AV.User.current().fetch()
-      this.currentUser = AV.User.current().toJSON()
-    }
-
-    let character = null
-    let characters = null
-    try {
-      if (this.currentUser) {
-        character = await fetchCharacter(this.currentUser.currentCharacter)
-        characters = await fetchCharacters(this.currentUser.objectId)
+      try {
+        const user = await AV.User.current().fetch()
+        this.currentUser = user.toJSON()
+        await this.initCharacter()
+        this.$emit('user info fetched')
+      } catch (error) {
+        console.log(error)
+        this.$snackbar.error(error.rawMessage)
       }
-    } catch (error) {
-      console.log(error)
-      this.$snackbar.error(error.rawMessage)
     }
-    this.currentCharacter = character ? character.toJSON() : {}
-    this.characters =
-      characters && characters.length > 0
-        ? characters.map((c) => c.toJSON())
-        : []
   },
   methods: {
+    async initCharacter() {
+      let character = null
+      let characters = null
+      if (this.currentUser) {
+        try {
+          character = await fetchCharacter(this.currentUser.currentCharacter)
+          characters = await fetchCharacters(this.currentUser.objectId)
+        } catch (error) {
+          console.log(error)
+          this.$snackbar.error(error.rawMessage)
+        }
+      }
+      this.currentCharacter = character ? character.toJSON() : {}
+      this.characters =
+        characters && characters.length > 0
+          ? characters.map((c) => c.toJSON())
+          : []
+    },
     async getCharacters() {
       try {
         const characters = await fetchCharacters(this.currentUser.objectId)
@@ -95,9 +103,9 @@ new Vue({
     async switchCharacter(characterId) {
       try {
         await setCurrentCharacter(this.currentUser.objectId, characterId)
-        const character = await fetchCharacter(characterId)
-        this.currentCharacter = character ? character.toJSON() : {}
-        this.$emit('character-changed', this.currentCharacter)
+        // const character = await fetchCharacter(characterId)
+        // this.currentCharacter = character ? character.toJSON() : {}
+        // this.$emit('character-changed', this.currentCharacter)
       } catch (error) {
         console.log(error)
       }

@@ -23,10 +23,10 @@ export async function unlikePost(likeId = '') {
   return like.destroy()
 }
 
-export const checkPostLiked = throttle(async (userId = '', postId = '') => {
+export const checkPostLiked = throttle(async (characterId = '', postId = '') => {
   await sleep(SLEEP_TIME)
   const query = new AV.Query('Like')
-  query.equalTo('userId', userId)
+  query.equalTo('characterId', characterId)
   query.equalTo('targetId', postId)
   query.equalTo('targetClass', 'Post')
   return query.first()

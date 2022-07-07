@@ -6,7 +6,7 @@ export default class Post {
     this.content = isString(post.content) ? post.content : ''
     this.tags = isArray(post.tags) ? post.tags : []
     this.authorId = isString(post.authorId) ? post.authorId : ''
-    // this.likeUser = isString(post.likeUser) ? post.likeUser : []
+    this.characterId = isString(post.characterId) ? post.characterId : ''
     this.visibility = isString(post.visibility) ? post.visibility : 'public'
     this.status = isString(post.status) ? post.status : '' // deleted, draft
     this.view_count = isNumber(post.view_count) ? post.view_count : 0

@@ -16,6 +16,13 @@ export default {
       checkbox: false,
       required: (v) => !!v || 'This field is required',
       email: '',
+      emailRules: [
+        (v) => !!v || 'E-mail is required',
+        (v) =>
+          /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i.test(
+            v
+          ) || 'E-mail must be valid',
+      ],
       showDialog: false,
     }
   },
@@ -35,6 +42,7 @@ export default {
           }
           this.$snackbar.success('Logged in successfully')
           this.$root.currentUser = this.$user.current().toJSON()
+          await this.$root.initCharacter()
           // Redirect to the originally requested page, or to the home page
           this.$router.push(this.$route.query.redirectFrom || { name: 'home' })
         } catch (error) {
@@ -67,19 +75,22 @@ export default {
       <v-text-field
         v-model="identifier"
         :rules="[required]"
+        hide-details="auto"
         label="Username / Email address"
         outlined
         required
         clearable
-        class="mb-4"
+        class="mb-8"
       ></v-text-field>
       <v-text-field
         v-model="password"
         :rules="[required]"
+        hide-details="auto"
         label="Password"
         outlined
         required
         clearable
+        class="mb-8"
         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
         :type="showPassword ? 'text' : 'password'"
         @click:append="showPassword = !showPassword"
@@ -124,9 +135,10 @@ export default {
           password resetting email will be sent to that email
           <v-text-field
             v-model="email"
+            :rules="emailRules"
             label="E-mail"
-            class="mt-4"
-            hide-details
+            class="mt-8"
+            hide-details="auto"
             required
             outlined
             clearable

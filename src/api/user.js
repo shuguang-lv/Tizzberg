@@ -87,12 +87,13 @@ export async function setCurrentCharacter(userId, characterId) {
 export async function createCharacter(characterObj) {
   const character = new Character()
   character.set(characterObj)
-  const currentUserId = AV.User.current().get('objectId')
-  if (character.get('userId') === currentUserId) {
-    return character.save()
-  } else {
-    return Promise.reject('user not match')
-  }
+  return character.save()
+  // const currentUserId = AV.User.current().get('objectId')
+  // if (character.get('userId') === currentUserId) {
+  //   return character.save()
+  // } else {
+  //   return Promise.reject('user not match')
+  // }
 }
 
 export async function deleteCharacter(characterId) {

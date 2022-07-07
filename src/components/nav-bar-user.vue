@@ -68,7 +68,7 @@ export default {
       <template v-slot:activator="{ on, attrs }">
         <v-avatar color="primary" size="56" v-bind="attrs" v-on="on"
           ><v-img
-            src="https://avatars.dicebear.com/api/micah/desmond.svg"
+            :src="`https://avatars.dicebear.com/api/micah/${$root.currentCharacter.objectId}.svg`"
             alt="John"
           ></v-img
         ></v-avatar>

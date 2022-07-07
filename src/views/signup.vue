@@ -2,6 +2,8 @@
 import Layout from '@/layouts/auth.vue'
 import { signUpUser } from '@/api/user.js'
 import User from '@/models/User.js'
+import Character from '@/models/Character'
+import { setCurrentCharacter, createCharacter } from '@/api/user'
 
 export default {
   name: 'Signup',
@@ -10,13 +12,15 @@ export default {
   },
   data: () => ({
     signingUp: false,
+    tempUser: null,
     newUser: new User(),
+    newCharacterName: '',
     isEmailVerified: true,
     nameRules: [
-      (v) => !!v || 'Username is required',
+      (v) => !!v || 'Name is required',
       (v) =>
         /(?=^.{3,20}$)^[a-zA-Z][a-zA-Z0-9]*[._-]?[a-zA-Z0-9]+$/g.test(v) ||
-        'Username must be 3-20 characters long and can only contain letters, numbers, underscores, dashes, and periods',
+        'Name must be 3-20 characters long and can only contain letters, numbers, underscores, dashes, and periods',
     ],
     emailRules: [
       (v) => !!v || 'E-mail is required',
@@ -47,23 +51,27 @@ export default {
       ]
     },
   },
-  mounted() {
-    window.addEventListener('beforeunload', this.logOutUnverifiedUser)
-  },
-  beforeRouteLeave() {
-    this.logOutUnverifiedUser()
-  },
   methods: {
     async signUp() {
       this.signingUp = true
       if (this.$refs.form.validate()) {
         try {
-          const user = await signUpUser(this.newUser)
-          console.log(user)
-          console.log(this.$user.current())
+          this.tempUser = await signUpUser(this.newUser)
+          console.log(this.tempUser)
+          let character = await createCharacter(
+            new Character({
+              name: this.newCharacterName,
+              userId: this.tempUser.getObjectId(),
+            })
+          )
+          character = character.toJSON()
+          await setCurrentCharacter(
+            this.tempUser.getObjectId(),
+            character.objectId
+          )
+          this.$user.logOut()
           this.isEmailVerified = false
           this.$snackbar.success('Signed up successfully')
-          this.$root.currentUser = this.$user.current().toJSON()
         } catch (error) {
           console.log(error)
           this.$snackbar.error(error.rawMessage)
@@ -72,25 +80,18 @@ export default {
       this.signingUp = false
     },
     async verifyEmail() {
-      await this.$user.current().fetch()
-      this.$root.currentUser = this.$user.current()
-        ? this.$user.current().toJSON()
-        : {}
-      if (this.$root.currentUser.emailVerified) {
+      this.tempUser = await this.tempUser.fetch()
+      const user = this.tempUser ? this.tempUser.toJSON() : {}
+      if (user.emailVerified) {
         this.isEmailVerified = true
+        this.$root.currentUser = user
+        await this.$root.initCharacter()
+        // Redirect to the originally requested page, or to the home page
+        this.$router.push(this.$route.query.redirectFrom || { name: 'home' })
       }
     },
     resendEmail() {
       this.$user.requestEmailVerify(this.$root.currentUser.email)
-    },
-    async logOutUnverifiedUser() {
-      if (!this.isEmailVerified && this.$root.currentUser) {
-        try {
-          await this.$user.logOut()
-        } catch (error) {
-          console.log(error)
-        }
-      }
     },
   },
 }
@@ -104,22 +105,27 @@ export default {
       <v-text-field
         v-model="newUser.username"
         :rules="nameRules"
+        append-icon="mdi-account-outline"
+        hide-details="auto"
         label="Username"
+        required
+        outlined
+        clearable
+        class="mb-8"
+      ></v-text-field>
+      <v-text-field
+        v-model="newUser.email"
+        :rules="emailRules"
+        append-icon="mdi-email-outline"
+        hide-details="auto"
+        label="E-mail"
         required
         outlined
         clearable
         class="mb-4"
       ></v-text-field>
-      <v-text-field
-        v-model="newUser.email"
-        :rules="emailRules"
-        label="E-mail"
-        required
-        outlined
-        clearable
-      ></v-text-field>
       <v-alert v-if="!isEmailVerified" text color="warning" class="mb-8">
-        <div class="mb-2">
+        <div class="mb-4">
           An email with a verification link has been sent to the email address
           you provided. Please click that link to verify your email so that you
           can login to your account.
@@ -136,10 +142,11 @@ export default {
         v-model="newUser.password"
         label="Password"
         :rules="passwordRules"
+        hide-details="auto"
         required
         outlined
         clearable
-        class="my-4"
+        class="my-8"
         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
         :type="showPassword ? 'text' : 'password'"
         @click:append="showPassword = !showPassword"
@@ -147,13 +154,24 @@ export default {
       <v-text-field
         label="Re-enter your Password"
         :rules="confirmPasswordRules"
+        hide-details="auto"
         required
         outlined
         clearable
-        class="mb-4"
+        class="mb-8"
         :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
         :type="showConfirmPassword ? 'text' : 'password'"
         @click:append="showConfirmPassword = !showConfirmPassword"
+      ></v-text-field>
+      <v-text-field
+        v-model="newCharacterName"
+        :rules="nameRules"
+        label="Name of your first identity"
+        hide-details="auto"
+        outlined
+        clearable
+        class="mb-8"
+        append-icon="mdi-account-multiple-plus-outline"
       ></v-text-field>
       <div class="d-flex justify-space-between align-center mb-8">
         <div class="d-flex align-center">

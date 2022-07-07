@@ -1,6 +1,6 @@
 <script>
 import { deletePost } from '@/api/post.js'
-import { fetchUserMemo } from '@/api/user.js'
+import { fetchCharacterMemo } from '@/api/user.js'
 import { checkPostLiked, likePost, unlikePost, countLikes } from '@/api/like.js'
 import { replyToPost, fetchPostReplies } from '@/api/comment.js'
 import Action from '@/models/Action'
@@ -15,7 +15,7 @@ export default {
   },
   data() {
     return {
-      authorName: '',
+      characterName: '',
       isLiked: false,
       liking: false,
       likeCount: 0,
@@ -23,7 +23,6 @@ export default {
       replying: false,
       replies: [],
       newReply: new Action({
-        userId: this.$root.currentUser ? this.$root.currentUser.objectId : '',
         targetId: this.post.objectId,
         targetClass: 'Post',
       }),
@@ -78,27 +77,31 @@ export default {
       ],
     }
   },
-  async mounted() {
-    try {
-      const user = await fetchUserMemo(this.post.authorId)
-      this.authorName = user ? user.toJSON().username : ''
-      this.isLiked = this.$root.currentUser
-        ? await checkPostLiked(
-            this.$root.currentUser.objectId,
-            this.post.objectId
-          )
-        : false
-      if (this.isLiked) {
-        this.isLiked = this.isLiked.toJSON()
-      }
-      this.likeCount = await countLikes(this.post.objectId)
-      await this.updateReplyList()
-    } catch (error) {
-      console.log(error)
-      this.$snackbar.error(error.rawMessage)
-    }
+  async created() {
+    const character = await fetchCharacterMemo(this.post.characterId)
+    this.characterName = character ? character.toJSON().name : ''
+    this.likeCount = await countLikes(this.post.objectId)
+    await this.updateReplyList()
+    this.checkPostLiked()
+    this.$root.$on('user info fetched', this.checkPostLiked)
   },
   methods: {
+    async checkPostLiked() {
+      try {
+        this.isLiked = this.$root.currentCharacter
+          ? await checkPostLiked(
+              this.$root.currentCharacter.objectId,
+              this.post.objectId
+            )
+          : false
+        if (this.isLiked) {
+          this.isLiked = this.isLiked.toJSON()
+        }
+      } catch (error) {
+        console.log(error)
+        this.$snackbar.error(error.rawMessage)
+      }
+    },
     async deletePost(id) {
       this.$dialog({
         title: 'Delete this post',
@@ -125,7 +128,9 @@ export default {
       try {
         const res = await likePost(
           new Action({
-            userId: this.$root.currentUser.objectId,
+            characterId: this.$root.currentCharacter
+              ? this.$root.currentCharacter.objectId
+              : '',
             targetId: this.post.objectId,
             targetClass: 'Post',
           })
@@ -155,6 +160,9 @@ export default {
         return
       }
       this.replying = true
+      this.newReply.characterId = this.$root.currentCharacter
+        ? this.$root.currentCharacter.objectId
+        : ''
       try {
         await replyToPost(this.newReply)
         this.newReply.content = ''
@@ -174,8 +182,8 @@ export default {
         }
         this.$nextTick(async () => {
           for (let reply of replies) {
-            const user = await fetchUserMemo(reply.userId)
-            reply.userName = user ? user.toJSON().username : ''
+            const character = await fetchCharacterMemo(reply.characterId)
+            reply.characterName = character ? character.toJSON().name : ''
             this.replies.push(reply)
           }
         })
@@ -194,12 +202,12 @@ export default {
       <div class="d-flex align-center pa-4">
         <v-avatar color="primary" size="50" class="mr-4">
           <v-img
-            src="https://avatars.dicebear.com/api/micah/desmond.svg"
+            :src="`https://avatars.dicebear.com/api/micah/${post.characterId}.svg`"
             alt="John"
           ></v-img
         ></v-avatar>
         <div class="text-subtitle-1">
-          {{ authorName }}
+          {{ characterName }}
         </div>
       </div>
       <div>
@@ -305,12 +313,12 @@ export default {
     >
       <v-avatar color="primary" size="50" class="mr-4">
         <v-img
-          src="https://avatars.dicebear.com/api/micah/comment.svg"
+          :src="`https://avatars.dicebear.com/api/micah/${reply.characterId}.svg`"
           alt="John"
         ></v-img
       ></v-avatar>
       <div style="width: 100%">
-        <div class="text-subtitle-1">{{ reply.userName }}</div>
+        <div class="text-subtitle-1">{{ reply.characterName }}</div>
         <div class="grey--text">
           {{ reply.content }}
         </div>

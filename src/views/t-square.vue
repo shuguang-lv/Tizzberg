@@ -62,7 +62,7 @@ export default {
           @click="$refs['identity-editor'].show()"
         >
           <v-img
-            src="https://avatars.dicebear.com/api/micah/desmond.svg"
+            :src="`https://avatars.dicebear.com/api/micah/${$root.currentCharacter.objectId}.svg`"
             alt="John"
           ></v-img
         ></v-avatar>

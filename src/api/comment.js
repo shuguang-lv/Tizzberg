@@ -23,6 +23,8 @@ export async function deleteComment({ objectId = '' }) {
   deleteObj(objectId, 'Comment')
 }
 
+/**************************************************************************** */
+
 export async function editComment(
   objectId,
   config,
