@@ -3,7 +3,6 @@ export default {
   name: 'App',
   data: () => ({}),
   methods: {},
-  mounted() {},
 }
 </script>
 

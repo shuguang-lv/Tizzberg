@@ -11,6 +11,13 @@ import Dialog from './components/dialog'
 import Snackbar from './components/snackbar'
 import Overlay from './components/overlay'
 import VueCompositionAPI from '@vue/composition-api'
+import {
+  fetchCharacter,
+  fetchCharacters,
+  setCurrentCharacter,
+  createCharacter,
+  deleteCharacter,
+} from '@/api/user'
 
 Vue.config.productionTip = false
 
@@ -46,9 +53,69 @@ new Vue({
   render: (h) => h(App),
   data() {
     return {
-      currentUser: AV.User.current()
-      ? AV.User.current().toJSON()
-      : null,
+      currentUser: null,
+      currentCharacter: {},
+      characters: [],
     }
+  },
+  async created() {
+    if (AV.User.current()) {
+      await AV.User.current().fetch()
+      this.currentUser = AV.User.current().toJSON()
+    }
+
+    let character = null
+    let characters = null
+    try {
+      if (this.currentUser) {
+        character = await fetchCharacter(this.currentUser.currentCharacter)
+        characters = await fetchCharacters(this.currentUser.objectId)
+      }
+    } catch (error) {
+      console.log(error)
+      this.$snackbar.error(error.rawMessage)
+    }
+    this.currentCharacter = character ? character.toJSON() : {}
+    this.characters =
+      characters && characters.length > 0
+        ? characters.map((c) => c.toJSON())
+        : []
+  },
+  methods: {
+    async getCharacters() {
+      try {
+        const characters = await fetchCharacters(this.currentUser.objectId)
+        this.characters = characters.map((character) =>
+          character ? character.toJSON() : null
+        )
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async switchCharacter(characterId) {
+      try {
+        await setCurrentCharacter(this.currentUser.objectId, characterId)
+        const character = await fetchCharacter(characterId)
+        this.currentCharacter = character ? character.toJSON() : {}
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async createCharacter(characterObj) {
+      try {
+        await createCharacter(characterObj)
+        await this.getCharacters(this.currentUser.objectId)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async deleteCharacter(characterId) {
+      try {
+        await deleteCharacter(characterId)
+        await this.getCharacters(this.currentUser.objectId)
+      } catch (error) {
+        console.log(error)
+      }
+    },
   },
 }).$mount('#app')
