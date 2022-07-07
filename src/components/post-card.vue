@@ -15,6 +15,7 @@ export default {
   },
   data() {
     return {
+      authorName: '',
       isLiked: false,
       liking: false,
       likeCount: 0,
@@ -22,7 +23,7 @@ export default {
       replying: false,
       replies: [],
       newReply: new Action({
-        userId: this.$user.current() ? this.$user.current().getObjectId() : '',
+        userId: this.$root.currentUser ? this.$root.currentUser.objectId : '',
         targetId: this.post.objectId,
         targetClass: 'Post',
       }),
@@ -80,10 +81,10 @@ export default {
   async mounted() {
     try {
       const user = await fetchUserMemo(this.post.authorId)
-      this.post.authorName = user ? user.toJSON().username : ''
-      this.isLiked = this.$user.current()
+      this.authorName = user ? user.toJSON().username : ''
+      this.isLiked = this.$root.currentUser
         ? await checkPostLiked(
-            this.$user.current().getObjectId(),
+            this.$root.currentUser.objectId,
             this.post.objectId
           )
         : false
@@ -124,7 +125,7 @@ export default {
       try {
         const res = await likePost(
           new Action({
-            userId: this.$user.current().getObjectId(),
+            userId: this.$root.currentUser.objectId,
             targetId: this.post.objectId,
             targetClass: 'Post',
           })
@@ -198,12 +199,12 @@ export default {
           ></v-img
         ></v-avatar>
         <div class="text-subtitle-1">
-          {{ post.authorName }}
+          {{ authorName }}
         </div>
       </div>
       <div>
         <v-icon color="secondary" class="mx-2">mdi-pin</v-icon>
-        <v-menu :disabled="!$user.current()" bottom right rounded="lg">
+        <v-menu :disabled="!$root.currentUser" bottom right rounded="lg">
           <template v-slot:activator="{ on, attrs }">
             <v-btn large icon v-bind="attrs" v-on="on">
               <v-icon>mdi-dots-vertical</v-icon>
@@ -215,8 +216,8 @@ export default {
               v-for="item in postActions.filter(
                 (action) =>
                   action.privilege === 'both' ||
-                  ($user.current() &&
-                  $user.current().getObjectId() == post.authorId
+                  ($root.currentUser &&
+                  $root.currentUser.objectId == post.authorId
                     ? action.privilege === 'self'
                     : action.privilege === 'other')
               )"
@@ -259,7 +260,7 @@ export default {
       <div>
         <v-btn
           v-if="isLiked"
-          :disabled="!$user.current() || liking"
+          :disabled="!$root.currentUser || liking"
           fab
           small
           depressed
@@ -271,7 +272,7 @@ export default {
         </v-btn>
         <v-btn
           v-else
-          :disabled="!$user.current() || liking"
+          :disabled="!$root.currentUser || liking"
           fab
           small
           depressed
@@ -285,7 +286,12 @@ export default {
         <span class="secondary--text">{{ replies.length }} Replies</span>
       </div>
       <div>
-        <v-btn :disabled="!$user.current()" icon color="secondary" class="mr-2">
+        <v-btn
+          :disabled="!$root.currentUser"
+          icon
+          color="secondary"
+          class="mr-2"
+        >
           <v-icon>mdi-share-variant-outline</v-icon>
         </v-btn>
         <span class="secondary--text">99 Share</span>
@@ -309,14 +315,16 @@ export default {
           {{ reply.content }}
         </div>
         <div class="text-end">
-          <v-btn :disabled="!$user.current()" color="grey" text>Unlike</v-btn>
-          <v-btn :disabled="!$user.current()" color="primary" text>Reply</v-btn>
+          <v-btn :disabled="!$root.currentUser" color="grey" text>Unlike</v-btn>
+          <v-btn :disabled="!$root.currentUser" color="primary" text
+            >Reply</v-btn
+          >
         </div>
       </div>
     </div>
     <v-textarea
       v-model="newReply.content"
-      :disabled="!$user.current() || replying"
+      :disabled="!$root.currentUser || replying"
       label="Reply to this post"
       hide-details
       outlined

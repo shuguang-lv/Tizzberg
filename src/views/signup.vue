@@ -63,6 +63,7 @@ export default {
           console.log(this.$user.current())
           this.isEmailVerified = false
           this.$snackbar.success('Signed up successfully')
+          this.$root.currentUser = this.$user.current().toJSON()
         } catch (error) {
           console.log(error)
           this.$snackbar.error(error.rawMessage)
@@ -72,15 +73,18 @@ export default {
     },
     async verifyEmail() {
       await this.$user.current().fetch()
-      if (this.$user.current().get('emailVerified')) {
+      this.$root.currentUser = this.$user.current()
+        ? this.$user.current().toJSON()
+        : {}
+      if (this.$root.currentUser.emailVerified) {
         this.isEmailVerified = true
       }
     },
     resendEmail() {
-      this.$user.requestEmailVerify(this.$user.current().getEmail())
+      this.$user.requestEmailVerify(this.$root.currentUser.email)
     },
     async logOutUnverifiedUser() {
-      if (!this.isEmailVerified && this.$user.current()) {
+      if (!this.isEmailVerified && this.$root.currentUser) {
         try {
           await this.$user.logOut()
         } catch (error) {

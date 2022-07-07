@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 // import store from '@/store'
 // Adds a loading bar at the top during page loads.
 import NProgress from 'nprogress/nprogress'
+import { fetchUserMemo } from '@/api/user'
 
 /*
  * 以下四行代码是为了解决vue-route进入当前所在组件时报错问题：
@@ -15,9 +16,8 @@ VueRouter.prototype.push = function push(location) {
 
 Vue.use(VueRouter)
 
-import { fetchUserMemo } from '@/api/user'
 const AV = require('leancloud-storage')
-const checkCurrentUser = AV.User.current
+const checkCurrentUser = () => AV.User.current() ? AV.User.current().toJSON() : null
 
 // Lazy-loads view components, but with better UX. A loading view
 // will be used if the component takes a while to load, falling
@@ -46,7 +46,7 @@ function lazyLoadView(AsyncView) {
     error: require('../views/_timeout.vue').default,
     // Time before giving up trying to load the component.
     // Default: Infinity (milliseconds).
-    timeout: 10000,
+    timeout: 5000,
   })
 
   return Promise.resolve({

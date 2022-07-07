@@ -72,7 +72,7 @@ export default {
     },
     async createPost(mode = 'finished') {
       this.creatingPost = true
-      this.post.authorId = this.$user.current().getObjectId()
+      this.post.authorId = this.$root.currentUser.objectId
       if (mode === 'draft') {
         this.post.status = 'draft'
       }

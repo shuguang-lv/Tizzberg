@@ -1,13 +1,16 @@
 <script>
 import { mapState, mapActions } from 'pinia'
 import { useCharacterStore } from '@/store/character'
-// import Character from '@/models/Character'
+import Character from '@/models/Character'
 
 export default {
   name: 'IdentityEditor',
   data() {
     return {
       showDialog: false,
+      newCharacter: new Character({
+        userId: this.$root.currentUser ? this.$root.currentUser.objectId : '',
+      }),
     }
   },
   computed: {
@@ -72,11 +75,13 @@ export default {
       </v-card-text>
       <v-divider></v-divider>
       <v-card-actions class="py-4 d-flex justify-center">
-        <!-- <v-btn depressed large color="warning" class="px-4">
-          Delete Identity
-        </v-btn> -->
-        <v-btn depressed large color="primary" class="px-4">
-          Create Identity
+        <v-text-field
+          label="Enter name of your new identity"
+          hide-details
+          outlined
+        ></v-text-field>
+        <v-btn depressed large color="primary" class="px-4 ml-4">
+          Create
           <v-icon right class="ml-4">mdi-account-multiple-plus-outline</v-icon>
         </v-btn>
       </v-card-actions>

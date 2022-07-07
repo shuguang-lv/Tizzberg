@@ -1,5 +1,5 @@
 <script>
-import { debounce } from 'lodash'
+// import { debounce } from 'lodash'
 
 export default {
   props: {
@@ -17,23 +17,20 @@ export default {
       skip: 0,
       list: [],
       loadingList: false,
-      infiniteScroll: debounce(() => {
-        // detect if bottom is reached
-        const scrollY = window.scrollY
-        const visible = document.documentElement.clientHeight
-        const pageHeight = document.documentElement.scrollHeight
-        if (Math.abs(pageHeight - (visible + scrollY)) < 1) {
-          this.updateList('load')
-        }
-      }, 100),
+      // infiniteScroll: debounce(() => {
+      //   // detect if bottom is reached
+      //   const scrollY = window.scrollY
+      //   const visible = document.documentElement.clientHeight
+      //   const pageHeight = document.documentElement.scrollHeight
+      //   if (Math.abs(pageHeight - (visible + scrollY)) === 0) {
+      //     this.updateList('load')
+      //   }
+      // }, 100),
     }
   },
   async mounted() {
     await this.updateList('refresh')
-    window.onscroll = this.infiniteScroll
-  },
-  beforeDestroy() {
-    window.onscroll = null
+    // window.onscroll = this.infiniteScroll
   },
   methods: {
     async updateList(mode = 'refresh') {
@@ -42,9 +39,9 @@ export default {
         if (mode === 'refresh') {
           this.skip = 0
           const list = await this.fetchListApi(0, this.fetchListApiOptions)
-          this.list = list.map((item) => item.toJSON())
+          this.list = list.map((item) => (item ? item.toJSON() : {}))
         } else if (mode === 'load') {
-          this.skip += process.env.VUE_APP_PAGE_SIZE
+          this.skip += Number(process.env.VUE_APP_PAGE_SIZE)
           const list = await this.fetchListApi(
             this.skip,
             this.fetchListApiOptions
@@ -52,7 +49,7 @@ export default {
           this.$nextTick(async () => {
             this.list.push.apply(
               this.list,
-              list.map((item) => item.toJSON())
+              list.map((item) => (item ? item.toJSON() : {}))
             )
           })
         }
@@ -67,15 +64,17 @@ export default {
 </script>
 
 <template>
-  <div>
-    <v-progress-circular
-      v-if="loadingList"
-      :size="100"
-      color="primary"
-      indeterminate
-      class="my-16"
-    ></v-progress-circular>
+  <div class="d-flex flex-column align-center">
     <slot v-bind:updateList="updateList" v-bind:list="list" />
+    <v-btn
+      outlined
+      large
+      color="tertiary"
+      class="mt-8"
+      :loading="loadingList"
+      @click="updateList('load')"
+      >load more</v-btn
+    >
   </div>
 </template>
 

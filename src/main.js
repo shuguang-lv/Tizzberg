@@ -1,10 +1,3 @@
-const AV = require('leancloud-storage')
-AV.init({
-  appId: process.env.VUE_APP_ID,
-  appKey: process.env.VUE_APP_KEY,
-  serverURL: process.env.VUE_APP_SERVER_URL,
-})
-
 import Vue from 'vue'
 import App from './app.vue'
 import router from './router'
@@ -33,6 +26,13 @@ Vue.use(Plugin, {
 })
 Vue.use(VueCryptojs)
 
+const AV = require('leancloud-storage')
+AV.init({
+  appId: process.env.VUE_APP_ID,
+  appKey: process.env.VUE_APP_KEY,
+  serverURL: process.env.VUE_APP_SERVER_URL,
+})
+
 Vue.prototype.$appName = process.env.VUE_APP_NAME
 Vue.prototype.$dialog = Dialog
 Vue.prototype.$snackbar = Snackbar
@@ -44,4 +44,11 @@ new Vue({
   vuetify,
   pinia,
   render: (h) => h(App),
+  data() {
+    return {
+      currentUser: AV.User.current()
+      ? AV.User.current().toJSON()
+      : null,
+    }
+  },
 }).$mount('#app')

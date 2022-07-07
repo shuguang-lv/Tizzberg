@@ -130,7 +130,7 @@ export default {
               alt="John"
           /></v-avatar>
           <div class="text-h4 mt-2">
-            {{ $user.current().getUsername() }}
+            {{ $root.currentUser.username }}
           </div>
         </div>
         <v-btn
@@ -183,7 +183,7 @@ export default {
       </v-tab-item>
       <v-tab-item value="blog">
         <v-card rounded class="pa-2 my-6" width="50vw">
-          <v-card-text v-if="$user.current()" class="d-flex align-center">
+          <v-card-text v-if="$root.currentUser" class="d-flex align-center">
             <v-text-field
               label="Write a new blog"
               append-icon="mdi-pencil"

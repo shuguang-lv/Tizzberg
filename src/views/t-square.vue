@@ -54,7 +54,7 @@ export default {
         T-Square
       </v-card-title>
       <v-divider class="mb-2"></v-divider>
-      <v-card-text v-if="$user.current()" class="d-flex align-center">
+      <v-card-text v-if="$root.currentUser" class="d-flex align-center">
         <v-avatar
           color="primary"
           size="60"
@@ -109,8 +109,8 @@ export default {
         >
           <v-slide-y-transition group
             ><post-card
-              v-for="(post, index) in list"
-              :key="index"
+              v-for="post in list"
+              :key="post.objectId"
               :post="post"
               @refresh="updateList('refresh')"
             ></post-card

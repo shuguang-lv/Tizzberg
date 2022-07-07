@@ -238,7 +238,7 @@ export default {
       const newTopic = new Topic()
       newTopic.title = topic.title
       newTopic.content = topic.content
-      newTopic.authorId = this.$user.current().getObjectId()
+      newTopic.authorId = this.$root.currentUser.objectId
       topicAPI.addTopic(newTopic)
     },
     async getAllTopic() {
@@ -258,7 +258,7 @@ export default {
   <Layout>
     <div>
       <v-card rounded class="pa-2 mb-6" elevation="3" :width="flowWidth">
-        <v-card-text v-if="$user.current()" class="d-flex align-center">
+        <v-card-text v-if="$root.currentUser" class="d-flex align-center">
           <v-avatar
             color="primary"
             size="60"

@@ -43,6 +43,7 @@ export default {
           large
           color="tertiary"
           class="my-6"
+          :disabled="!$root.currentUser"
           @click="showFriendList = !showFriendList"
         >
           <v-icon v-if="showFriendList" color="white">

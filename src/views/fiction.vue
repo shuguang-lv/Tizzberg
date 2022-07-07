@@ -240,7 +240,7 @@ export default {
           Fiction
         </v-card-title>
         <v-divider class="mb-2"></v-divider>
-        <v-card-text v-if="$user.current()" class="d-flex align-center">
+        <v-card-text v-if="$root.currentUser" class="d-flex align-center">
           <v-avatar
             color="primary"
             size="60"

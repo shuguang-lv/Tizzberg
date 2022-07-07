@@ -24,10 +24,8 @@ export default {
       this.logIning = true
       if (this.$refs.form.validate()) {
         try {
-          const user = (
-            await logInUser(this.identifier, this.password)
-          ).toJSON()
-          console.log(user)
+          let user = await logInUser(this.identifier, this.password)
+          user = user ? user.toJSON() : {}
           if (!user.emailVerified) {
             await this.$user.logOut()
             this.$user.requestEmailVerify(user.email)
@@ -36,6 +34,7 @@ export default {
             return
           }
           this.$snackbar.success('Logged in successfully')
+          this.$root.currentUser = this.$user.current().toJSON()
           // Redirect to the originally requested page, or to the home page
           this.$router.push(this.$route.query.redirectFrom || { name: 'home' })
         } catch (error) {

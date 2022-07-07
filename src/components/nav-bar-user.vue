@@ -7,15 +7,9 @@ export default {
     IdentityEditor,
   },
   data() {
-    return {
-      username: '',
-    }
+    return {}
   },
   computed: {},
-  created() {
-    const user = this.$user.current()
-    this.username = user ? user.getUsername() : ''
-  },
   methods: {
     openLogoutDialog() {
       this.$dialog({
@@ -25,6 +19,7 @@ export default {
           action: (async () => {
             try {
               await this.$user.logOut()
+              this.$root.currentUser = null
               this.$router.push({ name: 'login' })
             } catch (error) {
               console.log(error)
@@ -42,7 +37,7 @@ export default {
     <identity-editor ref="identity"></identity-editor>
 
     <v-btn
-      v-if="!$user.current()"
+      v-if="!$root.currentUser"
       depressed
       large
       color="primary"
@@ -51,7 +46,7 @@ export default {
       >Login</v-btn
     >
     <v-btn
-      v-if="!$user.current()"
+      v-if="!$root.currentUser"
       class="mr-4 ml-8"
       depressed
       large
@@ -63,7 +58,7 @@ export default {
     >
 
     <v-menu
-      v-if="$user.current()"
+      v-if="$root.currentUser"
       offset-y
       left
       transition="slide-y-transition"
@@ -79,7 +74,7 @@ export default {
 
       <v-card class="pb-2" width="350" flat>
         <v-sheet color="primary" class="white--text">
-          <v-card-title> {{ username }} </v-card-title>
+          <v-card-title> {{ $root.currentUser.username }} </v-card-title>
           <v-card-subtitle> a cool man </v-card-subtitle>
         </v-sheet>
 
@@ -139,14 +134,16 @@ export default {
       </v-card>
     </v-menu>
 
-    <div v-if="$user.current()" class="text-h5 mx-4">{{ username }}</div>
+    <div v-if="$root.currentUser" class="text-h5 mx-4">
+      {{ $root.currentUser.username }}
+    </div>
 
     <v-btn icon large :to="{ name: 't-square' }" color="primary" class="mx-4">
       <v-icon>mdi-home-outline</v-icon>
     </v-btn>
 
     <v-menu
-      v-if="$user.current()"
+      v-if="$root.currentUser"
       offset-y
       left
       transition="slide-y-transition"
@@ -201,7 +198,7 @@ export default {
     </v-menu>
 
     <v-menu
-      v-if="$user.current()"
+      v-if="$root.currentUser"
       offset-y
       left
       transition="slide-y-transition"
