@@ -5,7 +5,7 @@ import IdentityEditor from "@/components/identity-editor.vue";
 import PostCard from "@/components/post-card.vue";
 import BlogCard from "@/components/blog-card.vue";
 import BlogEditor from "@/components/blog-editor.vue";
-import { getPostList } from "@/api/post.js";
+import { getSavedPostList } from "@/api/post.js";
 import { getBlogList } from "@/api/blog.js";
 
 export default {
@@ -26,7 +26,7 @@ export default {
   },
   data() {
     return {
-      getPostList: getPostList,
+      getPostList: getSavedPostList,
       getBlogList: getBlogList,
       selectedTab: "post",
       tabs: [
@@ -176,7 +176,9 @@ export default {
         <Flow
           v-if="selectedTab === 'post'"
           :fetchListApi="getPostList"
-          :fetchListApiOptions="{}"
+          :fetchListApiOptions="{
+            savedPostIds: $root.currentCharacter.savedPosts,
+          }"
           ref="post"
           v-slot="{ list, updateList }"
         >
@@ -205,7 +207,9 @@ export default {
         <Flow
           v-if="selectedTab === 'blog'"
           :fetchListApi="getBlogList"
-          :fetchListApiOptions="{}"
+          :fetchListApiOptions="{
+            characterId: $root.currentCharacter.objectId,
+          }"
           ref="blog"
           v-slot="{ list, updateList }"
         >

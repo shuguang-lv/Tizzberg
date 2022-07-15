@@ -1,4 +1,4 @@
-import { deleteObj } from "./common";
+import { deleteObj, PAGE_SIZE } from "./common";
 const AV = require("leancloud-storage");
 const Post = AV.Object.extend("Post");
 
@@ -13,7 +13,7 @@ export async function getPostList(skip = 0, { filter = "latest" }) {
   query.notEqualTo("status", "deleted");
   query.notEqualTo("status", "draft");
   query.equalTo("visibility", "public");
-  query.limit(10);
+  query.limit(PAGE_SIZE);
   query.skip(skip);
   switch (filter) {
     case "hot":
@@ -31,6 +31,29 @@ export async function getPostList(skip = 0, { filter = "latest" }) {
 
 export async function deletePost(postId = "") {
   return deleteObj(postId, "Post");
+}
+
+export async function savePost(postId, characterId) {
+  const character = AV.Object.createWithoutData("Character", characterId);
+  character.add("savedPosts", postId);
+  return character.save();
+}
+
+export async function unsavePost(postId, characterId) {
+  const character = AV.Object.createWithoutData("Character", characterId);
+  character.remove("savedPosts", postId);
+  return character.save();
+}
+
+export async function getSavedPostList(skip = 0, { savedPostIds = [] }) {
+  const query = new AV.Query("Post");
+  query.notEqualTo("status", "deleted");
+  query.notEqualTo("status", "draft");
+  query.equalTo("visibility", "public");
+  query.containedIn("objectId", savedPostIds);
+  query.limit(PAGE_SIZE);
+  query.skip(skip);
+  return query.find();
 }
 
 /*************************************************************************** */
@@ -117,16 +140,6 @@ export async function unlikePost(config, postId, userId) {
 export async function hidePost(config, postId) {
   const user = AV.User.current();
   user.add("hidedPost", postId);
-  user.save(null, config);
-}
-
-/**
- * save a post
- * @returns
- */
-export async function savePost(config, postId) {
-  const user = AV.User.current();
-  user.add("savedPost", postId);
   user.save(null, config);
 }
 

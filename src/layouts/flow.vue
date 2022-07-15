@@ -28,6 +28,11 @@ export default {
       // }, 100),
     };
   },
+  watch: {
+    fetchListApiOptions() {
+      this.updateList("refresh");
+    },
+  },
   async mounted() {
     await this.updateList("refresh");
     // window.onscroll = this.infiniteScroll

@@ -1,5 +1,5 @@
 <script>
-import { deletePost } from "@/api/post.js";
+import { deletePost, savePost, unsavePost } from "@/api/post.js";
 import { fetchCharacterMemo } from "@/api/user.js";
 import {
   checkPostLiked,
@@ -50,12 +50,6 @@ export default {
           action: this.deletePost,
         },
         {
-          title: "Save Post",
-          icon: "mdi-content-save-outline",
-          privilege: "both",
-          action: "error",
-        },
-        {
           title: "Hide Post",
           icon: "mdi-eye-off-outline",
           privilege: "other",
@@ -89,6 +83,13 @@ export default {
     await this.updateReplyList();
     this.checkPostLiked();
     this.$root.$on("user info fetched", this.checkPostLiked);
+  },
+  computed: {
+    isSaved() {
+      return this.$root.currentCharacter.savedPosts?.includes(
+        this.post.objectId
+      );
+    },
   },
   methods: {
     async checkPostLiked() {
@@ -197,6 +198,12 @@ export default {
         this.$snackbar.error(error.rawMessage);
       }
     },
+    async unsavePost(postId, characterId) {
+      unsavePost(postId, characterId).then(this.$root.initCharacter);
+    },
+    async savePost(postId, characterId) {
+      savePost(postId, characterId).then(this.$root.initCharacter);
+    },
   },
 };
 </script>
@@ -230,6 +237,29 @@ export default {
 
           <v-list>
             <v-list-item
+              link
+              class="px-8"
+              color="primary"
+              @click="
+                isSaved
+                  ? unsavePost(post.objectId, $root.currentCharacter.objectId)
+                  : savePost(post.objectId, $root.currentCharacter.objectId)
+              "
+            >
+              <v-list-item-icon>
+                <v-icon>{{
+                  isSaved
+                    ? "mdi-content-save-off-outline"
+                    : "mdi-content-save-outline"
+                }}</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>{{
+                  isSaved ? "Unsave Post" : "Save Post"
+                }}</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item
               v-for="item in postActions.filter(
                 (action) =>
                   action.privilege === 'both' ||
@@ -242,7 +272,9 @@ export default {
               link
               class="px-8"
               color="primary"
-              @click="item.action(post.objectId)"
+              @click="
+                item.action(post.objectId, $root.currentCharacter.objectId)
+              "
             >
               <v-list-item-icon>
                 <v-icon v-text="item.icon"></v-icon>
