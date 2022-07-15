@@ -7,7 +7,11 @@ import {
   unlikePost,
   countLikes,
 } from "@/api/like.js";
-import { replyToPost, fetchPostReplies } from "@/api/comment.js";
+import {
+  replyToPostOrReply,
+  fetchPostReplies,
+  fetchReplyReplies,
+} from "@/api/comment.js";
 import Action from "@/models/Action";
 
 export default {
@@ -31,6 +35,7 @@ export default {
         targetId: this.post.objectId,
         targetClass: "Post",
       }),
+      replyLabel: "Reply to this post",
       postActions: [
         {
           title: "Pin Post",
@@ -161,7 +166,7 @@ export default {
       }
       this.liking = false;
     },
-    async replyToPost() {
+    async replyToPostOrReply() {
       if (!this.newReply.content.trim()) {
         return;
       }
@@ -170,9 +175,13 @@ export default {
         ? this.$root.currentCharacter.objectId
         : "";
       try {
-        await replyToPost(this.newReply);
-        this.newReply.content = "";
-        await this.updateReplyList();
+        await replyToPostOrReply(this.newReply);
+        this.updateReplyList();
+        this.newReply = new Action({
+          targetId: this.post.objectId,
+          targetClass: "Post",
+        });
+        this.replyLabel = "Reply to this post";
       } catch (error) {
         console.log(error);
         this.$snackbar.error(error.rawMessage);
@@ -190,9 +199,29 @@ export default {
           for (let reply of replies) {
             const character = await fetchCharacterMemo(reply.characterId);
             reply.characterName = character ? character.toJSON().name : "";
+            reply.replies =
+              (await this.fetchReplyReplies(reply.objectId)) || [];
             this.replies.push(reply);
           }
         });
+      } catch (error) {
+        console.log(error);
+        this.$snackbar.error(error.rawMessage);
+      }
+    },
+    async fetchReplyReplies(replyId) {
+      try {
+        let replies = await fetchReplyReplies(replyId);
+        if (replies.length > 0) {
+          replies = replies.map((reply) => reply.toJSON());
+        }
+        const res = [];
+        for (let reply of replies) {
+          const character = await fetchCharacterMemo(reply.characterId);
+          reply.characterName = character ? character.toJSON().name : "";
+          res.push(reply);
+        }
+        return res;
       } catch (error) {
         console.log(error);
         this.$snackbar.error(error.rawMessage);
@@ -335,15 +364,23 @@ export default {
         <span class="secondary--text">{{ replies.length }} Replies</span>
       </div>
       <div>
-        <v-btn
-          :disabled="!$root.currentUser"
-          icon
-          color="secondary"
-          class="mr-2"
-        >
+        <v-btn :disabled="!$root.currentUser" icon color="secondary">
           <v-icon>mdi-share-variant-outline</v-icon>
         </v-btn>
-        <span class="secondary--text">99 Share</span>
+        <span class="secondary--text mx-2">99 Share</span>
+        <v-btn
+          :disabled="!$root.currentUser"
+          color="primary"
+          depressed
+          small
+          class="white--text ml-4"
+          @click="
+            newReply.targetId = post.objectId;
+            newReply.targetClass = 'Post';
+            replyLabel = 'Reply to this post';
+          "
+          >Reply</v-btn
+        >
       </div>
     </div>
     <v-divider class="my-4"></v-divider>
@@ -363,9 +400,37 @@ export default {
         <div class="grey--text">
           {{ reply.content }}
         </div>
-        <div class="text-end">
+        <!-- second level reply -->
+        <div
+          v-for="reply in reply.replies"
+          :key="reply.objectId"
+          class="d-flex align-start mt-4"
+        >
+          <v-avatar color="primary" size="50" class="mr-4">
+            <v-img
+              :src="`https://avatars.dicebear.com/api/micah/${reply.characterId}.svg`"
+              alt="John"
+            ></v-img
+          ></v-avatar>
+          <div style="width: 100%">
+            <div class="text-subtitle-1">{{ reply.characterName }}</div>
+            <div class="grey--text">
+              {{ reply.content }}
+            </div>
+          </div>
+        </div>
+        <div class="d-flex align-center">
+          <v-divider class="mr-8"></v-divider>
           <v-btn :disabled="!$root.currentUser" color="grey" text>Unlike</v-btn>
-          <v-btn :disabled="!$root.currentUser" color="primary" text
+          <v-btn
+            :disabled="!$root.currentUser"
+            color="primary"
+            text
+            @click="
+              newReply.targetId = reply.objectId;
+              newReply.targetClass = 'Reply';
+              replyLabel = 'Reply to ' + reply.characterName;
+            "
             >Reply</v-btn
           >
         </div>
@@ -374,7 +439,7 @@ export default {
     <v-textarea
       v-model="newReply.content"
       :disabled="!$root.currentUser || replying"
-      label="Reply to this post"
+      :label="replyLabel"
       hide-details
       outlined
       clearable
@@ -393,7 +458,7 @@ export default {
       "
     >
       <template #append-outer>
-        <v-btn icon height="100%" color="tertiary" @click="replyToPost"
+        <v-btn icon height="100%" color="tertiary" @click="replyToPostOrReply"
           ><v-icon>mdi-send</v-icon></v-btn
         >
       </template>

@@ -13,7 +13,16 @@ export const fetchPostReplies = throttle(async (postId = "") => {
   return query.find();
 }, THROTTLE_WAIT);
 
-export async function replyToPost(replyObj) {
+export const fetchReplyReplies = throttle(async (replyId = "") => {
+  await sleep(SLEEP_TIME);
+  const query = new AV.Query("Reply");
+  query.equalTo("targetId", replyId);
+  query.equalTo("targetClass", "Reply");
+  query.descending("createdAt");
+  return query.find();
+}, THROTTLE_WAIT);
+
+export async function replyToPostOrReply(replyObj) {
   const reply = new Reply();
   reply.set(replyObj);
   return reply.save();
