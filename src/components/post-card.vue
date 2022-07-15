@@ -1,12 +1,17 @@
 <script>
-import { deletePost } from '@/api/post.js'
-import { fetchCharacterMemo } from '@/api/user.js'
-import { checkPostLiked, likePost, unlikePost, countLikes } from '@/api/like.js'
-import { replyToPost, fetchPostReplies } from '@/api/comment.js'
-import Action from '@/models/Action'
+import { deletePost } from "@/api/post.js";
+import { fetchCharacterMemo } from "@/api/user.js";
+import {
+  checkPostLiked,
+  likePost,
+  unlikePost,
+  countLikes,
+} from "@/api/like.js";
+import { replyToPost, fetchPostReplies } from "@/api/comment.js";
+import Action from "@/models/Action";
 
 export default {
-  name: 'PostCard',
+  name: "PostCard",
   props: {
     post: {
       type: Object,
@@ -15,7 +20,7 @@ export default {
   },
   data() {
     return {
-      characterName: '',
+      characterName: "",
       isLiked: false,
       liking: false,
       likeCount: 0,
@@ -24,66 +29,66 @@ export default {
       replies: [],
       newReply: new Action({
         targetId: this.post.objectId,
-        targetClass: 'Post',
+        targetClass: "Post",
       }),
       postActions: [
         {
-          title: 'Pin Post',
-          icon: 'mdi-pin-outline',
-          privilege: 'self',
+          title: "Pin Post",
+          icon: "mdi-pin-outline",
+          privilege: "self",
           action: () =>
             this.$dialog({
-              title: 'Pin this post',
+              title: "Pin this post",
               content:
-                'This will appear at the top of your blog and replace any previous pinned post. Are you sure?',
+                "This will appear at the top of your blog and replace any previous pinned post. Are you sure?",
             }),
         },
         {
-          title: 'Delete Post',
-          icon: 'mdi-delete-outline',
-          privilege: 'self',
+          title: "Delete Post",
+          icon: "mdi-delete-outline",
+          privilege: "self",
           action: this.deletePost,
         },
         {
-          title: 'Save Post',
-          icon: 'mdi-content-save-outline',
-          privilege: 'both',
-          action: 'error',
+          title: "Save Post",
+          icon: "mdi-content-save-outline",
+          privilege: "both",
+          action: "error",
         },
         {
-          title: 'Hide Post',
-          icon: 'mdi-eye-off-outline',
-          privilege: 'other',
-          action: 'error',
+          title: "Hide Post",
+          icon: "mdi-eye-off-outline",
+          privilege: "other",
+          action: "error",
         },
         {
-          title: 'Report Post',
-          icon: 'mdi-alert',
-          privilege: 'other',
-          action: 'error',
+          title: "Report Post",
+          icon: "mdi-alert",
+          privilege: "other",
+          action: "error",
         },
         {
-          title: 'Follow User',
-          icon: 'mdi-account-star-outline',
-          privilege: 'other',
-          action: 'error',
+          title: "Follow User",
+          icon: "mdi-account-star-outline",
+          privilege: "other",
+          action: "error",
         },
         {
-          title: 'Block User',
-          icon: 'mdi-account-cancel-outline',
-          privilege: 'other',
-          action: 'error',
+          title: "Block User",
+          icon: "mdi-account-cancel-outline",
+          privilege: "other",
+          action: "error",
         },
       ],
-    }
+    };
   },
   async created() {
-    const character = await fetchCharacterMemo(this.post.characterId)
-    this.characterName = character ? character.toJSON().name : ''
-    this.likeCount = await countLikes(this.post.objectId)
-    await this.updateReplyList()
-    this.checkPostLiked()
-    this.$root.$on('user info fetched', this.checkPostLiked)
+    const character = await fetchCharacterMemo(this.post.characterId);
+    this.characterName = character ? character.toJSON().name : "";
+    this.likeCount = await countLikes(this.post.objectId);
+    await this.updateReplyList();
+    this.checkPostLiked();
+    this.$root.$on("user info fetched", this.checkPostLiked);
   },
   methods: {
     async checkPostLiked() {
@@ -93,107 +98,107 @@ export default {
               this.$root.currentCharacter.objectId,
               this.post.objectId
             )
-          : false
+          : false;
         if (this.isLiked) {
-          this.isLiked = this.isLiked.toJSON()
+          this.isLiked = this.isLiked.toJSON();
         }
       } catch (error) {
-        console.log(error)
-        this.$snackbar.error(error.rawMessage)
+        console.log(error);
+        this.$snackbar.error(error.rawMessage);
       }
     },
     async deletePost(id) {
       this.$dialog({
-        title: 'Delete this post',
-        content: 'Are you sure you want to delete this post?',
+        title: "Delete this post",
+        content: "Are you sure you want to delete this post?",
         confirmButton: {
           action: async () => {
-            this.$overlay.open()
+            this.$overlay.open();
             try {
-              await this.deletePostApi(id)
-              this.$emit('refresh')
-              this.$overlay.close()
-              this.$snackbar.warn('A post was deleted')
+              await this.deletePostApi(id);
+              this.$emit("refresh");
+              this.$overlay.close();
+              this.$snackbar.warn("A post was deleted");
             } catch (error) {
-              console.log(error)
-              this.$overlay.close()
-              this.$snackbar.error(error.rawMessage)
+              console.log(error);
+              this.$overlay.close();
+              this.$snackbar.error(error.rawMessage);
             }
           },
         },
-      })
+      });
     },
     async likePost() {
-      this.liking = true
+      this.liking = true;
       try {
         const res = await likePost(
           new Action({
             characterId: this.$root.currentCharacter
               ? this.$root.currentCharacter.objectId
-              : '',
+              : "",
             targetId: this.post.objectId,
-            targetClass: 'Post',
+            targetClass: "Post",
           })
-        )
-        this.isLiked = res.toJSON()
-        this.likeCount++
+        );
+        this.isLiked = res.toJSON();
+        this.likeCount++;
       } catch (error) {
-        console.log(error)
-        this.$snackbar.error(error.rawMessage)
+        console.log(error);
+        this.$snackbar.error(error.rawMessage);
       }
-      this.liking = false
+      this.liking = false;
     },
     async unlikePost() {
-      this.liking = true
+      this.liking = true;
       try {
-        await unlikePost(this.isLiked.objectId)
-        this.isLiked = false
-        this.likeCount--
+        await unlikePost(this.isLiked.objectId);
+        this.isLiked = false;
+        this.likeCount--;
       } catch (error) {
-        console.log(error)
-        this.$snackbar.error(error.rawMessage)
+        console.log(error);
+        this.$snackbar.error(error.rawMessage);
       }
-      this.liking = false
+      this.liking = false;
     },
     async replyToPost() {
       if (!this.newReply.content.trim()) {
-        return
+        return;
       }
-      this.replying = true
+      this.replying = true;
       this.newReply.characterId = this.$root.currentCharacter
         ? this.$root.currentCharacter.objectId
-        : ''
+        : "";
       try {
-        await replyToPost(this.newReply)
-        this.newReply.content = ''
-        await this.updateReplyList()
+        await replyToPost(this.newReply);
+        this.newReply.content = "";
+        await this.updateReplyList();
       } catch (error) {
-        console.log(error)
-        this.$snackbar.error(error.rawMessage)
+        console.log(error);
+        this.$snackbar.error(error.rawMessage);
       }
-      this.replying = false
+      this.replying = false;
     },
     async updateReplyList() {
       try {
-        this.replies = []
-        let replies = await fetchPostReplies(this.post.objectId)
+        this.replies = [];
+        let replies = await fetchPostReplies(this.post.objectId);
         if (replies.length > 0) {
-          replies = replies.map((reply) => reply.toJSON())
+          replies = replies.map((reply) => reply.toJSON());
         }
         this.$nextTick(async () => {
           for (let reply of replies) {
-            const character = await fetchCharacterMemo(reply.characterId)
-            reply.characterName = character ? character.toJSON().name : ''
-            this.replies.push(reply)
+            const character = await fetchCharacterMemo(reply.characterId);
+            reply.characterName = character ? character.toJSON().name : "";
+            this.replies.push(reply);
           }
-        })
+        });
       } catch (error) {
-        console.log(error)
-        this.$snackbar.error(error.rawMessage)
+        console.log(error);
+        this.$snackbar.error(error.rawMessage);
       }
     },
   },
-}
+};
 </script>
 
 <template>

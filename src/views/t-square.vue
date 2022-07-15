@@ -1,14 +1,14 @@
 <script>
-import Layout from '@/layouts/main.vue'
-import Flow from '@/layouts/flow.vue'
-import IdentityEditor from '@/components/identity-editor.vue'
-import PostEditor from '@/components/post-editor.vue'
-import PostCard from '@/components/post-card.vue'
-import { getPostList } from '@/api/post.js'
+import Layout from "@/layouts/main.vue";
+import Flow from "@/layouts/flow.vue";
+import IdentityEditor from "@/components/identity-editor.vue";
+import PostEditor from "@/components/post-editor.vue";
+import PostCard from "@/components/post-card.vue";
+import { getPostList } from "@/api/post.js";
 // import Post from '@/models/Post'
 
 export default {
-  name: 'TSquare',
+  name: "TSquare",
   components: {
     Layout,
     Flow,
@@ -19,26 +19,26 @@ export default {
   data() {
     return {
       getPostList: getPostList,
-      selectedTab: 'hot',
+      selectedTab: "hot",
       tabs: [
         {
-          title: 'Hot',
-          value: 'hot',
+          title: "Latest",
+          value: "latest",
+        },
+        {
+          title: "Hot",
+          value: "hot",
         },
         // {
         //   title: 'Following',
         //   value: 'following',
         // },
-        {
-          title: 'Latest',
-          value: 'latest',
-        },
       ],
-    }
+    };
   },
   computed: {},
   methods: {},
-}
+};
 </script>
 
 <template>

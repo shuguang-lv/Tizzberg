@@ -1,10 +1,10 @@
 <script>
-import IdentityEditor from '@/components/identity-editor.vue'
-import { createPost } from '@/api/post.js'
-import Post from '@/models/Post'
+import IdentityEditor from "@/components/identity-editor.vue";
+import { createPost } from "@/api/post.js";
+import Post from "@/models/Post";
 
 export default {
-  name: 'PostEditor',
+  name: "PostEditor",
   components: {
     IdentityEditor,
   },
@@ -19,100 +19,100 @@ export default {
       showPostEditor: false,
       creatingPost: false,
       postRules: [
-        (v) => !v || v.trim().split(/\s+/).length <= 800 || 'Max 800 words',
+        (v) => !v || v.trim().split(/\s+/).length <= 800 || "Max 800 words",
       ],
       visibility: [
         {
-          text: 'Public',
-          description: 'This post is visible to all users',
-          icon: 'mdi-eye-outline',
-          value: 'public',
+          text: "Public",
+          description: "This post is visible to all users",
+          icon: "mdi-eye-outline",
+          value: "public",
         },
         {
-          text: 'Follower',
-          description: 'This post is visible to your followers',
-          icon: 'mdi-account-multiple-outline',
-          value: 'follower',
+          text: "Follower",
+          description: "This post is visible to your followers",
+          icon: "mdi-account-multiple-outline",
+          value: "follower",
         },
         {
-          text: 'Private',
-          description: 'Only yourself can see this post',
-          icon: 'mdi-lock-outline',
-          value: 'private',
+          text: "Private",
+          description: "Only yourself can see this post",
+          icon: "mdi-lock-outline",
+          value: "private",
         },
       ],
-    }
+    };
   },
   mounted() {
-    const lastPost = this.$storage.get('last-post')
+    const lastPost = this.$storage.get("last-post");
     if (lastPost) {
-      Object.assign(this.post, lastPost)
+      Object.assign(this.post, lastPost);
     }
-    window.addEventListener('beforeunload', () => {
+    window.addEventListener("beforeunload", () => {
       if (this.post.content.trim()) {
-        this.$storage.set('last-post', this.post)
+        this.$storage.set("last-post", this.post);
       } else {
-        this.$storage.remove('last-post')
+        this.$storage.remove("last-post");
       }
-    })
+    });
   },
   beforeRouteLeave() {
     if (this.post && this.post.content.trim()) {
-      this.$storage.set('last-post', this.post)
+      this.$storage.set("last-post", this.post);
     } else {
-      this.$storage.remove('last-post')
+      this.$storage.remove("last-post");
     }
   },
   methods: {
     show() {
-      this.showPostEditor = true
+      this.showPostEditor = true;
     },
     hide() {
-      this.showPostEditor = false
+      this.showPostEditor = false;
     },
-    async createPost(mode = 'finished') {
-      this.creatingPost = true
-      this.post.authorId = this.$root.currentUser.objectId
-      this.post.characterId = this.$root.currentCharacter.objectId
-      if (mode === 'draft') {
-        this.post.status = 'draft'
+    async createPost(mode = "finished") {
+      this.creatingPost = true;
+      this.post.authorId = this.$root.currentUser.objectId;
+      this.post.characterId = this.$root.currentCharacter.objectId;
+      if (mode === "draft") {
+        this.post.status = "draft";
       }
       try {
-        const post = await createPost(this.post)
-        console.log(post)
-        this.$snackbar.success('Post was created successfully')
-        this.$storage.remove('last-post')
-        Object.assign(this.post, new Post())
-        this.hide()
-        this.$emit('created')
+        const post = await createPost(this.post);
+        console.log(post);
+        this.$snackbar.success("Post was created successfully");
+        this.$storage.remove("last-post");
+        Object.assign(this.post, new Post());
+        this.hide();
+        this.$emit("created");
       } catch (error) {
-        console.log(error)
-        this.$snackbar.error(error.rawMessage)
+        console.log(error);
+        this.$snackbar.error(error.rawMessage);
       }
-      this.creatingPost = false
+      this.creatingPost = false;
     },
     discardPost() {
       if (!this.post.content.trim()) {
-        this.hide()
-        return
+        this.hide();
+        return;
       }
       this.$dialog({
-        title: 'Discard this post ?',
+        title: "Discard this post ?",
         cancelButton: {
-          text: 'Nevermind',
+          text: "Nevermind",
           action: () => {},
         },
         confirmButton: {
-          text: 'Discard',
+          text: "Discard",
           action: () => {
-            Object.assign(this.post, new Post())
-            this.hide()
+            Object.assign(this.post, new Post());
+            this.hide();
           },
         },
-      })
+      });
     },
   },
-}
+};
 </script>
 
 <template>

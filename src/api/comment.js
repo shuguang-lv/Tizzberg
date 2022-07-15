@@ -1,26 +1,26 @@
-import { throttle } from 'lodash'
-import { deleteObj, THROTTLE_WAIT, sleep, SLEEP_TIME } from './common'
+import { throttle } from "lodash";
+import { deleteObj, THROTTLE_WAIT, sleep, SLEEP_TIME } from "./common";
 
-const AV = require('leancloud-storage')
-const Reply = AV.Object.extend('Reply')
+const AV = require("leancloud-storage");
+const Reply = AV.Object.extend("Reply");
 
-export const fetchPostReplies = throttle(async (postId = '') => {
-  await sleep(SLEEP_TIME)
-  const query = new AV.Query('Reply')
-  query.equalTo('targetId', postId)
-  query.equalTo('targetClass', 'Post')
-  query.descending('createdAt')
-  return query.find()
-}, THROTTLE_WAIT)
+export const fetchPostReplies = throttle(async (postId = "") => {
+  await sleep(SLEEP_TIME);
+  const query = new AV.Query("Reply");
+  query.equalTo("targetId", postId);
+  query.equalTo("targetClass", "Post");
+  query.descending("createdAt");
+  return query.find();
+}, THROTTLE_WAIT);
 
 export async function replyToPost(replyObj) {
-  const reply = new Reply()
-  reply.set(replyObj)
-  return reply.save()
+  const reply = new Reply();
+  reply.set(replyObj);
+  return reply.save();
 }
 
-export async function deleteComment({ objectId = '' }) {
-  deleteObj(objectId, 'Comment')
+export async function deleteComment({ objectId = "" }) {
+  deleteObj(objectId, "Comment");
 }
 
 /**************************************************************************** */
@@ -30,27 +30,27 @@ export async function editComment(
   config,
   { parent, content, deleted, author, view_count, likeUser, tag, visibility }
 ) {
-  console.log(likeUser, tag, visibility)
-  const query = new AV.Query('Comment')
-  query.equalTo('objectId', objectId)
+  console.log(likeUser, tag, visibility);
+  const query = new AV.Query("Comment");
+  query.equalTo("objectId", objectId);
   query.find().then((res) => {
-    const comment = res
+    const comment = res;
     if (parent) {
-      comment.set('parent', parent)
+      comment.set("parent", parent);
     }
     if (content) {
-      comment.set('content', content)
+      comment.set("content", content);
     }
     if (deleted) {
-      comment.set('deleted', deleted)
+      comment.set("deleted", deleted);
     }
     if (author) {
-      comment.set('author', author)
+      comment.set("author", author);
     }
     if (view_count) {
-      comment.set('view_count', view_count)
+      comment.set("view_count", view_count);
     }
-  })
+  });
 }
 
 /**
@@ -107,8 +107,8 @@ export async function editComment(
  * @returns
  */
 export async function getAllComment() {
-  const query = new AV.Query('Comment')
-  return query.find()
+  const query = new AV.Query("Comment");
+  return query.find();
 }
 
 /**
@@ -116,7 +116,7 @@ export async function getAllComment() {
  * @returns
  */
 export async function getChildComment(parentId) {
-  const query = new AV.Query('Comment')
-  query.equalTo('parent', parentId)
-  return query.find()
+  const query = new AV.Query("Comment");
+  query.equalTo("parent", parentId);
+  return query.find();
 }
