@@ -1,17 +1,22 @@
 <script>
-import Layout from '@/layouts/main.vue'
-import Flow from '@/layouts/flow.vue'
-import IdentityEditor from '@/components/identity-editor.vue'
-import PostCard from '@/components/post-card.vue'
-import { getPostList } from '@/api/post.js'
+import Layout from "@/layouts/main.vue";
+import Flow from "@/layouts/flow.vue";
+import IdentityEditor from "@/components/identity-editor.vue";
+import PostCard from "@/components/post-card.vue";
+import BlogCard from "@/components/blog-card.vue";
+import BlogEditor from "@/components/blog-editor.vue";
+import { getPostList } from "@/api/post.js";
+import { getBlogList } from "@/api/blog.js";
 
 export default {
-  name: 'Profile',
+  name: "Profile",
   components: {
     Layout,
     Flow,
     IdentityEditor,
     PostCard,
+    BlogCard,
+    BlogEditor,
   },
   props: {
     // user: {
@@ -22,74 +27,78 @@ export default {
   data() {
     return {
       getPostList: getPostList,
-      selectedTab: 'post',
+      getBlogList: getBlogList,
+      selectedTab: "post",
       tabs: [
         {
-          title: 'Post',
-          value: 'post',
+          title: "Post",
+          value: "post",
         },
         {
-          title: 'Blog',
-          value: 'blog',
+          title: "Blog",
+          value: "blog",
         },
         {
-          title: 'About',
-          value: 'about',
+          title: "About",
+          value: "about",
         },
         {
-          title: 'Ask & Message Board',
-          value: 'ask & Message Board',
+          title: "Ask & Message Board",
+          value: "ask & Message Board",
         },
       ],
       user: {
         statistic: [
           {
-            info: 'Like',
-            value: '600',
+            info: "Like",
+            value: "600",
           },
           {
-            info: 'Member',
-            value: '320',
+            info: "Member",
+            value: "320",
           },
           {
-            info: 'Visit',
-            value: '1.2k',
+            info: "Visit",
+            value: "1.2k",
           },
         ],
         contactInfo: [
           {
-            title: 'Email',
-            content: '123345@gmail.com',
+            title: "Email",
+            content: "123345@gmail.com",
           },
           {
-            title: 'Address',
-            content: '123345@gmail.com',
+            title: "Address",
+            content: "123345@gmail.com",
           },
           {
-            title: 'Personal website',
-            content: 'https://github.com/jack',
+            title: "Personal website",
+            content: "https://github.com/jack",
           },
           {
-            title: 'Mobile',
-            content: '1234534646767',
+            title: "Mobile",
+            content: "1234534646767",
           },
         ],
         experience: {
           education: [],
           work: [],
         },
-        tags: ['Reading', 'Fishing', 'Cooking', 'Writer'],
+        tags: ["Reading", "Fishing", "Cooking", "Writer"],
       },
-    }
+    };
   },
   methods: {},
-}
+};
 </script>
 
 <template>
   <Layout>
     <identity-editor ref="identity-editor"></identity-editor>
-    <blog-editor ref="blog-editor"></blog-editor>
+    <blog-editor
+      ref="blog-editor"
+      @created="$refs['blog'].updateList()"
+    ></blog-editor>
 
     <v-card rounded class="mx-auto mb-8" elevation="3" width="50vw">
       <div class="w-100 overflow-hidden">
@@ -182,8 +191,8 @@ export default {
         </Flow>
       </v-tab-item>
       <v-tab-item value="blog">
-        <v-card rounded class="pa-2 my-6" width="50vw">
-          <v-card-text v-if="$root.currentUser" class="d-flex align-center">
+        <v-card v-if="$root.currentUser" rounded class="mt-8 ml-4" width="50vw">
+          <v-card-text>
             <v-text-field
               label="Write a new blog"
               append-icon="mdi-pencil"
@@ -193,14 +202,22 @@ export default {
             ></v-text-field>
           </v-card-text>
         </v-card>
-        <!-- <div v-for="(blog, index) in blogList" :key="index">
-            <PostCard
-              :articleActions="blogActions"
-              :article="blog"
-              :flowWidth="flowWidth"
-            >
-            </PostCard>
-          </div> -->
+        <Flow
+          v-if="selectedTab === 'blog'"
+          :fetchListApi="getBlogList"
+          :fetchListApiOptions="{}"
+          ref="blog"
+          v-slot="{ list, updateList }"
+        >
+          <v-slide-y-transition group
+            ><blog-card
+              v-for="blog in list"
+              :key="blog.objectId"
+              :blog="blog"
+              @refresh="updateList('refresh')"
+            ></blog-card
+          ></v-slide-y-transition>
+        </Flow>
       </v-tab-item>
     </v-tabs-items>
   </Layout>

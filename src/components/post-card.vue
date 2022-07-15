@@ -214,6 +214,10 @@ export default {
         <div class="text-subtitle-1">
           {{ characterName }}
         </div>
+        <div class="mx-2">·</div>
+        <div class="text-caption grey--text">
+          {{ post.createdAt.split("T")[0] }}
+        </div>
       </div>
       <div>
         <v-icon color="secondary" class="mx-2">mdi-pin</v-icon>

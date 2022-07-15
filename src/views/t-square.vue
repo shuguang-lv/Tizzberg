@@ -19,7 +19,7 @@ export default {
   data() {
     return {
       getPostList: getPostList,
-      selectedTab: "hot",
+      selectedTab: "latest",
       tabs: [
         {
           title: "Latest",

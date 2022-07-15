@@ -26,47 +26,51 @@ export default {
       //     this.updateList('load')
       //   }
       // }, 100),
-    }
+    };
   },
   async mounted() {
-    await this.updateList('refresh')
+    await this.updateList("refresh");
     // window.onscroll = this.infiniteScroll
   },
   methods: {
-    async updateList(mode = 'refresh') {
-      this.loadingList = true
+    async updateList(mode = "refresh") {
+      this.loadingList = true;
       try {
-        if (mode === 'refresh') {
-          this.skip = 0
-          const list = await this.fetchListApi(0, this.fetchListApiOptions)
-          this.list = list.map((item) => (item ? item.toJSON() : {}))
-        } else if (mode === 'load') {
-          this.skip += Number(process.env.VUE_APP_PAGE_SIZE)
+        if (mode === "refresh") {
+          this.skip = 0;
+          const list = await this.fetchListApi(0, this.fetchListApiOptions);
+          this.list = list.map((item) => (item ? item.toJSON() : {}));
+        } else if (mode === "load") {
+          this.skip += Number(process.env.VUE_APP_PAGE_SIZE);
           const list = await this.fetchListApi(
             this.skip,
             this.fetchListApiOptions
-          )
+          );
           this.$nextTick(async () => {
             this.list.push.apply(
               this.list,
               list.map((item) => (item ? item.toJSON() : {}))
-            )
-          })
+            );
+          });
         }
       } catch (error) {
-        console.log(error)
-        this.$snackbar.error(error.rawMessage)
+        console.log(error);
+        this.$snackbar.error(error.rawMessage);
       }
-      this.loadingList = false
+      this.loadingList = false;
     },
   },
-}
+};
 </script>
 
 <template>
   <div class="d-flex flex-column align-center">
+    <div v-if="list.length === 0" class="primary--text text-h5 mt-16">
+      Oops! Seems like nothing here...
+    </div>
     <slot v-bind:updateList="updateList" v-bind:list="list" />
     <v-btn
+      v-if="list.length > 0"
       outlined
       large
       color="tertiary"
