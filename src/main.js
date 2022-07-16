@@ -1,9 +1,17 @@
 const AV = require('leancloud-storage')
+const { Realtime } = require('leancloud-realtime');
+
 AV.init({
   appId: process.env.VUE_APP_ID,
   appKey: process.env.VUE_APP_KEY,
   serverURL: process.env.VUE_APP_SERVER_URL,
 })
+
+export const realtime = new Realtime({
+  appId: process.env.VUE_APP_ID,
+  appKey: process.env.VUE_APP_KEY,
+  server: process.env.VUE_APP_SERVER_URL,
+});
 
 import Vue from 'vue'
 import App from './app.vue'

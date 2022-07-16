@@ -1,8 +1,11 @@
 import { memoize } from 'lodash'
 import { sleep } from './common'
+import { realtime } from '@/main';
 
 const AV = require('leancloud-storage')
 const Character = AV.Object.extend('Character')
+
+// Realtime.createCharacter()
 
 // memoize.Cache = WeakMap
 
@@ -21,7 +24,11 @@ export async function logInUser(identifier, password) {
     return AV.User.loginWithEmail(identifier, password)
   } else {
     // username
-    return AV.User.logIn(identifier, password)
+    var AV = require('leancloud-storage');
+    // 以 AVUser 的用户名和密码登录即时通讯服务
+    const user = await AV.User.logIn(identifier, password)
+    realtime.createIMClient(user);
+    return user 
   }
 }
 
@@ -95,7 +102,7 @@ export async function deleteCharacter(characterId) {
   return character.destroy()
 }
 
-/************************************************************************* */
+/**************************************************************************/
 
 //TODO: authentication ?
 export async function editUser(
@@ -198,6 +205,17 @@ export async function getUnreadMessageCount() {
 
 export async function followUser(user_object_id) {
   //TODO: verify user id
+  let currentUser = AV.User.current().get('objectId')
+  let followedUser = user_object_id
+
+  let currentIMClient = await realtime.createIMClient(currentUser)
+  currentIMClient.createConversation({
+    // members of conversation
+    members: [followedUser],
+    // conversation's name
+    name: currentUser + ' & ' + followedUser,
+    unique: true
+  }).then();
   return AV.User.current().follow(user_object_id)
 }
 
@@ -220,4 +238,10 @@ export async function getAllFollowee() {
 export async function getCurrentUser() {
   console.log(AV.User.current())
   return await AV.User.current()
+}
+
+export async function getUserById(objectId) {
+  var query = new AV.Query('_User')
+  query.equalTo('objectId',objectId)
+  return await query.find()
 }
