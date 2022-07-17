@@ -3,6 +3,7 @@
 import { realtime } from '@/main';
 export const AV = require('leancloud-storage');
 export const { TextMessage, ConversationQuery, createIMClient  } = require('leancloud-realtime');
+let messageIterator = null
 
 export async function sendMessage(receiverId,content) {
     let currentUserId = AV.User.current().get('objectId')
@@ -26,7 +27,22 @@ export async function getFriendList() {
 }
 
 export async function getMessageList(conversationQuery) {
-    let queryResult = await conversationQuery.find()
-    //console.log(await queryResult[0].queryMessages())
-    return await queryResult[0].queryMessages() 
+    if (messageIterator) {
+        console.log(messageIterator)
+        return await messageIterator.next()
+
+    } else {
+        let queryResult = await conversationQuery.first()
+
+        createMessageIterator(queryResult)
+        return await messageIterator.next()
+    }
+}
+
+export async function createMessageIterator(conversation) {
+    messageIterator = conversation.createMessagesIterator({ limit: 10 });
+}
+
+export function resetMessageIterator() {
+    messageIterator = null
 }

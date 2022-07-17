@@ -1,8 +1,8 @@
 <script>
 import Layout from '@/layouts/main.vue'
 import { realtime } from '@/main';
-import {getMessageList, getFriendList, sendMessage} from '@/api/message.js'
-import { followUser } from '@/api/user.js';
+import {getMessageList, getFriendList, sendMessage, resetMessageIterator} from '@/api/message.js'
+//import { followUser } from '@/api/user.js';
 
 export default {
   data() {
@@ -146,7 +146,7 @@ export default {
     },
   },
   async mounted () {
-    followUser('62c434881054e678a0582656')
+    // followUser('62c434881054e678a0582656')
     // followUser('62b830201054e678a050d05c')
     // followUser('62b85a545f903a0feb5a6723')
     // followUser('62bb34251054e678a052c1f7')
@@ -161,6 +161,8 @@ export default {
     async getMessageList(friend) {
       // set chatUser
       this.chatFriend = friend
+      // resest messageIterator
+      resetMessageIterator()
 
       //load messages
       let currentUserId = this.$user.current().get('objectId')
@@ -168,6 +170,7 @@ export default {
       let conversationQuery = client.getQuery().containsAll('m', [friend.objectId,currentUserId])
       if ( conversationQuery ) {
         this.messageList = await getMessageList(conversationQuery)
+        this.messageList = this.messageList.value
         console.log(this.messageList)
       } else {
         this.$user.current().createConversation({
@@ -179,6 +182,14 @@ export default {
         }).then();
       }
       
+    },
+    async updateMessageList(friend) {
+      let currentUserId = this.$user.current().get('objectId')
+      let client = await realtime.createIMClient(currentUserId)
+      let conversationQuery = client.getQuery().containsAll('m', [friend.objectId,currentUserId])
+      let nextMessages = await getMessageList(conversationQuery)
+      this.messageList = nextMessages.value.concat(this.messageList)
+      console.log(this.messageList)
     },
     async getFriendList() {
       let {followers,followees} = await getFriendList()
@@ -266,6 +277,17 @@ export default {
             </v-card-title>
             <v-card-text class="flex-grow-1 overflow-y-auto">
               <template>
+                <div class="d-flex justify-center">
+                  <v-btn
+                    v-if="chatFriend.objectId"
+                    outlined
+                    large
+                    color="tertiary"
+                    class="mt-8"
+                    @click="updateMessageList(chatFriend)"
+                    >load more</v-btn
+                  >
+                </div>
                 <div
                   v-for="(msg, i) in messageList" 
                   :key="i"
