@@ -1,6 +1,6 @@
-<script>
-// import { debounce } from 'lodash'
+<!-- layout for list pagination (infinite scroll) -->
 
+<script>
 export default {
   props: {
     fetchListApi: {
@@ -14,18 +14,9 @@ export default {
   },
   data() {
     return {
-      skip: 0,
+      skip: 0, // how many records should be skipped
       list: [],
       loadingList: false,
-      // infiniteScroll: debounce(() => {
-      //   // detect if bottom is reached
-      //   const scrollY = window.scrollY
-      //   const visible = document.documentElement.clientHeight
-      //   const pageHeight = document.documentElement.scrollHeight
-      //   if (Math.abs(pageHeight - (visible + scrollY)) === 0) {
-      //     this.updateList('load')
-      //   }
-      // }, 100),
     };
   },
   watch: {
@@ -35,9 +26,12 @@ export default {
   },
   async mounted() {
     await this.updateList("refresh");
-    // window.onscroll = this.infiniteScroll
   },
   methods: {
+    /**
+     * load mode for pagination
+     * @param {*} mode refresh | load
+     */
     async updateList(mode = "refresh") {
       this.loadingList = true;
       try {
@@ -73,6 +67,7 @@ export default {
     <div v-if="list.length === 0" class="primary--text text-h5 mt-16">
       Oops! Seems like nothing here...
     </div>
+    <!-- expose updateList method and list variable -->
     <slot v-bind:updateList="updateList" v-bind:list="list" />
     <v-btn
       v-if="list.length > 0"

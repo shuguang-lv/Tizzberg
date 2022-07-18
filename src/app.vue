@@ -14,6 +14,7 @@ export default {
 
 <style lang="scss">
 /* @import url('~simpledotcss/simple.min.css'); */
+
 // https://github.com/rstacruz/nprogress
 @import '~nprogress/nprogress.css';
 

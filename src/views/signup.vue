@@ -16,6 +16,9 @@ export default {
     newUser: new User(),
     newCharacterName: '',
     isEmailVerified: true,
+    showPassword: false,
+    showConfirmPassword: false,
+    checkbox: false,
     nameRules: [
       (v) => !!v || 'Name is required',
       (v) =>
@@ -29,15 +32,12 @@ export default {
           v
         ) || 'E-mail must be valid',
     ],
-    showPassword: false,
     passwordRules: [
       (v) => !!v || 'Password is required',
       (v) =>
         /^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{6,})\S$/.test(v) ||
         'Password must has a minimum of 6 characters, at least 1 uppercase letter, 1 lowercase letter, and 1 number with no spaces.',
     ],
-    showConfirmPassword: false,
-    checkbox: false,
     checkboxRules: [
       (v) => !!v || 'Please accept terms and conditions before sign-up',
     ],
@@ -69,6 +69,7 @@ export default {
             this.tempUser.getObjectId(),
             character.objectId
           )
+          // the user shouldn't be logged in before email is verified
           this.$user.logOut()
           this.isEmailVerified = false
           this.$snackbar.success('Signed up successfully')

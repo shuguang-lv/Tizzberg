@@ -70,6 +70,9 @@ export default {
     hide() {
       this.showPostEditor = false;
     },
+    /**
+     * @param {*} mode finished | draft
+     */
     async createPost(mode = "finished") {
       this.creatingPost = true;
       this.post.authorId = this.$root.currentUser.objectId;
@@ -118,6 +121,7 @@ export default {
 <template>
   <div>
     <identity-editor ref="identity"></identity-editor>
+    
     <v-dialog v-model="showPostEditor" persistent closable max-width="800">
       <v-card tile>
         <v-card-title class="text-h5 secondary--text">

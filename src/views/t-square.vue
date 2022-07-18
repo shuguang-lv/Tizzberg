@@ -5,7 +5,6 @@ import IdentityEditor from "@/components/identity-editor.vue";
 import PostEditor from "@/components/post-editor.vue";
 import PostCard from "@/components/post-card.vue";
 import { getPostList } from "@/api/post.js";
-// import Post from '@/models/Post'
 
 export default {
   name: "TSquare",
@@ -36,8 +35,6 @@ export default {
       ],
     };
   },
-  computed: {},
-  methods: {},
 };
 </script>
 
@@ -75,6 +72,7 @@ export default {
         ></v-text-field>
       </v-card-text>
     </v-card>
+
     <div class="mt-8" style="width: 50vw">
       <v-tabs
         v-model="selectedTab"
@@ -93,6 +91,7 @@ export default {
         </v-tab>
       </v-tabs>
     </div>
+    
     <v-tabs-items v-model="selectedTab">
       <v-tab-item
         v-for="tab in tabs"

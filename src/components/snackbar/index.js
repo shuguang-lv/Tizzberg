@@ -1,6 +1,8 @@
 import Snackbar from './snackbar.vue'
 import Vue from 'vue'
 
+// global singleton component
+
 Snackbar.newInstance = (properties) => {
   const props = properties || {}
 

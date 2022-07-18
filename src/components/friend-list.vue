@@ -17,7 +17,9 @@ export default {
       <v-tab href="#tab-following"> Following </v-tab>
       <v-tab href="#tab-followers"> Followers </v-tab>
     </v-tabs>
+
     <v-divider></v-divider>
+    
     <v-tabs-items v-model="selectedTab">
       <v-tab-item value="tab-following">
         <v-list>

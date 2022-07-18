@@ -24,6 +24,7 @@ Vue.config.productionTip = false;
 Vue.use(PiniaVuePlugin);
 Vue.use(VueCompositionAPI);
 Vue.use(VueDayjs);
+// local storage plugin
 Vue.use(Plugin);
 Vue.use(Plugin, {
   prefix: "tizzberg_",
@@ -33,6 +34,7 @@ Vue.use(Plugin, {
 });
 Vue.use(VueCryptojs);
 
+// initialize leancloud storage
 const AV = require("leancloud-storage");
 AV.init({
   appId: process.env.VUE_APP_ID,
@@ -41,9 +43,11 @@ AV.init({
 });
 
 Vue.prototype.$appName = process.env.VUE_APP_NAME;
+// global components
 Vue.prototype.$dialog = Dialog;
 Vue.prototype.$snackbar = Snackbar;
 Vue.prototype.$overlay = Overlay;
+// global user functionality
 Vue.prototype.$user = AV.User;
 
 new Vue({
@@ -52,6 +56,7 @@ new Vue({
   pinia,
   render: (h) => h(App),
   data() {
+    // global user data
     return {
       currentUser: null,
       currentCharacter: {},

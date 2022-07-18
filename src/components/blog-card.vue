@@ -14,7 +14,7 @@ export default {
     return {
       characterName: "",
       deleteBlogApi: deleteBlog,
-      postActions: [
+      blogActions: [
         {
           title: "Pin Blog",
           icon: "mdi-pin-outline",
@@ -100,7 +100,7 @@ export default {
 
           <v-list>
             <v-list-item
-              v-for="item in postActions.filter(
+              v-for="item in blogActions.filter(
                 (action) =>
                   action.privilege === 'both' ||
                   ($root.currentUser &&

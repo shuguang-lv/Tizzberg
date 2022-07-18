@@ -62,29 +62,6 @@ export default {
             value: "1.2k",
           },
         ],
-        contactInfo: [
-          {
-            title: "Email",
-            content: "123345@gmail.com",
-          },
-          {
-            title: "Address",
-            content: "123345@gmail.com",
-          },
-          {
-            title: "Personal website",
-            content: "https://github.com/jack",
-          },
-          {
-            title: "Mobile",
-            content: "1234534646767",
-          },
-        ],
-        experience: {
-          education: [],
-          work: [],
-        },
-        tags: ["Reading", "Fishing", "Cooking", "Writer"],
       },
     };
   },
@@ -153,6 +130,7 @@ export default {
         </v-btn>
       </div>
     </v-card>
+
     <div style="width: 50vw">
       <v-tabs
         v-model="selectedTab"
@@ -171,6 +149,7 @@ export default {
         </v-tab>
       </v-tabs>
     </div>
+    
     <v-tabs-items v-model="selectedTab">
       <v-tab-item value="post" style="position: relative">
         <Flow

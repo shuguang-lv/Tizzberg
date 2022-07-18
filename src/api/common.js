@@ -18,4 +18,5 @@ export const THROTTLE_WAIT = 0;
 
 export const SLEEP_TIME = 100;
 
+// pagination
 export const PAGE_SIZE = 10;

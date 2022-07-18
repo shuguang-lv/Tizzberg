@@ -199,6 +199,7 @@ export default {
           for (let reply of replies) {
             const character = await fetchCharacterMemo(reply.characterId);
             reply.characterName = character ? character.toJSON().name : "";
+            // second level replies
             reply.replies =
               (await this.fetchReplyReplies(reply.objectId)) || [];
             this.replies.push(reply);
@@ -209,6 +210,10 @@ export default {
         this.$snackbar.error(error.rawMessage);
       }
     },
+    /**
+     * fetch second level replies
+     * @param {*} replyId 
+     */
     async fetchReplyReplies(replyId) {
       try {
         let replies = await fetchReplyReplies(replyId);
@@ -255,6 +260,7 @@ export default {
           {{ post.createdAt.split("T")[0] }}
         </div>
       </div>
+
       <div>
         <v-icon color="secondary" class="mx-2">mdi-pin</v-icon>
         <v-menu :disabled="!$root.currentUser" bottom right rounded="lg">
@@ -316,9 +322,12 @@ export default {
         </v-menu>
       </div>
     </div>
+
     <v-divider class="mb-2"></v-divider>
+
     <v-card-text class="d-flex align-center text-body-1" v-text="post.content">
     </v-card-text>
+
     <v-btn
       v-for="tag in post.tags"
       :key="tag"
@@ -329,11 +338,7 @@ export default {
     >
       #{{ tag }}
     </v-btn>
-    <!-- <v-img
-            src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-            height="500px"
-            class="mb-4"
-            ></v-img> -->
+
     <div class="d-flex justify-space-between align-center px-4">
       <div>
         <v-btn
@@ -363,6 +368,7 @@ export default {
         <span class="mr-4 secondary--text">{{ likeCount }} Likes</span>
         <span class="secondary--text">{{ replies.length }} Replies</span>
       </div>
+
       <div>
         <v-btn :disabled="!$root.currentUser" icon color="secondary">
           <v-icon>mdi-share-variant-outline</v-icon>
@@ -383,7 +389,9 @@ export default {
         >
       </div>
     </div>
+
     <v-divider class="my-4"></v-divider>
+    
     <div
       v-for="reply in replies"
       :key="reply.objectId"

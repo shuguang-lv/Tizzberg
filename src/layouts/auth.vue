@@ -42,6 +42,7 @@ export default {}
   top: 0;
   left: 0;
 }
+
 #container-inside {
   position: relative;
   min-width: 960px;
@@ -52,6 +53,7 @@ export default {}
   padding: 0px auto;
   overflow: visible;
 }
+
 #circle-small {
   -webkit-animation: circle-small-scale 3s ease-in-out infinite alternate;
   animation: circle-small-scale 3s ease-in-out infinite alternate;
@@ -66,6 +68,7 @@ export default {}
   border-radius: 50%;
   opacity: 0.4;
 }
+
 #circle-medium {
   -webkit-animation: circle-small-scale 3s ease-in-out infinite alternate;
   animation: circle-small-scale 3s ease-in-out infinite alternate;
@@ -80,6 +83,7 @@ export default {}
   border-radius: 50%;
   opacity: 0.3;
 }
+
 #circle-large {
   -webkit-animation: circle-small-scale 3s ease-in-out infinite alternate;
   animation: circle-small-scale 3s ease-in-out infinite alternate;
@@ -94,6 +98,7 @@ export default {}
   border-radius: 50%;
   opacity: 0.2;
 }
+
 #circle-xlarge {
   -webkit-animation: circle-small-scale 3s ease-in-out infinite alternate;
   animation: circle-small-scale 3s ease-in-out infinite alternate;
@@ -108,6 +113,7 @@ export default {}
   border-radius: 50%;
   opacity: 0.1;
 }
+
 #circle-xxlarge {
   -webkit-animation: circle-small-scale 3s ease-in-out infinite alternate;
   animation: circle-small-scale 3s ease-in-out infinite alternate;
@@ -122,6 +128,7 @@ export default {}
   border-radius: 50%;
   opacity: 0.05;
 }
+
 @-webkit-keyframes circle-small-scale {
   0% {
     -webkit-transform: scale(1);
@@ -130,6 +137,7 @@ export default {}
     -webkit-transform: scale(1.1);
   }
 }
+
 @keyframes circle-small-scale {
   0% {
     transform: scale(1);

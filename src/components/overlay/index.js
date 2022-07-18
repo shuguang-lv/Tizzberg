@@ -1,6 +1,8 @@
 import Overlay from './overlay.vue'
 import Vue from 'vue'
 
+// global singleton component
+
 Overlay.newInstance = (properties) => {
   const props = properties || {}
 

@@ -14,8 +14,9 @@ export default {
       identifier: '',
       password: '',
       checkbox: false,
-      required: (v) => !!v || 'This field is required',
       email: '',
+      showDialog: false,
+      required: (v) => !!v || 'This field is required',
       emailRules: [
         (v) => !!v || 'E-mail is required',
         (v) =>
@@ -23,7 +24,6 @@ export default {
             v
           ) || 'E-mail must be valid',
       ],
-      showDialog: false,
     }
   },
   methods: {

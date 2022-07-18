@@ -1,6 +1,8 @@
 import Dialog from './dialog.vue'
 import Vue from 'vue'
 
+// global singleton component
+
 Dialog.newInstance = (properties) => {
   const props = properties || {}
 
