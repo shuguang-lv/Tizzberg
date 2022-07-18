@@ -15,25 +15,18 @@ export async function sendMessage(receiverId,content) {
 
 export async function getFriendList() {
     let user = AV.User.current()
-    let friendList = user.getFollowersAndFollowees()
-    for (let friend in friendList) {
-        let currentUserId = AV.User.current().get('objectId')
-        let client = await realtime.createIMClient(currentUserId)
-        let conversationQuery = client.getQuery().containedIn('m', [friendList[friend].objectId,currentUserId])
-        let queryResult = await conversationQuery.find()[0].withLastMessagesRefreshed(true);
-        console.log(queryResult)
-    }
-    return user.getFollowersAndFollowees()
+    let {followers,followees} = await user.getFollowersAndFollowees()
+    let friendList = followers.concat(followees)
+    console.log(friendList)
+    return friendList
 }
 
 export async function getMessageList(conversationQuery) {
-    if (messageIterator) {
-        console.log(messageIterator)
+    if (messageIterator !== null) {
         return await messageIterator.next()
 
     } else {
         let queryResult = await conversationQuery.first()
-
         createMessageIterator(queryResult)
         return await messageIterator.next()
     }

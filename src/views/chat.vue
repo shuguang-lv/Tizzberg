@@ -1,8 +1,8 @@
 <script>
 import Layout from '@/layouts/main.vue'
 import { realtime } from '@/main';
+import { updateLastMessage, getLastMessage} from '@/api/lastMessage.js'
 import {getMessageList, getFriendList, sendMessage, resetMessageIterator} from '@/api/message.js'
-//import { followUser } from '@/api/user.js';
 
 export default {
   data() {
@@ -13,125 +13,10 @@ export default {
       friendList: [],
       activeChat: 1,
       messageList: [],
+      lastMsgs: [],
       chatFriend: {},
-      contacts: [
-        {
-          id: 1,
-          title: "john doe",
-          active: true
-        },
-        {
-          id: 3,
-          title: "scarlett",
-          active: false
-        },
-        {
-          id: 4,
-          title: "scarlett",
-          active: false
-        },
-        {
-          id: 5,
-          title: "scarlett",
-          active: false
-        },
-        {
-          id: 6,
-          title: "scarlett",
-          active: false
-        },
-        {
-          id: 7,
-          title: "scarlett",
-          active: false
-        },
-        {
-          id: 8,
-          title: "scarlett",
-          active: false
-        },
-        {
-          id: 9,
-          title: "scarlett",
-          active: false
-        },
-        {
-          id: 10,
-          title: "scarlett",
-          active: false
-        },
-        {
-          id: 11,
-          title: "scarlett",
-          active: false
-        },
-        {
-          id: 12,
-          title: "scarlett",
-          active: false
-        },
-        {
-          id: 13,
-          title: "scarlett",
-          active: false
-        },
-        {
-          id: 14,
-          title: "scarlett",
-          active: false
-        }
-      ],
-      messages: [
-        {
-          content: "lorem ipsum",
-          me: true,
-          created_at: "11:11 a.m."
-        },
-        {
-          content: "I’m going to learn dynamic Magic English.",
-          me: false,
-          created_at: "11:11 a.m."
-        },
-                {
-          content: "I’m going to learn dynamic Magic English.",
-          me: false,
-          created_at: "11:11 a.m."
-        },
-                {
-          content: "I’m going to learn dynamic Magic English.",
-          me: false,
-          created_at: "11:11 a.m."
-        },
-        {
-          content: "dolor",
-          me: false,
-          created_at: "11:11 a.m."
-        },
-        {
-          content: "dolor",
-          me: false,
-          created_at: "11:11 a.m."
-        },
-        {
-          content: "dolor",
-          me: true,
-          created_at: "11:11 a.m."
-        },
-        {
-          content: "dolor",
-          me: false,
-          created_at: "11:12 a.m."
-        },
-        {
-          content: "dolor",
-          me: false,
-          created_at: "11:14 a.m."
-        }
-      ],
       messageForm: {
         content: "",
-        me: true,
-        created_at: "11:11 a.m."
       }
     }
   },
@@ -154,8 +39,14 @@ export default {
     // sendMessage('62be9fbf5f903a0feb5e41a1', 'content 2')
     // sendMessage('62be9fbf5f903a0feb5e41a1', 'content 3')
     //getMessageList('62be9fbf5f903a0feb5e41a1')
+
     await this.getFriendList()
-    console.log(this.friendList)
+    await this.getAllLastMessage()
+    this.timer = setInterval(() => {
+       this.getAllLastMessage()
+       if (this.chatFriend.objectId) this.getMessageList(this.chatFriend)
+    }, 1000*1)
+    // console.log(this.friendList)
   },
   methods: {
     async getMessageList(friend) {
@@ -163,7 +54,6 @@ export default {
       this.chatFriend = friend
       // resest messageIterator
       resetMessageIterator()
-
       //load messages
       let currentUserId = this.$user.current().get('objectId')
       let client = await realtime.createIMClient(currentUserId)
@@ -171,7 +61,7 @@ export default {
       if ( conversationQuery ) {
         this.messageList = await getMessageList(conversationQuery)
         this.messageList = this.messageList.value
-        console.log(this.messageList)
+        //console.log(this.messageList)
       } else {
         this.$user.current().createConversation({
           // members of conversation
@@ -189,19 +79,21 @@ export default {
       let conversationQuery = client.getQuery().containsAll('m', [friend.objectId,currentUserId])
       let nextMessages = await getMessageList(conversationQuery)
       this.messageList = nextMessages.value.concat(this.messageList)
-      console.log(this.messageList)
     },
     async getFriendList() {
-      let {followers,followees} = await getFriendList()
-      this.friendList = followers.concat(followees)
+      this.friendList = await getFriendList()
       this.friendList = this.friendList.map((friend) => friend.toJSON())
     },
     async sendMessage(userId, content) {
-      console.log(userId)
+      this.messageForm.content = ""
+      // console.log(this.$user.current().get('objectId') + " " + userId)
+      updateLastMessage(this.$user.current().get('objectId'),userId,content)
       sendMessage(userId, content)
     },
-    async getLastMessage() {
-
+    async getAllLastMessage() {
+      this.lastMsgs = await Promise.all(this.friendList.map((friend) => (getLastMessage([friend.objectId]))))
+      this.lastMsgs = this.lastMsgs.map((msg) => msg[0].attributes ? msg[0].attributes.message : "")
+      // console.log(this.lastMsgs)
     },
     isSelfMsg(msg) {
       return (msg.from == this.$user.current().get('objectId'))
@@ -243,7 +135,7 @@ export default {
                       </v-avatar>
                       <v-list-item-content>
                         <v-list-item-title v-text="friend.username" />
-                        <v-list-item-subtitle v-text="'hi'" />
+                        <v-list-item-subtitle v-text="lastMsgs[index]" />
                       </v-list-item-content>
                       <!-- <v-list-item-icon>
                         <v-icon :color="item.active ? 'deep-purple accent-4' : 'grey'">
