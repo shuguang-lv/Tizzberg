@@ -1,6 +1,5 @@
 <script>
 import Layout from '@/layouts/main.vue'
-import { realtime } from '@/main';
 import { updateLastMessage, getLastMessage} from '@/api/lastMessage.js'
 import {getMessageList, getFriendList, sendMessage, resetMessageIterator} from '@/api/message.js'
 
@@ -56,7 +55,7 @@ export default {
       resetMessageIterator()
       //load messages
       let currentUserId = this.$user.current().get('objectId')
-      let client = await realtime.createIMClient(currentUserId)
+      let client = await this.$realtime.createIMClient(currentUserId)
       let conversationQuery = client.getQuery().containsAll('m', [friend.objectId,currentUserId])
       if ( conversationQuery ) {
         this.messageList = await getMessageList(conversationQuery)
@@ -75,7 +74,7 @@ export default {
     },
     async updateMessageList(friend) {
       let currentUserId = this.$user.current().get('objectId')
-      let client = await realtime.createIMClient(currentUserId)
+      let client = await this.$realtime.createIMClient(currentUserId)
       let conversationQuery = client.getQuery().containsAll('m', [friend.objectId,currentUserId])
       let nextMessages = await getMessageList(conversationQuery)
       this.messageList = nextMessages.value.concat(this.messageList)

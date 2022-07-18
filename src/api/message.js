@@ -1,8 +1,6 @@
-// import { realtime } from '@/main';
-// import { getUserById } from './user';
-import { realtime } from '@/main';
-export const AV = require('leancloud-storage');
-export const { TextMessage, ConversationQuery, createIMClient  } = require('leancloud-realtime');
+import { realtime } from '@/utils/leancloud.js';
+const AV = require('leancloud-storage');
+const { TextMessage  } = require('leancloud-realtime');
 let messageIterator = null
 
 export async function sendMessage(receiverId,content) {

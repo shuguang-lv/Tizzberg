@@ -1,5 +1,6 @@
 import { memoize, throttle } from 'lodash'
 import { THROTTLE_WAIT, sleep, SLEEP_TIME } from './common'
+import { realtime } from '@/utils/leancloud.js';
 
 const AV = require('leancloud-storage')
 const Character = AV.Object.extend('Character')
@@ -21,7 +22,10 @@ export async function logInUser(identifier, password) {
     return AV.User.loginWithEmail(identifier, password)
   } else {
     // username
-    return AV.User.logIn(identifier, password)
+    // 以 AVUser 的用户名和密码登录即时通讯服务
+    const user = await AV.User.logIn(identifier, password)
+    realtime.createIMClient(user);
+    return user 
   }
 }
 
@@ -204,6 +208,17 @@ export async function getUnreadMessageCount() {
 
 export async function followUser(user_object_id) {
   //TODO: verify user id
+  let currentUser = AV.User.current().get('objectId')
+  let followedUser = user_object_id
+
+  let currentIMClient = await realtime.createIMClient(currentUser)
+  currentIMClient.createConversation({
+    // members of conversation
+    members: [followedUser],
+    // conversation's name
+    name: currentUser + ' & ' + followedUser,
+    unique: true
+  }).then();
   return AV.User.current().follow(user_object_id)
 }
 

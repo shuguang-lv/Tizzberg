@@ -18,6 +18,7 @@ import {
   createCharacter,
   deleteCharacter,
 } from "@/api/user";
+import { realtime } from '@/utils/leancloud.js'
 
 Vue.config.productionTip = false;
 
@@ -34,13 +35,7 @@ Vue.use(Plugin, {
 });
 Vue.use(VueCryptojs);
 
-// initialize leancloud storage
 const AV = require("leancloud-storage");
-AV.init({
-  appId: process.env.VUE_APP_ID,
-  appKey: process.env.VUE_APP_KEY,
-  serverURL: process.env.VUE_APP_SERVER_URL,
-});
 
 Vue.prototype.$appName = process.env.VUE_APP_NAME;
 // global components
@@ -49,6 +44,7 @@ Vue.prototype.$snackbar = Snackbar;
 Vue.prototype.$overlay = Overlay;
 // global user functionality
 Vue.prototype.$user = AV.User;
+Vue.prototype.$realtime = realtime;
 
 new Vue({
   router,
